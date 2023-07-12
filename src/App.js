@@ -8,7 +8,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          The beginnings of Chaos App.
+          The beginnings of the Chaos App.
         </p>
       </header>
     </div>
