@@ -1,13 +1,13 @@
 const express = require("express");
 const app = express();
 
-const https = require("https"); //for socket.io
+const http = require("http"); //for socket.io
 const {Server} = require("socket.io");
 
 const cors = require("cors");
 app.use(cors);
 
-const server = https.createServer(app);
+const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
@@ -16,6 +16,10 @@ const io = new Server(server, {
     }
 });
 
-server.listen(3001, () => { console.log("server running"); });
+io.on("connection", (socket) => {
+    console.log(`User Connected: " ${socket.id}`);
+});
 
-
+server.listen(3001, () => { 
+    console.log("server running"); 
+});

@@ -1,7 +1,9 @@
 import React from 'react';
-import logo from './logo.svg';
 import ditto from './ditto.png';
 import './App.css';
+
+import io from "socket.io-client";
+const socket = io.connect("http://localhost:3001");
 
 function App() {
   return (
@@ -9,7 +11,7 @@ function App() {
       <header className="App-header">
         <img src={ditto} className="App-logo" alt="logo" />
         <p>
-          The beginnings of the Chaos App. Test1.
+          The beginnings of the Chaos App.
         </p>
       </header>
     </div>
