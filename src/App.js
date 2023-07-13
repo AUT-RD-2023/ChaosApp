@@ -9,7 +9,7 @@ function App() {
       <header className="App-header">
         <img src={ditto} className="App-logo" alt="logo" />
         <p>
-          The beginnings of the Chaos App.
+          The beginnings of the Chaos App. Test1.
         </p>
       </header>
     </div>
