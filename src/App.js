@@ -1,7 +1,7 @@
 import React from 'react';
 import ditto from './ditto.png';
 import './App.css';
-import Button from './Button.js';
+import Button from './Button.js'
 
 import io from "socket.io-client";
 const socket = io.connect("http://localhost:3001");
