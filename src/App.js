@@ -11,6 +11,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={ditto} className="App-logo" alt="logo" />
+          <h1>Kia Rite</h1>
           <Button /*press={joinGame}*/ name="Join Game"/>
           <Button /*press={hostGame}*/ name="Host Game"/>
         <p>
