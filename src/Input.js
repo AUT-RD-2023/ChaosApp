@@ -17,10 +17,9 @@ function Input(props) {
                     id="gamePin"
                     type="text"
                     onChange={handleUserInput}
-                    defaultValue={props.name}
+                    placeholder={props.name}
                     value={userInput}
                     />
-
             </form>
         </>
     );

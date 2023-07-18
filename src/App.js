@@ -13,7 +13,7 @@ function App() {
       <header className="App-header">
         <img src={ditto} className="App-logo" alt="logo" />
           <h1>Kia Rite</h1>
-          <Input name="Test"/>
+          <Input name="Game PIN"/>
           <Button /*press={joinGame}*/ name="JOIN"/>
           <br />
           <Button /*press={hostGame}*/ name="HOST"/>
