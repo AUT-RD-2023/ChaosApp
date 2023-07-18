@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/ChaosApp/static/css/main.0b628b28.css",
-    "main.js": "/ChaosApp/static/js/main.ec06b4c9.js",
+    "main.css": "/ChaosApp/static/css/main.87f2860e.css",
+    "main.js": "/ChaosApp/static/js/main.3dd61a38.js",
     "static/js/787.ce613401.chunk.js": "/ChaosApp/static/js/787.ce613401.chunk.js",
     "static/media/ditto.png": "/ChaosApp/static/media/ditto.cbbf71a166d18930ec0d.png",
     "service-worker.js": "/ChaosApp/service-worker.js",
     "index.html": "/ChaosApp/index.html",
-    "main.0b628b28.css.map": "/ChaosApp/static/css/main.0b628b28.css.map",
-    "main.ec06b4c9.js.map": "/ChaosApp/static/js/main.ec06b4c9.js.map",
+    "main.87f2860e.css.map": "/ChaosApp/static/css/main.87f2860e.css.map",
+    "main.3dd61a38.js.map": "/ChaosApp/static/js/main.3dd61a38.js.map",
     "787.ce613401.chunk.js.map": "/ChaosApp/static/js/787.ce613401.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0b628b28.css",
-    "static/js/main.ec06b4c9.js"
+    "static/css/main.87f2860e.css",
+    "static/js/main.3dd61a38.js"
   ]
 }
