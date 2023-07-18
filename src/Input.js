@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styles from './styles/Button.module.css';
 
 function Input(props) {
     const [userInput, setUserInput] = useState('');
@@ -11,17 +12,18 @@ function Input(props) {
     return (
         <>
             <form>
-                <input id="gamePin" type="text" onChange={handleUserInput} value={userInput}>
-                    {props.name}
-                </input>
+                <input
+                    className={styles.input}
+                    id="gamePin"
+                    type="text"
+                    onChange={handleUserInput}
+                    defaultValue={props.name}
+                    value={userInput}
+                    />
+
             </form>
-
-            <h2>Current User Input: </h2>
-            <h4>{userInput}</h4>
-
         </>
     );
 }
 
 export default Input;
-

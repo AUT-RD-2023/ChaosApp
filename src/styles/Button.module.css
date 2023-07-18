@@ -23,3 +23,19 @@
 .button:hover {
       background: #296A62;
 }
+
+.input {
+      width: 225px;
+      height: 60px;
+      left: calc(50% - 225px/2 - 1.5px);
+      top: calc(50% - 60px/2 - 19px);
+      border-radius: 30px;
+      font-family: 'Quicksand';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      color: #ADADAD;
+}

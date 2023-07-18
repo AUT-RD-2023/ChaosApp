@@ -13,17 +13,13 @@ function App() {
       <header className="App-header">
         <img src={ditto} className="App-logo" alt="logo" />
           <h1>Kia Rite</h1>
-          <Input name="Game PIN"/>
+          <Input name="Test"/>
           <Button /*press={joinGame}*/ name="JOIN"/>
           <br />
           <Button /*press={hostGame}*/ name="HOST"/>
-        <p>
-          The beginnings of the Chaos App.
-        </p>
       </header>
     </div>
   );
 }
 
 export default App;
-
