@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/ChaosApp/static/css/main.cb5fcc41.css",
-    "main.js": "/ChaosApp/static/js/main.de3a9061.js",
+    "main.js": "/ChaosApp/static/js/main.c6e608eb.js",
     "static/js/787.ce613401.chunk.js": "/ChaosApp/static/js/787.ce613401.chunk.js",
     "static/media/ditto.png": "/ChaosApp/static/media/ditto.cbbf71a166d18930ec0d.png",
     "service-worker.js": "/ChaosApp/service-worker.js",
     "index.html": "/ChaosApp/index.html",
     "main.cb5fcc41.css.map": "/ChaosApp/static/css/main.cb5fcc41.css.map",
-    "main.de3a9061.js.map": "/ChaosApp/static/js/main.de3a9061.js.map",
+    "main.c6e608eb.js.map": "/ChaosApp/static/js/main.c6e608eb.js.map",
     "787.ce613401.chunk.js.map": "/ChaosApp/static/js/787.ce613401.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.cb5fcc41.css",
-    "static/js/main.de3a9061.js"
+    "static/js/main.c6e608eb.js"
   ]
 }
