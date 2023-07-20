@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/ChaosApp/static/css/main.5cb20799.css",
+    "main.css": "/ChaosApp/static/css/main.4fd1206d.css",
     "main.js": "/ChaosApp/static/js/main.603aca4b.js",
     "service-worker.js": "/ChaosApp/service-worker.js",
     "index.html": "/ChaosApp/index.html",
-    "main.5cb20799.css.map": "/ChaosApp/static/css/main.5cb20799.css.map",
+    "main.4fd1206d.css.map": "/ChaosApp/static/css/main.4fd1206d.css.map",
     "main.603aca4b.js.map": "/ChaosApp/static/js/main.603aca4b.js.map"
   },
   "entrypoints": [
-    "static/css/main.5cb20799.css",
+    "static/css/main.4fd1206d.css",
     "static/js/main.603aca4b.js"
   ]
 }
