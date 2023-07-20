@@ -10,7 +10,8 @@ function App() {
   return (     
     <div>
       <Routes>
-        <Route path="/" element={<Homepage />} />
+        <Route path='/' element={<Homepage />} />
+        <Route path='/ChaosApp' element={<Homepage />} />
         <Route path="/nickname" element={<NicknamePage />} />
         <Route path="/lobby" element={<LobbyPage />} />
       </Routes>

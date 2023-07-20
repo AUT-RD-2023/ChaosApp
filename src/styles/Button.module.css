@@ -1,4 +1,3 @@
-
 .button {
       background: #2D7C73;
       width: 15rem;
@@ -8,11 +7,11 @@
       border-radius: 1.875rem;
       filter: drop-shadow(0 0.25rem 0.25rem rgba(0, 0, 0, 0.25));
       color:  #FFFFFF;
-      font-family: 'FONTSPRING DEMO - Lufga SemiBold';
+      font-family: 'FONTSPRING DEMO - Lufga SemiBold', sans-serif;
       font-weight: 600;
       font-size: 1.5rem;
       letter-spacing: 0.08rem;
-  }
+}
 
 .button:hover {
       background: #296A62;
@@ -25,7 +24,7 @@
       border: 0.031rem solid #8E8D8A;
       border-radius: 1.875rem;
       color: #ADADAD;
-      font-family: 'Quicksand';
+      font-family: 'Quicksand', sans-serif;
       font-weight: 400;
       font-size: 1.375rem;
       text-align: center;
