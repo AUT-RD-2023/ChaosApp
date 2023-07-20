@@ -8,10 +8,11 @@ const nicknamePage = () => {
     return(
         <div className="App">
             <h1>Kia Rite</h1>
+            <h2>GET STARTED</h2>
             <div className="button_container">
-                <Input name="Enter Name"/>
+                <Input name="Enter Nickname"/>
                 <NavLink to="/lobby">
-                    <Button name="JOIN"/>
+                    <Button name="NEXT"/>
                 </NavLink>
             </div>
         </div>
