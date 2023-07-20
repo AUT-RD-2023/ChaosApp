@@ -3,7 +3,7 @@ import styles from './styles/Button.module.css';
 
 function DefaultButton(props){
     return(
-        <button className={styles.button}/*onClick={props.press}*/>
+        <button className={styles.button} onClick={props.press}>
             {props.name}
         </button>
     );
