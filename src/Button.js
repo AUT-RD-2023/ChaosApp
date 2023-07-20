@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './styles/Button.module.css';
 
-function HostButton(props){
+function DefaultButton(props){
     return(
         <button className={styles.button}/*onClick={props.press}*/>
             {props.name}
@@ -9,4 +9,4 @@ function HostButton(props){
     );
 }
 
-export default HostButton;
+export default DefaultButton;
