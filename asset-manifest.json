@@ -1,16 +1,14 @@
 {
   "files": {
-    "main.css": "/ChaosApp/static/css/main.367ab18b.css",
-    "main.js": "/ChaosApp/static/js/main.73927333.js",
-    "static/js/787.ce613401.chunk.js": "/ChaosApp/static/js/787.ce613401.chunk.js",
+    "main.css": "/ChaosApp/static/css/main.bbfbedcf.css",
+    "main.js": "/ChaosApp/static/js/main.98d27667.js",
     "service-worker.js": "/ChaosApp/service-worker.js",
     "index.html": "/ChaosApp/index.html",
-    "main.367ab18b.css.map": "/ChaosApp/static/css/main.367ab18b.css.map",
-    "main.73927333.js.map": "/ChaosApp/static/js/main.73927333.js.map",
-    "787.ce613401.chunk.js.map": "/ChaosApp/static/js/787.ce613401.chunk.js.map"
+    "main.bbfbedcf.css.map": "/ChaosApp/static/css/main.bbfbedcf.css.map",
+    "main.98d27667.js.map": "/ChaosApp/static/js/main.98d27667.js.map"
   },
   "entrypoints": [
-    "static/css/main.367ab18b.css",
-    "static/js/main.73927333.js"
+    "static/css/main.bbfbedcf.css",
+    "static/js/main.98d27667.js"
   ]
 }
