@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 const nicknamePage = () => {    
     return(
         <div className="App">
-            <h1>Kia Rite</h1>
+            <h1>ChaosApp</h1>
             <h2>GET STARTED</h2>
             <div className="button_container">
                 <Input name="Enter Nickname"/>

@@ -8,7 +8,7 @@ const Homepage = () => {
 
     return (
         <div className="App">
-            <h1>Kia Rite</h1>
+            <h1>ChaosApp</h1>
             <div className="button_container">
                 <Input name="Game PIN" />
                 <NavLink to="/nickname">
