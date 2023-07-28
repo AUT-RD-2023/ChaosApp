@@ -2,16 +2,19 @@ import React from 'react';
 import '../App.css';
 import style from '../styles/LobbyPage.module.css';
 import Button from '../Button.js';
+import {NavLink} from "react-router-dom";
 
 const LobbyPage = () => {
-    return (    
-        <>
-            <h1 className={style.h1}>Kia Rite</h1>
-            <h2 className={style.h2}>
-                GAME PIN: <br />
-                4845
-            </h2>
-            <div className={style.player_container}>
+    return (
+        <div className="App">
+            <div className= {style.subtitle} >Kia Rite</div>
+            <div className={style.pin}>
+                <span className={style.label}>GAME PIN: <br /></span>
+                <span className={style.number}>4845</span>
+            </div>
+
+            <div className="container">
+                <span className= {style.players} >
                     <p>Player 1</p>
                     <p>Player 2</p>
                     <p>Player 3</p>
@@ -20,12 +23,21 @@ const LobbyPage = () => {
                     <p>Player 6</p>
                     <p>Player 7</p>
                     <p>Player 8</p>
+                </span>
             </div>
-            <div className={style.button_container}>
-                <Button name="INVITE" />
-                <Button name="PLAY" />
-            </div>     
-        </>
+
+            <div className="button">
+                {/*<NavLink to="/">*/}
+                    <Button name="INVITE" />
+                {/*</NavLink>*/}
+            </div>
+            <div className="button">
+                {/*<NavLink to="/">*/}
+                    <Button name="PLAY" />
+                {/*</NavLink>*/}
+            </div>
+        </div>
     );
 }
+
 export default LobbyPage;

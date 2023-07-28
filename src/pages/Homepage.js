@@ -8,8 +8,8 @@ const Homepage = () => {
 
     return (
         <div className="App">
-            <h1>ChaosApp</h1>
-            <div className="button_container">
+            <div className="title">Kia Rite</div>
+            <div className="container">
                 <Input name="Game PIN" />
                 <NavLink to="/nickname">
                     <Button name="JOIN"/>
