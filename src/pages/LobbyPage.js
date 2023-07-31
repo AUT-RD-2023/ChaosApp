@@ -1,7 +1,7 @@
 import React from 'react';
 import '../App.css';
 import style from '../styles/LobbyPage.module.css';
-import Button from '../Button.js';
+import Button from '../components/Button.js';
 import {NavLink} from "react-router-dom";
 
 const LobbyPage = () => {

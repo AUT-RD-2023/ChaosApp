@@ -9,6 +9,7 @@ import "./styles/fonts/rubik-semi-bold.ttf"
 import Homepage from './pages/Homepage';
 import LobbyPage from './pages/LobbyPage';
 import NicknamePage from './pages/NicknamePage';
+import Ably from './pages/Ably';
 
 function App() {
   return (     
@@ -18,6 +19,7 @@ function App() {
         <Route path='/ChaosApp' element={<Homepage />} />
         <Route path="/nickname" element={<NicknamePage />} />
         <Route path="/lobby" element={<LobbyPage />} />
+        <Route path="/ably" element={<Ably />} />
       </Routes>
     </div>
   );

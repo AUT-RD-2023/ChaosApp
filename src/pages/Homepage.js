@@ -1,7 +1,7 @@
 import React from 'react';
 import '../App.css';
-import Button from '../Button.js'
-import Input from '../Input.js'
+import Button from '../components/Button.js'
+import Input from '../components/Input.js'
 import { NavLink } from 'react-router-dom';
 
 const Homepage = () => {
