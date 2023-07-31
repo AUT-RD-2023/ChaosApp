@@ -10,8 +10,8 @@ const Homepage = () => {
         <div className="App">
             <div className="title">Kia Rite</div>
             <div className="container">
-                <Input name="Game PIN" />
-                <NavLink to="/nickname">
+                <Input placeholder="Game PIN" />
+                <NavLink to="/ably">
                     <Button name="JOIN"/>
                 </NavLink>
             </div>     
