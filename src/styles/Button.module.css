@@ -5,12 +5,12 @@
       margin: 0.5rem;
       border: 0.031rem solid #2D7C73;
       border-radius: 1.875rem;
-      filter: drop-shadow(0 0.25rem 0.25rem rgba(0, 0, 0, 0.25));
+      filter: drop-shadow(0 0.4rem 0.2rem rgba(0, 0, 0, 0.25));
       color:  #FFFFFF;
-      font-family: 'FONTSPRING DEMO - Lufga SemiBold', sans-serif;
+      font-family: 'Lufga', sans-serif;
       font-weight: 600;
       font-size: 1.5rem;
-      letter-spacing: 0.08rem;
+      letter-spacing: 0.1rem;
 }
 
 .button:hover {
@@ -23,9 +23,14 @@
       margin: 0.5rem;
       border: 0.031rem solid #8E8D8A;
       border-radius: 1.875rem;
-      color: #ADADAD;
+      color: #000000;
       font-family: 'Quicksand', sans-serif;
       font-weight: 400;
       font-size: 1.375rem;
       text-align: center;
+      outline: none;
+}
+
+.input::placeholder {
+      color: #ADADAD;
 }

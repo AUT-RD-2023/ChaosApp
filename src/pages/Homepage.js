@@ -1,17 +1,17 @@
 import React from 'react';
 import '../App.css';
-import Button from '../Button.js'
-import Input from '../Input.js'
+import Button from '../components/Button.js'
+import Input from '../components/Input.js'
 import { NavLink } from 'react-router-dom';
 
 const Homepage = () => {
 
     return (
         <div className="App">
-            <h1>Kia Rite</h1>
-            <div className="button_container">
-                <Input name="Game PIN" />
-                <NavLink to="/nickname">
+            <div className="title">Kia Rite</div>
+            <div className="container">
+                <Input placeholder="Game PIN" />
+                <NavLink to="/ably">
                     <Button name="JOIN"/>
                 </NavLink>
             </div>     

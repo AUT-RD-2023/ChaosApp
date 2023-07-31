@@ -1,3 +1,21 @@
+@font-face {
+  font-family: "Rubik";
+  src: local("rubik-semi-bold"),
+  url("./styles/fonts/rubik-semi-bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Lufga";
+  src: local("lufga-regular"),
+  url("./styles/fonts/lufga-regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Quicksand";
+  src: local("quicksand-regular"),
+  url("./styles/fonts/quicksand-regular.otf") format("opentype");
+}
+
 .App {
   height: 100%;
   width: 100%;
@@ -8,34 +26,36 @@
   justify-content: center;
 }
 
+.title {
+  font-size: 5rem;
+  font-weight: 500;
+  text-align: center;
+  margin: 1rem;
+  color: #2D7C73;
+}
+
+.heading {
+  font-size: 2.5rem;
+  font-weight: 600;
+  letter-spacing: 0.4rem;
+  text-align: center;
+  margin: 1rem;
+  color: #2D7C73;
+}
+
 .button {
-  padding: 0.5rem;
   margin-left: auto;
   margin-right: auto;
 }
 
-.button_container {
+.container {
   background-color: #DCEBE1;
   width: fit-content;
   border-radius: 1.875rem;
-  filter: drop-shadow(0 0.25rem 0.25rem rgba(0, 0, 0, 0.25));
-  padding: 0.5rem;
+  filter: drop-shadow(0 0.4rem 0.2rem rgba(0, 0, 0, 0.25));
+  padding: 0.6rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
   margin-left: auto;
   margin-right: auto;
-}
-
-h1 {
-  font-size: 5rem;
-  text-align: center;
-  margin-bottom: 0.3125rem;
-  font-family: "Century Schoolbook L", serif;
-  color: #2D7C73;
-}
-
-h2 {
-  font-size: 3rem;
-  letter-spacing: 0.40rem;
-  text-align: center;
-  font-family: "Century Schoolbook L", Sans-Serif;
-  color: #2D7C73;
 }
