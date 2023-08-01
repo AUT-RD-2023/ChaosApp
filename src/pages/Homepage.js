@@ -8,7 +8,7 @@ const Homepage = () => {
 
     return (
         <div className="App">
-            <div className="title">Kia Rite</div>
+            <div className="title">Chaos App</div>
             <div className="container">
                 <Input placeholder="Game PIN" />
                 <NavLink to="/ably">
