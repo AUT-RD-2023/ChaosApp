@@ -7,7 +7,7 @@ const LobbyPage = () => {
     return (
         <div className="App">
             <span className={style.lobby}>
-                <div className= {style.subtitle} >Chaos App</div>
+                <div className= {style.subtitle} >Chaos</div>
                 <div className={style.pin}>
                     <span className={style.label}>GAME PIN: <br /></span>
                     <span className={style.number}>4845</span>

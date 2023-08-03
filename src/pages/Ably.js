@@ -25,7 +25,7 @@ function JoinAbly() {
 
     return (
       <div className="App">
-        <div className="title">Chaos App</div>
+        <div className="title">Chaos</div>
         <div className="heading">GET STARTED</div>
         <div className="container">
           <Input
