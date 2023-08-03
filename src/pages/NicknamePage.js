@@ -7,10 +7,10 @@ import { NavLink } from 'react-router-dom';
 const nicknamePage = () => {    
     return(
         <div className="App">
-            <div className="title">Kia Rite</div>
+            <div className="title">Chaos App</div>
             <div className="heading">GET STARTED</div>
             <div className="container">
-                <Input name="Enter Nickname"/>
+                <Input name="Enter Nickname" placeholder="Enter Nickname"/>
                 <NavLink to="/lobby">
                     <Button name="NEXT"/>
                 </NavLink>

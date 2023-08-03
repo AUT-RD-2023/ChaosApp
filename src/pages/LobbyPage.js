@@ -1,41 +1,42 @@
 import React from 'react';
 import '../App.css';
 import style from '../styles/LobbyPage.module.css';
-import Button from '../components/Button.js';
-import {NavLink} from "react-router-dom";
+import Button from '../components/Button.js'
 
 const LobbyPage = () => {
     return (
         <div className="App">
-            <div className= {style.subtitle} >Kia Rite</div>
-            <div className={style.pin}>
-                <span className={style.label}>GAME PIN: <br /></span>
-                <span className={style.number}>4845</span>
-            </div>
+            <span className={style.lobby}>
+                <div className= {style.subtitle} >Chaos App</div>
+                <div className={style.pin}>
+                    <span className={style.label}>GAME PIN: <br /></span>
+                    <span className={style.number}>4845</span>
+                </div>
 
-            <div className="container">
-                <span className= {style.players} >
-                    <p>Player 1</p>
-                    <p>Player 2</p>
-                    <p>Player 3</p>
-                    <p>Player 4</p>
-                    <p>Player 5</p>
-                    <p>Player 6</p>
-                    <p>Player 7</p>
-                    <p>Player 8</p>
-                </span>
-            </div>
+                <div className={style.container}>
+                    <div className={style.players}>
+                            <div className={style.grid_cell}>LongNickname</div>
+                            <div className={style.grid_cell} style={{ textAlign: 'right' }}>Player 2</div>
+                            <div className={style.grid_cell}>Player 3</div>
+                            <div className={style.grid_cell} style={{ textAlign: 'right' }}>Player 4</div>
+                            <div className={style.grid_cell}>Player 5</div>
+                            <div className={style.grid_cell} style={{ textAlign: 'right' }}>Player 6</div>
+                            <div className={style.grid_cell}>Player 7</div>
+                            <div className={style.grid_cell} style={{ textAlign: 'right' }}>Player 8</div>
+                    </div>
+                </div>
 
-            <div className="button">
-                {/*<NavLink to="/">*/}
+                <div className={style.buttons}>
+                    {/*<NavLink to="/">*/}
                     <Button name="INVITE" />
-                {/*</NavLink>*/}
-            </div>
-            <div className="button">
-                {/*<NavLink to="/">*/}
+                    {/*</NavLink>*/}
+                </div>
+                <div className={style.buttons}>
+                    {/*<NavLink to="/">*/}
                     <Button name="PLAY" />
-                {/*</NavLink>*/}
-            </div>
+                    {/*</NavLink>*/}
+                </div>
+            </span>
         </div>
     );
 }

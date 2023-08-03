@@ -1,16 +1,10 @@
 .button {
       background: #2D7C73;
-      width: 15rem;
-      height: 3.75rem;
-      margin: 0.5rem;
-      border: 0.031rem solid #2D7C73;
-      border-radius: 1.875rem;
-      filter: drop-shadow(0 0.4rem 0.2rem rgba(0, 0, 0, 0.25));
+      box-sizing: border-box;
       color:  #FFFFFF;
       font-family: 'Lufga', sans-serif;
       font-weight: 600;
-      font-size: 1.5rem;
-      letter-spacing: 0.1rem;
+      letter-spacing: 0.2vw;
 }
 
 .button:hover {
@@ -18,19 +12,56 @@
 }
 
 .input {
-      width: 14.5rem;
-      height: 3.75rem;
-      margin: 0.5rem;
-      border: 0.031rem solid #8E8D8A;
-      border-radius: 1.875rem;
+      box-sizing: border-box;
       color: #000000;
       font-family: 'Quicksand', sans-serif;
       font-weight: 400;
-      font-size: 1.375rem;
       text-align: center;
       outline: none;
 }
 
 .input::placeholder {
       color: #ADADAD;
+
+}
+
+@media (orientation: portrait) {
+      .button {
+            width: 60vw;
+            height: 14.4vw;
+            border: 0.2vw solid #2D7C73;
+            border-radius: 7.2vw;
+            filter: drop-shadow(0 1.6vw 1vw rgba(0, 0, 0, 0.25));
+            font-size: 5.76vw;
+            letter-spacing: 0.4vw;
+      }
+
+      .input {
+            width: 60vw;
+            height: 14.4vw;
+            border: 0.2vw solid #8E8D8A;
+            border-radius: 7.2vw;
+            font-size: 5.76vw;
+            letter-spacing: 0.4vw;
+
+      }
+}
+
+@media (orientation: landscape) {
+      .button {
+            width: 18vw;
+            height: 4.32vw;
+            border: 0.2vw solid #2D7C73;
+            filter: drop-shadow(0 0.8vw 0.6vw rgba(0, 0, 0, 0.25));
+            border-radius: 3vw;
+            font-size: 1.8vw;
+      }
+
+      .input {
+            width: 18vw;
+            height: 4.32vw;
+            border: 0.1vw solid #8E8D8A;
+            border-radius: 3vw;
+            font-size: 1.9vw;
+      }
 }

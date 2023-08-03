@@ -23,8 +23,6 @@ function JoinAbly() {
       // Route to lobby page.
     }
 
-
-
     return (
       <div className="App">
         <div className="title">Chaos App</div>
