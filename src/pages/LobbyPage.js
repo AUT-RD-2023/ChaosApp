@@ -2,11 +2,17 @@ import React from 'react';
 import '../App.css';
 import style from '../styles/LobbyPage.module.css';
 import Button from '../Button.js';
+import { Helmet } from 'react-helmet';
 import {NavLink} from "react-router-dom";
 
 const LobbyPage = () => {
     return (
         <div className="App">
+            <Helmet>
+                <title>Lobby</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            </Helmet>
+
             <div className= {style.subtitle} >Kia Rite</div>
             <div className={style.pin}>
                 <span className={style.label}>GAME PIN: <br /></span>
@@ -26,16 +32,16 @@ const LobbyPage = () => {
                 </span>
             </div>
 
-            <div className="button">
-                {/*<NavLink to="/">*/}
-                    <Button name="INVITE" />
-                {/*</NavLink>*/}
-            </div>
-            <div className="button">
-                {/*<NavLink to="/">*/}
-                    <Button name="PLAY" />
-                {/*</NavLink>*/}
-            </div>
+                <div className="button">
+                    {/*<NavLink to="/">*/}
+                        <Button name="INVITE" />
+                    {/*</NavLink>*/}
+                </div>
+                <div className="button">
+                    {/*<NavLink to="/">*/}
+                        <Button name="PLAY" />
+                    {/*</NavLink>*/}
+                </div>
         </div>
     );
 }
