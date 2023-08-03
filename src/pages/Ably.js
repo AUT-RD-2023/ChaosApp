@@ -13,6 +13,7 @@ import '../App.css';
 
 import Button from '../components/Button.js'
 import Input from '../components/Input.js'
+import Identity from '../identity.js'
 
 configureAbly({ key: "yqb0VQ.Av_Gmg:pItSDLVHuUqgEGYCqdOhVSr4Ypktm7764_a0mhpwbEY", clientId: generateRandomId() });
 
@@ -28,27 +29,38 @@ function Ably() {
         console.log(update);
     });
 
-    const messagePreviews = messages.map((msg, index) => <li key={index}>{msg.data.text}</li>);
-    const presentClients = presenceData.map((msg, index) => (
-        <li key={index}>
-            ID: {msg.clientId}  |  Nickname: {nickname}
-        </li>
-    ));
+    const [identityArray, setIdentityArray] = useState([]);
+
+    const handleClick = () => {
+        const identityInstance = createIdentity(nickname);
+        setIdentityArray(current => [...current, identityInstance])
+    }
 
     return (
-        <div className="App">
-            <div className="title">Chaos App</div>
-            <div className="heading">GET STARTED</div>
-            <div className="container">
-                {<Input placeholder="Enter Nickname" onChange={(e) => setNickname(e.target.value)}/>}
-                {<Button name="NEXT" press={() => {channel.publish(("message"), { text: nickname })}}/>}
-            </div>
-            <h2>Present Clients</h2>
-            <ul>{presentClients}</ul>
-            <h2>Nicknames</h2>
-            <ul>{messagePreviews}</ul>
+      <div className="App">
+        <div className="title">Chaos App</div>
+        <div className="heading">GET STARTED</div>
+        <div className="container">
+          <Input
+            placeholder="Enter Nickname"
+            onChange={(e) => setNickname(e.target.value)}
+          />
+          <Button name="NEXT" press={handleClick} />
         </div>
+
+        {identityArray.map((identity, index) => {
+          return (
+            <li key={index}>
+              ID: {identity.clientId} | Nickname: {identity.nickname}
+            </li>
+          );
+        })}
+      </div>
     );
+}
+
+function createIdentity(nickname) {
+    return new Identity(nickname);
 }
 
 function generateRandomId() {

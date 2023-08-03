@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import Identity from '../identity';
 
-function createId(){
+function CreateId(props){
 
-    const identity = new Identity('test nickname');
-    const[identityInstance] = useState(identity);
+    const identity = new Identity(props.nickname);
+    const [identityInstance] = useState(identity);
     
     return(
         <>
-            <p>Nickname: {playerInstance.nickname}</p>
+            <p>Nickname: {identityInstance.nickname}</p>
             
-            <p>ID: {playerInstance.clientId}</p>
+            <p>ID: {identityInstance.clientId}</p>
         </>
     );
 }
 
-export default createId;
+export default CreateId;
