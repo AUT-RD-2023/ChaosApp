@@ -1,7 +1,7 @@
 /*!
  * @license Copyright 2015-2022 Ably Real-time Ltd (ably.com)
  * 
- * Ably JavaScript Library v1.2.42
+ * Ably JavaScript Library v1.2.41
  * https://github.com/ably/ably-js
  * 
  * Released under the Apache Licence v2.0
@@ -21,8 +21,6 @@
       OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
       PERFORMANCE OF THIS SOFTWARE.
       ***************************************************************************** */
-
-/*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */
 
 /**
  * @license React
