@@ -1,10 +1,10 @@
 export default class Identity {
-    constructor(nickname) {
-      this.clientId = this.uuidv4();
-      this.nickname = "test";
+    constructor() {
+      this.playerId = this.uuidv4();
+      this.nickname = "";
     }
 
-    setNickname(nickname) {
+    addNickname(nickname) {
       this.nickname = nickname;
     }
   
