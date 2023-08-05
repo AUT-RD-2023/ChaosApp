@@ -11,13 +11,14 @@ const LobbyPage = (props) => {
 
     configureAbly({key: "yqb0VQ.Av_Gmg:pItSDLVHuUqgEGYCqdOhVSr4Ypktm7764_a0mhpwbEY", clientId: identity.playerId});    
 
-    const channelName = 'guy-hue-hip';
+    const channelName = '48459';
     const [presenceUsers] = usePresence(channelName, { nickname: identity.nickname, });
 
     return (
         <div className="App">
             <span className={style.lobby}>
                 <div className={style.subtitle}>Chaos</div>
+
                 <div className={style.pin}>
                     <span className={style.label}>GAME PIN: <br/></span>
                     <span className={style.number}>{channelName}</span>
@@ -26,9 +27,9 @@ const LobbyPage = (props) => {
                 <div className={style.container}>
                     <div className={style.players}>
                         {presenceUsers.map((user, index) => (
-                            // index % 2 === 0 ? <div className={style.grid_cell} key={user.clientId}>{user.data.nickname}</div>
-                            //     : <div className={style.grid_cell}  style={{ textAlign: 'right' }} key={user.clientId}>{user.data.nickname}</div>
-                            // )
+                            // index % 2 === 0 
+                            //     ? <div className={style.grid_cell} key={user.clientId}>{user.data.nickname}</div>
+                            //     : <div className={style.grid_cell}  style={{ textAlign: 'right' }} key={user.clientId}>{user.data.nickname}</div>)
                             <div className={style.grid_cell} key={user.clientId}>{user.data.nickname}</div>
                         ))}
                     </div>
@@ -39,10 +40,15 @@ const LobbyPage = (props) => {
                         <Button name="INVITE"/>
                     {/*</NavLink>*/}
                 </div>
+
                 <div className={style.buttons}>
                     {/*<NavLink to="/">*/}
                         <Button name="PLAY"/>
                     {/*</NavLink>*/}
+                </div>
+
+                <div>
+                    <p>[DEBUG] This lobby has {presenceUsers.length} { presenceUsers.length > 1 ? `members.` : `member.` }</p>
                 </div>
             </span>
         </div>
