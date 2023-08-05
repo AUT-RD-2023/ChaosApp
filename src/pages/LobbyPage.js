@@ -8,11 +8,12 @@ import Button from '../components/Button.js'
 const LobbyPage = (props) => {
     const location = useLocation();
     const identity = location.state?.identity;
+    const gamePin  = location.state?.gamePin;
 
     configureAbly({key: "yqb0VQ.Av_Gmg:pItSDLVHuUqgEGYCqdOhVSr4Ypktm7764_a0mhpwbEY", clientId: identity.playerId});    
 
-    const channelName = '48459';
-    const [presenceUsers] = usePresence(channelName, { nickname: identity.nickname, });
+    const channelName = gamePin + "";
+    const [presenceUsers] = usePresence(channelName, { nickname: identity.nickname });
 
     return (
         <div className="App">

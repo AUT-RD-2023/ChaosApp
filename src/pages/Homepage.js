@@ -17,7 +17,7 @@ const Homepage = () => {
                     maxLength={5}
                     onChange={ (e) => setGamePin(e.target.value) }
                 />
-                <NavLink to="/ably">
+                <NavLink to="/ably" state={{ isHost: false, joinPin: gamePin }}>
                     <Button 
                         name="JOIN" //check if the provided Game Pin is at least 5 characters long, only contains numbers and isn't made up of only whitespace
                         disabled={ (gamePin.length == 5) && (/^[0-9\b]+$/.test(gamePin)) && (/\S/.test(gamePin)) ? false : true }                         
@@ -26,7 +26,7 @@ const Homepage = () => {
             </div>     
             
             <div className="button">
-                <NavLink to="/ably">
+                <NavLink to="/ably" state={{ isHost: true }}>
                     <Button name="HOST" />
                 </NavLink>              
             </div>
