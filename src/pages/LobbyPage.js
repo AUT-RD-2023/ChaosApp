@@ -5,14 +5,12 @@ import {configureAbly, usePresence} from "@ably-labs/react-hooks";
 import style from '../styles/LobbyPage.module.css';
 import Button from '../components/Button.js'
 
-
-
 const LobbyPage = (props) => {
     const location = useLocation();
     const identity = location.state?.identity;
-
+    const channelName = 'guy-hue-hip';
     configureAbly({key: "yqb0VQ.Av_Gmg:pItSDLVHuUqgEGYCqdOhVSr4Ypktm7764_a0mhpwbEY", clientId: identity.playerId});
-    const [presenceUsers] = usePresence('guy-hue-hip', {
+    const [presenceUsers] = usePresence(channelName, {
         nickname: identity.nickname,
     })
 
@@ -22,29 +20,19 @@ const LobbyPage = (props) => {
                 <div className={style.subtitle}>Chaos</div>
                 <div className={style.pin}>
                     <span className={style.label}>GAME PIN: <br/></span>
-                    <span className={style.number}>4845</span>
+                    <span className={style.number}>{channelName}</span>
                 </div>
 
-                <br/>
-                <br/>
-                {presenceUsers.map((user, index) => (
-                    <div key={user.clientId}>
-                        <li>{user.data.nickname} is {user.clientId}</li>
+                <div className={style.container}>
+                    <div className={style.players}>
+                        {presenceUsers.map((user, index) => (
+                            // index % 2 === 0 ? <div className={style.grid_cell} key={user.clientId}>{user.data.nickname}</div>
+                            //     : <div className={style.grid_cell}  style={{ textAlign: 'right' }} key={user.clientId}>{user.data.nickname}</div>
+                            // )
+                            <div className={style.grid_cell} key={user.clientId}>{user.data.nickname}</div>
+                        ))}
                     </div>
-                ))}
-
-                {/*<div className={style.container}>*/}
-                {/*    <div className={style.players}>*/}
-                {/*            <div className={style.grid_cell}>LongNickname</div>*/}
-                {/*            <div className={style.grid_cell} style={{textAlign: 'right'}}>Player 2</div>*/}
-                {/*            <div className={style.grid_cell}>Player 3</div>*/}
-                {/*            <div className={style.grid_cell} style={{textAlign: 'right'}}>Player 4</div>*/}
-                {/*            <div className={style.grid_cell}>Player 5</div>*/}
-                {/*            <div className={style.grid_cell} style={{textAlign: 'right'}}>Player 6</div>*/}
-                {/*            <div className={style.grid_cell}>Player 7</div>*/}
-                {/*            <div className={style.grid_cell} style={{textAlign: 'right'}}>Player 8</div>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
+                </div>
 
                 <div className={style.buttons}>
                     {/*<NavLink to="/">*/}
