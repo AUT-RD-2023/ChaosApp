@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../styles/Button.module.css';
 
-const Input = ({ value, onChange, placeholder }) => {
+const Input = ({ value, onChange, placeholder, maxLength }) => {
     return (
         <>
             <form>
@@ -12,6 +12,7 @@ const Input = ({ value, onChange, placeholder }) => {
                     onChange={onChange}
                     placeholder={placeholder}
                     value={value}
+                    maxLength={maxLength}
                 />
             </form>
         </>
