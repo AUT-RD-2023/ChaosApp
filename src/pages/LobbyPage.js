@@ -8,11 +8,11 @@ import Button from '../components/Button.js'
 const LobbyPage = (props) => {
     const location = useLocation();
     const identity = location.state?.identity;
+
+    configureAbly({key: "yqb0VQ.Av_Gmg:pItSDLVHuUqgEGYCqdOhVSr4Ypktm7764_a0mhpwbEY", clientId: identity.playerId});    
+
     const channelName = 'guy-hue-hip';
-    configureAbly({key: "yqb0VQ.Av_Gmg:pItSDLVHuUqgEGYCqdOhVSr4Ypktm7764_a0mhpwbEY", clientId: identity.playerId});
-    const [presenceUsers] = usePresence(channelName, {
-        nickname: identity.nickname,
-    })
+    const [presenceUsers] = usePresence(channelName, { nickname: identity.nickname, });
 
     return (
         <div className="App">
@@ -36,12 +36,12 @@ const LobbyPage = (props) => {
 
                 <div className={style.buttons}>
                     {/*<NavLink to="/">*/}
-                    <Button name="INVITE"/>
+                        <Button name="INVITE"/>
                     {/*</NavLink>*/}
                 </div>
                 <div className={style.buttons}>
                     {/*<NavLink to="/">*/}
-                    <Button name="PLAY"/>
+                        <Button name="PLAY"/>
                     {/*</NavLink>*/}
                 </div>
             </span>

@@ -11,6 +11,11 @@
       background: #296A62;
 }
 
+.button:disabled {
+      background: #74b6ae; /*#69ada5;*/
+      border-color: #74b6ae;
+}
+
 .input {
       box-sizing: border-box;
       color: #000000;

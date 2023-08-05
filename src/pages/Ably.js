@@ -7,7 +7,8 @@ import {NavLink} from "react-router-dom";
 
 function JoinAbly() {
     const [nickname, setNickname] = useState("");
-    const identity = createIdentity();
+    const identity = new Identity();
+
     const handleClick = () => {
         identity.makeNickname(nickname);
     }
@@ -21,21 +22,15 @@ function JoinAbly() {
                     placeholder="Enter Nickname"
                     onChange={(e) => setNickname(e.target.value)}
                 />
-
                 <NavLink
                     to="/lobby"
                     state={{ identity: identity }}
                 >
-                    <Button name="NEXT" press={handleClick}/>
+                    <Button name="NEXT" disabled={ nickname && /\S/.test(nickname) ? false : true } press={handleClick}/>
                 </NavLink>
-
             </div>
         </div>
     );
-}
-
-function createIdentity() {
-    return new Identity();
 }
 
 export default JoinAbly;
