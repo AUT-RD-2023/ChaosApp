@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/ChaosApp/static/css/main.48cd0497.css",
-    "main.js": "/ChaosApp/static/js/main.670aaa7c.js",
+    "main.css": "/ChaosApp/static/css/main.27a89401.css",
+    "main.js": "/ChaosApp/static/js/main.6a0cc62f.js",
     "static/media/rubik-semi-bold.ttf": "/ChaosApp/static/media/rubik-semi-bold.52d2adf4cb818e79b61d.ttf",
     "service-worker.js": "/ChaosApp/service-worker.js",
     "static/media/quicksand-regular.otf": "/ChaosApp/static/media/quicksand-regular.1a8cbf2a0b04da5410e2.otf",
     "static/media/lufga-regular.otf": "/ChaosApp/static/media/lufga-regular.ac50ed8ff14d1be217d3.otf",
     "index.html": "/ChaosApp/index.html",
-    "main.48cd0497.css.map": "/ChaosApp/static/css/main.48cd0497.css.map",
-    "main.670aaa7c.js.map": "/ChaosApp/static/js/main.670aaa7c.js.map"
+    "main.27a89401.css.map": "/ChaosApp/static/css/main.27a89401.css.map",
+    "main.6a0cc62f.js.map": "/ChaosApp/static/js/main.6a0cc62f.js.map"
   },
   "entrypoints": [
-    "static/css/main.48cd0497.css",
-    "static/js/main.670aaa7c.js"
+    "static/css/main.27a89401.css",
+    "static/js/main.6a0cc62f.js"
   ]
 }
