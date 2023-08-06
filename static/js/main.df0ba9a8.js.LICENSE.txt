@@ -1,7 +1,7 @@
 /*!
  * @license Copyright 2015-2022 Ably Real-time Ltd (ably.com)
  * 
- * Ably JavaScript Library v1.2.41
+ * Ably JavaScript Library v1.2.42
  * https://github.com/ably/ably-js
  * 
  * Released under the Apache Licence v2.0
