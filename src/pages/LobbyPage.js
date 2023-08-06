@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../App.css';
 import { useLocation } from 'react-router-dom';
 import {configureAbly, usePresence} from "@ably-labs/react-hooks";
@@ -9,18 +9,21 @@ const LobbyPage = (props) => {
     const location = useLocation();
     const identity = location.state?.identity;
     const gamePin  = location.state?.gamePin;
-    const url = window.location.href;
     
-
     configureAbly({key: "yqb0VQ.Av_Gmg:pItSDLVHuUqgEGYCqdOhVSr4Ypktm7764_a0mhpwbEY", clientId: identity.playerId});    
 
     const channelName = gamePin + "";
     const [presenceUsers] = usePresence(channelName, { nickname: identity.nickname });
 
+    const [textVisible, setTextVisible] = useState(false);
+
     const copyUrl = () =>{
-        navigator.clipboard.writeText(window.location.href).then(function(){
-            alert("Copied Link!")
-        });
+        navigator.clipboard.writeText(window.location.href + `/${gamePin}`);
+        setTextVisible(true);
+
+        setTimeout(() => {
+            setTextVisible(false);
+        }, 2000);        
     };
 
     return (
@@ -46,20 +49,17 @@ const LobbyPage = (props) => {
 
                 <div className={style.buttons}>
                     {/*<NavLink to="/">*/}
-                        <Button press={copyUrl} name="INVITE"/>
+                        <Button name="PLAY"/>
                     {/*</NavLink>*/}
                 </div>
 
                 <div className={style.buttons}>
                     {/*<NavLink to="/">*/}
-                        <Button name="PLAY"/>
+                        <Button name="INVITE" press={copyUrl}/>
                     {/*</NavLink>*/}
+                    <p style={{textAlign: 'center'}}>{textVisible ? "Link Copied!" : ""}</p>
                 </div>
-
-                <div>
-                    <p>[DEBUG] This lobby has {presenceUsers.length} { presenceUsers.length > 1 ? `members.` : `member.` }</p>
-                </div>
-            </span>
+            </span> 
         </div>
     );
 }

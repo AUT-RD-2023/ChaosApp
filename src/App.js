@@ -17,12 +17,13 @@ function App() {
       <Routes>
         <Route path='/' element={<Homepage />} />
         <Route path='/ChaosApp' element={<Homepage />} />
-        <Route path="/nickname" element={<NicknamePage />} />
-        <Route path="/lobby" element={<LobbyPage />} />
-        <Route path="/ably" element={<Ably />} />
+        <Route path="/Nickname" element={<NicknamePage />} />
+        <Route path="/Lobby" element={<LobbyPage />} />
+        <Route path="/Host" element={<Ably />} />
+        <Route path="/Lobby/:pinNumber" element={<Ably />} /> 
       </Routes>
     </div>
   );
 }
-
+// <Route path="/:pinNumber" render={(props) => <Ably joinPin={pinNumber} isHost={false}  {...props} /> } />
 export default App;
