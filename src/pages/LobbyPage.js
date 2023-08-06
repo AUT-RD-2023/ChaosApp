@@ -1,11 +1,16 @@
+// React
 import React, { useState } from 'react';
-import '../App.css';
 import { useLocation } from 'react-router-dom';
 import {configureAbly, usePresence} from "@ably-labs/react-hooks";
-import style from '../styles/LobbyPage.module.css';
+
+// Components
 import Button from '../components/Button.js'
 
-const LobbyPage = (props) => {
+// Styles
+import style from '../styles/LobbyPage.module.css';
+import '../App.css';
+
+const LobbyPage = () => {
     const location = useLocation();
     const identity = location.state?.identity;
     const gamePin  = location.state?.gamePin;
@@ -18,7 +23,7 @@ const LobbyPage = (props) => {
     const [textVisible, setTextVisible] = useState(false);
 
     const copyUrl = () =>{
-        navigator.clipboard.writeText(window.location.href + `/${gamePin}`);
+        navigator.clipboard.writeText(window.location.href + `/link/${gamePin}`);
         setTextVisible(true);
 
         setTimeout(() => {

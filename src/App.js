@@ -1,15 +1,16 @@
+// React
 import React from 'react';
-import './App.css';
 import { Route, Routes } from 'react-router-dom';
 
-// Fonts
+// Styles
 import "./styles/fonts/rubik-semi-bold.ttf"
+import './App.css';
 
 // Pages
 import Homepage from './pages/Homepage';
 import LobbyPage from './pages/LobbyPage';
 import NicknamePage from './pages/NicknamePage';
-import Ably from './pages/Ably';
+import PageNotFound from './pages/404';
 
 function App() {
   return (     
@@ -17,13 +18,13 @@ function App() {
       <Routes>
         <Route path='/' element={<Homepage />} />
         <Route path='/ChaosApp' element={<Homepage />} />
-        <Route path="/Nickname" element={<NicknamePage />} />
         <Route path="/Lobby" element={<LobbyPage />} />
-        <Route path="/Host" element={<Ably />} />
-        <Route path="/Lobby/:pinNumber" element={<Ably />} /> 
+        <Route path="/Lobby/link/:pinNumber" element={<NicknamePage />} /> 
+        <Route path="/Host" element={<NicknamePage />} />
+        <Route path="*" element={<PageNotFound />} /> 
       </Routes>
     </div>
   );
 }
-// <Route path="/:pinNumber" render={(props) => <Ably joinPin={pinNumber} isHost={false}  {...props} /> } />
+
 export default App;
