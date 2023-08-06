@@ -9,11 +9,19 @@ const LobbyPage = (props) => {
     const location = useLocation();
     const identity = location.state?.identity;
     const gamePin  = location.state?.gamePin;
+    const url = window.location.href;
+    
 
     configureAbly({key: "yqb0VQ.Av_Gmg:pItSDLVHuUqgEGYCqdOhVSr4Ypktm7764_a0mhpwbEY", clientId: identity.playerId});    
 
     const channelName = gamePin + "";
     const [presenceUsers] = usePresence(channelName, { nickname: identity.nickname });
+
+    const copyUrl = () =>{
+        navigator.clipboard.writeText(window.location.href).then(function(){
+            alert("Copied Link!")
+        });
+    };
 
     return (
         <div className="App">
@@ -38,7 +46,7 @@ const LobbyPage = (props) => {
 
                 <div className={style.buttons}>
                     {/*<NavLink to="/">*/}
-                        <Button name="INVITE"/>
+                        <Button press={copyUrl} name="INVITE"/>
                     {/*</NavLink>*/}
                 </div>
 
