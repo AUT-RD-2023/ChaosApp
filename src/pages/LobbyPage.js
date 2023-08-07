@@ -11,9 +11,10 @@ import style from '../styles/LobbyPage.module.css';
 import '../App.css';
 
 const LobbyPage = () => {
-    const location = useLocation();
+    const location = useLocation();    
     const gamePin  = location.state?.gamePin;
     const identity = location.state?.identity;
+    const isHost   = location.state?.isHost;
 
     console.log(gamePin);
     console.log(identity.playerId);
@@ -67,6 +68,9 @@ const LobbyPage = () => {
                         <Button name="INVITE" press={copyUrl}/>
                     {/*</NavLink>*/}
                     <p style={{textAlign: 'center'}}>{textVisible ? "Link Copied!" : ""}</p>
+                </div>
+                <div>
+                    <p>{ isHost ? "[DEBUG] You are the host." : "[DEBUG] You are NOT the host." }</p>
                 </div>
             </span> 
         </div>

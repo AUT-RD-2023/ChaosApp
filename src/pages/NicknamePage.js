@@ -12,13 +12,12 @@ import '../App.css';
 
 function NicknamePage() {    
     const location = useLocation();
-    const isHost = location.state?.isHost;
+    const params = useParams();
 
-    let params = useParams();
+    const isHost = location.state?.isHost;
     const joinPin = params?.pinNumber;
 
     if(!isHost) { // Redirects to the 404 page if url contains an incorrect pin code format.
-        console.log(isHost);
         if(!((joinPin.length === 5) && (/^[0-9\b]+$/.test(joinPin)))) {
             window.location.href = "/404";
         } 
@@ -46,7 +45,7 @@ function NicknamePage() {
                 />
                 <NavLink
                     to="/Lobby"
-                    state={{ identity: identity, gamePin: gamePin.current.value }}
+                    state={{ identity: identity, gamePin: gamePin.current.value, isHost: isHost }}
                 >
                     <Button name="NEXT" disabled={ nickname && /\S/.test(nickname) ? false : true } press={handleClick}/>
                 </NavLink>

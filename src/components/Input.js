@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from '../styles/Button.module.css';
 
 const Input = ({ value, onChange, placeholder, maxLength }) => {
