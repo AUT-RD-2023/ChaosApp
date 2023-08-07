@@ -28,7 +28,7 @@ function NicknamePage() {
     const identity = new Identity();
 
     const handleClick = () => {
-        identity.makeNickname(nickname);        
+        identity.makeNickname(nickname);
     }
 
     const gamePin = useRef({ value: isHost ? Math.floor(Math.random() * 99999 + 10000) : joinPin });

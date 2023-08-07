@@ -12,8 +12,12 @@ import '../App.css';
 
 const LobbyPage = () => {
     const location = useLocation();
-    const identity = location.state?.identity;
     const gamePin  = location.state?.gamePin;
+    const identity = location.state?.identity;
+
+    console.log(gamePin);
+    console.log(identity.playerId);
+    console.log(identity.nickname);
     
     configureAbly({key: "yqb0VQ.Av_Gmg:pItSDLVHuUqgEGYCqdOhVSr4Ypktm7764_a0mhpwbEY", clientId: identity.playerId});    
 
