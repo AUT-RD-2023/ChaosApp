@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ably Pub Sub</title>
+</head>
+<body></body>
+<script src="https://cdn.ably.com/lib/ably.min-1.js"></script>
+
+<h1>Ably Quickstart</h1>
+
+    <p id ="message"></p>
+
+    <script>
+        const apiKey = "yqb0VQ.Av_Gmg:pItSDLVHuUqgEGYCqdOhVSr4Ypktm7764_a0mhpwbEY";
+        const realtime = new Ably.Realtime.Promise(apiKey);
+
+        async function doPubSub() {
+            await realtime.connection.once("connected");
+            console.log("Connected to Ably!");
+
+            const channel = realtime.channels.get("sport");
+            await channel.subscribe((msg) => {
+                console.log("Received: " + JSON.stringify(msg.data));
+
+                document.getElementById("message").innerHTML += ("Message ID: " + msg.data.id
+                                + ", " + "Message content: " + msg.data.content) + "<br>";
+                // if(msg.data.id === 3) {
+                //     document.getElementById("message").innerHTML = ("Message ID: " + msg.data.id
+                //         + ", " + "Message content: " + msg.data.content) + "<br>";
+                // }
+            });
+
+            await channel.publish("update", {id: 1, content: "Message 1" });
+            await channel.publish("update", {id: 2, content: "Message 2" });
+            await channel.publish("update", {id: 3, content: "Specific message." });
+        } //PubSub async function
+
+        doPubSub();
+    </script>
+</html>

@@ -1,41 +1,78 @@
-import React from 'react';
-import '../App.css';
+// React
+import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import {configureAbly, usePresence} from "@ably-labs/react-hooks";
+
+// Components
+import Button from '../components/Button.js'
+
+// Styles
 import style from '../styles/LobbyPage.module.css';
-import Button from '../Button.js';
-import {NavLink} from "react-router-dom";
+import '../App.css';
 
 const LobbyPage = () => {
+    const location = useLocation();    
+    const gamePin  = location.state?.gamePin;
+    const identity = location.state?.identity;
+    const isHost   = location.state?.isHost;
+
+    console.log(gamePin);
+    console.log(identity.playerId);
+    console.log(identity.nickname);
+    
+    configureAbly({key: "yqb0VQ.Av_Gmg:pItSDLVHuUqgEGYCqdOhVSr4Ypktm7764_a0mhpwbEY", clientId: identity.playerId});    
+
+    const channelName = gamePin + "";
+    const [presenceUsers] = usePresence(channelName, { nickname: identity.nickname });
+
+    const [textVisible, setTextVisible] = useState(false);
+
+    const copyUrl = () =>{
+        navigator.clipboard.writeText(window.location.href + `/link/${gamePin}`);
+        setTextVisible(true);
+
+        setTimeout(() => {
+            setTextVisible(false);
+        }, 2000);        
+    };
+
     return (
         <div className="App">
-            <div className= {style.subtitle} >Kia Rite</div>
-            <div className={style.pin}>
-                <span className={style.label}>GAME PIN: <br /></span>
-                <span className={style.number}>4845</span>
-            </div>
+            <span className={style.lobby}>
+                <div className={style.subtitle}>Chaos</div>
 
-            <div className="container">
-                <span className= {style.players} >
-                    <p>Player 1</p>
-                    <p>Player 2</p>
-                    <p>Player 3</p>
-                    <p>Player 4</p>
-                    <p>Player 5</p>
-                    <p>Player 6</p>
-                    <p>Player 7</p>
-                    <p>Player 8</p>
-                </span>
-            </div>
+                <div className={style.pin}>
+                    <span className={style.label}>GAME PIN: <br/></span>
+                    <span className={style.number}>{channelName}</span>
+                </div>
 
-            <div className="button">
-                {/*<NavLink to="/">*/}
-                    <Button name="INVITE" />
-                {/*</NavLink>*/}
-            </div>
-            <div className="button">
-                {/*<NavLink to="/">*/}
-                    <Button name="PLAY" />
-                {/*</NavLink>*/}
-            </div>
+                <div className={style.container}>
+                    <div className={style.players}>
+                        {presenceUsers.map((user, index) => (
+                            // index % 2 === 0 
+                            //     ? <div className={style.grid_cell} key={user.clientId}>{user.data.nickname}</div>
+                            //     : <div className={style.grid_cell}  style={{ textAlign: 'right' }} key={user.clientId}>{user.data.nickname}</div>)
+                            <div className={style.grid_cell} key={user.clientId}>{user.data.nickname}</div>
+                        ))}
+                    </div>
+                </div>
+
+                <div className={style.buttons}>
+                    {/*<NavLink to="/">*/}
+                        <Button name="PLAY"/>
+                    {/*</NavLink>*/}
+                </div>
+
+                <div className={style.buttons}>
+                    {/*<NavLink to="/">*/}
+                        <Button name="INVITE" press={copyUrl}/>
+                    {/*</NavLink>*/}
+                    <p style={{textAlign: 'center'}}>{textVisible ? "Link Copied!" : ""}</p>
+                </div>
+                <div>
+                    <p>{ isHost ? "[DEBUG] You are the host." : "[DEBUG] You are NOT the host." }</p>
+                </div>
+            </span> 
         </div>
     );
 }
