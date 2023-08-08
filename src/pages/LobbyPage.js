@@ -1,7 +1,8 @@
 // React
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import {configureAbly, usePresence} from "@ably-labs/react-hooks";
+import { configureAbly, usePresence } from "@ably-labs/react-hooks";
+//import { getDatabase } from "firebase/database";
 
 // Components
 import Button from '../components/Button.js'
