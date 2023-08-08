@@ -1,7 +1,8 @@
 // React
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import {configureAbly, usePresence} from "@ably-labs/react-hooks";
+import { configureAbly, usePresence } from "@ably-labs/react-hooks";
+import { NavLink } from 'react-router-dom';
 
 // Components
 import Button from '../components/Button.js'
@@ -57,9 +58,9 @@ const LobbyPage = () => {
                 </div>
 
                 <div className={style.buttons}>
-                    {/*<NavLink to="/">*/}
+                    <NavLink to="/Bridge">
                         <Button name="PLAY"/>
-                    {/*</NavLink>*/}
+                    </NavLink>
                 </div>
 
                 <div className={style.buttons}>

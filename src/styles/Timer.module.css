@@ -1,0 +1,47 @@
+@media (orientation: portrait) {
+    .timer_base {
+        position: absolute;
+        left: 0;
+        width: 99.9vw;
+        height: calc(100vw/18);
+        background-color: #D0D0D0;
+        border-top: #EAEAEA calc(100vw/55) solid;
+        border-bottom: #EAEAEA calc(100vw/55) solid;
+        overflow: hidden;
+    }
+
+    .timer {
+        position: absolute;
+        left: 0;
+        height: calc(100vw/30);
+        background-color: #75A78F;
+        margin-top: calc(100vw/90);
+        border-top-right-radius: calc(100vw/50);
+        border-bottom-right-radius: calc(100vw/50);
+        overflow: hidden;
+    }
+}
+
+@media (orientation: landscape) {
+    .timer_base {
+        position: absolute;
+        left: 0;
+        width: 99.9vw;
+        height: calc(100vh/25);
+        background-color: #D0D0D0;
+        border-top: #EAEAEA calc(100vh/70) solid;
+        border-bottom: #EAEAEA calc(100vh/70) solid;
+        overflow: hidden;
+    }
+
+    .timer {
+        position: absolute;
+        left: 0;
+        height:  calc(100vh/45);
+        background-color: #75A78F;
+        margin-top: calc(100vh/120);
+        border-top-right-radius: calc(100vw/50);
+        border-bottom-right-radius: calc(100vw/50);
+        overflow: hidden;
+    }
+}
