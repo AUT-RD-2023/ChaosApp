@@ -1,10 +1,14 @@
 // React
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import {configureAbly, usePresence} from "@ably-labs/react-hooks";
 
+// Database
+import { ref, set } from "firebase/database";
+import { database } from '../database.js';
+
 // Components
-import Button from '../components/Button.js'
+import Button from '../components/Button.js';
 
 // Styles
 import style from '../styles/LobbyPage.module.css';
@@ -16,14 +20,34 @@ const LobbyPage = () => {
     const identity = location.state?.identity;
     const isHost   = location.state?.isHost;
 
-    console.log(gamePin);
-    console.log(identity.playerId);
-    console.log(identity.nickname);
+    /* ABLY */
     
     configureAbly({key: "yqb0VQ.Av_Gmg:pItSDLVHuUqgEGYCqdOhVSr4Ypktm7764_a0mhpwbEY", clientId: identity.playerId});    
 
     const channelName = gamePin + "";
     const [presenceUsers] = usePresence(channelName, { nickname: identity.nickname });
+
+    /* DATABASE */
+
+    useEffect(() => {
+        if(isHost) {
+            set(ref(database, 'lobbies/lobby-' + gamePin), {
+                gamePin: gamePin,
+                inSession: false
+            });            
+            console.log(`Current game session added to database!\n[gamePin : ${gamePin}], [inSession : false]`);
+        }
+    }, [isHost, gamePin]);
+
+    function startSession() {
+        set(ref(database, 'lobbies/lobby-' + gamePin), {
+            gamePin: gamePin,
+            inSession: true
+        });
+        console.log("Game session started, inSession set to true in the database.");
+    }
+
+    /* INVITE LINK */
 
     const [textVisible, setTextVisible] = useState(false);
 
@@ -35,6 +59,15 @@ const LobbyPage = () => {
             setTextVisible(false);
         }, 2000);        
     };
+
+    /* RENDER */
+
+    const playButtonJSX = 
+        <div className={style.buttons}>
+            {/*<NavLink to="/">*/}
+                <Button name="PLAY" press={startSession}/>
+            {/*</NavLink>*/}
+        </div>
 
     return (
         <div className="App">
@@ -49,24 +82,15 @@ const LobbyPage = () => {
                 <div className={style.container}>
                     <div className={style.players}>
                         {presenceUsers.map((user, index) => (
-                            // index % 2 === 0 
-                            //     ? <div className={style.grid_cell} key={user.clientId}>{user.data.nickname}</div>
-                            //     : <div className={style.grid_cell}  style={{ textAlign: 'right' }} key={user.clientId}>{user.data.nickname}</div>)
                             <div className={style.grid_cell} key={user.clientId}>{user.data.nickname}</div>
                         ))}
                     </div>
                 </div>
 
-                <div className={style.buttons}>
-                    {/*<NavLink to="/">*/}
-                        <Button name="PLAY"/>
-                    {/*</NavLink>*/}
-                </div>
+                {isHost ? playButtonJSX : null }
 
                 <div className={style.buttons}>
-                    {/*<NavLink to="/">*/}
-                        <Button name="INVITE" press={copyUrl}/>
-                    {/*</NavLink>*/}
+                    <Button name="INVITE" press={copyUrl}/>
                     <p style={{textAlign: 'center'}}>{textVisible ? "Link Copied!" : ""}</p>
                 </div>
                 <div>

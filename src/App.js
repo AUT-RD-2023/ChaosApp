@@ -21,6 +21,7 @@ function App() {
         <Route path="/Lobby" element={<LobbyPage />} />
         <Route path="/Lobby/link/:pinNumber" element={<NicknamePage />} /> 
         <Route path="/Host" element={<NicknamePage />} />
+        <Route path="/404" element={<PageNotFound />} /> 
         <Route path="*" element={<PageNotFound />} /> 
       </Routes>
     </div>
