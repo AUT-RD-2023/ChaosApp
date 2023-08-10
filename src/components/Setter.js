@@ -6,9 +6,9 @@ function Setter(props) {
 
     return (
         <div className={style.setter}>
-            <button className={style.btn}> + </button>
+            <button className={style.increaseButton}> + </button>
             <p className="value">{value}</p>
-            <button className={style.btn}> - </button>
+            <button className={style.decreaseButton}> - </button>
         </div>
     )
 }
