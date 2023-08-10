@@ -2,9 +2,12 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import {configureAbly, usePresence} from "@ably-labs/react-hooks";
+import SettingsPage from './SettingsPage.js';
 
 // Components
 import Button from '../components/Button.js'
+import Popup from '../components/Popup.js';
+
 
 // Styles
 import style from '../styles/LobbyPage.module.css';
@@ -16,6 +19,7 @@ const LobbyPage = () => {
     const identity = location.state?.identity;
     const isHost   = location.state?.isHost;
 
+
     console.log(gamePin);
     console.log(identity.playerId);
     console.log(identity.nickname);
@@ -26,6 +30,8 @@ const LobbyPage = () => {
     const [presenceUsers] = usePresence(channelName, { nickname: identity.nickname });
 
     const [textVisible, setTextVisible] = useState(false);
+    const [buttonPopup, setButtonPopup] = useState(false);
+
 
     const copyUrl = () =>{
         navigator.clipboard.writeText(window.location.href + `/link/${gamePin}`);
@@ -35,6 +41,7 @@ const LobbyPage = () => {
             setTextVisible(false);
         }, 2000);        
     };
+
 
     return (
         <div className="App">
@@ -69,9 +76,18 @@ const LobbyPage = () => {
                     {/*</NavLink>*/}
                     <p style={{textAlign: 'center'}}>{textVisible ? "Link Copied!" : ""}</p>
                 </div>
-                <div>
-                    <p>{ isHost ? "[DEBUG] You are the host." : "[DEBUG] You are NOT the host." }</p>
-                </div>
+                <div className={style.buttons}>
+                    {/*<NavLink to="/">*/}
+                        <button onClick={() => setButtonPopup(true)}>Open Popup
+                            </button>  
+                        {/*</NavLink>*/}
+                        <p style={{ textAlign: 'center' }}>{textVisible ? "Link Copied!" : ""}</p>
+                    </div><div>
+                            <p>{isHost ? "[DEBUG] You are the host." : "[DEBUG] You are NOT the host."}</p>
+                        </div>
+                        <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+            <SettingsPage>a</SettingsPage>
+        </Popup>
             </span> 
         </div>
     );
