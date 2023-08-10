@@ -84,7 +84,7 @@ const LobbyPage = () => {
                             <p>{isHost ? "[DEBUG] You are the host." : "[DEBUG] You are NOT the host."}</p>
                 </div>
                         <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-                            <SettingsPage>a</SettingsPage>
+                            <SettingsPage />
                          </Popup>
    
             </span> 
