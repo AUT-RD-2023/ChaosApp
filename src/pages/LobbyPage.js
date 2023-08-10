@@ -89,10 +89,7 @@ const LobbyPage = () => {
                         <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
                             <SettingsPage>a</SettingsPage>
                          </Popup>
-
-                           {/*<NavLink to="/">*/}
-                       
-                        {/*</NavLink>*/}
+   
             </span> 
         </div>
     );
