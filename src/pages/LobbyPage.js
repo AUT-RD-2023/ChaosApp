@@ -79,18 +79,20 @@ const LobbyPage = () => {
                     {/*</NavLink>*/}
                     <p style={{textAlign: 'center'}}>{textVisible ? "Link Copied!" : ""}</p>
                 </div>
-                <div className={style.buttons}>
-                    {/*<NavLink to="/">*/}
-                        <button onClick={() => setButtonPopup(true)}>Open Popup
-                            </button>  
-                        {/*</NavLink>*/}
-                        <p style={{ textAlign: 'center' }}>{textVisible ? "Link Copied!" : ""}</p>
-                    </div><div>
+                <div>
+                    {isHost ?   <button onClick={() => setButtonPopup(true)}>Open Popup
+                            </button> : ""}
+                </div>
+                <div>
                             <p>{isHost ? "[DEBUG] You are the host." : "[DEBUG] You are NOT the host."}</p>
-                        </div>
+                </div>
                         <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-            <SettingsPage>a</SettingsPage>
-        </Popup>
+                            <SettingsPage>a</SettingsPage>
+                         </Popup>
+
+                           {/*<NavLink to="/">*/}
+                       
+                        {/*</NavLink>*/}
             </span> 
         </div>
     );
