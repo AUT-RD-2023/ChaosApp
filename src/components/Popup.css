@@ -1,4 +1,4 @@
-.popup {
+.container {
     position: fixed;
     top: 0;
     left: 0;
@@ -31,7 +31,8 @@
     background-color: transparent;
     color: #B5B5B5;
     top:90px;
-    left: 25vw;
+    left: 27vw;
+    width: 6vw;
     height: 10vh;
-    width: 10vw;
+    border-radius: 50%;
 }
