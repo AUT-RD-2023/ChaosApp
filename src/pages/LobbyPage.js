@@ -1,7 +1,7 @@
 // React
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import {configureAbly, usePresence} from "@ably-labs/react-hooks";
+import { useLocation, useNavigate } from 'react-router-dom';
+import { configureAbly, useChannel, usePresence } from "@ably-labs/react-hooks";
 
 // Database
 import { ref, set } from "firebase/database";
@@ -15,17 +15,30 @@ import style from '../styles/LobbyPage.module.css';
 import '../App.css';
 
 const LobbyPage = () => {
-    const location = useLocation();    
+    const location = useLocation();
+    const navigate = useNavigate();
+
     const gamePin  = location.state?.gamePin;
     const identity = location.state?.identity;
     const isHost   = location.state?.isHost;
 
     /* ABLY */
     
-    configureAbly({key: "yqb0VQ.Av_Gmg:pItSDLVHuUqgEGYCqdOhVSr4Ypktm7764_a0mhpwbEY", clientId: identity.playerId});    
+    configureAbly({key: "yqb0VQ.Av_Gmg:pItSDLVHuUqgEGYCqdOhVSr4Ypktm7764_a0mhpwbEY", clientId: identity.playerId});
 
     const channelName = gamePin + "";
     const [presenceUsers] = usePresence(channelName, { nickname: identity.nickname });
+
+    // Page navigation when host presses start
+    const [channel] = useChannel(channelName, (message) => {
+        if(message.data.text === "true") {
+            navigate("/Message", { state: {id: identity.playerId, nickname: identity.nickname, channel: channelName}});
+        }
+    });
+
+    const handleStart = () => {
+        channel.publish("Start", { text: "true" });
+    };
 
     /* DATABASE */
 
@@ -50,7 +63,7 @@ const LobbyPage = () => {
     /* INVITE LINK */
 
     const [textVisible, setTextVisible] = useState(false);
-
+    
     const copyUrl = () =>{
         navigator.clipboard.writeText(window.location.href + `/link/${gamePin}`);
         setTextVisible(true);
@@ -88,6 +101,19 @@ const LobbyPage = () => {
                 </div>
 
                 {isHost ? playButtonJSX : null }
+
+                {/*Temporary button to go to message page*/}
+                <div className={style.buttons}>
+                    <Button name="ably" press={ handleStart }/>
+                </div>
+
+                {/*<div className={style.buttons}>*/}
+                {/*    <NavLink*/}
+                {/*        to="/Bridge"*/}
+                {/*        state={{activity: "start", round: 1}}>*/}
+                {/*            <Button name="PLAY"/>*/}
+                {/*    </NavLink>*/}
+                {/*</div>*/}
 
                 <div className={style.buttons}>
                     <Button name="INVITE" press={copyUrl}/>
