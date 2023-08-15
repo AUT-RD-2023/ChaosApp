@@ -12,6 +12,7 @@ import LobbyPage from './pages/LobbyPage';
 import NicknamePage from './pages/NicknamePage';
 import PageNotFound from './pages/404';
 import Bridge from './pages/Bridge';
+import Scenariopage from './pages/Scenariopage'
 
 function App() {
   return (     
@@ -24,6 +25,7 @@ function App() {
         <Route path="/Host" element={<NicknamePage />} />
         <Route path="*" element={<PageNotFound />} />
         <Route path="/Bridge" element={<Bridge />} />
+        <Route path="/Scenariopage" element={<Scenariopage />} />
       </Routes>
     </div>
   );

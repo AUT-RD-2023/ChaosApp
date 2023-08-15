@@ -19,7 +19,7 @@ const Bridge = () => {
     switch(state.activity) {
         case "start":
             subheading = "Get Ready...";
-            path = "/";
+            path = "/Scenariopage";
             break;
         case "discussion":
             subheading = "Discussion Time...";
@@ -58,7 +58,7 @@ const Bridge = () => {
         <div className="App">
             <div className="heading">ROUND {round}</div><br />
             <div className="subheading">{subheading}</div><br />
-            <TimerBar timeLength="10" path={path}/>
+            <TimerBar timeLength="2" path={path}/>
         </div>
     )
 }
