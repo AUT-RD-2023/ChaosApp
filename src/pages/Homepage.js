@@ -29,9 +29,9 @@ const Homepage = () => {
     }
 
     useEffect(() => {
-        if(gamePin.length == 5) {
+        if(gamePin.length === 5) {
             checkDatabase();
-            console.log(dbExists ? "use effect triggered, the game pin does exist in the database" : "useEffect triggered, the game pin does NOT exist in the database")
+            //console.log(dbExists ? "use effect triggered, the game pin does exist in the database" : "useEffect triggered, the game pin does NOT exist in the database")
         }
     }, [gamePin]);
 

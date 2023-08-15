@@ -45,12 +45,12 @@ function NicknamePage() {
             const dbSession = snapshot.val();
             console.log(dbSession);        
             
-            if(dbSession || dbSession == undefined)
+            if(dbSession || dbSession === undefined)
             {
                 window.location.href = "#/404"; //instead of 404 page, different error page specific to lobby not existing / already in session
             }
         });
-    }, []);
+    }, [joinPin]);
 
     /* JOIN ERROR */
 
