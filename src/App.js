@@ -11,6 +11,7 @@ import Homepage from './pages/Homepage';
 import LobbyPage from './pages/LobbyPage';
 import NicknamePage from './pages/NicknamePage';
 import PageNotFound from './pages/404';
+import Bridge from './pages/Bridge';
 
 function App() {
   return (     
@@ -21,7 +22,8 @@ function App() {
         <Route path="/Lobby" element={<LobbyPage />} />
         <Route path="/Lobby/link/:pinNumber" element={<NicknamePage />} /> 
         <Route path="/Host" element={<NicknamePage />} />
-        <Route path="*" element={<PageNotFound />} /> 
+        <Route path="*" element={<PageNotFound />} />
+        <Route path="/Bridge" element={<Bridge />} />
       </Routes>
     </div>
   );
