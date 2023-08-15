@@ -39,29 +39,23 @@ function NicknamePage() {
     /* DATABASE */
 
     useEffect(() => {
-        let dbExists;
-        let dbSession;
+        if(!isHost) {
+            const entryData = ref(database, 'lobbies/lobby-' + gamePin);
+            const sessionData = ref(database, 'lobbies/lobby-' + gamePin + '/inSession');
 
-        const entryData = ref(database, 'lobbies/lobby-' + gamePin);
-        const sessionData = ref(database, 'lobbies/lobby-' + gamePin + '/inSession');
+            onValue(entryData, (snapshot) => {
+                if(!snapshot.exists()) {
+                    window.location.href = "#/Error/invalid-pin";
+                } 
+            });
 
-        onValue(entryData, (snapshot) => {
-            dbExists = snapshot.exists();
-            console.log(snapshot.exists() ? "Valid session" : "Error! The session you are trying to join does not exist.");
-        });
-
-        onValue(sessionData, (snapshot) => {
-            dbSession = snapshot.val(); //check if inSession is true
-            console.log (snapshot.val() ? "The game has already started (inSession : true)" : "The game has not yet started (inSession : false)")
-        });
-
-        if(!dbExists) {
-            window.location.href = "#/Error/invalid-pin";
-        } 
-        else if (dbSession) {
-            window.location.href = "#/Error/session-started";
+            onValue(sessionData, (snapshot) => {
+                if (snapshot.val()) {
+                    window.location.href = "#/Error/session-started";
+                }
+            });
         }
-    }, [gamePin]);
+    }, [isHost, gamePin]);
 
     /* RENDER */
 

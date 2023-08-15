@@ -91,7 +91,7 @@ const LobbyPage = () => {
 
                 <div className={style.buttons}>
                     <Button name="INVITE" press={copyUrl}/>
-                    <p style={{textAlign: 'center'}}>{textVisible ? "Link Copied!" : ""}</p>
+                    <p style={{textAlign: 'center'}}><strong>{textVisible ? "Link Copied!" : ""}</strong></p>
                 </div>
             </span> 
         </div>

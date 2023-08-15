@@ -27,12 +27,10 @@ const Homepage = () => {
     const checkDatabase = useCallback(() => {
         onValue(entryData, (snapshot) => {
             setDbExists(snapshot.exists());
-            console.log(snapshot.exists() ? "Valid session" : "Error! The session you are trying to join does not exist.");
         });
 
         onValue(sessionData, (snapshot) => {
-            setDbSession(snapshot.val()); //check if inSession is true
-            console.log (snapshot.val() ? "The game has already started (inSession : true)" : "The game has not yet started (inSession : false)")
+            setDbSession(snapshot.val());
         });
     }, [entryData, sessionData]);
 
@@ -52,7 +50,7 @@ const Homepage = () => {
 
         setTimeout(() => {
             setErrorText("");
-        }, 3000);  
+        }, 2000);  
     }
     
     /* RENDER */
