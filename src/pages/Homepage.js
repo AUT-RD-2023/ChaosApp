@@ -1,5 +1,5 @@
 // React
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { NavLink } from 'react-router-dom';
 
 // Database
@@ -21,19 +21,41 @@ const Homepage = () => {
     const [dbExists, setDbExists] = useState(false);    
     const entryData = ref(database, 'lobbies/lobby-' + gamePin);
 
-    function checkDatabase() {
+    const [dbSession, setDbSession] = useState(false);
+    const sessionData = ref(database, 'lobbies/lobby-' + gamePin + '/inSession');
+
+    const checkDatabase = useCallback(() => {
         onValue(entryData, (snapshot) => {
             setDbExists(snapshot.exists());
-            console.log(dbExists);
+            console.log(snapshot.exists() ? "Valid session" : "Error! The session you are trying to join does not exist.");
         });
-    }
+
+        onValue(sessionData, (snapshot) => {
+            setDbSession(snapshot.val()); //check if inSession is true
+            console.log (snapshot.val() ? "The game has already started (inSession : true)" : "The game has not yet started (inSession : false)")
+        });
+    }, [entryData, sessionData]);
 
     useEffect(() => {
         if(gamePin.length === 5) {
             checkDatabase();
-            //console.log(dbExists ? "use effect triggered, the game pin does exist in the database" : "useEffect triggered, the game pin does NOT exist in the database")
         }
-    }, [gamePin]);
+    }, [gamePin, checkDatabase]);
+
+    
+    /* JOIN ERROR */
+
+    const [errorText, setErrorText] = useState("");
+
+    const updateText = () => {
+        setErrorText(!dbExists ? "The session you are trying to join does not exist!" : dbSession ? "The session you are trying to join has already started!" : "");
+
+        setTimeout(() => {
+            setErrorText("");
+        }, 3000);  
+    }
+    
+    /* RENDER */
 
     return (
         <div className="App">
@@ -46,13 +68,14 @@ const Homepage = () => {
                     onChange={ (e) => setGamePin(e.target.value) }
                 />
                 <NavLink 
-                    to={ dbExists ? `/Lobby/link/${gamePin}` : null } 
-                    onClick={checkDatabase}
+                    to={ dbExists && !dbSession ? `/Lobby/link/${gamePin}` : null } 
+                    onClick={ checkDatabase }
                     state={{ isHost: false, joinPin: gamePin }}
                 >
                     <Button 
                         name="JOIN" //check if the provided Game Pin is at least 5 characters long, only contains numbers and isn't made up of only whitespace
-                        disabled={ (gamePin.length === 5) && (/^[0-9\b]+$/.test(gamePin)) && (/\S/.test(gamePin)) ? false : true }                         
+                        disabled={ (gamePin.length === 5) && (/^[0-9\b]+$/.test(gamePin)) && (/\S/.test(gamePin)) ? false : true }       
+                        press={ updateText }                  
                     />
                 </NavLink>
             </div>     
@@ -61,6 +84,10 @@ const Homepage = () => {
                 <NavLink to="/Host" state={{ isHost: true }}>
                     <Button name="HOST" />
                 </NavLink>              
+            </div>
+                    
+            <div>                    
+                <p style={{textAlign: 'center', color: 'red'}}><strong>{errorText}</strong></p>
             </div>
         </div>
     );

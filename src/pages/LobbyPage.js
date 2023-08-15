@@ -93,9 +93,6 @@ const LobbyPage = () => {
                     <Button name="INVITE" press={copyUrl}/>
                     <p style={{textAlign: 'center'}}>{textVisible ? "Link Copied!" : ""}</p>
                 </div>
-                <div>
-                    <p>{ isHost ? "[DEBUG] You are the host." : "[DEBUG] You are NOT the host." }</p>
-                </div>
             </span> 
         </div>
     );

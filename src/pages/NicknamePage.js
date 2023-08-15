@@ -34,35 +34,34 @@ function NicknamePage() {
         identity.makeNickname(nickname);
     }
 
-    const gamePin = useRef({ value: isHost ? Math.floor(Math.random() * 99999 + 10000) : joinPin });
+    const gamePin = useRef({ value: isHost ? Math.floor(Math.random() * 89999 + 10000) : joinPin }).current.value;        
 
     /* DATABASE */
 
     useEffect(() => {
-        const entryData = ref(database, 'lobbies/lobby-' + joinPin + '/inSession');
-    
+        let dbExists;
+        let dbSession;
+
+        const entryData = ref(database, 'lobbies/lobby-' + gamePin);
+        const sessionData = ref(database, 'lobbies/lobby-' + gamePin + '/inSession');
+
         onValue(entryData, (snapshot) => {
-            const dbSession = snapshot.val();
-            console.log(dbSession);        
-            
-            if(dbSession || dbSession === undefined)
-            {
-                window.location.href = "#/404"; //instead of 404 page, different error page specific to lobby not existing / already in session
-            }
+            dbExists = snapshot.exists();
+            console.log(snapshot.exists() ? "Valid session" : "Error! The session you are trying to join does not exist.");
         });
-    }, [joinPin]);
 
-    /* JOIN ERROR */
+        onValue(sessionData, (snapshot) => {
+            dbSession = snapshot.val(); //check if inSession is true
+            console.log (snapshot.val() ? "The game has already started (inSession : true)" : "The game has not yet started (inSession : false)")
+        });
 
-    const [errorText, setErrorText] = useState("");
-
-    const updateText = () => {
-        //setErrorText(!dbStatus ? "The session you are trying to join does not exist!" : `The session you are trying to join (${gamePin.current.value}) has already started!`);
-
-        setTimeout(() => {
-            setErrorText("");
-        }, 3000);  
-    }
+        if(!dbExists) {
+            window.location.href = "#/Error/invalid-pin";
+        } 
+        else if (dbSession) {
+            window.location.href = "#/Error/session-started";
+        }
+    }, [gamePin]);
 
     /* RENDER */
 
@@ -79,13 +78,10 @@ function NicknamePage() {
                 />
                 <NavLink
                     to={ "/Lobby" }
-                    state={{ identity: identity, gamePin: gamePin.current.value, isHost: isHost }}
+                    state={{ identity: identity, gamePin: gamePin, isHost: isHost }}
                 >
-                    <Button name="NEXT" disabled={ nickname && /\S/.test(nickname) ? false : true } press={() => { handleClick(); updateText(); }}/>
+                    <Button name="NEXT" disabled={ nickname && /\S/.test(nickname) ? false : true } press={ handleClick }/>
                 </NavLink>
-            </div>        
-            <div>                    
-                <p style={{textAlign: 'center', color: 'red'}}>{errorText}</p>
             </div>
         </div>
     );
