@@ -28,15 +28,15 @@ const LobbyPage = () => {
 
     const channelName = gamePin + "";
     const [presenceUsers] = usePresence(channelName, { nickname: identity.nickname });
-
-    // Page navigation when host presses start
-    const [channel] = useChannel(channelName, (message) => {
+    
+    const [channel] = useChannel(channelName, (message) => { // Page navigation when host presses start
         if(message.data.text === "true") {
-            navigate("/Message", { state: {id: identity.playerId, nickname: identity.nickname, channel: channelName}});
+            navigate("/Bridge", { state: {activity: "start", round: 1, gamePin: gamePin, id: identity.playerId, nickname: identity.nickname, channel: channelName}});            
         }
     });
 
     const handleStart = () => {
+        startSession();
         channel.publish("Start", { text: "true" });
     };
 
@@ -50,7 +50,7 @@ const LobbyPage = () => {
             });            
             console.log(`Current game session added to database!\n[gamePin : ${gamePin}], [inSession : false]`);
         }
-    }, [isHost, gamePin]);
+    }, [isHost, gamePin]);    
 
     function startSession() {
         set(ref(database, 'lobbies/lobby-' + gamePin), {
@@ -75,12 +75,10 @@ const LobbyPage = () => {
 
     /* RENDER */
 
-    const playButtonJSX = 
+    const playButtonJSX = (       
         <div className={style.buttons}>
-            {/*<NavLink to="/">*/}
-                <Button name="PLAY" press={startSession}/>
-            {/*</NavLink>*/}
-        </div>
+            <Button name="PLAY" press={handleStart}/>
+        </div>);
 
     return (
         <div className="App">
@@ -100,20 +98,7 @@ const LobbyPage = () => {
                     </div>
                 </div>
 
-                {isHost ? playButtonJSX : null }
-
-                {/*Temporary button to go to message page*/}
-                <div className={style.buttons}>
-                    <Button name="ably" press={ handleStart }/>
-                </div>
-
-                {/*<div className={style.buttons}>*/}
-                {/*    <NavLink*/}
-                {/*        to="/Bridge"*/}
-                {/*        state={{activity: "start", round: 1}}>*/}
-                {/*            <Button name="PLAY"/>*/}
-                {/*    </NavLink>*/}
-                {/*</div>*/}
+                {isHost ? playButtonJSX : null}
 
                 <div className={style.buttons}>
                     <Button name="INVITE" press={copyUrl}/>

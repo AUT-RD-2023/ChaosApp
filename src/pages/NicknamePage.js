@@ -1,6 +1,6 @@
 // React
 import React, { useState, useEffect, useRef } from 'react';
-import { NavLink, useLocation, useParams } from 'react-router-dom';
+import { NavLink, useLocation, useParams, useNavigate } from 'react-router-dom';
 
 // Database
 import { ref, onValue } from "firebase/database";
@@ -16,6 +16,7 @@ import '../App.css';
 
 function NicknamePage() {    
     const location = useLocation();
+    const navigate = useNavigate();
     const params = useParams();
 
     const isHost = location.state?.isHost;
@@ -40,22 +41,20 @@ function NicknamePage() {
 
     useEffect(() => {
         if(!isHost) {
-            const entryData = ref(database, 'lobbies/lobby-' + gamePin);
+            const entryData = ref(database, 'lobbies/lobby-' + gamePin); // Get a reference to the data at this path in the database
+
+            onValue(entryData, (snapshot) => { // Get a snapshot of the current value of the data
+                if(!snapshot.exists()) { 
+                    navigate("/Error/invalid-pin"); // Navigate to the appropriate error page if the session does not already exist
+                }});            
+            
+            let sessionStarted;
             const sessionData = ref(database, 'lobbies/lobby-' + gamePin + '/inSession');
 
-            onValue(entryData, (snapshot) => {
-                if(!snapshot.exists()) {
-                    window.location.href = "#/Error/invalid-pin";
-                } 
-            });
-
-            onValue(sessionData, (snapshot) => {
-                if (snapshot.val()) {
-                    window.location.href = "#/Error/session-started";
-                }
-            });
+            onValue(sessionData, (snapshot) => { sessionStarted = snapshot.val(); });
+            if(sessionStarted) { navigate("/Error/session-started"); }
         }
-    }, [isHost, gamePin]);
+    }, [isHost, gamePin, navigate]);
 
     /* RENDER */
 
