@@ -1,7 +1,7 @@
 // React
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { configureAbly, usePresence } from "@ably-labs/react-hooks";
+import { useLocation, useNavigate } from 'react-router-dom';
+import {configureAbly, useChannel, usePresence} from "@ably-labs/react-hooks";
 import { NavLink } from 'react-router-dom';
 
 // Components
@@ -13,20 +13,28 @@ import '../App.css';
 
 const LobbyPage = () => {
     const location = useLocation();
+    const navigate = useNavigate();
+
     const gamePin  = location.state?.gamePin;
     const identity = location.state?.identity;
 
-    console.log(gamePin);
-    console.log(identity.playerId);
-    console.log(identity.nickname);
-    
-    configureAbly({key: "yqb0VQ.Av_Gmg:pItSDLVHuUqgEGYCqdOhVSr4Ypktm7764_a0mhpwbEY", clientId: identity.playerId});    
-
+    // Channel configuration
+    configureAbly({key: "yqb0VQ.Av_Gmg:pItSDLVHuUqgEGYCqdOhVSr4Ypktm7764_a0mhpwbEY", clientId: identity.playerId});
     const channelName = gamePin + "";
     const [presenceUsers] = usePresence(channelName, { nickname: identity.nickname });
 
-    const [textVisible, setTextVisible] = useState(false);
+    // Page navigation when host presses start
+    const [channel] = useChannel(channelName, (message) => {
+        if(message.data.text === "true") {
+            navigate("/Message", { state: {id: identity.playerId, nickname: identity.nickname, channel: channelName}});
+        }
+    });
+    const handleStart = () => {
+        channel.publish("Start", { text: "true" });
+    };
 
+    // Link generation
+    const [textVisible, setTextVisible] = useState(false);
     const copyUrl = () =>{
         navigator.clipboard.writeText(window.location.href + `/link/${gamePin}`);
         setTextVisible(true);
@@ -49,26 +57,26 @@ const LobbyPage = () => {
                 <div className={style.container}>
                     <div className={style.players}>
                         {presenceUsers.map((user, index) => (
-                            // index % 2 === 0 
-                            //     ? <div className={style.grid_cell} key={user.clientId}>{user.data.nickname}</div>
-                            //     : <div className={style.grid_cell}  style={{ textAlign: 'right' }} key={user.clientId}>{user.data.nickname}</div>)
                             <div className={style.grid_cell} key={user.clientId}>{user.data.nickname}</div>
                         ))}
                     </div>
                 </div>
 
+                {/*Temporary button to go to message page*/}
                 <div className={style.buttons}>
-                    <NavLink
-                        to="/Bridge"
-                        state={{activity: "start", round: 1}}>
-                            <Button name="PLAY"/>
-                    </NavLink>
+                    <Button name="ably" press={handleStart}/>
                 </div>
 
+                {/*<div className={style.buttons}>*/}
+                {/*    <NavLink*/}
+                {/*        to="/Bridge"*/}
+                {/*        state={{activity: "start", round: 1}}>*/}
+                {/*            <Button name="PLAY"/>*/}
+                {/*    </NavLink>*/}
+                {/*</div>*/}
+
                 <div className={style.buttons}>
-                    {/*<NavLink to="/">*/}
-                        <Button name="INVITE" press={copyUrl}/>
-                    {/*</NavLink>*/}
+                    <Button name="INVITE" press={copyUrl}/>
                     <p style={{textAlign: 'center'}}>{textVisible ? "Link Copied!" : ""}</p>
                 </div>
             </span> 
