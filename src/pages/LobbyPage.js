@@ -58,8 +58,10 @@ const LobbyPage = () => {
                 </div>
 
                 <div className={style.buttons}>
-                    <NavLink to="/Bridge">
-                        <Button name="PLAY"/>
+                    <NavLink
+                        to="/Bridge"
+                        state={{activity: "start", round: 1}}>
+                            <Button name="PLAY"/>
                     </NavLink>
                 </div>
 
