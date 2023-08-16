@@ -1,11 +1,16 @@
+// React
 import React, {useState, useEffect} from 'react';
-import { useNavigate } from 'react-router-dom';
-import styles from '../styles/Timer.module.css';
+import { useLocation, useNavigate } from 'react-router-dom';
 
+// Styles
+import styles from '../styles/Timer.module.css';
 
 const TimerBar = (props) => {
     const navigate = useNavigate();
     const path = props.path;
+
+    const location = useLocation();
+    const { state } = location;
 
     const timerStart = props.timeLength * 1000; // Countdown start time
     const [time, setTime] = useState(props.timeLength * 1000); // Dynamic counting-down time
@@ -15,7 +20,7 @@ const TimerBar = (props) => {
             const countDown = () => {
                 setTime(prevTime => {
                     if(prevTime <= 0) {
-                        navigate(path);
+                        navigate(path, { state });
                         return 0;
                     }
 
@@ -26,7 +31,7 @@ const TimerBar = (props) => {
                 });
             }
             setTimeout(countDown, 1); // One millisecond intervals to make it look smooth
-    }, [time, referenceTime, navigate]);
+    }, [time, path, state, referenceTime, navigate]);
 
     const calculateWidth = () => {
         const remainingPercentage = (time / timerStart) * 100;

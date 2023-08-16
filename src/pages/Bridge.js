@@ -20,6 +20,7 @@ const Bridge = () => {
         case "start":
             subheading = "Get Ready...";
             path = "/Scenariopage";
+            //path = "/Message";
             break;
         case "discussion":
             subheading = "Discussion Time...";
@@ -58,7 +59,7 @@ const Bridge = () => {
         <div className="App">
             <div className="heading">ROUND {round}</div><br />
             <div className="subheading">{subheading}</div><br />
-            <TimerBar timeLength="2" path={path}/>
+            <TimerBar timeLength="5" path={path} state={state ? state : null}/>
         </div>
     )
 }
