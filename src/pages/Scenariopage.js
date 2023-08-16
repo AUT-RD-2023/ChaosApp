@@ -8,7 +8,7 @@ import Input from '../components/Input.js'
 import TimerBar from '../components/TimerBar.js'
 
 // Styles
-import style from '../styles/LobbyPage.module.css';
+import style from '../styles/ScenarioPage.module.css';
 import '../App.css';
 
 function ScenarioPage() {
@@ -21,19 +21,14 @@ function ScenarioPage() {
     const scenarioObj = scenario.find(obj => {
         return obj.type === randType;
     });
-
-    console.log("Scenario");
-    console.log(scenarioObj.type);
-    console.log(scenarioObj.scenarioArray[randScenario]);
-
-
         
         return(
-            <div>
-                <div>
-                    <h2>Name    Round</h2>
-                    <TimerBar timeLength="10" path="/Scenariopage"/>
+            <div className="App">
+                <div className="header">
+                    <div className="name">NAME</div>
+                    <div className="round">ROUND</div>
                 </div>
+                <TimerBar timeLength="10"/>
                 <div>
                     <br/><br/>
                     <h1>Scenario</h1>

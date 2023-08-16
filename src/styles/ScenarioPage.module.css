@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+
+@media (orientation: portrait) {
+    .heading {
+        font-size: 4vw;
+      }
+}
+
+@media (orientation: landscape) {
+    .heading {
+
+      }
+}

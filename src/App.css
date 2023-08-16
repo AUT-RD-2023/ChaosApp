@@ -49,6 +49,32 @@
   color: #ADADAD;
 }
 
+.header{
+  display: absolute;
+  top: 0%;
+  position: fixed;
+  max-height: calc(5%);
+  border: 2px red solid;
+}
+
+.name {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 300;
+  text-align: left;
+  color: #2D7C73;
+  display: inline-block;
+  border: 1px red solid;
+}
+
+.round {
+  font-family: 'quicksand', sans-serif;
+  font-weight: 300;
+  text-align: right;
+  color: #ADADAD;
+  display: inline-block;
+  border: 1px red solid;
+}
+
 .button {
   margin-left: auto;
   margin-right: auto;
@@ -85,6 +111,14 @@
     /*padding-bottom: 6vw;*/
   }
 
+  .name {
+    font-size: 4vw;
+  }
+
+  .round {
+    font-size: 4vw;
+  }
+
   .container {
     width: 60vw;
     height: 32vw;
@@ -111,6 +145,20 @@
     letter-spacing: 0.4vw;
     /*padding-top: 3vw;*/
     /*padding-bottom: 1.5vw;*/
+  }
+
+  .header{
+    margin-top: 2vw;
+  }
+
+  .name {
+    margin-right: 45vw;
+    font-size: 4vw;
+  }
+
+  .round {
+    margin-left: 25vw;
+    font-size: 4vw;
   }
 
   .container{
