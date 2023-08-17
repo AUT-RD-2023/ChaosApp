@@ -44,7 +44,7 @@ const LobbyPage = () => {
 
     useEffect(() => {
         if(isHost) {
-            set(ref(database, 'lobbies/lobby-' + gamePin), {
+            set(ref(database, 'lobby-' + gamePin), {
                 gamePin: gamePin,
                 inSession: false
             });            
@@ -53,11 +53,10 @@ const LobbyPage = () => {
     }, [isHost, gamePin]);    
 
     function startSession() {
-        set(ref(database, 'lobbies/lobby-' + gamePin), {
+        set(ref(database, 'lobby-' + gamePin), {
             gamePin: gamePin,
             inSession: true
         });
-        console.log("Game session started, inSession set to true in the database.");
     }
 
     /* INVITE LINK */

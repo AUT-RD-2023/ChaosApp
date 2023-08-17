@@ -8,7 +8,7 @@ import styles from '../styles/Timer.module.css';
 const TimerBar = (props) => {
     const navigate = useNavigate();
     const path = props.path;
-    const round = props.rounds;
+    //const round = props.rounds;
 
     const location = useLocation();
     const { state } = location;

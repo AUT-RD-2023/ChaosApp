@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../styles/Button.module.css';
 
-const Textarea = ({ value, onChange, placeholder, maxLength }) => {
+const TextArea = ({ value, disabled, onChange, placeholder, maxLength }) => {
     return (
         <>
             <form>
@@ -9,9 +9,10 @@ const Textarea = ({ value, onChange, placeholder, maxLength }) => {
                     className={styles.textarea}
                     id="gamePin"
                     type="text"
+                    value={value}
+                    disabled={disabled}
                     onChange={onChange}
                     placeholder={placeholder}
-                    value={value}
                     maxLength={maxLength}
                 />
             </form>
@@ -19,4 +20,4 @@ const Textarea = ({ value, onChange, placeholder, maxLength }) => {
     );
 }
 
-export default Textarea;
+export default TextArea;
