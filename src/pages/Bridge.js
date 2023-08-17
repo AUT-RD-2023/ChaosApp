@@ -16,15 +16,17 @@ const Bridge = () => {
     let subheading;
     let path;
 
+    console.log(state.activity);
+
     switch(state.activity) {
         case "start":
             subheading = "Get Ready...";
-            path = "/Scenariopage";
+            path = "/Scenario";
             //path = "/Message";
             break;
         case "discussion":
             subheading = "Discussion Time...";
-            path = "/";
+            path = "/test";
             break;
         case "chaos":
             subheading = "Adding Chaos...";
