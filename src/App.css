@@ -5,6 +5,12 @@
 }
 
 @font-face {
+  font-family: "Rubik-Regular";
+  src: local("rubik-regular"),
+  url("./styles/fonts/Rubik-Regular.ttf") format("truetype");
+}
+
+@font-face {
   font-family: "Lufga";
   src: local("lufga-regular"),
   url("./styles/fonts/lufga-regular.otf") format("opentype");
@@ -15,6 +21,7 @@
   src: local("quicksand-regular"),
   url("./styles/fonts/quicksand-regular.otf") format("opentype");
 }
+
 
 .App {
   position: absolute;
@@ -50,29 +57,27 @@
 }
 
 .header{
-  display: absolute;
-  top: 0%;
-  position: fixed;
-  max-height: calc(5%);
-  border: 2px red solid;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position:fixed;
+  top:0;
+  left:0;
+  width: 100%;
 }
 
 .name {
-  font-family: 'Rubik', sans-serif;
+  font-family: 'Rubik-Regular', sans-serif;
   font-weight: 300;
-  text-align: left;
   color: #2D7C73;
-  display: inline-block;
-  border: 1px red solid;
+  margin: 0;
 }
 
 .round {
   font-family: 'quicksand', sans-serif;
   font-weight: 300;
-  text-align: right;
   color: #ADADAD;
-  display: inline-block;
-  border: 1px red solid;
+  margin: 0;
 }
 
 .button {
@@ -111,12 +116,18 @@
     /*padding-bottom: 6vw;*/
   }
 
+  .header{
+    margin-top: 3vw;
+  }
+
   .name {
-    font-size: 4vw;
+    margin-left: 3vw;
+    font-size: 10vw;
   }
 
   .round {
-    font-size: 4vw;
+    font-size: 6vw;
+    margin-right: 3vw;
   }
 
   .container {
@@ -148,17 +159,19 @@
   }
 
   .header{
-    margin-top: 2vw;
+    margin-top: 2vh;
+    margin-right: 1vh;
   }
 
   .name {
-    margin-right: 45vw;
-    font-size: 4vw;
+    margin-left: 4vh;
+    margin-bottom: 1vh;
+    font-size: 5.5vh;
   }
 
   .round {
-    margin-left: 25vw;
-    font-size: 4vw;
+    margin-right: 4vh;
+    font-size: 4.5vh;
   }
 
   .container{

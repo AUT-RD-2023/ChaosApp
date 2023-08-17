@@ -4,7 +4,7 @@ import {scenario} from '../components/Scenarios.js';
 
 // Components
 import Button from '../components/Button.js'
-import Input from '../components/Input.js'
+import Textarea from '../components/Textarea.js'
 import TimerBar from '../components/TimerBar.js'
 
 // Styles
@@ -26,19 +26,23 @@ function ScenarioPage() {
             <div className="App">
                 <div className="header">
                     <div className="name">NAME</div>
-                    <div className="round">ROUND</div>
+                    <div className="round">ROUND X/X</div>
                 </div>
-                <TimerBar timeLength="10"/>
-                <div>
-                    <br/><br/>
-                    <h1>Scenario</h1>
-                    <p>{scenarioObj.scenarioArray[randScenario]}</p>
-                    <p>What do you do?</p>
-                    <Input placeholder="Enter Response"/>
-                    <Button name = "SUBMIT"/>
+                <div className={style.timer}>
+                    <TimerBar timeLength="30"/>
+                </div>
+                <div className="content">
+                    <div className={style.container}>
+                        <h1 className={style.heading}>SCENARIO</h1>
+                        <p className={style.text}>{scenarioObj.scenarioArray[randScenario]}</p>
+                        <p className={style.text}>What do you do?</p>
+                        <Textarea placeholder="Enter Response..."/>
+                        <div style={{marginTop: "2vh"}}>
+                            <Button name = "SUBMIT"/>
+                        </div>
+                    </div>
                 </div>
             </div>
-
         );
 }
 export default ScenarioPage;

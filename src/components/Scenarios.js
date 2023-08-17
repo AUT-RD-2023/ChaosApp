@@ -1,11 +1,11 @@
 export const scenario = [
 {
     type: 1, // Miscellaneous
-    scenarioArray:['A coworker approaches you in tears and claims they are being sexually'+ 
+    scenarioArray:['A coworker approaches you in tears and claims they are being sexually '+ 
     'harassed by their manager.',
-    'Shortly after the lockdown is lifted you see your coworker walk'+ 
+    'Shortly after the lockdown is lifted you see your coworker walk '+ 
     'in with visible, but faded bruises on their arms and face.',
-    'You all like joking around at work but sometimes the jokes can go'+
+    'You all like joking around at work but sometimes the jokes can go '+
     'a little too far. One of your workmates starts to make a joke where he says, “the last thing you want is a woman talking about rugby”.'+
     ' You look around and see other women looking uncomfortable, matching your feelings.']
 },
