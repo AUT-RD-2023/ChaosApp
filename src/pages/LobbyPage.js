@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom';
 import { configureAbly, usePresence } from "@ably-labs/react-hooks";
 import SettingsPage from './SettingsPage.js';
 import { NavLink } from 'react-router-dom';
-import SettingsPage from './SettingsPage.js';
 
 // Components
 import Button from '../components/Button.js'

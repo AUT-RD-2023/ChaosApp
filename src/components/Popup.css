@@ -1,4 +1,4 @@
-.container {
+.popup {
     position: fixed;
     top: 0;
     left: 0;
@@ -15,7 +15,7 @@
     position: relative;
     width: 100%;
     padding-top: 50px;
-    height: 75%;
+    height: 100%;
     max-width: 640px;
     background-color: #fff;
     display:flex;
