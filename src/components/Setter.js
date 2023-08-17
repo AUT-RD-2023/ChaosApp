@@ -14,7 +14,6 @@ function Setter(props) {
        }
         props.setTimer(defaultNum);
         console.log(defaultNum);
-        // return defaultNum;
 
     }
 
@@ -22,8 +21,6 @@ function Setter(props) {
         defaultNum -= value;
         props.setTimer(defaultNum);
         console.log(defaultNum);
-
-        // return defaultNum;
     }
   
 
@@ -33,9 +30,10 @@ function Setter(props) {
             <Input 
                     placeholder={defaultNum}
                     maxLength={5}
-                    onChange={ (e) => props.setTimer((e.target.value) )} 
+                    onChange={ (e) => props.setTimer((e.target.value) )}
                 />
-            <button className="decrease-button" onClick={() =>decreaseNum()} > -</button>
+            <button className="decrease-button" onClick={() => 
+                decreaseNum()}> -</button>
         </div>
     )
 }
