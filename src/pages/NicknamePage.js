@@ -21,10 +21,11 @@ function NicknamePage() {
 
     const isHost = location.state?.isHost;
     const joinPin = params?.pinNumber;
+    
 
-    if(!isHost) { // Redirects to the 404 page if url contains an incorrect pin code format.
+    if(!isHost) { 
         if(!((joinPin.length === 5) && (/^[0-9\b]+$/.test(joinPin)))) {
-            window.location.href = "#/404";
+            window.location.href = "#/404"; // Redirects to the 404 page if url contains an incorrect pin code format.
         } 
     }
 
@@ -41,7 +42,7 @@ function NicknamePage() {
 
     useEffect(() => {
         if(!isHost) {
-            const entryData = ref(database, 'lobbies/lobby-' + gamePin); // Get a reference to the data at this path in the database
+            const entryData = ref(database, 'lobby-' + gamePin); // Get a reference to the data at this path in the database
 
             onValue(entryData, (snapshot) => { // Get a snapshot of the current value of the data
                 if(!snapshot.exists()) { 
@@ -49,7 +50,7 @@ function NicknamePage() {
                 }});            
             
             let sessionStarted;
-            const sessionData = ref(database, 'lobbies/lobby-' + gamePin + '/inSession');
+            const sessionData = ref(database, 'lobby-' + gamePin + '/inSession');
 
             onValue(sessionData, (snapshot) => { sessionStarted = snapshot.val(); });
             if(sessionStarted) { navigate("/Error/session-started"); }

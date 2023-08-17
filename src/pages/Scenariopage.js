@@ -1,6 +1,13 @@
+// React
 import React, { useState, useRef } from 'react';
 import { useLocation } from "react-router-dom";
+import { useChannel } from "@ably-labs/react-hooks";
 
+// Database
+import { ref, set } from "firebase/database";
+import { database } from '../database.js';
+
+// Variables
 import { scenario } from '../components/Scenarios.js';
 
 // Components
@@ -17,6 +24,8 @@ function ScenarioPage() {
     const { state } = location;
     state.activity = "discussion";
 
+    /* SCENARIO */
+
     // Randomly generates an index num for scenario type & its scenario.
     const randType = useRef( Math.floor(Math.random() * 3) + 1 ).current;
     const randScenario = useRef( Math.floor(Math.random() * 2 )).current;
@@ -28,32 +37,57 @@ function ScenarioPage() {
 
     /* BUTTON */
 
-    /*  when submit button is pressed
-        - disable text input area [✓]
-        - disable submit button [✓]
-        - change text on submit button to checkmark [X]
-        - store response in messages array using ably [X]
-        - save response to database [X]
-    */
-
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const [textAreaDisabled, setTextAreaDisabled] = useState(false);
 
     const handleSubmit = () => {
-        console.log("Submit button pressed.")
         setButtonDisabled(true);
         setTextAreaDisabled(true);
-    }
         
+        sendMessage();
+        updateDatabase();
+    }
+
+    /* ABLY */
+
+    const channelName = state.channel;
+    const [message, setMessage] = useState('');
+    const [messages, updateMessages] = useState([]);
+
+    // Receive and send messages from Ably
+    const [channel] = useChannel(channelName, (message) => {
+        updateMessages((prev) => [...prev, message]);
+    });
+
+    const sendMessage = () => {
+        if (channel && message.trim() !== '') {
+            channel.publish("Response", { text: state.nickname + ": " + message });
+        }
+    };
+
+    const messagePreviews = messages.map((msg, index) => <li key={index}>{msg.data.text}</li>);
+
+    /* DATABASE */
+    
+    const updateDatabase = () => {
+        set(ref(database, 'lobby-' + state.gamePin + '/responses/round-' + state.round + "/" + state.id), {
+        response: message // Add the users message to the database while tracking the current round and the users id
+        }); 
+    } 
+        
+    /* RENDER */
+
     return(
         <div className="App">
             <div className="header">
                 <div className="name"><strong>{ state.nickname }</strong></div>
                 <div className="round">ROUND { state.round }/5</div>
             </div>
+
             <div className={style.timer}>
-                <TimerBar timeLength="1200" path="/Bridge" state={ state }/>
+                <TimerBar timeLength="30" path="/Bridge"/>
             </div>
+
             <div className="content">
                 <div className={style.container}>
                     <h1 className={style.heading}>SCENARIO</h1>
@@ -62,6 +96,7 @@ function ScenarioPage() {
                     <TextArea 
                         placeholder="Enter Response..."
                         disabled={ textAreaDisabled }
+                        onChange={(e) => setMessage(e.target.value)}
                     />
                     <div style={{marginTop: "2vh"}}>
                         <Button 
@@ -72,6 +107,8 @@ function ScenarioPage() {
                     </div>
                 </div>
             </div>
+
+            { true ? "" : <span>  <h2>Responses</h2><ul>{messagePreviews}</ul> </span> /* Placeholder responses view */ }
         </div>
     );
 }

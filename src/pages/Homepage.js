@@ -19,10 +19,10 @@ const Homepage = () => {
     /* DATABASE */
 
     const [dbExists, setDbExists] = useState(false);    
-    const entryData = ref(database, 'lobbies/lobby-' + gamePin);
+    const entryData = ref(database, 'lobby-' + gamePin);
 
     const [dbSession, setDbSession] = useState(false);
-    const sessionData = ref(database, 'lobbies/lobby-' + gamePin + '/inSession');
+    const sessionData = ref(database, 'lobby-' + gamePin + '/inSession');
 
     const checkDatabase = useCallback(() => {
         onValue(entryData, (snapshot) => {
