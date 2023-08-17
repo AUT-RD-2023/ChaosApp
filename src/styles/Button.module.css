@@ -30,6 +30,20 @@
 
 }
 
+.textarea {
+      box-sizing: border-box;
+      color: #000000;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 400;
+      outline: none;
+      resize: none;
+}
+
+.textarea::placeholder {
+      color: #ADADAD;
+
+}
+
 @media (orientation: portrait) {
       .button {
             width: 60vw;
@@ -50,6 +64,15 @@
             letter-spacing: 0.4vw;
 
       }
+
+      .textarea {
+            width: 65vw;
+            height: 25vw;
+            border: 0.1vw solid #8E8D8A;
+            border-radius: 7.2vw;
+            font-size: 4.5vw;
+            padding: 2vh 2vw 1vh 3.5vw;
+      }
 }
 
 @media (orientation: landscape) {
@@ -68,5 +91,14 @@
             border: 0.1vw solid #8E8D8A;
             border-radius: 3vw;
             font-size: 1.9vw;
+      }
+
+      .textarea {
+            width: 25vw;
+            height: 7vw;
+            border: 0.1vw solid #8E8D8A;
+            border-radius: 1.9vw;
+            font-size: 1.2vw;
+            padding: 2vh 0.8vw 2vh 1.2vw;
       }
 }

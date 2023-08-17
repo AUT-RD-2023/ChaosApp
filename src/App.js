@@ -10,8 +10,11 @@ import './App.css';
 import Homepage from './pages/Homepage';
 import LobbyPage from './pages/LobbyPage';
 import NicknamePage from './pages/NicknamePage';
+import ErrorPage from './pages/ErrorPage';
 import PageNotFound from './pages/404';
 import Bridge from './pages/Bridge';
+import Scenariopage from './pages/Scenariopage'
+import Message from './pages/Message';
 
 function App() {
   return (     
@@ -22,8 +25,12 @@ function App() {
         <Route path="/Lobby" element={<LobbyPage />} />
         <Route path="/Lobby/link/:pinNumber" element={<NicknamePage />} /> 
         <Route path="/Host" element={<NicknamePage />} />
-        <Route path="*" element={<PageNotFound />} />
+        <Route path="/Error/:error" element={<ErrorPage />} />
+        <Route path="/404" element={<PageNotFound />} /> 
+        <Route path="*" element={<PageNotFound />} /> 
         <Route path="/Bridge" element={<Bridge />} />
+        <Route path="/Scenariopage" element={<Scenariopage />} />
+        <Route path="/Message" element={<Message />} />
       </Routes>
     </div>
   );
