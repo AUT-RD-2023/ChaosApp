@@ -8,7 +8,7 @@
 }
 
 .increase-button, .decrease-button {
-  width: 5vw;
+  width: 15%;
   height: 9vh;
   background: #75A78F;
   box-sizing: border-box;
@@ -19,6 +19,8 @@
   margin-left: 2vw;
   margin-right: 2vw;
 }
+
+
 
 .value {
   font-family: 'Quicksand', sans-serif;
@@ -31,7 +33,13 @@
     font-family: 'Quicksand', sans-serif;
   }
 
-.title {
-  font-family: 'Rubik', sans-serif;
-  letter-spacing: 0.4vw;
+.header {
+  color: #3A847C;
+  font-size: 5vw;
+  font-family: Rubik;
+  font-weight: 600;
+  letter-spacing: 8px;
+  word-wrap: break-word;
+  margin-top: 10%;
+  margin-left: 21%;
 }
