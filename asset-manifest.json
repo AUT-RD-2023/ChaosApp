@@ -1,17 +1,18 @@
 {
   "files": {
-    "main.css": "/ChaosApp/static/css/main.76410cb4.css",
-    "main.js": "/ChaosApp/static/js/main.dd90342a.js",
+    "main.css": "/ChaosApp/static/css/main.7575542c.css",
+    "main.js": "/ChaosApp/static/js/main.1913c343.js",
+    "static/media/Rubik-Regular.ttf": "/ChaosApp/static/media/Rubik-Regular.da833151ff7aaedb5f16.ttf",
     "static/media/rubik-semi-bold.ttf": "/ChaosApp/static/media/rubik-semi-bold.52d2adf4cb818e79b61d.ttf",
     "service-worker.js": "/ChaosApp/service-worker.js",
     "static/media/quicksand-regular.otf": "/ChaosApp/static/media/quicksand-regular.1a8cbf2a0b04da5410e2.otf",
     "static/media/lufga-regular.otf": "/ChaosApp/static/media/lufga-regular.ac50ed8ff14d1be217d3.otf",
     "index.html": "/ChaosApp/index.html",
-    "main.76410cb4.css.map": "/ChaosApp/static/css/main.76410cb4.css.map",
-    "main.dd90342a.js.map": "/ChaosApp/static/js/main.dd90342a.js.map"
+    "main.7575542c.css.map": "/ChaosApp/static/css/main.7575542c.css.map",
+    "main.1913c343.js.map": "/ChaosApp/static/js/main.1913c343.js.map"
   },
   "entrypoints": [
-    "static/css/main.76410cb4.css",
-    "static/js/main.dd90342a.js"
+    "static/css/main.7575542c.css",
+    "static/js/main.1913c343.js"
   ]
 }
