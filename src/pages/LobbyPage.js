@@ -80,14 +80,14 @@ const LobbyPage = () => {
                     <p style={{textAlign: 'center'}}>{textVisible ? "Link Copied!" : ""}</p>
                 </div>
                 <div>
-                    {isHost ?   <button onClick={() => setButtonPopup(true)}>Open Popup
-                            </button> : ""}
+                    {isHost ?   <Button name="SETTINGS" press={() => setButtonPopup(true)}>
+                            </Button> : "" }
                 </div>
                 <div>
                             <p>{isHost ? "[DEBUG] You are the host." : "[DEBUG] You are NOT the host."}</p>
                 </div>
                         <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-                            <SettingsPage setTrigger={setButtonPopup}/>
+                            <SettingsPage trigger={buttonPopup} setTrigger={setButtonPopup}/>
                         </Popup>
    
             </span> 

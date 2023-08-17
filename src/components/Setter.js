@@ -1,5 +1,7 @@
 import './Settings.css';
 import Input from './Input.js';
+import Button from '../components/Button.js';
+
 
 
 function Setter(props) {
@@ -9,7 +11,7 @@ function Setter(props) {
 
     return (
         <div className="setter">
-            <button className="increase-button" > + </button>
+            <button name="+" className="increase-button" > + </button>
             <Input 
                     placeholder={defaultNum}
                     maxLength={5}

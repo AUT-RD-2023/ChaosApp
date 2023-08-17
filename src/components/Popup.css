@@ -33,14 +33,14 @@
     position: fixed;
     color: #fff;
     top:22%;
-    left: 30%;
+    left: 28%;
     width: 5%;
     height: 9%;
     border-radius: 50%;
     border: #fff;
-    background: #2D7C73;
+    background: #75A78F;
 }
 
 .popup-inner .close-btn:hover {
-    background: #296A62;
+    background: #2D7C73;
 }
