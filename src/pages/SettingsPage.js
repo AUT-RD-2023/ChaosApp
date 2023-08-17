@@ -1,6 +1,8 @@
-import '../components/Setter.css';
+import '../components/Settings.css';
 import Setter from '../components/Setter';
-import '../App.css'
+import '../App.css';
+import Button from '../components/Button.js';
+
 
 function SettingsPage() {
     let round = 5;
@@ -29,8 +31,9 @@ return (
                 <h3 className= "subtitle">Voting Timer (+30sec)</h3>
                 <Setter original={round} value={1}/>               
             </div>
-            <button className="button" >Save</button>
-            <button className="button" >Cancel</button>
+            <div><Button name="SAVE" /></div>
+            <div><Button name="CANCEL" /></div>
+            
         </form>
     </div>
     

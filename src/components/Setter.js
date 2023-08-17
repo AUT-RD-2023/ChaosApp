@@ -1,15 +1,15 @@
-import './Setter.css';
+import './Settings.css';
 import Input from './Input.js';
 
 
 function Setter(props) {
 
     let defaultNum = props.original;
-
+    // let value = props.value;
 
     return (
         <div className="setter">
-            <div className="increase-button" onClick={() => defaultNum += props.value}> + </div>
+            <button className="increase-button" > + </button>
             <Input 
                     placeholder={defaultNum}
                     maxLength={5}
