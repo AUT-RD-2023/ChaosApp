@@ -1,5 +1,4 @@
 import './Setter.css';
-import useState from 'react';
 import Input from './Input.js';
 
 
@@ -10,11 +9,11 @@ function Setter(props) {
 
     return (
         <div className="setter">
-            <button className="increase-button"> + </button>
+            <div className="increase-button" onClick={() => defaultNum += props.value}> + </div>
             <Input 
                     placeholder={defaultNum}
                     maxLength={5}
-                    // onChange={ (e) => setSettingsValue((e.target.value) += props.value )} 
+                    // onChange={ (e) => setSettingsValue((e.target.value) )} 
                 />
                 {/* <p>{defaultNum}</p> */}
             <button className="decrease-button"> - </button>

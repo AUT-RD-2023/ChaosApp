@@ -30,6 +30,7 @@ return (
                 <Setter original={round} value={1}/>               
             </div>
             <button className="button" >Save</button>
+            <button className="button" >Cancel</button>
         </form>
     </div>
     
