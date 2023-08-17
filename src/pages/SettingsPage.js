@@ -31,9 +31,8 @@ return (
                 <h3 className= "subtitle">Voting Timer (+30sec)</h3>
                 <Setter original={round} value={1}/>               
             </div>
-            <div><Button name="SAVE" /></div>
-            <div><Button name="CANCEL" /></div>
-            
+            <div className="settings-btns"><Button name="SAVE" /></div>
+            <div className="settings-btns"><Button name="CANCEL" /></div>  
         </form>
     </div>
     
