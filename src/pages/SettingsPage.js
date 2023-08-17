@@ -5,22 +5,18 @@ import Button from '../components/Button.js';
 import React, { useState } from 'react';
 
 
-
 function SettingsPage(props) {
-    const [round, setRound] = useState("");
-    const [discussTimer, setDiscussTimer] = useState("");
-    const [responseTimer, setResponseTimer] = useState("");
-    const [votingTimer, setVotingTimer] = useState("");
-    // let round = 5;
-    // let discussTimer = 30;
-    // let responseTimer = 30;
-    // let votingTimer = 30;
+    const [round, setRound] = useState(5);
+    const [discussTimer, setDiscussTimer] = useState(30);
+    const [responseTimer, setResponseTimer] = useState(30);
+    const [votingTimer, setVotingTimer] = useState(30);
+ 
 
 
 return  (
     <div className="settings">
         <h1 className="header">SETTINGS</h1>
-        <form>
+        <div>
             {/* {original} is the default value for each setting */}
             {/* {value} is the increment/decrement value of the buttons for each setting */}
             <div className="number-of-rounds">
@@ -43,9 +39,12 @@ return  (
                 <Setter original={votingTimer} value={30} setTimer={setVotingTimer} />               
             </div>
             <div className="divider"></div>
-            <div className="settings-btns"><Button name="SAVE" press={() => props.setTrigger(false)}/></div>  
+            <div className="settings-btns"><Button name="SAVE" press={() => {
+                console.log("Saved round: " + round);
+                props.setTrigger(false);
+            }}/></div>  
             <div className="settings-btns"><Button name="CANCEL" press={() => props.setTrigger(false)}/></div>  
-        </form>
+        </div>
     </div>
     
 

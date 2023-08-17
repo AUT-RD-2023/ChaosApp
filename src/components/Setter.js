@@ -7,17 +7,23 @@ function Setter(props) {
     let defaultNum = props.original;
     let value = props.value;
 
+
     function increaseNum() {
-        defaultNum += value;
+       for (let i = 0; i < value; i++){
+        defaultNum++;
+       }
         props.setTimer(defaultNum);
-        return defaultNum;
+        console.log(defaultNum);
+        // return defaultNum;
 
     }
 
     function decreaseNum() {
         defaultNum -= value;
         props.setTimer(defaultNum);
-        return defaultNum;
+        console.log(defaultNum);
+
+        // return defaultNum;
     }
   
 

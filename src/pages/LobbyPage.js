@@ -19,7 +19,7 @@ const LobbyPage = () => {
     const gamePin  = location.state?.gamePin;
     const identity = location.state?.identity;
     const isHost   = location.state?.isHost;
-
+    
 
     console.log(gamePin);
     console.log(identity.playerId);
