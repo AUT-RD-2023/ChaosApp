@@ -2,13 +2,19 @@ import '../components/Settings.css';
 import Setter from '../components/Setter';
 import '../App.css';
 import Button from '../components/Button.js';
+import React, { useState } from 'react';
+
 
 
 function SettingsPage(props) {
-    let round = 5;
-    let discussTimer = 30;
-    let responseTimer = 30;
-    let votingTimer = 30;
+    const [round, setRound] = useState("");
+    const [discussTimer, setDiscussTimer] = useState("");
+    const [responseTimer, setResponseTimer] = useState("");
+    const [votingTimer, setVotingTimer] = useState("");
+    // let round = 5;
+    // let discussTimer = 30;
+    // let responseTimer = 30;
+    // let votingTimer = 30;
 
 
 return  (
@@ -19,25 +25,25 @@ return  (
             {/* {value} is the increment/decrement value of the buttons for each setting */}
             <div className="number-of-rounds">
                 <h3 className= "subtitle">Number of rounds</h3>
-                <Setter original={round} value={1} />               
+                <Setter original={round} value={1} setTimer={setRound} />               
             </div>
             <div className="divider"></div>
             <div className="response-timer">
                 <h3 className= "subtitle">Response Timer (+30sec)</h3>
-                <Setter original={responseTimer} value={30}/>               
+                <Setter original={responseTimer} value={30} setTimer={setResponseTimer} />               
             </div>
             <div className="divider"></div>
             <div className="discussion-timer">
                 <h3 className= "subtitle">Discussion Timer (+30sec)</h3>
-                <Setter original={discussTimer} value={30}/>               
+                <Setter original={discussTimer} value={30} setTimer={setDiscussTimer} />               
             </div>
             <div className="divider"></div>
             <div className="voting-timer">
                 <h3 className= "subtitle">Voting Timer (+30sec)</h3>
-                <Setter original={votingTimer} value={30}/>               
+                <Setter original={votingTimer} value={30} setTimer={setVotingTimer} />               
             </div>
             <div className="divider"></div>
-            <div className="settings-btns"><Button name="SAVE" /></div>
+            <div className="settings-btns"><Button name="SAVE" press={() => props.setTrigger(false)}/></div>  
             <div className="settings-btns"><Button name="CANCEL" press={() => props.setTrigger(false)}/></div>  
         </form>
     </div>
