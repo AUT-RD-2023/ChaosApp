@@ -9,6 +9,8 @@ import { database } from '../database.js';
 
 // Components
 import Button from '../components/Button.js';
+import SettingsPage from './SettingsPage.js';
+import Popup from '../components/Popup.js';
 
 // Styles
 import style from '../styles/LobbyPage.module.css';
@@ -62,6 +64,8 @@ const LobbyPage = () => {
     /* INVITE LINK */
 
     const [textVisible, setTextVisible] = useState(false);
+
+    const [buttonPopup, setButtonPopup] = useState(false);
     
     const copyUrl = () =>{
         navigator.clipboard.writeText(window.location.href + `/link/${gamePin}`);
@@ -103,6 +107,13 @@ const LobbyPage = () => {
                     <Button name="INVITE" press={copyUrl}/>
                     <p style={{textAlign: 'center'}}><strong>{textVisible ? "Link Copied!" : ""}</strong></p>
                 </div>
+                <div>
+                    {isHost ?   <Button name="SETTINGS" press={() => setButtonPopup(true)}>
+                    </Button> : "" }
+                </div>
+                <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+                            <SettingsPage trigger={buttonPopup} setTrigger={setButtonPopup}/>
+                </Popup>
             </span> 
         </div>
     );

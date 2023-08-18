@@ -12,7 +12,7 @@ import { scenario } from '../components/Scenarios.js';
 
 // Components
 import Button from '../components/Button.js'
-import TextArea from '../components/TextArea.js'
+import TextArea from '../components/Textarea.js'
 import TimerBar from '../components/TimerBar.js'
 
 // Styles
