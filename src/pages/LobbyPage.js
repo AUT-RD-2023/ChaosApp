@@ -57,15 +57,14 @@ const LobbyPage = () => {
     function startSession() {
         set(ref(database, 'lobby-' + gamePin), {
             gamePin: gamePin,
-            inSession: true
+            inSession: true,
+            discussionTimer: 30
         });
     }
 
     /* INVITE LINK */
 
     const [textVisible, setTextVisible] = useState(false);
-
-    const [buttonPopup, setButtonPopup] = useState(false);
     
     const copyUrl = () =>{
         navigator.clipboard.writeText(window.location.href + `/link/${gamePin}`);
@@ -75,6 +74,10 @@ const LobbyPage = () => {
             setTextVisible(false);
         }, 2000);        
     };
+
+    /* SETTINGS */
+
+    const [buttonPopup, setButtonPopup] = useState(false);
 
     /* RENDER */
 

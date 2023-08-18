@@ -3,15 +3,35 @@ import Setter from '../components/Setter';
 import '../App.css';
 import Button from '../components/Button.js';
 import React, { useState } from 'react';
+import { useLocation } from "react-router-dom";
+
+// Database
+import { ref, set } from "firebase/database";
+import { database } from '../database.js';
 
 
 function SettingsPage(props) {
+    const location = useLocation();
+    const { state } = location;
+
+    const gamePin  = location.state?.gamePin;
+
     const [round, setRound] = useState(5);
     const [discussTimer, setDiscussTimer] = useState(30);
     const [responseTimer, setResponseTimer] = useState(30);
     const [votingTimer, setVotingTimer] = useState(30);
- 
 
+    /** DATABASE */
+
+    // Add discussion timer time to database
+    const updateDatabase = () => {
+        set(ref(database, 'lobby-' + state.gamePin), {
+            gamePin: gamePin,
+            inSession: false,
+            discussionTimer: discussTimer 
+        }); 
+
+    } 
 
 return  (
     <div className="settings">
@@ -31,7 +51,7 @@ return  (
             <div className="divider"></div>
             <div className="discussion-timer">
                 <h3 className= "subtitle">Discussion Timer (+30sec)</h3>
-                <Setter original={discussTimer} value={30} setTimer={setDiscussTimer} />               
+                <Setter original={discussTimer} value={30} setTimer={setDiscussTimer}/>               
             </div>
             <div className="divider"></div>
             <div className="voting-timer">
@@ -40,6 +60,7 @@ return  (
             </div>
             <div className="divider"></div>
             <div className="settings-btns"><Button name="SAVE" press={() => {
+                updateDatabase(); //function is called when the save button is pressed
                 console.log("Saved round: " + round);
                 props.setTrigger(false);
             }}/></div>  

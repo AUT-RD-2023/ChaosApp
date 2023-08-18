@@ -1,10 +1,10 @@
 // React
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useLocation } from "react-router-dom";
 import { useChannel } from "@ably-labs/react-hooks";
 
 // Database
-import { ref, set } from "firebase/database";
+import { ref, set, onValue } from "firebase/database";
 import { database } from '../database.js';
 
 // Variables
@@ -23,6 +23,8 @@ function ScenarioPage() {
     const location = useLocation();
     const { state } = location;
     state.activity = "discussion";
+
+    const gamePin  = location.state?.gamePin;
 
     /* SCENARIO */
 
@@ -68,6 +70,16 @@ function ScenarioPage() {
     const messagePreviews = messages.map((msg, index) => <li key={index}>{msg.data.text}</li>);
 
     /* DATABASE */
+
+    const timerData = ref(database, 'lobby-' + gamePin + '/discussionTimer');
+    const [discussTimer, setDiscussTimer] = useState(30);
+   
+    //Retrieve timer data from database and set it to discussTimer
+    useEffect(() => {
+        onValue(timerData, (snapshot) => {
+            setDiscussTimer(snapshot.val());
+        }); console.log('Timer data:' + {discussTimer})
+    },[]);
     
     const updateDatabase = () => {
         set(ref(database, 'lobby-' + state.gamePin + '/responses/round-' + state.round + "/" + state.id), {
@@ -85,7 +97,7 @@ function ScenarioPage() {
             </div>
 
             <div className={style.timer}>
-                <TimerBar timeLength="30" path="/Bridge"/>
+                <TimerBar timeLength={discussTimer} path="/Bridge"/>
             </div>
 
             <div className="content">
