@@ -13,7 +13,7 @@ import NicknamePage from './pages/NicknamePage';
 import ErrorPage from './pages/ErrorPage';
 import PageNotFound from './pages/404';
 import Bridge from './pages/Bridge';
-import ScenarioPage from './pages/Scenariopage'
+import ScenarioPage from './pages/Scenariopage';
 
 function App() {
   return (     

@@ -12,6 +12,8 @@ import { database } from '../database.js';
 
 // Components
 import Button from '../components/Button.js';
+ import SlideSettings from '../components/HowToPlay.js';
+import HowToPlay from '../components/SlideSettings.js';
 
 // Styles
 import style from '../styles/LobbyPage.module.css';
@@ -80,6 +82,9 @@ const LobbyPage = () => {
     const playButtonJSX = (<><Button name="PLAY" press={handleStart}/><div className={style.spacer}></div></>);
 
     return (
+        <>
+            <SlideSettings/>
+            <HowToPlay/>
         <div className={style.page}>
             <div className={style.header}>
                 <div className={style.subtitle}>Chaos</div>
@@ -103,6 +108,7 @@ const LobbyPage = () => {
                 </div>
             </div>
         </div>
+        </>
     );
 }
 
