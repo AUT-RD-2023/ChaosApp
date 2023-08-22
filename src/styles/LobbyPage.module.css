@@ -147,8 +147,11 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        min-height: calc(((0.26 * 50vw) * 2) + 2vh);
         margin: 4vw auto 2vh auto;
+    }
+
+    .spacer{
+        height: 3vw;
     }
 }
 
