@@ -31,6 +31,7 @@ function App() {
         <Route path="/Bridge" element={<Bridge />} />
         <Route path="/Scenario" element={<ScenarioPage />} />
         <Route path="/Message" element={<Message />} />
+        <Route path="/Test" element={<Test />} />
       </Routes>
     </div>
   );

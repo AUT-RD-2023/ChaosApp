@@ -1,0 +1,34 @@
+.page {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    width: 100vw;
+}
+
+
+.block1 {
+    margin-top: 1.5%;
+    margin-bottom: 2%;
+    width: 100vw;
+    height: fit-content;
+}
+
+.block2 {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100%;
+    height: fit-content;
+    overflow: hidden;
+    margin-top: 2%;
+}
+
+.block3 {
+
+    display: flex;
+    margin: 3% auto 4% auto;
+    width: fit-content;
+    height: fit-content;
+    /*background-color: blue;*/
+}
+

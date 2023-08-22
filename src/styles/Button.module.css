@@ -46,13 +46,14 @@
 
 @media (orientation: portrait) {
       .button {
-            width: 60vw;
-            height: 14.4vw;
+            width: 22vh;
+            height: 5vh;
             border: 0.2vw solid #2D7C73;
             border-radius: 7.2vw;
             filter: drop-shadow(0 1.6vw 1vw rgba(0, 0, 0, 0.25));
-            font-size: 5.76vw;
+            font-size: 2vh;
             letter-spacing: 0.4vw;
+            text-wrap: none;
       }
 
       .input {

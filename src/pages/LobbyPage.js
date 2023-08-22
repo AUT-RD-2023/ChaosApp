@@ -82,42 +82,43 @@ const LobbyPage = () => {
     /* RENDER */
 
     const playButtonJSX = (       
-        <div className={style.buttons}>
+        <div>
             <Button name="PLAY" press={handleStart}/>
         </div>);
 
     return (
         <div className="App">
-            <span className={style.lobby}>
-                <div className={style.subtitle}>Chaos</div>
-
-                <div className={style.pin}>
-                    <span className={style.label}>GAME PIN: <br/></span>
-                    <span className={style.number}>{channelName}</span>
+                <div className={style.header}>
+                    <div className={style.subtitle}>Chaos</div>
                 </div>
-
-                <div className={style.container}>
-                    <div className={style.players}>
-                        {presenceUsers.map((user, index) => (
-                            <div className={style.grid_cell} key={user.clientId}>{user.data.nickname}</div>
-                        ))}
+                <div className={style.lobby}>
+                    <div className={style.pin}>
+                        <span className={style.label}>GAME PIN: <br/></span>
+                        <span className={style.number}>{channelName}</span>
                     </div>
-                </div>
 
-                {isHost ? playButtonJSX : null}
+                    <div className={style.container}>
+                        <div className={style.players}>
+                            {presenceUsers.map((user, index) => (
+                                <div className={style.grid_cell} key={user.clientId}>{user.data.nickname}</div>
+                            ))}
+                        </div>
+                    </div>
 
-                <div className={style.buttons}>
-                    <Button name="INVITE" press={copyUrl}/>
-                    <p style={{textAlign: 'center'}}><strong>{textVisible ? "Link Copied!" : ""}</strong></p>
+                    <div className={style.buttons}>
+                        {isHost ? playButtonJSX : null}
+                        <div className={style.spacer}></div>
+                        <Button name="INVITE" press={copyUrl}/>
+                        <p style={{textAlign: 'center'}}><strong>{textVisible ? "Link Copied!" : ""}</strong></p>
+                    </div>
+                    {/*<div>*/}
+                    {/*    {isHost ?   <Button name="SETTINGS" press={() => setButtonPopup(true)}>*/}
+                    {/*    </Button> : null }*/}
+                    {/*</div>*/}
+                    {/*<Popup trigger={buttonPopup} setTrigger={setButtonPopup}>*/}
+                    {/*            <SettingsPage trigger={buttonPopup} setTrigger={setButtonPopup}/>*/}
+                    {/*</Popup>*/}
                 </div>
-                <div>
-                    {isHost ?   <Button name="SETTINGS" press={() => setButtonPopup(true)}>
-                    </Button> : "" }
-                </div>
-                <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-                            <SettingsPage trigger={buttonPopup} setTrigger={setButtonPopup}/>
-                </Popup>
-            </span> 
         </div>
     );
 }
