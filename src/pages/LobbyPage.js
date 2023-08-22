@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { configureAbly, useChannel, usePresence } from "@ably-labs/react-hooks";
+
+// Redux
 import { useSelector } from 'react-redux'
 
 // Database
@@ -17,20 +19,21 @@ import '../App.css';
 
 const LobbyPage = () => {
     const gamePin = useSelector((state) => state.session.gamePin)
-    const identity = useSelector((state) => state.session.identity)
+    const playerId = useSelector((state) => state.session.playerId)
+    const nickname = useSelector((state) => state.session.nickname)
     const isHost = useSelector((state) => state.session.isHost)
 
     const navigate = useNavigate();
 
     /* ABLY */
-    configureAbly({key: "yqb0VQ.Av_Gmg:pItSDLVHuUqgEGYCqdOhVSr4Ypktm7764_a0mhpwbEY", clientId: identity.playerId});
+    configureAbly({key: "yqb0VQ.Av_Gmg:pItSDLVHuUqgEGYCqdOhVSr4Ypktm7764_a0mhpwbEY", clientId: playerId});
 
     const channelName = "" + gamePin;
-    const [presenceUsers] = usePresence(channelName, { nickname: identity.nickname });
+    const [presenceUsers] = usePresence(channelName, { nickname: nickname });
     
     const [channel] = useChannel(channelName, (message) => { // Page navigation when host presses start
         if(message.data.text === "true") {
-            navigate("/Bridge", { state: { activity: "start", round: 1, id: identity.playerId, nickname: identity.nickname }});
+            navigate("/Bridge", { state: { activity: "start", round: 1 }});
         }
     });
 

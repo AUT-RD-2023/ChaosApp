@@ -4,7 +4,7 @@ import { NavLink, useParams, useNavigate } from 'react-router-dom';
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux'
-import { setSessionId, setIdentity } from "../Redux/sessionSlice"
+import { setSessionId, setName, setPlayerId } from "../Redux/sessionSlice"
 
 // Database
 import { ref, onValue } from "firebase/database";
@@ -38,7 +38,8 @@ function NicknamePage() {
 
     const handleClick = () => {
         identity.makeNickname(nickname);
-        dispatch(setIdentity(identity))
+        dispatch(setPlayerId(identity.playerId))
+        dispatch(setName(identity.nickname))
     }
 
     const gamePin = useRef({ value: isHost ? Math.floor(Math.random() * 89999 + 10000) : joinPin }).current.value;

@@ -23,7 +23,8 @@ import '../App.css';
 function ScenarioPage() {
     const location = useLocation();
     const gamePin = useSelector((state) => state.session.gamePin)
-    const identity = useSelector((state) => state.session.identity)
+    const playerId = useSelector((state) => state.session.playerId)
+    const nickname = useSelector((state) => state.session.nickname)
 
     const { state } = location;
     state.activity = "discussion";
@@ -64,7 +65,7 @@ function ScenarioPage() {
 
     const sendMessage = () => {
         if (channel && message.trim() !== '') {
-            channel.publish("Response", { text: identity.nickname + ": " + message });
+            channel.publish("Response", { text: nickname + ": " + message });
         }
     };
 
@@ -83,7 +84,7 @@ function ScenarioPage() {
     },[]);*/
     
     const updateDatabase = () => {
-        set(ref(database, 'lobby-' + gamePin + '/responses/round-' + state.round + "/" + identity.id), {
+        set(ref(database, 'lobby-' + gamePin + '/responses/round-' + state.round + "/" + playerId), {
         response: message // Add the users message to the database while tracking the current round and the users id
         }); 
     } 
@@ -93,7 +94,7 @@ function ScenarioPage() {
     return(
         <div className="App">
             <div className="header">
-                <div className="name"><strong>{ identity.nickname }</strong></div>
+                <div className="name"><strong>{ nickname }</strong></div>
                 <div className="round">ROUND { state.round }/5</div>
             </div>
 
@@ -120,7 +121,6 @@ function ScenarioPage() {
                     </div>
                 </div>
             </div>
-
             { true ? "" : <span>  <h2>Responses</h2><ul>{messagePreviews}</ul> </span> /* Placeholder responses view */ }
         </div>
     );

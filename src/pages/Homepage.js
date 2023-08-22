@@ -3,6 +3,9 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 
+// Redux
+import { setIsHost } from "../Redux/sessionSlice";
+
 // Database
 import { database } from '../database.js';
 import { ref, onValue } from "firebase/database";
@@ -13,7 +16,6 @@ import Input from '../components/Input.js'
 
 // Styles
 import '../App.css';
-import { setIsHost } from "../Redux/sessionSlice";
 
 const Homepage = () => {
     const [gamePin, setGamePin] = useState("");
