@@ -13,8 +13,9 @@ import NicknamePage from './pages/NicknamePage';
 import ErrorPage from './pages/ErrorPage';
 import PageNotFound from './pages/404';
 import Bridge from './pages/Bridge';
-import ScenarioPage from './pages/ScenarioPage'
+import ScenarioPage from './pages/ScenarioPage';
 import Message from './pages/Message';
+import DiscussionPage from './pages/DiscussionPage';
 
 function App() {
   return (     
@@ -31,6 +32,7 @@ function App() {
         <Route path="/Bridge" element={<Bridge />} />
         <Route path="/Scenario" element={<ScenarioPage />} />
         <Route path="/Message" element={<Message />} />
+        <Route path="/Discussion" element={<DiscussionPage />} />
       </Routes>
     </div>
   );
