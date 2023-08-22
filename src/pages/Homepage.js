@@ -17,6 +17,7 @@ import { setIsHost } from "../Redux/sessionSlice";
 
 const Homepage = () => {
     const [gamePin, setGamePin] = useState("");
+    const dispatch = useDispatch();
 
     /* DATABASE */
 
@@ -70,7 +71,7 @@ const Homepage = () => {
                 <NavLink 
                     to={ dbExists && !dbSession ? `/Lobby/link/${gamePin}` : null } 
                     onClick={ checkDatabase }
-                    state={{ isHost: false, joinPin: gamePin }}
+                    state={ { joinPin: gamePin }}
                 >
                     <Button 
                         name="JOIN" //check if the provided Game Pin is at least 5 characters long, only contains numbers and isn't made up of only whitespace

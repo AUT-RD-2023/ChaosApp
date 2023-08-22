@@ -1,6 +1,6 @@
 // React
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { configureAbly, useChannel, usePresence } from "@ably-labs/react-hooks";
 import { useSelector } from 'react-redux'
 
@@ -72,10 +72,6 @@ const LobbyPage = () => {
         }, 2000);
     };
 
-    /* SETTINGS */
-
-    const [buttonPopup, setButtonPopup] = useState(false);
-
     /* RENDER */
 
     const playButtonJSX = (<><Button name="PLAY" press={handleStart}/><div className={style.spacer}></div></>);
@@ -92,7 +88,7 @@ const LobbyPage = () => {
             <div className={style.lobby}>
                 <div className={style.buttons}>
                     {isHost ? playButtonJSX : null}
-                    <Button name="INVITE" press={copyUrl}/>
+                    <Button name={textVisible ? "✓" : "INVITE"} press={copyUrl}/>
                     {/*<p style={{textAlign: 'center'}}>{textVisible ? "Link Copied!" : ""}</p>*/}
                 </div>
                 <div className={style.container}>

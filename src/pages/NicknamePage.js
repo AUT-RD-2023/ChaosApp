@@ -24,8 +24,6 @@ function NicknamePage() {
 
     const navigate = useNavigate();
     const params = useParams();
-
-    const isHost = location.state?.isHost;
     const joinPin = params?.pinNumber;
     
 

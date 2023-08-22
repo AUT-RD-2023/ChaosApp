@@ -9,6 +9,7 @@ import { database } from '../database.js';
 
 // Variables
 import { scenario } from '../components/Scenarios.js';
+import { useSelector } from "react-redux";
 
 // Components
 import Button from '../components/Button.js'
@@ -63,7 +64,7 @@ function ScenarioPage() {
 
     const sendMessage = () => {
         if (channel && message.trim() !== '') {
-            channel.publish("Response", { text: state.nickname + ": " + message });
+            channel.publish("Response", { text: identity.nickname + ": " + message });
         }
     };
 
@@ -82,7 +83,7 @@ function ScenarioPage() {
     },[]);*/
     
     const updateDatabase = () => {
-        set(ref(database, 'lobby-' + state.gamePin + '/responses/round-' + state.round + "/" + state.id), {
+        set(ref(database, 'lobby-' + gamePin + '/responses/round-' + state.round + "/" + identity.id), {
         response: message // Add the users message to the database while tracking the current round and the users id
         }); 
     } 
