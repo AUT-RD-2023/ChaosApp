@@ -46,12 +46,13 @@
 
 @media (orientation: portrait) {
       .button {
-            width: 22vh;
-            height: 5vh;
+            width: 60vw;
+            height: calc(0.22 * 60vw);
+            max-height: 13vh;
             border: 0.2vw solid #2D7C73;
             border-radius: 7.2vw;
             filter: drop-shadow(0 1.6vw 1vw rgba(0, 0, 0, 0.25));
-            font-size: 2vh;
+            font-size: 6vw;
             letter-spacing: 0.4vw;
             text-wrap: none;
       }
@@ -79,19 +80,24 @@
 @media (orientation: landscape) {
       .button {
             width: 18vw;
-            height: 4.32vw;
+            height: calc(0.22 * 18vw);
+            min-height: 8vh;
+            min-width: 36vh;
             border: 0.2vw solid #2D7C73;
             filter: drop-shadow(0 0.8vw 0.6vw rgba(0, 0, 0, 0.25));
-            border-radius: 3vw;
-            font-size: 1.8vw;
+            border-radius: 4vw;
+            font-size: calc(0.22 * 18vh);
       }
 
       .input {
             width: 18vw;
-            height: 4.32vw;
+            height: calc(0.22 * 18vw);
+            min-height: 8vh;
+            min-width: 36vh;
             border: 0.1vw solid #8E8D8A;
-            border-radius: 3vw;
-            font-size: 1.9vw;
+            border-radius: 4vw;
+            font-size: calc(0.20 * 18vh);
+            margin-bottom: 5%;
       }
 
       .textarea {
