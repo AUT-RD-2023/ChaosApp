@@ -12,6 +12,7 @@ import Input from '../components/Input.js'
 
 // Styles
 import '../App.css';
+import { setIsHost } from "../Redux/sessionSlice";
 
 const Homepage = () => {
     const [gamePin, setGamePin] = useState("");
@@ -79,7 +80,7 @@ const Homepage = () => {
             </div>     
             
             <div className="button">
-                <NavLink to="/Host" state={{ isHost: true }}>
+                <NavLink to="/Host" press={dispatch(setIsHost(true))}>
                     <Button name="HOST" />
                 </NavLink>              
             </div>

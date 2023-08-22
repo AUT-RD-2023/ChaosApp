@@ -1,6 +1,10 @@
 // React
 import React, { useState, useEffect, useRef } from 'react';
-import { NavLink, useLocation, useParams, useNavigate } from 'react-router-dom';
+import { NavLink, useParams, useNavigate } from 'react-router-dom';
+
+// Redux
+import { useSelector, useDispatch } from 'react-redux'
+import { setSessionId, setIdentity } from "../Redux/sessionSlice"
 
 // Database
 import { ref, onValue } from "firebase/database";
@@ -14,8 +18,10 @@ import Identity from '../identity.js'
 // Styles
 import '../App.css';
 
-function NicknamePage() {    
-    const location = useLocation();
+function NicknamePage() {
+    const dispatch = useDispatch()
+    const isHost = useSelector((state) => state.session.isHost)
+
     const navigate = useNavigate();
     const params = useParams();
 
@@ -23,7 +29,7 @@ function NicknamePage() {
     const joinPin = params?.pinNumber;
     
 
-    if(!isHost) { 
+    if(!isHost) {
         if(!((joinPin.length === 5) && (/^[0-9\b]+$/.test(joinPin)))) {
             window.location.href = "#/404"; // Redirects to the 404 page if url contains an incorrect pin code format.
         } 
@@ -34,9 +40,11 @@ function NicknamePage() {
 
     const handleClick = () => {
         identity.makeNickname(nickname);
+        dispatch(setIdentity(identity))
     }
 
-    const gamePin = useRef({ value: isHost ? Math.floor(Math.random() * 89999 + 10000) : joinPin }).current.value;        
+    const gamePin = useRef({ value: isHost ? Math.floor(Math.random() * 89999 + 10000) : joinPin }).current.value;
+    dispatch(setSessionId(gamePin))
 
     /* DATABASE */
 

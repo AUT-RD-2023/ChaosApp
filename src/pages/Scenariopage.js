@@ -1,10 +1,10 @@
 // React
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { useLocation } from "react-router-dom";
 import { useChannel } from "@ably-labs/react-hooks";
 
 // Database
-import { ref, set, onValue } from "firebase/database";
+import { ref, set } from "firebase/database";
 import { database } from '../database.js';
 
 // Variables
@@ -21,10 +21,11 @@ import '../App.css';
 
 function ScenarioPage() {
     const location = useLocation();
+    const gamePin = useSelector((state) => state.session.gamePin)
+    const identity = useSelector((state) => state.session.identity)
+
     const { state } = location;
     state.activity = "discussion";
-
-    const gamePin  = location.state?.gamePin;
 
     /* SCENARIO */
 
@@ -52,12 +53,11 @@ function ScenarioPage() {
 
     /* ABLY */
 
-    const channelName = state.channel;
     const [message, setMessage] = useState('');
     const [messages, updateMessages] = useState([]);
 
     // Receive and send messages from Ably
-    const [channel] = useChannel(channelName, (message) => {
+    const [channel] = useChannel(gamePin, (message) => {
         updateMessages((prev) => [...prev, message]);
     });
 
@@ -92,7 +92,7 @@ function ScenarioPage() {
     return(
         <div className="App">
             <div className="header">
-                <div className="name"><strong>{ state.nickname }</strong></div>
+                <div className="name"><strong>{ identity.nickname }</strong></div>
                 <div className="round">ROUND { state.round }/5</div>
             </div>
 
