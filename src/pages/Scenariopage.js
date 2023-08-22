@@ -1,10 +1,10 @@
 // React
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { useLocation } from "react-router-dom";
 import { useChannel } from "@ably-labs/react-hooks";
 
 // Database
-import { ref, set, onValue } from "firebase/database";
+import { ref, set } from "firebase/database";
 import { database } from '../database.js';
 
 // Variables
@@ -21,10 +21,11 @@ import '../App.css';
 
 function ScenarioPage() {
     const location = useLocation();
+    const gamePin = useSelector((state) => state.session.gamePin)
+    const identity = useSelector((state) => state.session.identity)
+
     const { state } = location;
     state.activity = "discussion";
-
-    const gamePin  = location.state?.gamePin;
 
     /* SCENARIO */
 
@@ -52,12 +53,11 @@ function ScenarioPage() {
 
     /* ABLY */
 
-    const channelName = state.channel;
     const [message, setMessage] = useState('');
     const [messages, updateMessages] = useState([]);
 
     // Receive and send messages from Ably
-    const [channel] = useChannel(channelName, (message) => {
+    const [channel] = useChannel(gamePin, (message) => {
         updateMessages((prev) => [...prev, message]);
     });
 
@@ -71,15 +71,15 @@ function ScenarioPage() {
 
     /* DATABASE */
 
-    const timerData = ref(database, 'lobby-' + gamePin + '/discussionTimer');
-    const [discussTimer, setDiscussTimer] = useState(30);
+    /* const timerData = ref(database, 'lobby-' + gamePin + '/scenarioTimer');
+    const [responseTimer, setResponseTimer] = useState(30);
    
     //Retrieve timer data from database and set it to discussTimer
     useEffect(() => {
         onValue(timerData, (snapshot) => {
-            setDiscussTimer(snapshot.val());
-        }); console.log('Timer data:' + {discussTimer})
-    },[]);
+            setResponseTimer(snapshot.val());
+        }); console.log('Timer data:' + {responseTimer})
+    },[]);*/
     
     const updateDatabase = () => {
         set(ref(database, 'lobby-' + state.gamePin + '/responses/round-' + state.round + "/" + state.id), {
@@ -92,12 +92,12 @@ function ScenarioPage() {
     return(
         <div className="App">
             <div className="header">
-                <div className="name"><strong>{ state.nickname }</strong></div>
+                <div className="name"><strong>{ identity.nickname }</strong></div>
                 <div className="round">ROUND { state.round }/5</div>
             </div>
 
             <div className={style.timer}>
-                <TimerBar timeLength={discussTimer} path="/Bridge"/>
+                <TimerBar timeLength={30} path="/Bridge"/>
             </div>
 
             <div className="content">

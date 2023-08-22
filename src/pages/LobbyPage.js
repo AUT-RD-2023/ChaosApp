@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { configureAbly, useChannel, usePresence } from "@ably-labs/react-hooks";
+import { useSelector } from 'react-redux'
 
 // Database
 import { ref, set } from "firebase/database";
@@ -9,31 +10,27 @@ import { database } from '../database.js';
 
 // Components
 import Button from '../components/Button.js';
-import SettingsPage from './SettingsPage.js';
-import Popup from '../components/Popup.js';
 
 // Styles
 import style from '../styles/LobbyPage.module.css';
 import '../App.css';
 
 const LobbyPage = () => {
-    const location = useLocation();
+    const gamePin = useSelector((state) => state.session.gamePin)
+    const identity = useSelector((state) => state.session.identity)
+    const isHost = useSelector((state) => state.session.isHost)
+
     const navigate = useNavigate();
 
-    const gamePin  = location.state?.gamePin;
-    const identity = location.state?.identity;
-    const isHost   = location.state?.isHost;
-
     /* ABLY */
-    
     configureAbly({key: "yqb0VQ.Av_Gmg:pItSDLVHuUqgEGYCqdOhVSr4Ypktm7764_a0mhpwbEY", clientId: identity.playerId});
 
-    const channelName = gamePin + "";
+    const channelName = "" + gamePin;
     const [presenceUsers] = usePresence(channelName, { nickname: identity.nickname });
     
     const [channel] = useChannel(channelName, (message) => { // Page navigation when host presses start
         if(message.data.text === "true") {
-            navigate("/Bridge", { state: {activity: "start", round: 1, gamePin: gamePin, id: identity.playerId, nickname: identity.nickname, channel: channelName}});            
+            navigate("/Bridge", { state: { activity: "start", round: 1, id: identity.playerId, nickname: identity.nickname }});
         }
     });
 
@@ -52,7 +49,7 @@ const LobbyPage = () => {
             });            
             console.log(`Current game session added to database!\n[gamePin : ${gamePin}], [inSession : false]`);
         }
-    }, [isHost, gamePin]);    
+    }, [isHost, gamePin]);
 
     function startSession() {
         set(ref(database, 'lobby-' + gamePin), {
@@ -72,7 +69,7 @@ const LobbyPage = () => {
 
         setTimeout(() => {
             setTextVisible(false);
-        }, 2000);        
+        }, 2000);
     };
 
     /* SETTINGS */
@@ -101,7 +98,7 @@ const LobbyPage = () => {
                 <div className={style.container}>
                     <div className={style.players}>
                         {presenceUsers.map((user, index) => (
-                            <div className={style.grid_cell} key={user.clientId}>{user.data.nickname}</div>
+                            <div key={user.clientId}>{user.data.nickname}</div>
                         ))}
                     </div>
                 </div>
