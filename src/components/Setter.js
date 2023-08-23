@@ -1,4 +1,4 @@
-import './Settings.css';
+import styles from '../styles/SlideSettings.module.scss';
 import Input from './Input.js';
 
 
@@ -25,15 +25,16 @@ function Setter(props) {
   
 
     return (
-        <div className="setter">
-            <button name="+" className="increase-button" onClick={() =>increaseNum()} > + </button>
-            <Input 
+        <div className={styles.setter}>
+            <button name="-" className={styles.decrease_button} onClick={() =>decreaseNum()} >- </button>
+            <Input
+                    style={{width: "7vw", height: "3.5vw", fontSize: "1.5vw"}}
                     placeholder={defaultNum}
                     maxLength={5}
                     onChange={ (e) => props.setTimer((e.target.value) )}
                 />
-            <button className="decrease-button" onClick={() => 
-                decreaseNum()}> -</button>
+            <button className={styles.increase_button} onClick={() =>
+                increaseNum()}>+</button>
         </div>
     )
 }

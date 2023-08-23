@@ -12,12 +12,14 @@ import { database } from '../database.js';
 
 // Components
 import Button from '../components/Button.js';
- import SlideSettings from '../components/HowToPlay.js';
-import HowToPlay from '../components/SlideSettings.js';
+import HowToPlay from '../components/HowToPlay.js';
+import SlideSettings from '../components/SlideSettings.js';
+import IconButton from '../components/IconButton.js';
 
 // Styles
 import style from '../styles/LobbyPage.module.css';
 import '../App.css';
+
 
 const LobbyPage = () => {
     const gamePin = useSelector((state) => state.session.gamePin)
@@ -78,13 +80,28 @@ const LobbyPage = () => {
     };
 
     /* RENDER */
+    const [isWindowResized, setIsWindowResized] = useState(window.innerHeight < window.innerWidth);
 
-    const playButtonJSX = (<><Button name="PLAY" press={handleStart}/><div className={style.spacer}></div></>);
+    useEffect(() => {
+        const handleResize = () => {
+            setIsWindowResized(window.innerHeight < window.innerWidth);
+        };
+
+        // Add the event listener
+        window.addEventListener('resize', handleResize);
+
+        // Clean up the event listener when the component unmounts
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    const playButtonJSX = (<><Button name="PLAY" static={ true } changespress={handleStart}/><div className={style.spacer}></div></>);
 
     return (
         <>
-            <SlideSettings/>
-            <HowToPlay/>
+            {isWindowResized ? <SlideSettings /> : <IconButton icon="settings"/>}
+            {/*<HowToPlay />*/}
         <div className={style.page}>
             <div className={style.header}>
                 <div className={style.subtitle}>Chaos</div>
@@ -96,7 +113,11 @@ const LobbyPage = () => {
             <div className={style.lobby}>
                 <div className={style.buttons}>
                     {isHost ? playButtonJSX : null}
-                    <Button name={textVisible ? "✓" : "INVITE"} press={copyUrl}/>
+                    <Button
+                        name={textVisible ? "✓" : "INVITE"}
+                        static={ true } //button width is static, even if page height changes
+                        press={copyUrl}
+                    />
                     {/*<p style={{textAlign: 'center'}}>{textVisible ? "Link Copied!" : ""}</p>*/}
                 </div>
                 <div className={style.container}>

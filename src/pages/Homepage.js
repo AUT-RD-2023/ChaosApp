@@ -75,9 +75,10 @@ const Homepage = () => {
                     onClick={ checkDatabase }
                     state={ { joinPin: gamePin }}
                 >
-                    <Button 
+                   <Button
                         name="JOIN" //check if the provided Game Pin is at least 5 characters long, only contains numbers and isn't made up of only whitespace
-                        disabled={ (gamePin.length === 5) && (/^[0-9\b]+$/.test(gamePin)) && (/\S/.test(gamePin)) ? false : true }       
+                        static={ true } //button width is static, even if page height changes
+                        disabled={ (gamePin.length === 5) && (/^[0-9\b]+$/.test(gamePin)) && (/\S/.test(gamePin)) ? false : true }
                         press={ updateText }                  
                     />
                 </NavLink>
@@ -85,7 +86,10 @@ const Homepage = () => {
             
             <div className="button">
                 <NavLink to="/Host" press={dispatch(setIsHost(true))}>
-                    <Button name="HOST" />
+                    <Button
+                        name="HOST"
+                        static={ true } //button width is static, even if page height changes
+                    />
                 </NavLink>              
             </div>
                     

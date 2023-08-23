@@ -115,6 +115,7 @@ function ScenarioPage() {
                     <div style={{marginTop: "2vh"}}>
                         <Button 
                             name={ buttonDisabled ? "✓" : "SUBMIT"}
+                            static={ true } //button width is static, even if page height changes
                             press={ handleSubmit }
                             disabled={ buttonDisabled } 
                         />

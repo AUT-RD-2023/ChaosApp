@@ -9,6 +9,7 @@ import './App.css';
 // Pages
 import Homepage from './pages/Homepage';
 import LobbyPage from './pages/LobbyPage';
+import SettingsPage from './pages/SettingsPage.js';
 import NicknamePage from './pages/NicknamePage';
 import ErrorPage from './pages/ErrorPage';
 import PageNotFound from './pages/404';
@@ -22,6 +23,7 @@ function App() {
         <Route path='/' element={<Homepage />} />
         <Route path='/ChaosApp' element={<Homepage />} />
         <Route path="/Lobby" element={<LobbyPage />} />
+        <Route path="/SettingsPage" element={<SettingsPage />} />
         <Route path="/Lobby/link/:pinNumber" element={<NicknamePage />} /> 
         <Route path="/Host" element={<NicknamePage />} />
         <Route path="/Error/:error" element={<ErrorPage />} />
