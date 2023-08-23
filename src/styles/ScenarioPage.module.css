@@ -38,10 +38,9 @@ p.text{
       }
 
       .timer {
-        display: absolute;
         position: fixed;
         top: 9vh;
-        left: 0%;
+        left: 0;
       }
 
       .container {
@@ -61,7 +60,6 @@ p.text{
 @media (orientation: landscape) {
 
       .timer {
-        display: absolute;
         position: fixed;
         top: 10%;
         left: 0%;

@@ -72,6 +72,7 @@ const Homepage = () => {
                 >
                     <Button 
                         name="JOIN" //check if the provided Game Pin is at least 5 characters long, only contains numbers and isn't made up of only whitespace
+                        static={ true } //button width is static, even if page height changes
                         disabled={ (gamePin.length === 5) && (/^[0-9\b]+$/.test(gamePin)) && (/\S/.test(gamePin)) ? false : true }       
                         press={ updateText }                  
                     />
@@ -80,7 +81,10 @@ const Homepage = () => {
             
             <div className="button">
                 <NavLink to="/Host" state={{ isHost: true }}>
-                    <Button name="HOST" />
+                    <Button
+                        name="HOST"
+                            static={ true } //button width is static, even if page height changes
+                    />
                 </NavLink>              
             </div>
                     

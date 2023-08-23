@@ -12,7 +12,7 @@ import { scenario } from '../components/Scenarios.js';
 
 // Components
 import Button from '../components/Button.js'
-import TextArea from '../components/TextArea.js'
+import Textarea from '../components/Textarea.js'
 import TimerBar from '../components/TimerBar.js'
 
 // Styles
@@ -93,7 +93,7 @@ function ScenarioPage() {
                     <h1 className={style.heading}>SCENARIO</h1>
                     <p className={style.text}>{scenarioObj.scenarioArray[randScenario]}</p>
                     <p className={style.text}>What do you do?</p>
-                    <TextArea 
+                    <Textarea
                         placeholder="Enter Response..."
                         disabled={ textAreaDisabled }
                         onChange={(e) => setMessage(e.target.value)}
@@ -101,6 +101,7 @@ function ScenarioPage() {
                     <div style={{marginTop: "2vh"}}>
                         <Button 
                             name={ buttonDisabled ? "✓" : "SUBMIT"}
+                            static={ true } //button width is static, even if page height changes
                             press={ handleSubmit }
                             disabled={ buttonDisabled } 
                         />

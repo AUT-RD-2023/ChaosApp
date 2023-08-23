@@ -13,7 +13,7 @@ import NicknamePage from './pages/NicknamePage';
 import ErrorPage from './pages/ErrorPage';
 import PageNotFound from './pages/404';
 import Bridge from './pages/Bridge';
-import ScenarioPage from './pages/ScenarioPage';
+import ScenarioPage from './pages/Scenariopage';
 import Message from './pages/Message';
 import DiscussionPage from './pages/DiscussionPage';
 

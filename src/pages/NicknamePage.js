@@ -74,7 +74,12 @@ function NicknamePage() {
                     to={ "/Lobby" }
                     state={{ identity: identity, gamePin: gamePin, isHost: isHost }}
                 >
-                    <Button name="NEXT" disabled={ nickname && /\S/.test(nickname) ? false : true } press={ handleClick }/>
+                    <Button
+                        name="NEXT"
+                        static={ true } //button width is static, even if page height changes
+                        disabled={ nickname && /\S/.test(nickname) ? false : true }
+                        press={ handleClick }
+                    />
                 </NavLink>
             </div>
         </div>

@@ -76,7 +76,11 @@ const LobbyPage = () => {
 
     const playButtonJSX = (       
         <div className={style.buttons}>
-            <Button name="PLAY" press={handleStart}/>
+            <Button
+                name="PLAY"
+                static={ true } //button width is static, even if page height changes
+                press={handleStart}
+            />
         </div>);
 
     return (
@@ -100,7 +104,10 @@ const LobbyPage = () => {
                 {isHost ? playButtonJSX : null}
 
                 <div className={style.buttons}>
-                    <Button name="INVITE" press={copyUrl}/>
+                    <Button
+                        name="INVITE"
+                        static={ true } //button width is static, even if page height changes
+                        press={copyUrl}/>
                     <p style={{textAlign: 'center'}}><strong>{textVisible ? "Link Copied!" : ""}</strong></p>
                 </div>
             </span> 

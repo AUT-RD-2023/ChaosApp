@@ -147,15 +147,11 @@
   .heading {
     font-size: 4.3vw;
     letter-spacing: 0.4vw;
-    /*padding-top: 3vw;*/
-    /*padding-bottom: 1.5vw;*/
   }
 
   .subheading {
     font-size: 4.3vw;
     letter-spacing: 0.4vw;
-    /*padding-top: 3vw;*/
-    /*padding-bottom: 1.5vw;*/
   }
 
   .header{
@@ -165,7 +161,8 @@
 
   .name {
     margin-left: 4vh;
-    margin-bottom: 1vh;
+    margin-top: 0.5vh;
+    margin-bottom: 0.5vh;
     font-size: 5.5vh;
   }
 

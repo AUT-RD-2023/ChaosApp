@@ -7,6 +7,15 @@
       letter-spacing: 0.2vw;
 }
 
+.static_button {
+      background: #2D7C73;
+      box-sizing: border-box;
+      color:  #FFFFFF;
+      font-family: 'Lufga', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.2vw;
+}
+
 .button:hover {
       background: #296A62;
 }
@@ -46,6 +55,18 @@
 
 @media (orientation: portrait) {
       .button {
+            width: 30vh;
+            max-width: 60vw;
+            height: 14.4vw;
+            border: 0.2vw solid #2D7C73;
+            border-radius: 7.2vw;
+            filter: drop-shadow(0 1.6vw 1vw rgba(0, 0, 0, 0.25));
+            font-size: 3vh;
+            letter-spacing: 0.4vw;
+            overflow: clip;
+      }
+
+      .static_button {
             width: 60vw;
             height: 14.4vw;
             border: 0.2vw solid #2D7C73;
@@ -77,6 +98,15 @@
 
 @media (orientation: landscape) {
       .button {
+            width: 18vw;
+            height: 4.32vw;
+            border: 0.2vw solid #2D7C73;
+            filter: drop-shadow(0 0.8vw 0.6vw rgba(0, 0, 0, 0.25));
+            border-radius: 3vw;
+            font-size: 1.8vw;
+      }
+
+      .static_button {
             width: 18vw;
             height: 4.32vw;
             border: 0.2vw solid #2D7C73;

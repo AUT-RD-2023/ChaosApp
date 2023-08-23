@@ -32,7 +32,6 @@
 .players {
     font-family: Quicksand, sans-serif;
     font-weight: 400;
-    height: fit-content;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(calc(50% - 20px), 1fr));
     margin: 1vw;
