@@ -62,4 +62,6 @@ const VotingPage = () => {
     )
 }
 
+
+
 export default VotingPage;
