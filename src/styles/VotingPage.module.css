@@ -1,0 +1,161 @@
+/*
+* VotingPage.js
+* Author: Jade Thompson-Tavai
+* Date: 24-08-23
+*
+* Contributors:
+*
+*
+*/
+
+.card {
+    background-color: #DCEBE1;
+    filter: drop-shadow(0 0.4rem 0.2rem rgba(0, 0, 0, 0.25));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.carouselContainer {
+    width: 100%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel {
+    height: 80%;
+    width: 100%;
+    margin-top: 5%;
+    display: flex;
+    overflow-x: scroll;
+}
+
+.buttons {
+    display: flex;
+    margin: 2vh auto 0 auto;
+    width: fit-content;
+    height: fit-content;
+}
+
+@media (orientation: landscape) {
+    .page {
+        display: flex;
+        flex-flow: column;
+        height: 99.7vh;
+        width: 99.8vw;
+    }
+
+    .header {
+        flex: 0 1 auto;
+    }
+
+    .subheader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .subtitle {
+        font-family: 'Rubik', sans-serif;
+        font-size: 3vw;
+        letter-spacing: 0.5vw;
+        font-weight: 600;
+        text-align: center;
+        color: #2D7C73;
+        height: fit-content;
+        width: 100%;
+    }
+
+    .container{
+        width: fit-content;
+        max-width: 65%;
+        height: fit-content;
+        margin: 0 auto 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 4%;
+      }
+
+    .card{
+        flex: 0 0 40vw; /* Flex properties to control card width */
+        height: 75%;
+        border-radius: 7.2vw;
+        margin-top: 3%;
+        margin: 0 1vw;
+      }
+
+    .buttons {
+        display: flex;
+        margin: 2vh auto 0 auto;
+        width: fit-content;
+        height: fit-content;
+      }
+}
+
+@media (orientation: portrait) {
+    .page {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100vh;
+        width: 100vw;
+    }
+
+    .header {
+        width: 100vw;
+        height: fit-content;
+        margin-top: 1.5%;
+        margin-bottom: 4%;
+    }
+
+    .subheader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .subtitle {
+        font-family: 'Rubik', sans-serif;
+        font-size: 10vw;
+        letter-spacing: 1.3vw;
+        font-weight: 700;
+        text-align: center;
+        color: #2D7C73;
+        height: fit-content;
+        width: 100vh;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        width: 60%;
+        height: 65%;
+        margin: 0 auto 4vh auto;
+    }
+
+    .card{
+        flex: 0 0 40vw; /* Flex properties to control card width */
+        height: 75%;
+        border-radius: 7.2vw;
+        margin-top: 3%;
+    }
+
+
+    .buttons {
+        width: fit-content;
+        height: fit-content;
+        max-height: 20%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: -1vh auto 2vh auto;
+    }
+
+}
