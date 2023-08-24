@@ -3,11 +3,8 @@ import { ReactComponent as Settings } from '../styles/images/settings.svg';
 import { ReactComponent as Back } from '../styles/images/back.svg';
 import style from "../styles/SlideSettings.module.scss";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux'
 
 function Button(props) {
-    const dispatch = useDispatch()
-    const settingsOpen = useSelector((state) => state.session.settingsOpen)
     const navigate = useNavigate();
 
     const handleSettingsClick = event => {
@@ -15,7 +12,6 @@ function Button(props) {
     };
     const handleBackClick = event => {
         navigate("/Lobby");
-
     };
 
     if(props.icon === "settings") {

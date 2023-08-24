@@ -69,6 +69,7 @@
             width: 30vh;
             max-width: 60vw;
             height: 14.4vw;
+            max-height: calc(0.26 * 30vh);
             border: 0.2vw solid #1f5750;
             border-radius: 7.2vw;
             filter: drop-shadow(0 1.6vw 1vw rgba(0, 0, 0, 0.25));
@@ -89,6 +90,10 @@
 
       .static_button:hover {
             font-size: 5.9vw;
+      }
+
+      .button:hover {
+            font-size: 3.2vh;
       }
 
       .button:disabled {

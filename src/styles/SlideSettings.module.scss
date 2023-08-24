@@ -28,7 +28,6 @@
   opacity: 70%;
 }
 
-
 // Menu Structure //
 
 .input { // A checkbox which determines if the flyout is open or closed
@@ -165,21 +164,16 @@
   }
 }
 
-.setter { // Entire setter component (- input +)
-  width: 100%;
-  display:flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 1vh 0 1vh 0;
-}
-
-.increase_button:hover, .decrease_button:hover {
-  background-color: #60937c;
-  font-size: 2.2vw;
-}
-
 @media (orientation: landscape) {
+  .setter { // Entire setter component (- input +)
+    width: 100%;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 1vh 0 1vh 0;
+  }
+
   .increase_button, .decrease_button { // Setter buttons
     width: 3.5vw;
     height: 3.5vw;
@@ -194,44 +188,64 @@
     margin-right: 2vw;
   }
 
-  .back_icon {
-    position: fixed;
-    top: 2vh;
-    left: 2vh;
-    z-index: 99;
-    width: 8vh;
-    height: 8vh;
-    opacity: 100;
+  .increase_button:hover, .decrease_button:hover {
+    background-color: #60937c;
+    font-size: 2.2vw;
   }
 
+  .time {
+    width: 7vw;
+    height: 3.5vw;
+    font-size: 1.5vw;
+  }
 }
 
 @media (orientation: portrait) {
-  .settings_icon {
-    position: fixed;
-    top: 3.5vw;
-    right: 2vw;
+  .back_icon {
+    position: absolute;
+    top: min(3vw, 2vh);
+    left: min(3vw, 3vh);
     z-index: 99;
-    width: 16vw;
-    height: 16vw;
-    opacity: 100;
+    width: min(12vw, 10vh);
+    height: min(12vw, 10vh);
   }
 
-  .settings { // Settings form
+  .back_icon:hover {
+    opacity: 70%;
+  }
+
+  .setter { // Entire setter component (- input +)
+    width: 100%;
     display:flex;
-    flex-direction: column;
-    justify-content:center;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 1vh 0 1vh 0;
+  }
+
+  .time {
+    width: 7vw;
+    height: 3.5vw;
+    font-size: 1.5vw;
   }
 
   .increase_button, .decrease_button { // Setter buttons
-    width: 9vw;
-    height: 8vh;
+    height: 14vw;
+    max-height: 10vh;
+    aspect-ratio: 1/1;
     background: #75A78F;
-    box-sizing: border-box;
-    border: 0.5vw white solid;
-    filter: drop-shadow(0 1.6vw 1vw rgba(0, 0, 0, 0.25));
+    border: 0.15vw white solid;
+    filter: drop-shadow(0 1vw 1vw rgba(0, 0, 0, 0.2));
     color:  #FFFFFF;
     font-family: 'Rubik', sans-serif;
+    font-size: min(9vw, 6vh);
     border-radius: 50%;
+    margin-left: 4vw;
+    margin-right: 4vw;
+  }
+
+  .increase_button:hover, .decrease_button:hover {
+    background-color: #60937c;
+    font-size: min(9.2vw, 6.5vh);
   }
 }

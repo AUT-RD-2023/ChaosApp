@@ -37,13 +37,13 @@ const SlideSettings = (props) => {
                     </div>
                     <div className={style.settings}>
                         <div className={style.heading}>Number of Rounds</div>
-                        <Setter original="02"/>
+                        <Setter id="rounds" orientation="landscape" />
                         <div className={style.divider}/>
                         <div className={style.heading}>Response Timer (+30 sec)</div>
-                        <Setter original="01:00"/>
+                        <Setter id="response" orientation="landscape" />
                         <div className={style.divider}/>
                         <div className={style.heading}>Discussion Timer (+30 sec)</div>
-                        <Setter original="02:00"/>
+                        <Setter id="discussion" orientation="landscape" />
                         <div className={style.buttons}>
                             <Button name="RESET" static={ false }> </Button>
                             <div className={style.spacer} />

@@ -138,6 +138,7 @@
   }
   .spacer{
     height: 3vw;
+    max-height: calc(0.26 * 7vh);
   }
 }
 
