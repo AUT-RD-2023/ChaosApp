@@ -18,6 +18,7 @@ function SettingsPage() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+
     /* Window Resizing Handling */
 
     const [isWindowLandscape, setIsWindowLandscape] = useState(window.innerHeight < window.innerWidth);
@@ -41,12 +42,51 @@ function SettingsPage() {
         }
     }, [isWindowLandscape, dispatch, navigate]);
 
+
+    /* Button Functionality*/
+
+    const handleSave = event => {
+
+        // Save values to the database
+
+        dispatch(setSettingsOpen(false))
+        navigate("/Lobby");
+    };
+
+    const handleReset = () => {
+        // Reset to default values stored in redux store
+    };
+
     return(
         <div>
             <IconButton icon="back" onClick={dispatch(setSettingsOpen(false))}/>
+            <div className={ style.content }>
+            <div className={ style.title }>SETTINGS</div>
+                <div className={style.settings}>
+                    <div>
+                        <div className={style.heading}>Number of Rounds</div>
+                        <Setter id="rounds" orientation="portrait" />
+                    </div>
+                    <div className={style.divider}/>
+                    <div>
+                        <div className={style.heading}>Response Timer (+30 sec)</div>
+                        <Setter id="response" orientation="portrait" />
+                    </div>
+                    <div className={style.divider}/>
+                    <div>
+                        <div className={style.heading}>Discussion Timer (+30 sec)</div>
+                        <Setter id="discussion" orientation="portrait" />
+                    </div>
+                </div>
+                <div className={style.buttons}>
+                    <div className="spacer" />
+                    <Button name="RESET" static={ false } press={ handleReset }> </Button>
+                    <div className="spacer" />
+                    <Button name="SAVE" static={ false } press={ handleSave } ></Button>
+                </div>
+            </div>
         </div>
     );
 }
 
 export default SettingsPage;
-

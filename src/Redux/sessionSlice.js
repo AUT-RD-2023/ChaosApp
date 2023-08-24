@@ -7,7 +7,10 @@ export const sessionSlice = createSlice({
         playerId: "",
         nickname: "",
         isHost: false,
-        settingsOpen: false
+        settingsOpen: false,
+        defaultNumRounds: 2,
+        defaultResponseTime: "1:00",
+        defaultDiscussionTime: "2:00"
     },
     reducers: {
         setSessionId: (state, action) => {
