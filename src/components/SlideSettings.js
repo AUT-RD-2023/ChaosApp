@@ -1,29 +1,38 @@
-import React, { useState } from 'react';
+// React
+import React, { useState, useEffect } from 'react';
 import style from '../styles/SlideSettings.module.scss'
 import { ReactComponent as Settings } from '../styles/images/settings.svg';
 import { ReactComponent as Close } from '../styles/images/close.svg';
 import Button from '../components/Button.js'
 import Setter from '../components/Setter';
+import { useSelector, useDispatch } from 'react-redux'
+import { setSettingsOpen } from "../Redux/sessionSlice";
 
-const SlideSettings = () => {
+const SlideSettings = (props) => {
+    const dispatch = useDispatch()
+    const settingsOpen = useSelector((state) => state.session.settingsOpen)
     const [isChecked, setIsChecked] = useState(false);
 
+    useEffect(() => {
+        setIsChecked(settingsOpen);
+    }, [settingsOpen]);
+
     const handleOpenClick = event => {
-        setIsChecked(true);
+        dispatch(setSettingsOpen(true))
     };
     const handleCloseClick = event => {
-        setIsChecked(false);
+        dispatch(setSettingsOpen(false))
     };
 
     return (
         <>
             <input type="checkbox" id="navcheck-h" role="button" className={ style.input } checked={ isChecked } readOnly/>
             <div className={style.label}></div>
-            <Settings className={style.icon} onClick={handleOpenClick}/>
+            <Settings className={style.settings_icon} onClick={handleOpenClick}/>
             <div className={style.slide}>
                 <div className={style.content}>
                     <div className={style.top}>
-                        <Close className={style.close} onClick={handleCloseClick}/>
+                        <Close className={style.close_icon} onClick={handleCloseClick}/>
                         <div className={style.title}>SETTINGS</div>
                     </div>
                     <div className={style.settings}>

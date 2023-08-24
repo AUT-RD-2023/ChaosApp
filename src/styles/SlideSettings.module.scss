@@ -1,4 +1,6 @@
-.icon {
+// Icons //
+
+.settings_icon {
   position: fixed;
   top: 4vh;
   right: 3.8vh;
@@ -8,7 +10,7 @@
   opacity: 100;
 }
 
-.close {
+.close_icon {
   position: fixed;
   top: -0.2vh;
   left: -0.5vh;
@@ -18,15 +20,18 @@
   height: 4vw;
 }
 
-.close:hover {
+.close_icon:hover {
   opacity: 100%;
 }
 
-.icon:hover {
+.settings_icon:hover {
   opacity: 70%;
 }
 
-.input {
+
+// Menu Structure //
+
+.input { // A checkbox which determines if the flyout is open or closed
   position: fixed;
   top: 5vh;
   right: 5vh;
@@ -35,23 +40,25 @@
   height: 7vh;
 }
 
-.label {
+.label { // To darken everything other than the menu
   position: fixed;
+  top: 9999vh;
+  right: 9999vw;
   height: 100vh;
   width: 100vw;
   background: #6B7372FF;
   background: linear-gradient(90deg, rgba(107, 115, 114, 0.76) 0%, rgba(87, 96, 96, 0.91) 60%, rgb(49, 63, 62) 81%, rgb(0, 0, 0) 100%);
-  opacity: 0;
-  z-index: 98;
+  z-index: 101;
 }
 
-.slide {
+.slide { // Sliding components
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
-  z-index: 100;
+  z-index: 101;
   display: flex;
+  pointer-events: none; // Makes div "click-throughable" to access buttons below.
   flex-flow: column nowrap;
   align-items: flex-start;
   transform: translateX(100%);
@@ -68,7 +75,8 @@
     transform: translateX(235%);
     transition: transform .5s cubic-bezier(0.190, 1.000, 0.220, 1.000);;
   }
-  .content {
+
+  .content { // Content in the menu
     display: flex;
     flex-direction: column;
     color: black;
@@ -81,7 +89,7 @@
     overflow-x: hidden;
   }
 
-  .top {
+  .top { // Menu heading that contains the close icon and title
     display: flex;
     width: 31vw;
     margin: 2.5vh 0 3.5vh 0;
@@ -102,11 +110,11 @@
     margin-left: auto;
   }
 
-  .settings {
+  .settings { // Settings form
     display: flex;
     flex-direction: column;
   }
-  .heading {
+  .heading { // Individual setting headings (e.g. number of rounds)
     width: 100%;
     text-align: center;
     font-family: Quicksand, sans-serif;
@@ -114,14 +122,14 @@
     margin-bottom: 1vh;
   }
 
-  .divider {
+  .divider { // Dividing line between each individual setting
     background: #75A78F;
     width: 75%;
     margin: 2.5vh auto 2.5vh auto;
     height: 0.2vh;
   }
 
-  .buttons {
+  .buttons { // Div that contains the buttons
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -129,14 +137,15 @@
     margin: 3vw auto 4vh auto;
   }
 
-  .spacer{
+  .spacer{ // Vertical spacing between the buttons
     height: 1.5vh;
   }
 }
 
-[id="navcheck-h"]:checked {
+// Behaviour after input is checked //
 
-  & + .icon {
+[id="navcheck-h"]:checked {
+  & + .settings_icon {
     opacity: 0;
     &::before {
       opacity: 1;
@@ -144,26 +153,19 @@
     }
   }
 
-  & + .label {
+  & + .label { // When checkbox is clicked label 0% to 40% opacity
     opacity: 40%;
-    &::before {
-      opacity: 1;
-      pointer-events: auto;
-    }
+    top: 0;
+    right: 0;
   }
 
-  & ~ .slide {
+  & ~ .slide { // menu component slides out
     transform: translateX(0);
-    &::before {
-      transform: translateX(235%);
-    }
-    .content {
-      transform: translateX(235%);
-    }
+    pointer-events: auto; // Makes menu close button clickable again
   }
 }
 
-.setter {
+.setter { // Entire setter component (- input +)
   width: 100%;
   display:flex;
   flex-direction: row;
@@ -171,27 +173,14 @@
   align-items: center;
   padding: 1vh 0 1vh 0;
 }
-.settings_btns {
-  display:flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 3%;
-}
 
 .increase_button:hover, .decrease_button:hover {
   background-color: #60937c;
   font-size: 2.2vw;
 }
 
-.value {
-  font-family: 'Quicksand', sans-serif;
-}
-
-
-
 @media (orientation: landscape) {
-  .increase_button, .decrease_button {
+  .increase_button, .decrease_button { // Setter buttons
     width: 3.5vw;
     height: 3.5vw;
     background: #75A78F;
@@ -205,7 +194,7 @@
     margin-right: 2vw;
   }
 
-  .back {
+  .back_icon {
     position: fixed;
     top: 2vh;
     left: 2vh;
@@ -218,7 +207,7 @@
 }
 
 @media (orientation: portrait) {
-  .icon {
+  .settings_icon {
     position: fixed;
     top: 3.5vw;
     right: 2vw;
@@ -228,27 +217,13 @@
     opacity: 100;
   }
 
-  .settings{
+  .settings { // Settings form
     display:flex;
     flex-direction: column;
     justify-content:center;
   }
 
-  .back {
-    position: fixed;
-    top: 2vh;
-    left: 2vh;
-    z-index: 99;
-    width: 8vh;
-    height: 8vh;
-    opacity: 100;
-  }
-
-  .back:hover {
-    opacity: 70%;
-  }
-
-  .increase_button, .decrease_button {
+  .increase_button, .decrease_button { // Setter buttons
     width: 9vw;
     height: 8vh;
     background: #75A78F;

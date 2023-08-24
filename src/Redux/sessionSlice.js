@@ -7,6 +7,7 @@ export const sessionSlice = createSlice({
         playerId: "",
         nickname: "",
         isHost: false,
+        settingsOpen: false
     },
     reducers: {
         setSessionId: (state, action) => {
@@ -24,10 +25,14 @@ export const sessionSlice = createSlice({
         setIsHost: (state, action) => {
             state.isHost = action.payload
         },
+
+        setSettingsOpen: (state, action) => {
+            state.settingsOpen = action.payload
+        },
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { setSessionId, setPlayerId, setName, setIsHost } = sessionSlice.actions
+export const { setSessionId, setPlayerId, setName, setIsHost, setSettingsOpen } = sessionSlice.actions
 
 export default sessionSlice.reducer

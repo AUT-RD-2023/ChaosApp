@@ -5,22 +5,14 @@ import Input from './Input.js';
 function Setter(props) {
 
     let defaultNum = props.original;
-    let value = props.value;
 
 
     function increaseNum() {
-       for (let i = 0; i < value; i++){
-        defaultNum++;
-       }
-        props.setTimer(defaultNum);
-        console.log(defaultNum);
-
+        // Increase number in the database.
     }
 
     function decreaseNum() {
-        defaultNum -= value;
-        props.setTimer(defaultNum);
-        console.log(defaultNum);
+        // Decrease value in the database.
     }
   
 
@@ -31,7 +23,6 @@ function Setter(props) {
                     style={{width: "7vw", height: "3.5vw", fontSize: "1.5vw"}}
                     placeholder={defaultNum}
                     maxLength={5}
-                    onChange={ (e) => props.setTimer((e.target.value) )}
                 />
             <button className={styles.increase_button} onClick={() =>
                 increaseNum()}>+</button>

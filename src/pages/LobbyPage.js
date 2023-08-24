@@ -1,6 +1,6 @@
 // React
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import { configureAbly, useChannel, usePresence } from "@ably-labs/react-hooks";
 
 // Redux
@@ -12,7 +12,6 @@ import { database } from '../database.js';
 
 // Components
 import Button from '../components/Button.js';
-import HowToPlay from '../components/HowToPlay.js';
 import SlideSettings from '../components/SlideSettings.js';
 import IconButton from '../components/IconButton.js';
 
@@ -22,6 +21,7 @@ import '../App.css';
 
 
 const LobbyPage = () => {
+    const settingsOpen = useSelector((state) => state.session.settingsOpen)
     const gamePin = useSelector((state) => state.session.gamePin)
     const playerId = useSelector((state) => state.session.playerId)
     const nickname = useSelector((state) => state.session.nickname)
@@ -80,17 +80,15 @@ const LobbyPage = () => {
     };
 
     /* RENDER */
-    const [isWindowResized, setIsWindowResized] = useState(window.innerHeight < window.innerWidth);
+    const [isWindowLandscape, setIsWindowLandscape] = useState(window.innerHeight < window.innerWidth);
 
     useEffect(() => {
         const handleResize = () => {
-            setIsWindowResized(window.innerHeight < window.innerWidth);
+            setIsWindowLandscape(window.innerHeight < window.innerWidth);
         };
 
-        // Add the event listener
         window.addEventListener('resize', handleResize);
 
-        // Clean up the event listener when the component unmounts
         return () => {
             window.removeEventListener('resize', handleResize);
         };
@@ -100,9 +98,8 @@ const LobbyPage = () => {
 
     return (
         <>
-            {isWindowResized ? <SlideSettings /> : <IconButton icon="settings"/>}
-            {/*<HowToPlay />*/}
-        <div className={style.page}>
+            {isWindowLandscape ? <SlideSettings /> : (settingsOpen ? navigate("/SettingsPage") : <IconButton icon="settings" />)}
+            <div className={style.page}>
             <div className={style.header}>
                 <div className={style.subtitle}>Chaos</div>
             </div>
