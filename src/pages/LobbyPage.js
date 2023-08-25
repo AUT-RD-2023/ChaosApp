@@ -95,13 +95,19 @@ const LobbyPage = () => {
     }, []);    
 
     const playButtonJSX = (       
-        <div className={style.buttons}>
-            <Button
+        <><Button
                 name="PLAY"
                 static={ true } //button width is static, even if page height changes
                 press={handleStart}
             />
-        </div>);
+            <div className={style.spacer}></div></>);
+
+    const inviteButtonJSX = (               
+        <Button
+            name={textVisible ? "✓" : "INVITE"}
+            static={ true } //button width is static, even if page height changes
+            press={copyUrl}
+        />);
 
     return (
         <>
@@ -117,12 +123,7 @@ const LobbyPage = () => {
             <div className={style.lobby}>
                 <div className={style.buttons}>
                     {isHost ? playButtonJSX : null}
-
-                    <Button
-                        name={textVisible ? "✓" : "INVITE"}
-                        static={ true } //button width is static, even if page height changes
-                        press={copyUrl}
-                    />
+                    { inviteButtonJSX }
                 </div>
                 <div className={style.container}>
                     <div className={style.players}>
@@ -132,7 +133,7 @@ const LobbyPage = () => {
                     </div>
                 </div>
             </div>
-        </div>
+            </div>
         </>
     );
 }

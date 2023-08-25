@@ -40,7 +40,7 @@ const Homepage = () => {
     }, [entryData, sessionData]);
 
     useEffect(() => {
-        if(gamePin.length === 5) {
+        if(gamePin.length === 4) {
             checkDatabase();
         }
     }, [gamePin, checkDatabase]);

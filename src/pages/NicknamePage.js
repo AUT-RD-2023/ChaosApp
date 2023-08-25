@@ -28,7 +28,7 @@ function NicknamePage() {
     
 
     if(!isHost) {
-        if(!((joinPin.length === 5) && (/^[0-9\b]+$/.test(joinPin)))) {
+        if(!((joinPin.length === 4) && (/^[0-9\b]+$/.test(joinPin)))) {
             window.location.href = "#/404"; // Redirects to the 404 page if url contains an incorrect pin code format.
         } 
     }
@@ -42,7 +42,7 @@ function NicknamePage() {
         dispatch(setName(identity.nickname))
     }
 
-    const gamePin = useRef({ value: isHost ? Math.floor(Math.random() * 89999 + 10000) : joinPin }).current.value;
+    const gamePin = useRef({ value: isHost ? Math.floor(Math.random() * 8999 + 1000) : joinPin }).current.value;
     dispatch(setSessionId(gamePin))
 
     /* DATABASE */
