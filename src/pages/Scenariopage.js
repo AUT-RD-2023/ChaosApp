@@ -9,6 +9,7 @@ import { database } from '../database.js';
 
 // Variables
 import { scenario } from '../components/Scenarios.js';
+import { useSelector } from "react-redux";
 
 // Components
 import Button from '../components/Button.js'
@@ -21,6 +22,10 @@ import '../App.css';
 
 function ScenarioPage() {
     const location = useLocation();
+    const gamePin = useSelector((state) => state.session.gamePin)
+    const playerId = useSelector((state) => state.session.playerId)
+    const nickname = useSelector((state) => state.session.nickname)
+
     const { state } = location;
     state.activity = "discussion";
 
@@ -50,27 +55,36 @@ function ScenarioPage() {
 
     /* ABLY */
 
-    const channelName = state.channel;
     const [message, setMessage] = useState('');
     const [messages, updateMessages] = useState([]);
 
     // Receive and send messages from Ably
-    const [channel] = useChannel(channelName, (message) => {
+    const [channel] = useChannel(gamePin, (message) => {
         updateMessages((prev) => [...prev, message]);
     });
 
     const sendMessage = () => {
         if (channel && message.trim() !== '') {
-            channel.publish("Response", { text: state.nickname + ": " + message });
+            channel.publish("Response", { text: nickname + ": " + message });
         }
     };
 
     const messagePreviews = messages.map((msg, index) => <li key={index}>{msg.data.text}</li>);
 
     /* DATABASE */
+
+    /* const timerData = ref(database, 'lobby-' + gamePin + '/scenarioTimer');
+    const [responseTimer, setResponseTimer] = useState(30);
+   
+    //Retrieve timer data from database and set it to discussTimer
+    useEffect(() => {
+        onValue(timerData, (snapshot) => {
+            setResponseTimer(snapshot.val());
+        }); console.log('Timer data:' + {responseTimer})
+    },[]);*/
     
     const updateDatabase = () => {
-        set(ref(database, 'lobby-' + state.gamePin + '/responses/round-' + state.round + "/" + state.id), {
+        set(ref(database, 'lobby-' + gamePin + '/responses/round-' + state.round + "/" + playerId), {
         response: message // Add the users message to the database while tracking the current round and the users id
         }); 
     } 
@@ -80,12 +94,12 @@ function ScenarioPage() {
     return(
         <div className="App">
             <div className="header">
-                <div className="name"><strong>{ state.nickname }</strong></div>
+                <div className="name"><strong>{ nickname }</strong></div>
                 <div className="round">ROUND { state.round }/5</div>
             </div>
 
             <div className={style.timer}>
-                <TimerBar timeLength="30" path="/Bridge"/>
+                <TimerBar timeLength={30} path="/Bridge"/>
             </div>
 
             <div className="content">
@@ -108,7 +122,6 @@ function ScenarioPage() {
                     </div>
                 </div>
             </div>
-
             { true ? "" : <span>  <h2>Responses</h2><ul>{messagePreviews}</ul> </span> /* Placeholder responses view */ }
         </div>
     );

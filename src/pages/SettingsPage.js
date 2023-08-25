@@ -1,0 +1,92 @@
+// React
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
+
+// Redux
+import { useDispatch } from "react-redux";
+import { setSettingsOpen } from "../Redux/sessionSlice";
+
+// Components
+import IconButton from '../components/IconButton.js';
+import Setter from "../components/Setter";
+import Button from "../components/Button";
+
+//Styles
+import style from "../styles/SettingsPage.module.css";
+
+function SettingsPage() {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+
+    /* Window Resizing Handling */
+
+    const [isWindowLandscape, setIsWindowLandscape] = useState(window.innerHeight < window.innerWidth);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsWindowLandscape(window.innerHeight < window.innerWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (isWindowLandscape) {
+            dispatch(setSettingsOpen(true));
+            navigate("/Lobby");
+        }
+    }, [isWindowLandscape, dispatch, navigate]);
+
+
+    /* Button Functionality*/
+
+    const handleSave = event => {
+
+        // Save values to the database
+
+        dispatch(setSettingsOpen(false))
+        navigate("/Lobby");
+    };
+
+    const handleReset = () => {
+        // Reset to default values stored in redux store
+    };
+
+    return(
+        <div>
+            <IconButton icon="back" onClick={dispatch(setSettingsOpen(false))}/>
+            <div className={ style.content }>
+            <div className={ style.title }>SETTINGS</div>
+                <div className={style.settings}>
+                    <div>
+                        <div className={style.heading}>Number of Rounds</div>
+                        <Setter id="rounds" orientation="portrait" />
+                    </div>
+                    <div className={style.divider}/>
+                    <div>
+                        <div className={style.heading}>Response Timer (+30 sec)</div>
+                        <Setter id="response" orientation="portrait" />
+                    </div>
+                    <div className={style.divider}/>
+                    <div>
+                        <div className={style.heading}>Discussion Timer (+30 sec)</div>
+                        <Setter id="discussion" orientation="portrait" />
+                    </div>
+                </div>
+                <div className={style.buttons}>
+                    <div className="spacer" />
+                    <Button name="RESET" static={ false } press={ handleReset }> </Button>
+                    <div className="spacer" />
+                    <Button name="SAVE" static={ false } press={ handleSave } ></Button>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default SettingsPage;

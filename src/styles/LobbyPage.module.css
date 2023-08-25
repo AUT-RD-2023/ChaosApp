@@ -1,23 +1,28 @@
-.lobby {
-    position: relative;
-    width: 60vw;
-    height: fit-content;
-    max-height: 100vh;
-    border-radius: 7.2vw;
-    margin: 4.5vw;
+.page {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    justify-content: space-between;
+    height: 100vh;
+    width: 100vw;
+}
+
+.header {
+    width: 100vw;
+    height: fit-content;
 }
 
 .subtitle {
+    font-size: 10vh;
     font-weight: 500;
     text-align: center;
     color: #2D7C73;
 }
+
 .pin {
     text-align: center;
     font-family: Rubik, sans-serif;
+    margin-left: auto;
+    margin-right: auto;
 }
 .label {
     color: #75A78F;
@@ -26,6 +31,7 @@
 
 .number {
     color: #ADADAD;
+    width: fit-content;
     font-weight: 700;
 }
 
@@ -42,11 +48,17 @@
     padding-top: 1vw;
     padding-bottom: 1vw;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
-.container{
+.lobby {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100%;
+    height: fit-content;
+    overflow: hidden;
+}
+
+.container {
     background-color: #DCEBE1;
     filter: drop-shadow(0 0.4rem 0.2rem rgba(0, 0, 0, 0.25));
     padding: 2vh;
@@ -54,74 +66,115 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.buttons {
+.players {
+    font-family: Quicksand, sans-serif;
+    font-weight: 400;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(calc(50% - 20px), 1fr));
     margin: 1vw;
 }
 
-@media (orientation: portrait) {
-    .pin {
-        font-size: 9vw;
-        letter-spacing: 1vw;
-    }
-
-    .players {
-        width: 60vw;
-        font-size: 5vw;
-        grid-gap: 3vw 1vw;
-    }
-
-
-    .subtitle {
-        font-size: 10vw;
-    }
-
-    .container{
-        width: 60vw;
-        height: fit-content;
-        border-radius: 7.2vw;
-        margin: 4.5vw;
-        padding: 5%;
-    }
-
-    .grid_cell {
-        padding-top: 1vw;
-        padding-bottom: 1vw;
-    }
+.buttons {
+    width: fit-content;
+    height: fit-content;
 }
 
 @media (orientation: landscape) {
-    .pin{
-        font-size: 7vh;
-        letter-spacing: 0.25rem;
+    .header {
+        margin-top: 1.5%;
+        margin-bottom: 2%;
     }
 
-    .players {
-        width: 45vh;
-        max-height: 40vh;
-        font-size: 3.5vh;
-        grid-gap: 3vh 1vh;
+    .pin {
+        width: fit-content;
+        font-size: calc((0.22 * 18vh) * 1.5);
+        display: flex;
+        letter-spacing: calc((0.22 * 18vh) * 0.15);
     }
 
-    .subtitle {
-        font-size: 6vh;
+    .lobby {
+        margin-top: 2%;
     }
 
     .container{
-        width: 50vh;
-        height: fit-content;
-        max-height: 40vh;
-        border-radius: 13%;
-        margin: 1vw;
+        min-width: calc(72vh + 3vw);
+        width: calc(36vw + 3vw);
+        min-height: 30vh;
+        height: 50vh;
+        border-radius: 4vw;
+        margin: 1vw auto -1vh auto
     }
 
-    .grid_cell {
-        padding-top: 1vh;
-        padding-bottom: 1vh;
+    .players {
+        width: 90%;
+        font-size: 3.5vh;
+        grid-gap: 3vh 1vh;
+        min-height: 30vh;
     }
 
-    .buttons{
-        margin: 0.7vh;
+    .buttons {
+        z-index: 100;
+        display: flex;
+        margin: 4vh auto 4% auto;
+    }
+
+    .spacer{
+        width: 3vw;
     }
 }
+
+@media (orientation: portrait) {
+    .header {
+        margin-top: 1.5%;
+        margin-bottom: 4%;
+    }
+
+    .subtitle {
+        font-size: 15vw;
+        font-weight: 500;
+        text-align: center;
+        color: #2D7C73;
+    }
+
+    .pin {
+        font-size: 6vw;
+        margin: 2vh;
+        letter-spacing: 0.7vw;
+    }
+
+    .lobby {
+        height: 90%;
+        margin-top: 2%;
+        padding-bottom: 5vh;
+    }
+
+    .container{
+        width: 60%;
+        height: 100%;
+        border-radius: 7.2vw;
+        padding: 5%;
+        margin: 0 auto 4vh auto
+    }
+
+    .players {
+        width: 90%;
+        font-size: 3vh;
+        grid-gap: 3vw 1vw;
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 4vw auto 2vh auto;
+    }
+
+    .spacer{
+        height: 3vw;
+    }
+}
+

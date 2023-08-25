@@ -1,6 +1,10 @@
 // React
 import React, { useState, useEffect, useCallback } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux'
+
+// Redux
+import { setIsHost } from "../Redux/sessionSlice";
 
 // Database
 import { database } from '../database.js';
@@ -15,6 +19,7 @@ import '../App.css';
 
 const Homepage = () => {
     const [gamePin, setGamePin] = useState("");
+    const dispatch = useDispatch();
 
     /* DATABASE */
 
@@ -68,22 +73,22 @@ const Homepage = () => {
                 <NavLink 
                     to={ dbExists && !dbSession ? `/Lobby/link/${gamePin}` : null } 
                     onClick={ checkDatabase }
-                    state={{ isHost: false, joinPin: gamePin }}
+                    state={ { joinPin: gamePin }}
                 >
-                    <Button 
+                   <Button
                         name="JOIN" //check if the provided Game Pin is at least 5 characters long, only contains numbers and isn't made up of only whitespace
                         static={ true } //button width is static, even if page height changes
-                        disabled={ (gamePin.length === 5) && (/^[0-9\b]+$/.test(gamePin)) && (/\S/.test(gamePin)) ? false : true }       
+                        disabled={ (gamePin.length === 5) && (/^[0-9\b]+$/.test(gamePin)) && (/\S/.test(gamePin)) ? false : true }
                         press={ updateText }                  
                     />
                 </NavLink>
             </div>     
             
             <div className="button">
-                <NavLink to="/Host" state={{ isHost: true }}>
+                <NavLink to="/Host" press={dispatch(setIsHost(true))}>
                     <Button
                         name="HOST"
-                            static={ true } //button width is static, even if page height changes
+                        static={ true } //button width is static, even if page height changes
                     />
                 </NavLink>              
             </div>

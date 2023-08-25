@@ -136,17 +136,22 @@
     border-radius: 7.2vw;
     margin: 4.5vw;
   }
+  .spacer{
+    height: 3vw;
+    max-height: calc(0.26 * 7vh);
+  }
 }
 
 @media (orientation: landscape) {
   .title{
     font-size: 6vw;
-    margin-top: -4vw;
   }
 
   .heading {
-    font-size: 4.3vw;
+    font-size: 3vw;
     letter-spacing: 0.4vw;
+    padding-top: 3vw;
+    padding-bottom: 1.5vw;
   }
 
   .subheading {
@@ -172,9 +177,11 @@
   }
 
   .container{
-    width: 18vw;
-    height: 9.8vw;
-    border-radius: 3vw;
-    margin: 1vw;
+    width: fit-content;
+    min-width: 18vw;
+    min-height: calc(0.22 * 30vw);
+    height: fit-content;
+    border-radius: 10% / 20%;
+    margin: 1vw 2vw 2vw 2vw;
   }
 }

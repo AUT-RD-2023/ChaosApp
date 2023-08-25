@@ -10,9 +10,9 @@ function Button(props) {
         );
     } else {
         return (
-        <button className={styles.button} onClick={props.press} disabled={props.disabled}>
-            {props.name}
-        </button>
+            <button className={styles.button} onClick={props.press} disabled={props.disabled}>
+                {props.name}
+            </button>
         )
     }
 }
