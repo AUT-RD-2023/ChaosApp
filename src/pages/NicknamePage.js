@@ -24,8 +24,7 @@ function NicknamePage() {
 
     const navigate = useNavigate();
     const params = useParams();
-    const joinPin = params?.pinNumber;
-    
+    const joinPin = params?.pinNumber;    
 
     if(!isHost) {
         if(!((joinPin.length === 4) && (/^[0-9\b]+$/.test(joinPin)))) {
@@ -54,7 +53,8 @@ function NicknamePage() {
             onValue(entryData, (snapshot) => { // Get a snapshot of the current value of the data
                 if(!snapshot.exists()) { 
                     navigate("/Error/invalid-pin"); // Navigate to the appropriate error page if the session does not already exist
-                }});            
+                }
+            });            
             
             let sessionStarted;
             const sessionData = ref(database, 'lobby-' + gamePin + '/inSession');

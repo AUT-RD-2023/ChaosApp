@@ -7,6 +7,8 @@ export const sessionSlice = createSlice({
         playerId: "",
         nickname: "",
         isHost: false,
+        round: 1,
+        activity: "",
         settingsOpen: false,
         defaultNumRounds: 2,
         defaultResponseTime: "1:00",
@@ -29,6 +31,14 @@ export const sessionSlice = createSlice({
             state.isHost = action.payload
         },
 
+        setRound: (state, action) => {
+            state.round = action.payload
+        },
+
+        setActivity: (state, action) => {
+            state.activity = action.payload
+        },
+
         setSettingsOpen: (state, action) => {
             state.settingsOpen = action.payload
         },
@@ -36,6 +46,6 @@ export const sessionSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setSessionId, setPlayerId, setName, setIsHost, setSettingsOpen } = sessionSlice.actions
+export const { setSessionId, setPlayerId, setName, setIsHost, setRound, setActivity, setSettingsOpen } = sessionSlice.actions
 
 export default sessionSlice.reducer

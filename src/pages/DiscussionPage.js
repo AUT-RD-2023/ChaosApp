@@ -5,37 +5,61 @@ import React from "react";
 import Button from "../components/Button.js";
 import TimerBar from "../components/TimerBar.js";
 
+// Varibales
+import { useSelector } from "react-redux";
+
+// Database
+import { ref, onValue } from "firebase/database";
+import { database } from '../database.js';
+
 // Styles
-//import style from "../styles/ScenarioPage.module.css";
 import styles from "../styles/DiscussionPage.module.css";
 import "../App.css";
 
 function DiscussionPage() {
+  /* REDUX */
 
-    const name = "Name".toUpperCase();
+  const nickname = useSelector((state) => state.session.nickname);
+  const playerId = useSelector((state) => state.session.playerId);
+  const gamePin = useSelector((state => state.session.gamePin));
+  const isHost = useSelector((state => state.session.isHost));
+  const round = useSelector((state) => state.session.round);
+
+  /* DATABASE */
+
+  const responseData = ref(database, 'lobby-' + gamePin + '/responses/round-' + round + '/' + playerId);
+
+  onValue(responseData, (snapshot) => { 
+    console.log(snapshot.val()); // print the response made by this player in the console
+  });   
+
+  /* RENDER */
+
+  const buttonsJSX = (
+    <div className={styles.buttons}>
+      <Button
+          name="NEXT"
+          static={ false } //button width decreases as page height increases
+      />
+      <div className={styles.button_spacer}/>
+        <Button 
+            name="ADD TIME"
+            static={ false } //button width decreases as page height increases
+          />
+    </div>);
 
   return (
     <div className={styles.page}>
       <div className={styles.header}>
         <div className={styles.subheader}>
-          <div className="name">{name}</div>
-          <div className="round">ROUND 1/5</div>
+          <div className="name"><strong>{ nickname.toUpperCase() }</strong></div>
+          <div className="round">ROUND { round }/5</div>
         </div>
         <TimerBar />
       </div>
       <div className={styles.div_spacer}/>
       <div className={styles.discussion}>
-        <div className={styles.buttons}>
-          <Button
-              name="NEXT"
-              static={ false } //button width decreases as page height increases
-          />
-          <div className={styles.button_spacer}/>
-          <Button
-              name="ADD TIME"
-              static={ false } //button width decreases as page height increases
-          />
-        </div>
+        { isHost ? buttonsJSX : null }
         <div className={styles.container}>
             <div className={styles.completion}>1/5</div>
             <div className={styles.subtitle}>DISCUSSION</div>

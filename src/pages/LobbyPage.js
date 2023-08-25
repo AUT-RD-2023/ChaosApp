@@ -4,7 +4,8 @@ import { useNavigate} from 'react-router-dom';
 import { configureAbly, useChannel, usePresence } from "@ably-labs/react-hooks";
 
 // Redux
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { setActivity } from '../Redux/sessionSlice.js';
 
 // Database
 import { ref, set } from "firebase/database";
@@ -21,28 +22,31 @@ import '../App.css';
 
 
 const LobbyPage = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const settingsOpen = useSelector((state) => state.session.settingsOpen)
     const gamePin = useSelector((state) => state.session.gamePin)
     const playerId = useSelector((state) => state.session.playerId)
     const nickname = useSelector((state) => state.session.nickname)
     const isHost = useSelector((state) => state.session.isHost)
 
-    const navigate = useNavigate();
-
     /* ABLY */
     configureAbly({key: "yqb0VQ.Av_Gmg:pItSDLVHuUqgEGYCqdOhVSr4Ypktm7764_a0mhpwbEY", clientId: playerId});
 
     const channelName = "" + gamePin;
     const [presenceUsers] = usePresence(channelName, { nickname: nickname });
+    //save presenceUsers.length into a redux variable to store the number of players in the current game;
     
     const [channel] = useChannel(channelName, (message) => { // Page navigation when host presses start
         if(message.data.text === "true") {
-            navigate("/Bridge", { state: { activity: "start", round: 1 }});
+            navigate("/Bridge");
         }
     });
 
     const handleStart = () => {
         startSession();
+        dispatch(setActivity("start"));
         channel.publish("Start", { text: "true" });
     };
 
