@@ -92,7 +92,7 @@ function ScenarioPage() {
             </div>
 
             <div className={style.timer}>
-                <TimerBar timeLength={ 5 } path="/Bridge"/>
+                <TimerBar timeLength={ 5 } addTime="0" path="/Bridge"/>
             </div>
 
             <div className="content">

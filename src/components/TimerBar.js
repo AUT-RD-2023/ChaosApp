@@ -14,6 +14,8 @@ const TimerBar = (props) => {
     const [time, setTime] = useState(props.timeLength * 1000); // Dynamic counting-down time
     const [referenceTime, setReferenceTime] = useState(Date.now()); // Reference time fixes the slight inaccuracies of setTimeout intervals.
 
+    // Countdown //
+
     useEffect(() => {
             const countDown = () => {
                 setTime(prevTime => {
@@ -37,9 +39,17 @@ const TimerBar = (props) => {
         return widthPercentage === 0.8 ? 0 : widthPercentage; // Ensure width doesn't exceed 100vw
     };
 
+
+    // Add time button functionality //
+
     useEffect(() => {
-        setTime(prevTime => prevTime + (props.addTime * 1000));
-    }, [props.addTime]);
+        setTime(prevTime => {
+            const newTime = prevTime + (props.addTime * 1000);
+
+            // Ensure the new time does not exceed the original timerStart time
+            return newTime <= timerStart ? newTime : timerStart;
+        });
+    }, [props.addTime, timerStart]);
 
     return (
         <span style={{overflow: 'hidden'}}>

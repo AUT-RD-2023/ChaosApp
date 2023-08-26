@@ -62,7 +62,7 @@ const Bridge = () => {
         <div className="App">
             <div className="heading">ROUND {roundText}</div><br />
             <div className="subheading">{subheading}</div><br />
-            <TimerBar timeLength="5" path={path} />
+            <TimerBar timeLength="5" addTime="0" path={path} />
         </div>
     )
 }

@@ -26,6 +26,7 @@ function DiscussionPage() {
   const round = useSelector((state) => state.session.round);
 
   const [addLength, setAddLength] = useState(0);
+    const [firstAdd, setFirstAdd] = useState(true);
 
   /* DATABASE */
 
@@ -36,7 +37,12 @@ function DiscussionPage() {
   });
 
   function handleAddTime() {
-      setAddLength(addLength + 5); // Currently adds by 5 each time :(
+      if(firstAdd === true) {
+          setAddLength(addLength + 5);
+          setFirstAdd(false);
+      } else {
+          setAddLength(addLength + 0.001);
+      }
   }
 
   /* RENDER */
