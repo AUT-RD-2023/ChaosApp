@@ -69,10 +69,9 @@
             width: 30vh;
             max-width: 60vw;
             height: 14.4vw;
-            border: 0.2vw solid #2D7C73;
             max-height: calc(0.26 * 30vh);
-            /* border: 0.2vw solid #1f5750; */
-            /* border-radius: 7.2vw; */
+            border: 0.2vw solid #1f5750;
+            border-radius: 7.2vw;
             filter: drop-shadow(0 1.6vw 1vw rgba(0, 0, 0, 0.25));
             font-size: 3vh;
             letter-spacing: 0.4vw;
@@ -147,14 +146,6 @@
             font-size: 1.8vw;
       }
 
-      .static_button {
-            width: 18vw;
-            height: 4.32vw;
-            border: 0.2vw solid #2D7C73;
-            filter: drop-shadow(0 0.8vw 0.6vw rgba(0, 0, 0, 0.25));
-            border-radius: 3vw;
-      } 
-      
       .static_button:hover {
             font-size: 1.9vw;
       }

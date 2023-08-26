@@ -4,7 +4,6 @@
         left: 0;
         width: 99.9vw;
         height: calc(100vw/18);
-        max-height: 3vh;
         background-color: #D0D0D0;
         border-top: #EAEAEA calc(100vw/55) solid;
         border-bottom: #EAEAEA calc(100vw/55) solid;
