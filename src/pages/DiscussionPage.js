@@ -1,11 +1,11 @@
 // React
-import React from "react";
+import React, {useState} from "react";
 
 // Components
 import Button from "../components/Button.js";
 import TimerBar from "../components/TimerBar.js";
 
-// Varibales
+// Variables
 import { useSelector } from "react-redux";
 
 // Database
@@ -25,13 +25,19 @@ function DiscussionPage() {
   const isHost = useSelector((state => state.session.isHost));
   const round = useSelector((state) => state.session.round);
 
+  const [addLength, setAddLength] = useState(0);
+
   /* DATABASE */
 
   const responseData = ref(database, 'lobby-' + gamePin + '/responses/round-' + round + '/' + playerId);
 
   onValue(responseData, (snapshot) => { 
     console.log(snapshot.val()); // print the response made by this player in the console
-  });   
+  });
+
+  function handleAddTime() {
+      setAddLength(addLength + 5); // Currently adds by 5 each time :(
+  }
 
   /* RENDER */
 
@@ -45,6 +51,7 @@ function DiscussionPage() {
         <Button 
             name="ADD TIME"
             static={ false } //button width decreases as page height increases
+            press={handleAddTime}
           />
     </div>);
 
@@ -55,11 +62,12 @@ function DiscussionPage() {
           <div className="name"><strong>{ nickname.toUpperCase() }</strong></div>
           <div className="round">ROUND { round }/5</div>
         </div>
-        <TimerBar />
+        <TimerBar timeLength="30" addTime={ addLength }/>
       </div>
       <div className={styles.div_spacer}/>
       <div className={styles.discussion}>
-        { isHost ? buttonsJSX : null }
+        {/*{ isHost ? buttonsJSX : null }*/}
+          {buttonsJSX }
         <div className={styles.container}>
             <div className={styles.completion}>1/5</div>
             <div className={styles.subtitle}>DISCUSSION</div>

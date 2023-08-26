@@ -35,7 +35,11 @@ const TimerBar = (props) => {
         const remainingPercentage = (time / timerStart) * 100;
         const widthPercentage = remainingPercentage + 0.8; // Start at 0vw and end at 101vw
         return widthPercentage === 0.8 ? 0 : widthPercentage; // Ensure width doesn't exceed 100vw
-    };    
+    };
+
+    useEffect(() => {
+        setTime(prevTime => prevTime + (props.addTime * 1000));
+    }, [props.addTime]);
 
     return (
         <span style={{overflow: 'hidden'}}>
