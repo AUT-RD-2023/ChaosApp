@@ -19,8 +19,8 @@ import Identity from '../identity.js'
 import '../App.css';
 
 function NicknamePage() {
-    const dispatch = useDispatch()
-    const isHost = useSelector((state) => state.session.isHost)
+    const dispatch = useDispatch();
+    const isHost = useSelector((state) => state.session.isHost);
 
     const navigate = useNavigate();
     const params = useParams();
@@ -37,12 +37,12 @@ function NicknamePage() {
 
     const handleClick = () => {
         identity.makeNickname(nickname);
-        dispatch(setPlayerId(identity.playerId))
-        dispatch(setName(identity.nickname))
+        dispatch(setPlayerId(identity.playerId));
+        dispatch(setName(identity.nickname));
     }
 
     const gamePin = useRef({ value: isHost ? Math.floor(Math.random() * 8999 + 1000) : joinPin }).current.value;
-    dispatch(setSessionId(gamePin))
+    dispatch(setSessionId(gamePin));
 
     /* DATABASE */
 

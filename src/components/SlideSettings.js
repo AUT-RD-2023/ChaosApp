@@ -26,7 +26,7 @@ const SlideSettings = (props) => {
         dispatch(setSettingsOpen(false))
     };
 
-    const handleSave = event => {
+    const handleSave = () => {
         setSavePressed(true); // Passed to Setter component to handle database entries
 
         // Time out so that the database has time to process, otherwise it sets savePressed to false before the data is saved.
@@ -58,7 +58,7 @@ const SlideSettings = (props) => {
                         <div className={style.buttons}>
                             <Button name="RESET" static={ false }> </Button>
                             <div className={style.spacer} />
-                            <Button name="SAVE" static={ false }  press={ handleSave }></Button>
+                            <Button name={ savePressed ? "✓" : "SAVE" } static={ false }  press={ handleSave }></Button>
                         </div>
                     </div>
 

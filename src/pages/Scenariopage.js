@@ -17,16 +17,17 @@ import { scenario } from '../components/Scenarios.js';
 import Button from '../components/Button.js'
 import Textarea from '../components/Textarea.js'
 import TimerBar from '../components/TimerBar.js'
+import Header from '../components/Header.js'
 
 // Styles
 import style from '../styles/ScenarioPage.module.css';
 import '../App.css';
 
 function ScenarioPage() {
+    /* REDUX */
+    
     const dispatch = useDispatch();
-
     const gamePin = useSelector((state) => state.session.gamePin)
-    const playerId = useSelector((state) => state.session.playerId)
     const nickname = useSelector((state) => state.session.nickname)
     const round = useSelector((state) => state.session.round);
 
@@ -61,7 +62,6 @@ function ScenarioPage() {
     const [message, setMessage] = useState('');
     const [messages, updateMessages] = useState([]);
 
-    // Receive and send messages from Ably
     const [channel] = useChannel(gamePin, (message) => {
         updateMessages((prev) => [...prev, message]);
     });
@@ -77,16 +77,12 @@ function ScenarioPage() {
     /* DATABASE */
     
     const updateDatabase = () => {
-        set(ref(database, 'lobby-' + gamePin + '/responses/round-' + round + "/" + playerId), {
-        response: message // Add the users message to the database while tracking the current round and the users id
+        set(ref(database, 'lobby-' + gamePin + '/responses/round-' + round), {
+            response: message // Add the users message to the database while tracking the current round and the users id
         }); 
     }
-    // const responseTimeData = ref(database, 'lobby-' + gamePin + '/responseTime')
-    //
+
     const [responseTime, setResponseTime] = useState();
-    // onValue(responseTimeData, (snapshot) => {
-    //     setResponseTime(snapshot.val());
-    // });
 
     const responseTimeData = ref(database, 'lobby-' + gamePin + '/responseTime');
 
@@ -104,14 +100,11 @@ function ScenarioPage() {
     return(
         <div className="App">
             <div className="header">
-                <div className="name">{ nickname.toUpperCase() }</div>
-                <div className="round">ROUND { round }/5</div>
+                <Header />
             </div>
-
             <div className={style.timer}>
                 <TimerBar timeLength= { responseTime } addTime="0" path="/Bridge"/>
             </div>
-
             <div className="content">
                 <div className={style.container}>
                     <h1 className={style.heading}>SCENARIO</h1>

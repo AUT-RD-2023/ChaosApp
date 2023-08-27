@@ -45,9 +45,9 @@ function SettingsPage() {
     }, [isWindowLandscape, dispatch, navigate]);
 
 
-    /* Button Functionality*/
+    /* Button Functionality */
 
-    const handleSave = event => {
+    const handleSave = () => {
         setSavePressed(true); // Passed to Setter component to handle database entries
 
         // Time out so that the database has time to process, otherwise it sets savePressed to false before the data is saved.

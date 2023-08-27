@@ -4,6 +4,7 @@ import React, {useEffect, useState} from "react";
 // Components
 import Button from "../components/Button.js";
 import TimerBar from "../components/TimerBar.js";
+import Header from "../components/Header.js"
 
 // Variables
 import { useSelector } from "react-redux";
@@ -19,7 +20,6 @@ import "../App.css";
 function DiscussionPage() {
   /* REDUX */
 
-  const nickname = useSelector((state) => state.session.nickname);
   const playerId = useSelector((state) => state.session.playerId);
   const gamePin = useSelector((state => state.session.gamePin));
   const isHost = useSelector((state => state.session.isHost));
@@ -77,15 +77,14 @@ function DiscussionPage() {
     <div className={styles.page}>
       <div className={styles.header}>
         <div className={styles.subheader}>
-          <div className="name"><strong>{ nickname.toUpperCase() }</strong></div>
-          <div className="round">ROUND { round }/5</div>
+          <Header />
         </div>
         <TimerBar timeLength= { discussionTime } addTime={ addLength }/>
       </div>
       <div className={styles.div_spacer}/>
       <div className={styles.discussion}>
-        {/*{ isHost ? buttonsJSX : null }*/}
-          {buttonsJSX }
+        { /* isHost ? buttonsJSX : null */ }
+        { buttonsJSX }
         <div className={styles.container}>
             <div className={styles.completion}>1/5</div>
             <div className={styles.subtitle}>DISCUSSION</div>

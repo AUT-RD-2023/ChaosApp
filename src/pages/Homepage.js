@@ -67,7 +67,7 @@ const Homepage = () => {
             <div className="container">
                 <Input 
                     placeholder="Game PIN"
-                    maxLength={5}
+                    maxLength={4}
                     onChange={ (e) => setGamePin(e.target.value) }
                 />
                 <NavLink 
@@ -76,19 +76,22 @@ const Homepage = () => {
                     state={ { joinPin: gamePin }}
                 >
                    <Button
-                        name="JOIN" //check if the provided Game Pin is at least 5 characters long, only contains numbers and isn't made up of only whitespace
-                        static={ true } //button width is static, even if page height changes
-                        disabled={ (gamePin.length === 5) && (/^[0-9\b]+$/.test(gamePin)) && (/\S/.test(gamePin)) ? false : true }
+                        name="JOIN" //check if the provided Game Pin is at least 4 characters long, only contains numbers and isn't made up of only whitespace
+                        static={ true }
+                        disabled={ (gamePin.length === 4) && (/^[0-9\b]+$/.test(gamePin)) && (/\S/.test(gamePin)) ? false : true }
                         press={ updateText }                  
                     />
                 </NavLink>
             </div>     
             
             <div className="button">
-                <NavLink to="/Host" press={dispatch(setIsHost(true))}>
+                <NavLink 
+                    to="/Host" 
+                    onClick={ dispatch(setIsHost(true)) } 
+                >
                     <Button
                         name="HOST"
-                        static={ true } //button width is static, even if page height changes
+                        static={ true }
                     />
                 </NavLink>              
             </div>

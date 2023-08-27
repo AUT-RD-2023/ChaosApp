@@ -31,8 +31,8 @@ const LobbyPage = () => {
     const nickname = useSelector((state) => state.session.nickname)
     const isHost = useSelector((state) => state.session.isHost)
 
-
     /* ABLY */
+    
     configureAbly({key: "yqb0VQ.Av_Gmg:pItSDLVHuUqgEGYCqdOhVSr4Ypktm7764_a0mhpwbEY", clientId: playerId});
 
     const channelName = "" + gamePin;
@@ -101,7 +101,6 @@ const LobbyPage = () => {
             responseTime: responseTime,
             discussionTime: discussionTime,
             numRounds: rounds
-
         });
     }
 
@@ -119,6 +118,7 @@ const LobbyPage = () => {
     };
 
     /* RENDER */
+
     const [isWindowLandscape, setIsWindowLandscape] = useState(window.innerHeight < window.innerWidth);
 
     useEffect(() => {
@@ -134,12 +134,14 @@ const LobbyPage = () => {
     }, []);    
 
     const playButtonJSX = (       
-        <><Button
-                name="PLAY"
-                static={ true } //button width is static, even if page height changes
-                press={handleStart}
-            />
-            <div className={style.spacer}></div></>);
+        <>
+            <Button
+                    name="PLAY"
+                    static={ true } //button width is static, even if page height changes
+                    press={ handleStart }
+                />
+            <div className={style.spacer}></div>
+        </>);
 
     const inviteButtonJSX = (               
         <Button
@@ -150,7 +152,7 @@ const LobbyPage = () => {
 
     return (
         <>
-            {isWindowLandscape ? <SlideSettings /> : (settingsOpen ? navigate("/SettingsPage") : <IconButton icon="settings" />)}
+            {isHost ? isWindowLandscape ? <SlideSettings /> : (settingsOpen ? navigate("/SettingsPage") : <IconButton icon="settings" />) : null }
             <div className={style.page}>
             <div className={style.header}>
                 <div className={style.subtitle}>Chaos</div>

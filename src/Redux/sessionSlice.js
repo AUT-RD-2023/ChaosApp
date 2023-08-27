@@ -13,7 +13,8 @@ export const sessionSlice = createSlice({
         savePressed: false,
         defaultNumRounds: 2,
         defaultResponseTime: 60,
-        defaultDiscussionTime: 120
+        defaultDiscussionTime: 120,
+        numRounds: 2,
     },
     reducers: {
         setSessionId: (state, action) => {
@@ -47,10 +48,14 @@ export const sessionSlice = createSlice({
         setSavePressed: (state, action) => {
             state.savePressed = action.payload
         },
+
+        setNumRounds: (state, action) => {
+            state.numRounds = action.payload
+        }
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { setSessionId, setPlayerId, setName, setIsHost, setRound, setActivity, setSettingsOpen, setSavePressed } = sessionSlice.actions
+export const { setSessionId, setPlayerId, setName, setIsHost, setRound, setActivity, setSettingsOpen, setSavePressed, setNumRounds } = sessionSlice.actions
 
 export default sessionSlice.reducer
