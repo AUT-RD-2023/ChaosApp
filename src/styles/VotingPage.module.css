@@ -107,6 +107,10 @@
         height: fit-content;
         margin-bottom: 2%;
       }
+
+      .button_spacer{
+        width: 3vw;
+      }
 }
 
 @media (orientation: portrait) {
@@ -186,6 +190,10 @@
         flex-direction: column;
         justify-content: space-between;
         margin: -1vh auto 2vh auto;
+    }
+
+      .button_spacer{
+        height: 3vw;
     }
 
 }
