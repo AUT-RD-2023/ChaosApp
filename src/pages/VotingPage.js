@@ -44,14 +44,14 @@ const VotingPage = () => {
         <div className={styles.carouselContainer}>
             <div className={styles.carousel}>
                 {/* Needs to be optimised for functionality - currently placeholders */}
-                <div className={styles.card}>Response 1</div>
-                <div className={styles.card}>Response 2</div>
-                <div className={styles.card}>Response 3</div>
-                <div className={styles.card}>Response 4</div>
-                <div className={styles.card}>Response 5</div>
-                <div className={styles.card}>Response 6</div>
-                <div className={styles.card}>Response 7</div>
-                <div className={styles.card}>Response 8</div>
+                <div className={styles.card} tabindex={0}>Response 1</div>
+                <div className={styles.card} tabindex={0}>Response 2</div>
+                <div className={styles.card} tabindex={0}>Response 3</div>
+                <div className={styles.card} tabindex={0}>Response 4</div>
+                <div className={styles.card} tabindex={0}>Response 5</div>
+                <div className={styles.card} tabindex={0}>Response 6</div>
+                <div className={styles.card} tabindex={0}>Response 7</div>
+                <div className={styles.card} tabindex={0}>Response 8</div>
             </div>
         </div>
         <div className={styles.buttons}>

@@ -17,6 +17,16 @@
     align-items: center;
 }
 
+.card:hover {
+    background-color: #b2d4c3;
+}
+
+.card:focus {
+    border: 5px solid #75A78F;
+    padding: 10px;
+}
+
+
 .buttons {
     display: flex;
     margin: 2vh auto 0 auto;
@@ -87,7 +97,7 @@
         border-radius: 7.2vw;
         margin-top: 3%;
         margin: 0 1vw;
-      }
+    }
 
     .buttons {
         display: flex;
@@ -103,8 +113,8 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        height: 100vh;
-        width: 100vw;
+        height: 99.8vh;
+        width: 99.8vw;
     }
 
     .header {
