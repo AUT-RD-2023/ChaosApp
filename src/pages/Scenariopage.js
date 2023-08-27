@@ -1,5 +1,5 @@
 // React
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef , useEffect } from 'react';
 import { useChannel } from "@ably-labs/react-hooks";
 
 // Redux
@@ -87,12 +87,12 @@ function ScenarioPage() {
     return(
         <div className="App">
             <div className="header">
-                <div className="name"><strong>{ nickname.toUpperCase() }</strong></div>
+                <div className="name">{ nickname.toUpperCase() }</div>
                 <div className="round">ROUND { round }/5</div>
             </div>
 
             <div className={style.timer}>
-                <TimerBar timeLength={ 5 } addTime="0" path="/Bridge"/>
+                <TimerBar timeLength= { responseTime } addTime="0" path="/Bridge"/>
             </div>
 
             <div className="content">

@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setActivity } from '../Redux/sessionSlice.js';
 
 // Database
-import { ref, set } from "firebase/database";
+import {onValue, ref, update} from "firebase/database";
 import { database } from '../database.js';
 
 // Components
@@ -54,7 +54,7 @@ const LobbyPage = () => {
 
     useEffect(() => {
         if(isHost) {
-            set(ref(database, 'lobby-' + gamePin), {
+            update(ref(database, 'lobby-' + gamePin), {
                 gamePin: gamePin,
                 inSession: false
             });            
@@ -62,8 +62,39 @@ const LobbyPage = () => {
         }
     }, [isHost, gamePin]);
 
+    const [rounds, setRounds] = useState(2);
+    const [responseTime, setResponseTime] = useState(60);
+    const [discussionTime, setDiscussionTime] = useState(120);
+
+    const responseTimeData = ref(database, 'lobby-' + gamePin + '/responseTime');
+    const discussionTimeData = ref(database, 'lobby-' + gamePin + '/discussionTime');
+    const roundsData = ref(database, 'lobby-' + gamePin + '/numRounds');
+
+    useEffect(() => {
+        onValue(responseTimeData, (snapshot) => {
+            const data = snapshot.val();
+            if (data !== null) {
+                setResponseTime(data);
+            }
+        });
+
+        onValue(discussionTimeData, (snapshot) => {
+            const data = snapshot.val();
+            if (data !== null) {
+                setDiscussionTime(data);
+            }
+        });
+
+        onValue(roundsData, (snapshot) => {
+            const data = snapshot.val();
+            if (data !== null) {
+                setRounds(data);
+            }
+        });
+    }, [responseTimeData, discussionTimeData, roundsData]);
+
     function startSession() {
-        set(ref(database, 'lobby-' + gamePin), {
+        update(ref(database, 'lobby-' + gamePin), {
             gamePin: gamePin,
             inSession: true,
             discussionTimer: 30
