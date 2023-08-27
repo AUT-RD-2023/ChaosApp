@@ -1,10 +1,13 @@
 // React
-import React, { useState, useRef } from 'react';
-import { useLocation } from "react-router-dom";
+import React, { useState, useRef , useEffect } from 'react';
 import { useChannel } from "@ably-labs/react-hooks";
 
+// Redux
+import { useSelector, useDispatch } from "react-redux";
+import { setActivity } from '../Redux/sessionSlice.js';
+
 // Database
-import { ref, set } from "firebase/database";
+import { ref, set, onValue } from "firebase/database";
 import { database } from '../database.js';
 
 // Variables
@@ -12,7 +15,7 @@ import { scenario } from '../components/Scenarios.js';
 
 // Components
 import Button from '../components/Button.js'
-import TextArea from '../components/TextArea.js'
+import Textarea from '../components/Textarea.js'
 import TimerBar from '../components/TimerBar.js'
 
 // Styles
@@ -20,9 +23,14 @@ import style from '../styles/ScenarioPage.module.css';
 import '../App.css';
 
 function ScenarioPage() {
-    const location = useLocation();
-    const { state } = location;
-    state.activity = "discussion";
+    const dispatch = useDispatch();
+
+    const gamePin = useSelector((state) => state.session.gamePin)
+    const playerId = useSelector((state) => state.session.playerId)
+    const nickname = useSelector((state) => state.session.nickname)
+    const round = useSelector((state) => state.session.round);
+
+    dispatch(setActivity("discussion"))
 
     /* SCENARIO */
 
@@ -50,18 +58,17 @@ function ScenarioPage() {
 
     /* ABLY */
 
-    const channelName = state.channel;
     const [message, setMessage] = useState('');
     const [messages, updateMessages] = useState([]);
 
     // Receive and send messages from Ably
-    const [channel] = useChannel(channelName, (message) => {
+    const [channel] = useChannel(gamePin, (message) => {
         updateMessages((prev) => [...prev, message]);
     });
 
     const sendMessage = () => {
         if (channel && message.trim() !== '') {
-            channel.publish("Response", { text: state.nickname + ": " + message });
+            channel.publish("Response", { text: nickname + ": " + message });
         }
     };
 
@@ -70,22 +77,39 @@ function ScenarioPage() {
     /* DATABASE */
     
     const updateDatabase = () => {
-        set(ref(database, 'lobby-' + state.gamePin + '/responses/round-' + state.round + "/" + state.id), {
+        set(ref(database, 'lobby-' + gamePin + '/responses/round-' + round + "/" + playerId), {
         response: message // Add the users message to the database while tracking the current round and the users id
         }); 
-    } 
+    }
+    // const responseTimeData = ref(database, 'lobby-' + gamePin + '/responseTime')
+    //
+    const [responseTime, setResponseTime] = useState();
+    // onValue(responseTimeData, (snapshot) => {
+    //     setResponseTime(snapshot.val());
+    // });
+
+    const responseTimeData = ref(database, 'lobby-' + gamePin + '/responseTime');
+
+    useEffect(() => {
+        onValue(responseTimeData, (snapshot) => {
+            const data = snapshot.val();
+            if (data !== null) {
+                setResponseTime(data);
+            }
+        });
+    }, [responseTimeData]);
         
     /* RENDER */
 
     return(
         <div className="App">
             <div className="header">
-                <div className="name"><strong>{ state.nickname }</strong></div>
-                <div className="round">ROUND { state.round }/5</div>
+                <div className="name">{ nickname.toUpperCase() }</div>
+                <div className="round">ROUND { round }/5</div>
             </div>
 
             <div className={style.timer}>
-                <TimerBar timeLength="30" path="/Bridge"/>
+                <TimerBar timeLength= { responseTime } addTime="0" path="/Bridge"/>
             </div>
 
             <div className="content">
@@ -93,7 +117,7 @@ function ScenarioPage() {
                     <h1 className={style.heading}>SCENARIO</h1>
                     <p className={style.text}>{scenarioObj.scenarioArray[randScenario]}</p>
                     <p className={style.text}>What do you do?</p>
-                    <TextArea 
+                    <Textarea
                         placeholder="Enter Response..."
                         disabled={ textAreaDisabled }
                         onChange={(e) => setMessage(e.target.value)}
@@ -101,13 +125,13 @@ function ScenarioPage() {
                     <div style={{marginTop: "2vh"}}>
                         <Button 
                             name={ buttonDisabled ? "✓" : "SUBMIT"}
+                            static={ true } //button width is static, even if page height changes
                             press={ handleSubmit }
                             disabled={ buttonDisabled } 
                         />
                     </div>
                 </div>
             </div>
-
             { true ? "" : <span>  <h2>Responses</h2><ul>{messagePreviews}</ul> </span> /* Placeholder responses view */ }
         </div>
     );

@@ -1,42 +1,53 @@
 // React
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import { configureAbly, useChannel, usePresence } from "@ably-labs/react-hooks";
 
+// Redux
+import { useSelector, useDispatch } from 'react-redux'
+import { setActivity } from '../Redux/sessionSlice.js';
+
 // Database
-import { ref, set } from "firebase/database";
+import {onValue, ref, update} from "firebase/database";
 import { database } from '../database.js';
 
 // Components
 import Button from '../components/Button.js';
+import SlideSettings from '../components/SlideSettings.js';
+import IconButton from '../components/IconButton.js';
 
 // Styles
 import style from '../styles/LobbyPage.module.css';
 import '../App.css';
 
-const LobbyPage = () => {
-    const location = useLocation();
-    const navigate = useNavigate();
 
-    const gamePin  = location.state?.gamePin;
-    const identity = location.state?.identity;
-    const isHost   = location.state?.isHost;
+const LobbyPage = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const settingsOpen = useSelector((state) => state.session.settingsOpen)
+    const gamePin = useSelector((state) => state.session.gamePin)
+    const playerId = useSelector((state) => state.session.playerId)
+    const nickname = useSelector((state) => state.session.nickname)
+    const isHost = useSelector((state) => state.session.isHost)
+
 
     /* ABLY */
-    
-    configureAbly({key: "yqb0VQ.Av_Gmg:pItSDLVHuUqgEGYCqdOhVSr4Ypktm7764_a0mhpwbEY", clientId: identity.playerId});
+    configureAbly({key: "yqb0VQ.Av_Gmg:pItSDLVHuUqgEGYCqdOhVSr4Ypktm7764_a0mhpwbEY", clientId: playerId});
 
-    const channelName = gamePin + "";
-    const [presenceUsers] = usePresence(channelName, { nickname: identity.nickname });
+    const channelName = "" + gamePin;
+    const [presenceUsers] = usePresence(channelName, { nickname: nickname });
+    //save presenceUsers.length into a redux variable to store the number of players in the current game;
     
     const [channel] = useChannel(channelName, (message) => { // Page navigation when host presses start
         if(message.data.text === "true") {
-            navigate("/Bridge", { state: {activity: "start", round: 1, gamePin: gamePin, id: identity.playerId, nickname: identity.nickname, channel: channelName}});            
+            navigate("/Bridge");
         }
     });
 
     const handleStart = () => {
         startSession();
+        dispatch(setActivity("start"));
         channel.publish("Start", { text: "true" });
     };
 
@@ -44,18 +55,53 @@ const LobbyPage = () => {
 
     useEffect(() => {
         if(isHost) {
-            set(ref(database, 'lobby-' + gamePin), {
+            update(ref(database, 'lobby-' + gamePin), {
                 gamePin: gamePin,
-                inSession: false
+                inSession: false,
             });            
             console.log(`Current game session added to database!\n[gamePin : ${gamePin}], [inSession : false]`);
         }
-    }, [isHost, gamePin]);    
+    }, [isHost, gamePin]);
+
+    const [rounds, setRounds] = useState(2);
+    const [responseTime, setResponseTime] = useState(60);
+    const [discussionTime, setDiscussionTime] = useState(120);
+
+    const responseTimeData = ref(database, 'lobby-' + gamePin + '/responseTime');
+    const discussionTimeData = ref(database, 'lobby-' + gamePin + '/discussionTime');
+    const roundsData = ref(database, 'lobby-' + gamePin + '/numRounds');
+
+    useEffect(() => {
+        onValue(responseTimeData, (snapshot) => {
+            const data = snapshot.val();
+            if (data !== null) {
+                setResponseTime(data);
+            }
+        });
+
+        onValue(discussionTimeData, (snapshot) => {
+            const data = snapshot.val();
+            if (data !== null) {
+                setDiscussionTime(data);
+            }
+        });
+
+        onValue(roundsData, (snapshot) => {
+            const data = snapshot.val();
+            if (data !== null) {
+                setRounds(data);
+            }
+        });
+    }, [responseTimeData, discussionTimeData, roundsData]);
 
     function startSession() {
-        set(ref(database, 'lobby-' + gamePin), {
+        update(ref(database, 'lobby-' + gamePin), {
             gamePin: gamePin,
-            inSession: true
+            inSession: true,
+            responseTime: responseTime,
+            discussionTime: discussionTime,
+            numRounds: rounds
+
         });
     }
 
@@ -69,42 +115,65 @@ const LobbyPage = () => {
 
         setTimeout(() => {
             setTextVisible(false);
-        }, 2000);        
+        }, 2000);
     };
 
     /* RENDER */
+    const [isWindowLandscape, setIsWindowLandscape] = useState(window.innerHeight < window.innerWidth);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsWindowLandscape(window.innerHeight < window.innerWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);    
 
     const playButtonJSX = (       
-        <div className={style.buttons}>
-            <Button name="PLAY" press={handleStart}/>
-        </div>);
+        <><Button
+                name="PLAY"
+                static={ true } //button width is static, even if page height changes
+                press={handleStart}
+            />
+            <div className={style.spacer}></div></>);
+
+    const inviteButtonJSX = (               
+        <Button
+            name={textVisible ? "✓" : "INVITE"}
+            static={ true } //button width is static, even if page height changes
+            press={copyUrl}
+        />);
 
     return (
-        <div className="App">
-            <span className={style.lobby}>
+        <>
+            {isWindowLandscape ? <SlideSettings /> : (settingsOpen ? navigate("/SettingsPage") : <IconButton icon="settings" />)}
+            <div className={style.page}>
+            <div className={style.header}>
                 <div className={style.subtitle}>Chaos</div>
-
-                <div className={style.pin}>
-                    <span className={style.label}>GAME PIN: <br/></span>
-                    <span className={style.number}>{channelName}</span>
+            </div>
+            <div className={style.pin}>
+                <span className={style.label}>GAME PIN: <br/></span>
+                <span className={style.number}>&nbsp;{channelName}</span>
+            </div>
+            <div className={style.lobby}>
+                <div className={style.buttons}>
+                    {isHost ? playButtonJSX : null}
+                    { inviteButtonJSX }
                 </div>
-
                 <div className={style.container}>
                     <div className={style.players}>
                         {presenceUsers.map((user, index) => (
-                            <div className={style.grid_cell} key={user.clientId}>{user.data.nickname}</div>
+                            <div key={user.clientId}>{user.data.nickname}</div>
                         ))}
                     </div>
                 </div>
-
-                {isHost ? playButtonJSX : null}
-
-                <div className={style.buttons}>
-                    <Button name="INVITE" press={copyUrl}/>
-                    <p style={{textAlign: 'center'}}><strong>{textVisible ? "Link Copied!" : ""}</strong></p>
-                </div>
-            </span> 
-        </div>
+            </div>
+            </div>
+        </>
     );
 }
 

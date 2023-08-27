@@ -1,0 +1,47 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.title {
+    font-family: Rubik, sans-serif;
+    width: calc(100vw - 10vw);
+    font-size: min(11vw, 9vh);
+    letter-spacing: 1.5vw;
+    margin-top: 1.5vh;
+    margin-left: min(10vw, 2.5vh);
+    font-weight: 500;
+    text-align: center;
+    color: #3A847C;
+}
+
+.settings {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 62%;
+}
+
+.divider {
+    background: #75A78F;
+    width: 75%;
+    margin: 2.5vh auto 2.5vh auto;
+    height: 2px;
+}
+
+.heading {
+    text-align: center;
+    font-family: Quicksand, sans-serif;
+    font-size: min(6vw, 4vh);
+    margin-bottom: 0.8vh;
+}
+
+.buttons {
+    margin-bottom: 4vh;
+    max-height: 30vh;
+}

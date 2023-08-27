@@ -1,6 +1,10 @@
 // React
 import React, { useState, useEffect, useRef } from 'react';
-import { NavLink, useLocation, useParams, useNavigate } from 'react-router-dom';
+import { NavLink, useParams, useNavigate } from 'react-router-dom';
+
+// Redux
+import { useSelector, useDispatch } from 'react-redux'
+import { setSessionId, setName, setPlayerId } from "../Redux/sessionSlice"
 
 // Database
 import { ref, onValue } from "firebase/database";
@@ -14,17 +18,16 @@ import Identity from '../identity.js'
 // Styles
 import '../App.css';
 
-function NicknamePage() {    
-    const location = useLocation();
+function NicknamePage() {
+    const dispatch = useDispatch()
+    const isHost = useSelector((state) => state.session.isHost)
+
     const navigate = useNavigate();
     const params = useParams();
+    const joinPin = params?.pinNumber;    
 
-    const isHost = location.state?.isHost;
-    const joinPin = params?.pinNumber;
-    
-
-    if(!isHost) { 
-        if(!((joinPin.length === 5) && (/^[0-9\b]+$/.test(joinPin)))) {
+    if(!isHost) {
+        if(!((joinPin.length === 4) && (/^[0-9\b]+$/.test(joinPin)))) {
             window.location.href = "#/404"; // Redirects to the 404 page if url contains an incorrect pin code format.
         } 
     }
@@ -34,9 +37,12 @@ function NicknamePage() {
 
     const handleClick = () => {
         identity.makeNickname(nickname);
+        dispatch(setPlayerId(identity.playerId))
+        dispatch(setName(identity.nickname))
     }
 
-    const gamePin = useRef({ value: isHost ? Math.floor(Math.random() * 89999 + 10000) : joinPin }).current.value;        
+    const gamePin = useRef({ value: isHost ? Math.floor(Math.random() * 8999 + 1000) : joinPin }).current.value;
+    dispatch(setSessionId(gamePin))
 
     /* DATABASE */
 
@@ -47,7 +53,8 @@ function NicknamePage() {
             onValue(entryData, (snapshot) => { // Get a snapshot of the current value of the data
                 if(!snapshot.exists()) { 
                     navigate("/Error/invalid-pin"); // Navigate to the appropriate error page if the session does not already exist
-                }});            
+                }
+            });            
             
             let sessionStarted;
             const sessionData = ref(database, 'lobby-' + gamePin + '/inSession');
@@ -56,6 +63,7 @@ function NicknamePage() {
             if(sessionStarted) { navigate("/Error/session-started"); }
         }
     }, [isHost, gamePin, navigate]);
+
 
     /* RENDER */
 
@@ -72,9 +80,14 @@ function NicknamePage() {
                 />
                 <NavLink
                     to={ "/Lobby" }
-                    state={{ identity: identity, gamePin: gamePin, isHost: isHost }}
+                    state={{ identity: identity, gamePin: gamePin, isHost: isHost, settingsOpen: false}}
                 >
-                    <Button name="NEXT" disabled={ nickname && /\S/.test(nickname) ? false : true } press={ handleClick }/>
+                    <Button
+                        name="NEXT"
+                        static={ true } //button width is static, even if page height changes
+                        disabled={ !(nickname && /\S/.test(nickname)) }
+                        press={ handleClick }
+                    />
                 </NavLink>
             </div>
         </div>

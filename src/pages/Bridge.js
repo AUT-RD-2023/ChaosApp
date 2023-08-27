@@ -1,22 +1,25 @@
-//React
+// React
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 
-//Components
+// Components
 import TimerBar from '../components/TimerBar.js'
+
+// Redux
+import { useSelector } from "react-redux";
 
 // Styles
 import '../App.css';
 
 const Bridge = () => {
-    const location = useLocation();
-    const { state } = location;
 
-    let round;
+    const round = useSelector((state) => state.session.round);
+    const activity = useSelector((state) => state.session.activity);
+
+    let roundText
     let subheading;
     let path;
 
-    switch(state.activity) {
+    switch(activity) {
         case "start":
             subheading = "Get Ready...";
             path = "/Scenario";
@@ -37,29 +40,29 @@ const Bridge = () => {
     }
 
     // eslint-disable-next-line default-case
-    switch(state.round) {
+    switch(round) {
         case 1:
-            round = "ONE";
+            roundText = "ONE";
             break;
         case 2:
-            round = "TWO";
+            roundText = "TWO";
             break;
         case 3:
-            round = "THREE";
+            roundText = "THREE";
             break;
         case 4:
-            round = "FOUR";
+            roundText = "FOUR";
             break;
         case 5:
-            round = "FIVE";
+            roundText = "FIVE";
             break;
     }
 
     return (
         <div className="App">
-            <div className="heading">ROUND {round}</div><br />
+            <div className="heading">ROUND {roundText}</div><br />
             <div className="subheading">{subheading}</div><br />
-            <TimerBar timeLength="5" path={path} state={state ? state : null} />
+            <TimerBar timeLength="5" addTime="0" path={path} />
         </div>
     )
 }

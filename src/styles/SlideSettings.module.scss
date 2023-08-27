@@ -1,0 +1,251 @@
+// Icons //
+
+.settings_icon {
+  position: fixed;
+  top: 4vh;
+  right: 3.8vh;
+  z-index: 99;
+  width: 10vh;
+  height: 10vh;
+  opacity: 100;
+}
+
+.close_icon {
+  position: fixed;
+  top: -0.2vh;
+  left: -0.5vh;
+  z-index: 101;
+  width: 5vw;
+  opacity: 70%;
+  height: 4vw;
+}
+
+.close_icon:hover {
+  opacity: 100%;
+}
+
+.settings_icon:hover {
+  opacity: 70%;
+}
+
+// Menu Structure //
+
+.input { // A checkbox which determines if the flyout is open or closed
+  position: fixed;
+  top: 5vh;
+  right: 5vh;
+  opacity: 0;
+  width: 7vh;
+  height: 7vh;
+}
+
+.label { // To darken everything other than the menu
+  position: fixed;
+  top: 9999vh;
+  right: 9999vw;
+  height: 100vh;
+  width: 100vw;
+  background: #6B7372FF;
+  background: linear-gradient(90deg, rgba(107, 115, 114, 0.76) 0%, rgba(87, 96, 96, 0.91) 60%, rgb(49, 63, 62) 81%, rgb(0, 0, 0) 100%);
+  z-index: 101;
+}
+
+.slide { // Sliding components
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 101;
+  display: flex;
+  pointer-events: none; // Makes div "click-throughable" to access buttons below.
+  flex-flow: column nowrap;
+  align-items: flex-start;
+  transform: translateX(100%);
+  transition: transform 1s cubic-bezier(0.190, 1.000, 0.220, 1.000);;
+  &::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    width: 30vw;
+    background: #ffffff;
+    content: '';
+    transform: translateX(235%);
+    transition: transform .5s cubic-bezier(0.190, 1.000, 0.220, 1.000);;
+  }
+
+  .content { // Content in the menu
+    display: flex;
+    flex-direction: column;
+    color: black;
+    width: 30vw;
+    height: 100vh;
+    transform: translateX(235%);
+    transition: color .15s, transform .5s;
+    transition-timing-function: cubic-bezier(0.190, 1.000, 0.220, 1.000);
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .top { // Menu heading that contains the close icon and title
+    display: flex;
+    width: 31vw;
+    margin: 2.5vh 0 3.5vh 0;
+    height: fit-content;
+    align-items: center;
+  }
+
+  .title {
+    font-family: Rubik, sans-serif;
+    height: fit-content;
+    width: 100%;
+    font-size: 3vw;
+    letter-spacing: 0.5vw;
+    font-weight: 500;
+    text-align: center;
+    color: #3A847C;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .settings { // Settings form
+    display: flex;
+    flex-direction: column;
+  }
+  .heading { // Individual setting headings (e.g. number of rounds)
+    width: 100%;
+    text-align: center;
+    font-family: Quicksand, sans-serif;
+    font-size: 1.6vw;
+    margin-bottom: 1vh;
+  }
+
+  .divider { // Dividing line between each individual setting
+    background: #75A78F;
+    width: 75%;
+    margin: 2.5vh auto 2.5vh auto;
+    height: 0.2vh;
+  }
+
+  .buttons { // Div that contains the buttons
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 3vw auto 4vh auto;
+  }
+
+  .spacer{ // Vertical spacing between the buttons
+    height: 1.5vh;
+  }
+}
+
+// Behaviour after input is checked //
+
+[id="navcheck-h"]:checked {
+  & + .settings_icon {
+    opacity: 0;
+    &::before {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  & + .label { // When checkbox is clicked label 0% to 40% opacity
+    opacity: 40%;
+    top: 0;
+    right: 0;
+  }
+
+  & ~ .slide { // menu component slides out
+    transform: translateX(0);
+    pointer-events: auto; // Makes menu close button clickable again
+  }
+}
+
+@media (orientation: landscape) {
+  .setter { // Entire setter component (- input +)
+    width: 100%;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 1vh 0 1vh 0;
+  }
+
+  .increase_button, .decrease_button { // Setter buttons
+    width: 3.5vw;
+    height: 3.5vw;
+    background: #75A78F;
+    border: 0.15vw white solid;
+    filter: drop-shadow(0 1vw 1vw rgba(0, 0, 0, 0.2));
+    color:  #FFFFFF;
+    font-family: 'Rubik', sans-serif;
+    font-size: 2vw;
+    border-radius: 50%;
+    margin-left: 2vw;
+    margin-right: 2vw;
+  }
+
+  .increase_button:hover, .decrease_button:hover {
+    background-color: #60937c;
+    font-size: 2.2vw;
+  }
+
+  .time {
+    width: 7vw;
+    height: 3.5vw;
+    font-size: 1.5vw;
+  }
+}
+
+@media (orientation: portrait) {
+  .back_icon {
+    position: absolute;
+    top: min(3vw, 2vh);
+    left: min(3vw, 3vh);
+    z-index: 99;
+    width: min(12vw, 10vh);
+    height: min(12vw, 10vh);
+  }
+
+  .back_icon:hover {
+    opacity: 70%;
+  }
+
+  .setter { // Entire setter component (- input +)
+    width: 100%;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 1vh 0 1vh 0;
+  }
+
+  .time {
+    width: 7vw;
+    height: 3.5vw;
+    font-size: 1.5vw;
+  }
+
+  .increase_button, .decrease_button { // Setter buttons
+    height: 14vw;
+    max-height: 10vh;
+    aspect-ratio: 1/1;
+    background: #75A78F;
+    border: 0.15vw white solid;
+    filter: drop-shadow(0 1vw 1vw rgba(0, 0, 0, 0.2));
+    color:  #FFFFFF;
+    font-family: 'Rubik', sans-serif;
+    font-size: min(9vw, 6vh);
+    border-radius: 50%;
+    margin-left: 4vw;
+    margin-right: 4vw;
+  }
+
+  .increase_button:hover, .decrease_button:hover {
+    background-color: #60937c;
+    font-size: min(9.2vw, 6.5vh);
+  }
+}

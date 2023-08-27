@@ -1,0 +1,181 @@
+@media (orientation: landscape) {
+    .page {
+        display: flex;
+        flex-flow: column;
+        height: 99.7vh;
+        width: 99.8vw;
+    }
+
+    .header {
+        flex: 0 1 auto;
+    }
+
+    .subheader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .subtitle {
+        font-family: 'Rubik', sans-serif;
+      font-size: 3vw;
+      letter-spacing: 0.5vw;
+        font-weight: 600;
+        text-align: center;
+        color: #2D7C73;
+        height: fit-content;
+        width: 100%;
+    }
+
+    .discussion {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .completion {
+        height: 5%;
+      font-size: 2vw;
+      letter-spacing: 0.25rem;
+        margin-top: 5vh;
+      padding-bottom: 3vh;
+        text-align: center;
+        font-family: Quicksand, sans-serif;
+        color: #ADADAD;
+        font-weight: 700;
+        width: 100%;
+    }
+
+    .response {
+        display: flex;
+        justify-content: center;
+        height: fit-content;
+        font-size: 1.5vw;
+        overflow: auto;
+        max-height: 50vh;
+        margin-top: 2vh;
+        font-family: Quicksand, sans-serif;
+        width: 100%;
+        text-align: center;
+    }
+
+    .container{
+      width: fit-content;
+      max-width: 65%;
+      height: fit-content;
+      margin: 0 auto 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .buttons {
+      display: flex;
+      margin: 2vh auto 0 auto;
+        width: fit-content;
+        height: fit-content;
+    }
+
+    .button_spacer{
+      width: 3vw;
+    }
+}
+
+@media (orientation: portrait) {
+    .page {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100vh;
+        width: 100vw;
+    }
+
+    .header {
+        width: 100vw;
+        height: fit-content;
+        margin-top: 1.5%;
+        margin-bottom: 4%;
+    }
+
+    .subheader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .subtitle {
+        font-family: 'Rubik', sans-serif;
+        font-size: 10vw;
+        letter-spacing: 1.3vw;
+        font-weight: 700;
+        text-align: center;
+        color: #2D7C73;
+        height: fit-content;
+        width: 100vh;
+    }
+
+    .discussion {
+        display: flex;
+        flex-direction: column-reverse;
+        width: 100%;
+        overflow: hidden;
+        height: 90%;
+        margin-top: 2%;
+        padding-bottom: 5vh;
+    }
+
+    .completion {
+        height: fit-content;
+        font-size: 5vw;
+        letter-spacing: 0.25rem;
+        text-align: center;
+        font-family: Quicksand, sans-serif;
+        color: #ADADAD;
+        font-weight: 700;
+        width: 100%;
+    }
+
+    .response {
+        display: flex;
+        justify-content: center;
+        height: 80%;
+        font-size: 4.5vw;
+        overflow-y: auto;
+        font-family: Quicksand, sans-serif;
+        width: 100%;
+        text-align: center;
+        align-items: safe center;
+        margin: 2vh auto auto auto;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        width: 60%;
+        height: 65%;
+        margin: 0 auto 4vh auto;
+    }
+
+    .buttons {
+        width: fit-content;
+        height: fit-content;
+        max-height: 20%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: -1vh auto 2vh auto;
+    }
+
+    .button_spacer{
+        height: 3vw;
+    }
+
+    .div_spacer{
+        height: 5vh;
+    }
+}
