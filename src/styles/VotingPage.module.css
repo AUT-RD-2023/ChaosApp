@@ -15,6 +15,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 1vw;
 }
 
 .card:hover {
@@ -23,7 +24,7 @@
 
 .card:focus {
     border: 5px solid #75A78F;
-    padding: 10px;
+    margin: 5px;
 }
 
 
@@ -92,7 +93,7 @@
     }
 
     .card{
-        flex: 0 0 45vw; /* Flex properties to control card width */
+        flex: 0 0 40vw; /* Flex properties to control card width */
         height: 75%;
         border-radius: 7.2vw;
         margin-top: 3%;

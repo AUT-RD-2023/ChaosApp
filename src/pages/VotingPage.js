@@ -11,6 +11,10 @@
 // React
 import React from "react";
 
+// Database
+import { ref, set } from "firebase/database";
+import { database } from '../database.js';
+
 // Components
 import Button from "../components/Button.js";
 import TimerBar from "../components/TimerBar.js";
@@ -44,7 +48,8 @@ const VotingPage = () => {
         <div className={styles.carouselContainer}>
             <div className={styles.carousel}>
                 {/* Needs to be optimised for functionality - currently placeholders */}
-                <div className={styles.card} tabindex={0}>Response 1</div>
+                <div className={styles.card} tabindex={0}> The average paragraph is around 200 words. This can vary depending on the type of writing you're doing. For example, if you're writing a paper for school, your teacher may have a specific word count in mind. In general, though, a paragraph should be about five to seven sentences long.
+            </div>
                 <div className={styles.card} tabindex={0}>Response 2</div>
                 <div className={styles.card} tabindex={0}>Response 3</div>
                 <div className={styles.card} tabindex={0}>Response 4</div>
@@ -55,7 +60,9 @@ const VotingPage = () => {
             </div>
         </div>
         <div className={styles.buttons}>
-            <Button name="VOTE" />
+            <Button name="VOTE" 
+            static={false} 
+            />
         </div>
 
         </div>
