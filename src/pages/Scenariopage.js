@@ -1,5 +1,5 @@
 // React
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef , useEffect } from 'react';
 import { useChannel } from "@ably-labs/react-hooks";
 
 // Redux
@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setActivity } from '../Redux/sessionSlice.js';
 
 // Database
-import { ref, set } from "firebase/database";
+import { ref, set, onValue } from "firebase/database";
 import { database } from '../database.js';
 
 // Variables
@@ -80,19 +80,36 @@ function ScenarioPage() {
         set(ref(database, 'lobby-' + gamePin + '/responses/round-' + round + "/" + playerId), {
         response: message // Add the users message to the database while tracking the current round and the users id
         }); 
-    } 
+    }
+    // const responseTimeData = ref(database, 'lobby-' + gamePin + '/responseTime')
+    //
+    const [responseTime, setResponseTime] = useState();
+    // onValue(responseTimeData, (snapshot) => {
+    //     setResponseTime(snapshot.val());
+    // });
+
+    const responseTimeData = ref(database, 'lobby-' + gamePin + '/responseTime');
+
+    useEffect(() => {
+        onValue(responseTimeData, (snapshot) => {
+            const data = snapshot.val();
+            if (data !== null) {
+                setResponseTime(data);
+            }
+        });
+    }, [responseTimeData]);
         
     /* RENDER */
 
     return(
         <div className="App">
             <div className="header">
-                <div className="name"><strong>{ nickname.toUpperCase() }</strong></div>
+                <div className="name">{ nickname.toUpperCase() }</div>
                 <div className="round">ROUND { round }/5</div>
             </div>
 
             <div className={style.timer}>
-                <TimerBar timeLength={ 5 } addTime="0" path="/Bridge"/>
+                <TimerBar timeLength= { responseTime } addTime="0" path="/Bridge"/>
             </div>
 
             <div className="content">

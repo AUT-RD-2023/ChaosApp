@@ -64,6 +64,7 @@ function NicknamePage() {
         }
     }, [isHost, gamePin, navigate]);
 
+
     /* RENDER */
 
     return (

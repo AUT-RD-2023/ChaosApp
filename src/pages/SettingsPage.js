@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 // Redux
-import { useDispatch } from "react-redux";
+import {useDispatch} from "react-redux";
 import { setSettingsOpen } from "../Redux/sessionSlice";
 
 // Components
@@ -17,6 +17,8 @@ import style from "../styles/SettingsPage.module.css";
 function SettingsPage() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const [savePressed, setSavePressed] = useState(false);
 
 
     /* Window Resizing Handling */
@@ -46,11 +48,14 @@ function SettingsPage() {
     /* Button Functionality*/
 
     const handleSave = event => {
+        setSavePressed(true); // Passed to Setter component to handle database entries
 
-        // Save values to the database
+        // Time out so that the database has time to process, otherwise it sets savePressed to false before the data is saved.
+        setTimeout(() => {
+            setSavePressed(false);
+        }, 500);
 
         dispatch(setSettingsOpen(false))
-        navigate("/Lobby");
     };
 
     const handleReset = () => {
@@ -65,17 +70,17 @@ function SettingsPage() {
                 <div className={style.settings}>
                     <div>
                         <div className={style.heading}>Number of Rounds</div>
-                        <Setter id="rounds" orientation="portrait" />
+                        <Setter id="rounds" orientation="portrait" savePressed= { savePressed }/>
                     </div>
                     <div className={style.divider}/>
                     <div>
                         <div className={style.heading}>Response Timer (+30 sec)</div>
-                        <Setter id="response" orientation="portrait" />
+                        <Setter id="response" orientation="portrait" savePressed= { savePressed }/>
                     </div>
                     <div className={style.divider}/>
                     <div>
                         <div className={style.heading}>Discussion Timer (+30 sec)</div>
-                        <Setter id="discussion" orientation="portrait" />
+                        <Setter id="discussion" orientation="portrait" savePressed={ savePressed }/>
                     </div>
                 </div>
                 <div className={style.buttons}>

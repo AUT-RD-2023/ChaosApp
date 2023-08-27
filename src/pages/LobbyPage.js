@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setActivity } from '../Redux/sessionSlice.js';
 
 // Database
-import { ref, set } from "firebase/database";
+import {onValue, ref, update} from "firebase/database";
 import { database } from '../database.js';
 
 // Components
@@ -30,6 +30,7 @@ const LobbyPage = () => {
     const playerId = useSelector((state) => state.session.playerId)
     const nickname = useSelector((state) => state.session.nickname)
     const isHost = useSelector((state) => state.session.isHost)
+
 
     /* ABLY */
     configureAbly({key: "yqb0VQ.Av_Gmg:pItSDLVHuUqgEGYCqdOhVSr4Ypktm7764_a0mhpwbEY", clientId: playerId});
@@ -54,19 +55,53 @@ const LobbyPage = () => {
 
     useEffect(() => {
         if(isHost) {
-            set(ref(database, 'lobby-' + gamePin), {
+            update(ref(database, 'lobby-' + gamePin), {
                 gamePin: gamePin,
-                inSession: false
+                inSession: false,
             });            
             console.log(`Current game session added to database!\n[gamePin : ${gamePin}], [inSession : false]`);
         }
     }, [isHost, gamePin]);
 
+    const [rounds, setRounds] = useState(2);
+    const [responseTime, setResponseTime] = useState(60);
+    const [discussionTime, setDiscussionTime] = useState(120);
+
+    const responseTimeData = ref(database, 'lobby-' + gamePin + '/responseTime');
+    const discussionTimeData = ref(database, 'lobby-' + gamePin + '/discussionTime');
+    const roundsData = ref(database, 'lobby-' + gamePin + '/numRounds');
+
+    useEffect(() => {
+        onValue(responseTimeData, (snapshot) => {
+            const data = snapshot.val();
+            if (data !== null) {
+                setResponseTime(data);
+            }
+        });
+
+        onValue(discussionTimeData, (snapshot) => {
+            const data = snapshot.val();
+            if (data !== null) {
+                setDiscussionTime(data);
+            }
+        });
+
+        onValue(roundsData, (snapshot) => {
+            const data = snapshot.val();
+            if (data !== null) {
+                setRounds(data);
+            }
+        });
+    }, [responseTimeData, discussionTimeData, roundsData]);
+
     function startSession() {
-        set(ref(database, 'lobby-' + gamePin), {
+        update(ref(database, 'lobby-' + gamePin), {
             gamePin: gamePin,
             inSession: true,
-            discussionTimer: 30
+            responseTime: responseTime,
+            discussionTime: discussionTime,
+            numRounds: rounds
+
         });
     }
 

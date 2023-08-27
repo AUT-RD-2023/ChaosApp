@@ -11,6 +11,8 @@ import { setSettingsOpen } from "../Redux/sessionSlice";
 const SlideSettings = (props) => {
     const dispatch = useDispatch()
     const settingsOpen = useSelector((state) => state.session.settingsOpen)
+
+    const [savePressed, setSavePressed] = useState(false);
     const [isChecked, setIsChecked] = useState(false);
 
     useEffect(() => {
@@ -22,6 +24,10 @@ const SlideSettings = (props) => {
     };
     const handleCloseClick = event => {
         dispatch(setSettingsOpen(false))
+    };
+
+    const handleSave = event => {
+        setSavePressed(true); // Passed to Setter component to handle database entries
     };
 
     return (
@@ -37,17 +43,17 @@ const SlideSettings = (props) => {
                     </div>
                     <div className={style.settings}>
                         <div className={style.heading}>Number of Rounds</div>
-                        <Setter id="rounds" orientation="landscape" />
+                        <Setter id="rounds" orientation="landscape" savePressed= { savePressed }/>
                         <div className={style.divider}/>
                         <div className={style.heading}>Response Timer (+30 sec)</div>
-                        <Setter id="response" orientation="landscape" />
+                        <Setter id="response" orientation="landscape" savePressed= { savePressed }/>
                         <div className={style.divider}/>
                         <div className={style.heading}>Discussion Timer (+30 sec)</div>
-                        <Setter id="discussion" orientation="landscape" />
+                        <Setter id="discussion" orientation="landscape" savePressed= { savePressed }/>
                         <div className={style.buttons}>
                             <Button name="RESET" static={ false }> </Button>
                             <div className={style.spacer} />
-                            <Button name="SAVE" static={ false }></Button>
+                            <Button name="SAVE" static={ false }  press={ handleSave }></Button>
                         </div>
                     </div>
 

@@ -1,5 +1,5 @@
 // React
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 // Components
 import Button from "../components/Button.js";
@@ -26,15 +26,27 @@ function DiscussionPage() {
   const round = useSelector((state) => state.session.round);
 
   const [addLength, setAddLength] = useState(0);
-    const [firstAdd, setFirstAdd] = useState(true);
+  const [firstAdd, setFirstAdd] = useState(true);
 
   /* DATABASE */
 
   const responseData = ref(database, 'lobby-' + gamePin + '/responses/round-' + round + '/' + playerId);
+  const [discussionTime, setDiscussionTime] = useState();
 
   onValue(responseData, (snapshot) => { 
     console.log(snapshot.val()); // print the response made by this player in the console
   });
+
+  const discussionTimeData = ref(database, 'lobby-' + gamePin + '/discussionTime');
+
+    useEffect(() => {
+        onValue(discussionTimeData, (snapshot) => {
+            const data = snapshot.val();
+            if (data !== null) {
+                setDiscussionTime(data);
+            }
+        });
+    }, [discussionTimeData]);
 
   function handleAddTime() {
       if(firstAdd === true) {
@@ -68,7 +80,7 @@ function DiscussionPage() {
           <div className="name"><strong>{ nickname.toUpperCase() }</strong></div>
           <div className="round">ROUND { round }/5</div>
         </div>
-        <TimerBar timeLength="30" addTime={ addLength }/>
+        <TimerBar timeLength= { discussionTime } addTime={ addLength }/>
       </div>
       <div className={styles.div_spacer}/>
       <div className={styles.discussion}>
