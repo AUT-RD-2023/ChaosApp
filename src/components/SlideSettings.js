@@ -28,6 +28,11 @@ const SlideSettings = (props) => {
 
     const handleSave = event => {
         setSavePressed(true); // Passed to Setter component to handle database entries
+
+        // Time out so that the database has time to process, otherwise it sets savePressed to false before the data is saved.
+        setTimeout(() => {
+            setSavePressed(false);
+        }, 500);
     };
 
     return (
