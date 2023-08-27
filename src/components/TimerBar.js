@@ -20,7 +20,10 @@ const TimerBar = (props) => {
             const countDown = () => {
                 setTime(prevTime => {
                     if(prevTime <= 0) {
-                        navigate(path);
+                        setTimeout(() => {
+                            navigate(path);
+                        }, 100);
+                        
                         return 0;
                     }
 

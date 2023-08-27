@@ -27,8 +27,9 @@ function ScenarioPage() {
     /* REDUX */
     
     const dispatch = useDispatch();
-    const gamePin = useSelector((state) => state.session.gamePin)
-    const nickname = useSelector((state) => state.session.nickname)
+    const playerId = useSelector((state) => state.session.playerId);
+    const gamePin = useSelector((state) => state.session.gamePin);
+    const nickname = useSelector((state) => state.session.nicknamed);
     const round = useSelector((state) => state.session.round);
 
     dispatch(setActivity("discussion"))
@@ -72,16 +73,17 @@ function ScenarioPage() {
         }
     };
 
-    const messagePreviews = messages.map((msg, index) => <li key={index}>{msg.data.text}</li>);
+    const messagePreviews = messages.map((msg, index) => <li key={index}>{msg.data.text}</li>);    
 
     /* DATABASE */
     
     const updateDatabase = () => {
-        set(ref(database, 'lobby-' + gamePin + '/responses/round-' + round), {
+        set(ref(database, 'lobby-' + gamePin + '/responses/round-' + round + '/' + playerId), {
             response: message // Add the users message to the database while tracking the current round and the users id
         }); 
     }
 
+    // eslint-disable-next-line
     const [responseTime, setResponseTime] = useState();
 
     const responseTimeData = ref(database, 'lobby-' + gamePin + '/responseTime');

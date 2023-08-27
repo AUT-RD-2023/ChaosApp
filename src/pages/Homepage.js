@@ -73,7 +73,7 @@ const Homepage = () => {
                 <NavLink 
                     to={ dbExists && !dbSession ? `/Lobby/link/${gamePin}` : null } 
                     onClick={ checkDatabase }
-                    state={ { joinPin: gamePin }}
+                    state={ { joinPin: gamePin, isHost: false } }
                 >
                    <Button
                         name="JOIN" //check if the provided Game Pin is at least 4 characters long, only contains numbers and isn't made up of only whitespace
@@ -87,7 +87,8 @@ const Homepage = () => {
             <div className="button">
                 <NavLink 
                     to="/Host" 
-                    onClick={ dispatch(setIsHost(true)) } 
+                    onClick={ () => dispatch(setIsHost(true)) }
+                    state={ { isHost: true } } 
                 >
                     <Button
                         name="HOST"

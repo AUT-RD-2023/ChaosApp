@@ -5,7 +5,7 @@ import { configureAbly, useChannel, usePresence } from "@ably-labs/react-hooks";
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux'
-import { setActivity } from '../Redux/sessionSlice.js';
+import { setActivity, setNumPlayers } from '../Redux/sessionSlice.js';
 
 // Database
 import {onValue, ref, update} from "firebase/database";
@@ -42,12 +42,14 @@ const LobbyPage = () => {
     const [channel] = useChannel(channelName, (message) => { // Page navigation when host presses start
         if(message.data.text === "true") {
             navigate("/Bridge");
+            dispatch(setActivity("start"));
         }
     });
 
     const handleStart = () => {
         startSession();
-        dispatch(setActivity("start"));
+        console.log(presenceUsers.length);
+        dispatch(setNumPlayers(presenceUsers.length));
         channel.publish("Start", { text: "true" });
     };
 

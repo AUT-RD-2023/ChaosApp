@@ -1,5 +1,6 @@
 // React
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
+import { useChannel, usePresence } from "@ably-labs/react-hooks";
 
 // Components
 import Button from "../components/Button.js";
@@ -28,34 +29,67 @@ function DiscussionPage() {
   const [addLength, setAddLength] = useState(0);
   const [firstAdd, setFirstAdd] = useState(true);
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   /* DATABASE */
 
-  const responseData = ref(database, 'lobby-' + gamePin + '/responses/round-' + round + '/' + playerId);
-  const [discussionTime, setDiscussionTime] = useState();
-
-  onValue(responseData, (snapshot) => { 
-    console.log(snapshot.val()); // print the response made by this player in the console
-  });
-
   const discussionTimeData = ref(database, 'lobby-' + gamePin + '/discussionTime');
+  const [discussionTime, setDiscussionTime] = useState();  
 
-    useEffect(() => {
-        onValue(discussionTimeData, (snapshot) => {
-            const data = snapshot.val();
-            if (data !== null) {
-                setDiscussionTime(data);
-            }
-        });
-    }, [discussionTimeData]);
-
-  function handleAddTime() {
-      if(firstAdd === true) {
-          setAddLength(addLength + 5);
-          setFirstAdd(false);
-      } else {
-          setAddLength(addLength + 0.001);
+  useEffect(() => {
+    onValue(discussionTimeData, (snapshot) => {
+      const data = snapshot.val();
+      if (data !== null) {
+        setDiscussionTime(data);
       }
+    });
+  }, [discussionTimeData]);
+
+  function handleAddTime() {    
+    if(firstAdd === true) {
+      setAddLength(addLength + 5);
+      setFirstAdd(false);
+    } else {
+      setAddLength(addLength + 0.001);
+    }
   }
+
+  const nextResponse = () => {
+    if(currentIndex < finalArray.length-1) {
+      setCurrentIndex(currentIndex + 1);
+      console.log("gogo");
+    }
+    else {
+      setCurrentIndex(0);
+      console.log("reset");
+    }
+  }
+
+  /* ABLY */
+
+  const [responseArray, setResponseArray] = useState([]);
+  const [finalArray, setFinalArray] = useState([]);
+
+  const [presenceUsers] = usePresence(gamePin + ""); 
+
+  const [channel] = useChannel(gamePin + "", (message) => {
+    if(message.name === "Add to Array") {
+      console.log("message recieved: " + message.data.text);
+      setResponseArray(oldArray => [...oldArray, message.data.text]);
+    }
+  });  
+  
+  useEffect(() => {
+    const responseData = ref(database, `lobby-${gamePin}/responses/round-${round}/${playerId}/response`);
+
+    onValue(responseData, (snapshot) => {
+      channel.publish("Add to Array", { text: snapshot.val() });
+    });       
+    setFinalArray(Array.from(new Set(responseArray)));  
+    // eslint-disable-next-line
+  }, [presenceUsers]);    
+
+  console.log(finalArray);
 
   /* RENDER */
 
@@ -64,12 +98,13 @@ function DiscussionPage() {
       <Button
           name="NEXT"
           static={ false } //button width decreases as page height increases
+          press={ nextResponse }
       />
       <div className={styles.button_spacer}/>
         <Button 
             name="ADD TIME"
             static={ false } //button width decreases as page height increases
-            press={handleAddTime}
+            press={ handleAddTime }
           />
     </div>);
 
@@ -83,14 +118,12 @@ function DiscussionPage() {
       </div>
       <div className={styles.div_spacer}/>
       <div className={styles.discussion}>
-        { /* isHost ? buttonsJSX : null */ }
-        { buttonsJSX }
+        { isHost ? buttonsJSX : null }
+        { /* buttonsJSX */ }
         <div className={styles.container}>
             <div className={styles.completion}>1/5</div>
             <div className={styles.subtitle}>DISCUSSION</div>
-            <div className={styles.response}>
-                The average paragraph is around 200 words. This can vary depending on the type of writing you're doing. For example, if you're writing a paper for school, your teacher may have a specific word count in mind. In general, though, a paragraph should be about five to seven sentences long.
-            </div>
+            <div className={styles.response}>{ finalArray[currentIndex] }</div>
         </div>
       </div>
     </div>

@@ -1,9 +1,9 @@
 // React
 import React, { useState, useEffect, useRef } from 'react';
-import { NavLink, useParams, useNavigate } from 'react-router-dom';
+import { NavLink, useParams, useNavigate, useLocation } from 'react-router-dom';
 
 // Redux
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setSessionId, setName, setPlayerId } from "../Redux/sessionSlice"
 
 // Database
@@ -19,8 +19,9 @@ import Identity from '../identity.js'
 import '../App.css';
 
 function NicknamePage() {
+    const location = useLocation();
     const dispatch = useDispatch();
-    const isHost = useSelector((state) => state.session.isHost);
+    const isHost = location.state?.isHost; //useSelector((state) => state.session.isHost);
 
     const navigate = useNavigate();
     const params = useParams();
