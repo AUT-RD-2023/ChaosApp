@@ -1,18 +1,21 @@
 {
   "files": {
-    "main.css": "/ChaosApp/static/css/main.7575542c.css",
-    "main.js": "/ChaosApp/static/js/main.1913c343.js",
+    "main.css": "/ChaosApp/static/css/main.ab9b5264.css",
+    "main.js": "/ChaosApp/static/js/main.ee20502e.js",
     "static/media/Rubik-Regular.ttf": "/ChaosApp/static/media/Rubik-Regular.da833151ff7aaedb5f16.ttf",
     "static/media/rubik-semi-bold.ttf": "/ChaosApp/static/media/rubik-semi-bold.52d2adf4cb818e79b61d.ttf",
     "service-worker.js": "/ChaosApp/service-worker.js",
     "static/media/quicksand-regular.otf": "/ChaosApp/static/media/quicksand-regular.1a8cbf2a0b04da5410e2.otf",
     "static/media/lufga-regular.otf": "/ChaosApp/static/media/lufga-regular.ac50ed8ff14d1be217d3.otf",
+    "static/media/settings.svg": "/ChaosApp/static/media/settings.f37ba01cae823621623436ea0da630f0.svg",
+    "static/media/back.svg": "/ChaosApp/static/media/back.fb4f335f05b50d0f415da503f092881f.svg",
+    "static/media/close.svg": "/ChaosApp/static/media/close.2821fb2492bf372dde2ecece5798e544.svg",
     "index.html": "/ChaosApp/index.html",
-    "main.7575542c.css.map": "/ChaosApp/static/css/main.7575542c.css.map",
-    "main.1913c343.js.map": "/ChaosApp/static/js/main.1913c343.js.map"
+    "main.ab9b5264.css.map": "/ChaosApp/static/css/main.ab9b5264.css.map",
+    "main.ee20502e.js.map": "/ChaosApp/static/js/main.ee20502e.js.map"
   },
   "entrypoints": [
-    "static/css/main.7575542c.css",
-    "static/js/main.1913c343.js"
+    "static/css/main.ab9b5264.css",
+    "static/js/main.ee20502e.js"
   ]
 }
