@@ -114,12 +114,14 @@
       }
 
       .textarea {
-            width: 65vw;
-            height: 25vw;
+            width: 50vh;
+            max-width: 60vw;
+            height: min(25vw, 15vh);
             border: 0.1vw solid #8E8D8A;
-            border-radius: 7.2vw;
-            font-size: 4.5vw;
+            border-radius: min(7.2vw, 2.5vh);
+            font-size: min(4.5vw, 3vh);
             padding: 2vh 2vw 1vh 3.5vw;
+            margin-top: 1vh;
       }
 }
 
@@ -164,11 +166,14 @@
       }
 
       .textarea {
-            width: 25vw;
-            height: 7vw;
+            width: 50vh;
+            max-width: 35vw;
+            height: min(30vw, 15vh);
             border: 0.1vw solid #8E8D8A;
-            border-radius: 1.9vw;
-            font-size: 1.2vw;
+            border-radius: min(1.5vw, 2.2vh);
+            font-size: min(12vw, 2.5vh);
             padding: 2vh 0.8vw 2vh 1.2vw;
+            margin-top: 2vh;
+            margin-bottom: 0.5vh;
       }
 }

@@ -11,7 +11,8 @@ const Header = () => {
 
     return (
         <>
-            <div className="name"><strong>{ nickname.toUpperCase() }</strong></div>
+            {/*Bold nickname does not match the figma design and makes the rounds and title disproportional*/}
+            <div className="name">{ nickname.toUpperCase() }</div>
             <div className="round">ROUND { round }/{ numRounds }</div>
         </>
     );
