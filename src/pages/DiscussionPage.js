@@ -27,7 +27,7 @@ function DiscussionPage() {
   const round = useSelector((state) => state.session.round);
 
   const [addLength, setAddLength] = useState(0);
-  const [firstAdd, setFirstAdd] = useState(true);
+  // const [firstAdd, setFirstAdd] = useState(true);
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -45,13 +45,8 @@ function DiscussionPage() {
     });
   }, [discussionTimeData]);
 
-  function handleAddTime() {    
-    if(firstAdd === true) {
-      setAddLength(addLength + 5);
-      setFirstAdd(false);
-    } else {
-      setAddLength(addLength + 0.001);
-    }
+  function handleAddTime() {
+    channel.publish("Add Time", { text: "true" });
   }
 
   const nextResponse = () => {
@@ -74,8 +69,17 @@ function DiscussionPage() {
 
   const [channel] = useChannel(gamePin + "", (message) => {
     if(message.name === "Add to Array") {
-      console.log("message recieved: " + message.data.text);
+      console.log("message received: " + message.data.text);
       setResponseArray(oldArray => [...oldArray, message.data.text]);
+    } else if (message.name === "Add Time") {
+      console.log("Host pressed add time.");
+      // if(firstAdd === true) {
+        setAddLength(addLength + 5);
+      //   setFirstAdd(false);
+      // } else {
+      //   console.log("enter other add");
+      //   setAddLength(addLength + 0.001);
+      // }
     }
   });  
   
@@ -119,7 +123,6 @@ function DiscussionPage() {
       <div className={styles.div_spacer}/>
       <div className={styles.discussion}>
         { isHost ? buttonsJSX : null }
-        { /* buttonsJSX */ }
         <div className={styles.container}>
             <div className={styles.completion}>1/5</div>
             <div className={styles.subtitle}>DISCUSSION</div>
