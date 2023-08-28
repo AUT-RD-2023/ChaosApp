@@ -9,7 +9,7 @@
 */
 
 // React
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 // Database
 import { ref, onValue } from "firebase/database";
@@ -23,8 +23,6 @@ import VotingCard from "../components/VotingCard.js";
 //variables
 import { useSelector } from "react-redux";
 
-
-
 // Styles
 import styles from "../styles/VotingPage.module.css";
 
@@ -37,19 +35,29 @@ const VotingPage = () => {
     const isHost = useSelector((state => state.session.isHost));
     const round = useSelector((state) => state.session.round);
     const gamePin = useSelector((state => state.session.gamePin));
-    const playerId = useSelector((state) => state.session.playerId);
+  const ablyUsers = useSelector((state) => state.session.ablyUsers);
 
 
+    const [responseArray, setResponseArray] = useState([]); 
 
+    useEffect(() => {
+        if(isHost) {
+          for(let i = 0; i < ablyUsers.length; i++) {
+            const responseData = ref(database, `lobby-${gamePin}/responses/round-${round}/${ablyUsers[i]}/response`);
+    
+            onValue(responseData, (snapshot) => {
+              setResponseArray(oldArray => [...oldArray, snapshot.val()]);
+              //console.log("Added response from User: " + ablyUsers[i] + ", Response: " + snapshot.val());
+            }, {
+              onlyOnce: true
+            });  
+          }      
+        }
+        // eslint-disable-next-line
+      }, []);
      /* DATABASE */ 
      
      //Get players response and print to response card.
-     const responseData = ref(database, 'lobby-' + gamePin + '/responses/round-' + round + '/' + playerId);
-   
-     onValue(responseData, (snapshot) => { 
-       console.log(snapshot.val()); // print the response made by this player in the console
-     });
-   
     //Retrieve responses + playerID of response to award points.
     
     //place response + playerID in a map?Array?
