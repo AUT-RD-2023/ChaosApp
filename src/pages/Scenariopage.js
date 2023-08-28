@@ -102,7 +102,7 @@ function ScenarioPage() {
                     <div className={styles.scenario}>{scenarioObj.scenarioArray[randScenario]}</div>
                     <div className={styles.prompt}>What do you do...?</div>
                     <Textarea
-                        placeholder="Enter Resopnse..."
+                        placeholder="Enter Response..."
                         disabled ={ textAreaDisabled }
                         onChange={(e) => setMessage(e.target.value)}
                     />
