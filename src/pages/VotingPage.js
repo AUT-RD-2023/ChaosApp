@@ -72,6 +72,19 @@ const VotingPage = () => {
               />
         </div>);
 
+const hostButtonsJSX = (
+    <div className={styles.buttons}>
+      <Button
+          name="VOTE"
+          static={ false } //button width decreases as page height increases
+      />
+      <div className={styles.button_spacer}/>
+        <Button 
+            name="SKIP"
+            static={ false } //button width decreases as page height increases
+          />
+    </div>);
+
     return (
         <div className={styles.page}>
             <div className={styles.header}>
@@ -99,8 +112,7 @@ const VotingPage = () => {
                 <div className={styles.card} tabIndex={0}>Response 8</div>
             </div>
         </div>
-         {/* { isHost ? buttonsJSX : null } */}
-         {buttonsJSX }
+         { isHost ? hostButtonsJSX : buttonsJSX }
         </div>
     )
 }
