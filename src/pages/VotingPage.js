@@ -35,7 +35,7 @@ const VotingPage = () => {
     const isHost = useSelector((state => state.session.isHost));
     const round = useSelector((state) => state.session.round);
     const gamePin = useSelector((state => state.session.gamePin));
-  const ablyUsers = useSelector((state) => state.session.ablyUsers);
+    const ablyUsers = useSelector((state) => state.session.ablyUsers);
 
 
     const [responseArray, setResponseArray] = useState([]); 
@@ -55,13 +55,6 @@ const VotingPage = () => {
         }
         // eslint-disable-next-line
       }, []);
-     /* DATABASE */ 
-     
-     //Get players response and print to response card.
-    //Retrieve responses + playerID of response to award points.
-    
-    //place response + playerID in a map?Array?
-    //for each response call a card constructorj and pass response+playerID
 
     //placeholders
     const name = "Name".toUpperCase();
