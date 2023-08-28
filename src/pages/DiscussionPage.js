@@ -1,6 +1,6 @@
 // React
 import React, { useEffect, useState } from "react";
-import { useChannel, usePresence } from "@ably-labs/react-hooks";
+import { useChannel } from "@ably-labs/react-hooks";
 
 // Components
 import Button from "../components/Button.js";
@@ -21,10 +21,63 @@ import "../App.css";
 function DiscussionPage() {
   /* REDUX */
 
-  const playerId = useSelector((state) => state.session.playerId);
   const gamePin = useSelector((state => state.session.gamePin));
   const isHost = useSelector((state => state.session.isHost));
   const round = useSelector((state) => state.session.round);
+
+  const ablyUsers = useSelector((state) => state.session.ablyUsers);
+  const [responseArray, setResponseArray] = useState([]); 
+
+  const [discussionText, setDiscussionText] = useState("");
+  const [currentText, setCurrentText] = useState("");
+  const [maxText, setMaxText] = useState("");
+
+  useEffect(() => {
+    if(isHost) {
+      for(let i = 0; i < ablyUsers.length; i++) {
+        const responseData = ref(database, `lobby-${gamePin}/responses/round-${round}/${ablyUsers[i]}/response`);
+
+        onValue(responseData, (snapshot) => {
+          setResponseArray(oldArray => [...oldArray, snapshot.val()]);
+          //console.log("Added response from User: " + ablyUsers[i] + ", Response: " + snapshot.val());
+        }, {
+          onlyOnce: true
+        });  
+      }      
+    }
+    // eslint-disable-next-line
+  }, []);
+
+  const nextResponse = () => {
+    if(currentIndex < responseArray.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    }
+    else {
+      setCurrentIndex(0);
+    }
+    channel.publish("Set Text", { text: responseArray[currentIndex] });
+    channel.publish("Set Current", { text: currentIndex + 1 });
+    channel.publish("Set Max", { text: responseArray.length });
+  }
+
+  const [channel] = useChannel(gamePin + "", (message) => {
+    if(message.name === "Set Text") {      
+      setDiscussionText(message.data.text);
+    }
+    if(message.name === "Set Current") {      
+      setCurrentText(message.data.text);
+    }
+    if(message.name === "Set Max") {      
+      setMaxText(message.data.text);
+    }
+    //console.log(`Message recieved, Name: ${message.name} | Data: ${message.data.text}`);
+  });    
+
+  useEffect(() => {
+    channel.publish("Set Text", { text: responseArray[0] });
+    nextResponse();
+    // eslint-disable-next-line
+  }, [channel, responseArray]);
 
   const [addLength, setAddLength] = useState(0);
   const [firstAdd, setFirstAdd] = useState(true);
@@ -52,44 +105,7 @@ function DiscussionPage() {
     } else {
       setAddLength(addLength + 0.001);
     }
-  }
-
-  const nextResponse = () => {
-    if(currentIndex < finalArray.length-1) {
-      setCurrentIndex(currentIndex + 1);
-      console.log("gogo");
-    }
-    else {
-      setCurrentIndex(0);
-      console.log("reset");
-    }
-  }
-
-  /* ABLY */
-
-  const [responseArray, setResponseArray] = useState([]);
-  const [finalArray, setFinalArray] = useState([]);
-
-  const [presenceUsers] = usePresence(gamePin + ""); 
-
-  const [channel] = useChannel(gamePin + "", (message) => {
-    if(message.name === "Add to Array") {
-      console.log("message recieved: " + message.data.text);
-      setResponseArray(oldArray => [...oldArray, message.data.text]);
-    }
-  });  
-  
-  useEffect(() => {
-    const responseData = ref(database, `lobby-${gamePin}/responses/round-${round}/${playerId}/response`);
-
-    onValue(responseData, (snapshot) => {
-      channel.publish("Add to Array", { text: snapshot.val() });
-    });       
-    setFinalArray(Array.from(new Set(responseArray)));  
-    // eslint-disable-next-line
-  }, [presenceUsers]);    
-
-  console.log(finalArray);
+  }  
 
   /* RENDER */
 
@@ -119,11 +135,10 @@ function DiscussionPage() {
       <div className={styles.div_spacer}/>
       <div className={styles.discussion}>
         { isHost ? buttonsJSX : null }
-        { /* buttonsJSX */ }
         <div className={styles.container}>
-            <div className={styles.completion}>1/5</div>
+            <div className={styles.completion}>{ currentText }/{ maxText }</div>
             <div className={styles.subtitle}>DISCUSSION</div>
-            <div className={styles.response}>{ finalArray[currentIndex] }</div>
+            <div className={styles.response}>{ discussionText }</div>
         </div>
       </div>
     </div>

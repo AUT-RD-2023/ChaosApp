@@ -25,12 +25,12 @@ import '../App.css';
 
 function ScenarioPage() {
     /* REDUX */
-    
-    const dispatch = useDispatch();
-    const playerId = useSelector((state) => state.session.playerId);
+
     const gamePin = useSelector((state) => state.session.gamePin);
     const nickname = useSelector((state) => state.session.nicknamed);
     const round = useSelector((state) => state.session.round);
+    const playerId = useSelector((state) => state.session.playerId);    
+    const dispatch = useDispatch();
 
     dispatch(setActivity("discussion"))
 
@@ -78,7 +78,7 @@ function ScenarioPage() {
     /* DATABASE */
     
     const updateDatabase = () => {
-        set(ref(database, 'lobby-' + gamePin + '/responses/round-' + round + '/' + playerId), {
+        set(ref(database, `lobby-${gamePin}/responses/round-${round}/${playerId}`), {
             response: message // Add the users message to the database while tracking the current round and the users id
         }); 
     }
@@ -105,7 +105,7 @@ function ScenarioPage() {
                 <Header />
             </div>
             <div className={style.timer}>
-                <TimerBar timeLength= { responseTime } addTime="0" path="/Bridge"/>
+                <TimerBar timeLength= { 10 /*responseTime*/ } addTime="0" path="/Bridge"/>
             </div>
             <div className="content">
                 <div className={style.container}>
