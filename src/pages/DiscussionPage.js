@@ -24,9 +24,10 @@ function DiscussionPage() {
   const gamePin = useSelector((state => state.session.gamePin));
   const isHost = useSelector((state => state.session.isHost));
   const round = useSelector((state) => state.session.round);
-
   const ablyUsers = useSelector((state) => state.session.ablyUsers);
+
   const [responseArray, setResponseArray] = useState([]); 
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const [discussionText, setDiscussionText] = useState("");
   const [currentText, setCurrentText] = useState("");
@@ -70,6 +71,9 @@ function DiscussionPage() {
     if(message.name === "Set Max") {      
       setMaxText(message.data.text);
     }
+    if (message.name === "Add Time") {
+      setAddLength(addLength + 5);
+    }
     //console.log(`Message recieved, Name: ${message.name} | Data: ${message.data.text}`);
   });    
 
@@ -80,9 +84,6 @@ function DiscussionPage() {
   }, [channel, responseArray]);
 
   const [addLength, setAddLength] = useState(0);
-  const [firstAdd, setFirstAdd] = useState(true);
-
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   /* DATABASE */
 
@@ -98,14 +99,9 @@ function DiscussionPage() {
     });
   }, [discussionTimeData]);
 
-  function handleAddTime() {    
-    if(firstAdd === true) {
-      setAddLength(addLength + 5);
-      setFirstAdd(false);
-    } else {
-      setAddLength(addLength + 0.001);
-    }
-  }  
+  function handleAddTime() {
+    channel.publish("Add Time", { text: "true" });
+  }
 
   /* RENDER */
 
