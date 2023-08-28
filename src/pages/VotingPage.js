@@ -18,6 +18,7 @@ import { database } from '../database.js';
 // Components
 import Button from "../components/Button.js";
 import TimerBar from "../components/TimerBar.js";
+import VotingCard from "../components/VotingCard.js";
 
 //variables
 import { useSelector } from "react-redux";
@@ -34,10 +35,13 @@ const VotingPage = () => {
     /* REDUX */
     const nickname = useSelector((state) => state.session.nickname);
     const isHost = useSelector((state => state.session.isHost));
-    const round = useSelector((state) => state.session.round);
 
      /* DATABASE */
     //Get players response and print to response card.
+    //Retrieve responses + playerID of response to award points.
+    
+    //place response + playerID in a map?Array?
+    //for each response call a card constructorj and pass response+playerID
 
     //placeholders
     const name = "Name".toUpperCase();
@@ -75,7 +79,7 @@ const VotingPage = () => {
                 {/* Needs to be optimised for functionality - currently placeholders */}
                 <div className={styles.card} tabIndex={0}> The average paragraph is around 200 words. This can vary depending on the type of writing you're doing. For example, if you're writing a paper for school, your teacher may have a specific word count in mind. In general, though, a paragraph should be about five to seven sentences long.
             </div>
-                <div className={styles.card} tabIndex={0}>Response 2</div>
+                <VotingCard response="VotingCard-Response" playerId={nickname} />
                 <div className={styles.card} tabIndex={0}>Response 3</div>
                 <div className={styles.card} tabIndex={0}>Response 4</div>
                 <div className={styles.card} tabIndex={0}>Response 5</div>
