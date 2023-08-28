@@ -20,7 +20,7 @@ import TimerBar from '../components/TimerBar.js'
 import Header from '../components/Header.js'
 
 // Styles
-import style from '../styles/ScenarioPage.module.css';
+import styles from '../styles/ScenarioPage.module.css';
 import '../App.css';
 
 function ScenarioPage() {
@@ -100,34 +100,32 @@ function ScenarioPage() {
     /* RENDER */
 
     return(
-        <div className="App">
-            <div className="header">
-                <Header />
+        <div className={styles.page}>
+            <div className={styles.header}>
+                <div className={styles.subheader}>
+                    <Header />
+                </div>
+                <TimerBar timeLength= { responseTime } addTime="0" path="/Bridge" />
             </div>
-            <div className={style.timer}>
-                <TimerBar timeLength= { 10 /*responseTime*/ } addTime="0" path="/Bridge"/>
-            </div>
-            <div className="content">
-                <div className={style.container}>
-                    <h1 className={style.heading}>SCENARIO</h1>
-                    <p className={style.text}>{scenarioObj.scenarioArray[randScenario]}</p>
-                    <p className={style.text}>What do you do?</p>
+            <div className={styles.content}>
+                <div className={styles.buttons}>
+                    <Button
+                        name= { buttonDisabled ? "✓" : "SUBMIT"}
+                        static={ false }
+                        press={ handleSubmit}
+                        disabled={ buttonDisabled }/>
+                </div>
+                <div className={styles.container}>
+                    <div className={styles.subtitle}>SCENARIO</div>
+                    <div className={styles.scenario}>{scenarioObj.scenarioArray[randScenario]}</div>
+                    <div className={styles.prompt}>What do you do...?</div>
                     <Textarea
-                        placeholder="Enter Response..."
-                        disabled={ textAreaDisabled }
+                        placeholder="Enter Resopnse..."
+                        disabled ={ textAreaDisabled }
                         onChange={(e) => setMessage(e.target.value)}
                     />
-                    <div style={{marginTop: "2vh"}}>
-                        <Button 
-                            name={ buttonDisabled ? "✓" : "SUBMIT"}
-                            static={ true } //button width is static, even if page height changes
-                            press={ handleSubmit }
-                            disabled={ buttonDisabled } 
-                        />
-                    </div>
                 </div>
             </div>
-            { true ? "" : <span>  <h2>Responses</h2><ul>{messagePreviews}</ul> </span> /* Placeholder responses view */ }
         </div>
     );
 }
