@@ -5,7 +5,7 @@ import { configureAbly, useChannel, usePresence } from "@ably-labs/react-hooks";
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux'
-import { setActivity, setNumPlayers } from '../Redux/sessionSlice.js';
+import { setActivity, setAblyUsers } from '../Redux/sessionSlice.js';
 
 // Database
 import {onValue, ref, update} from "firebase/database";
@@ -37,7 +37,6 @@ const LobbyPage = () => {
 
     const channelName = "" + gamePin;
     const [presenceUsers] = usePresence(channelName, { nickname: nickname });
-    //save presenceUsers.length into a redux variable to store the number of players in the current game;
     
     const [channel] = useChannel(channelName, (message) => { // Page navigation when host presses start
         if(message.data.text === "true") {
@@ -48,8 +47,9 @@ const LobbyPage = () => {
 
     const handleStart = () => {
         startSession();
-        console.log(presenceUsers.length);
-        dispatch(setNumPlayers(presenceUsers.length));
+        for(let i = 0; i < presenceUsers.length; i++) {
+            dispatch(setAblyUsers(presenceUsers[i].clientId));            
+        }
         channel.publish("Start", { text: "true" });
     };
 
@@ -61,7 +61,7 @@ const LobbyPage = () => {
                 gamePin: gamePin,
                 inSession: false,
             });            
-            console.log(`Current game session added to database!\n[gamePin : ${gamePin}], [inSession : false]`);
+            //console.log(`Current game session added to database!\n[gamePin : ${gamePin}], [inSession : false]`);
         }
     }, [isHost, gamePin]);
 

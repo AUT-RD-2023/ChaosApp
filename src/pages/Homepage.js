@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 
 // Redux
-import { setIsHost } from "../Redux/sessionSlice";
+import { resetDefaults } from "../Redux/sessionSlice";
 
 // Database
 import { database } from '../database.js';
@@ -19,7 +19,8 @@ import '../App.css';
 
 const Homepage = () => {
     const [gamePin, setGamePin] = useState("");
-    const dispatch = useDispatch();
+    const dispatch = useDispatch();   
+    dispatch(resetDefaults()); // Reset to the default values of all Redux variables 
 
     /* DATABASE */
 
@@ -57,6 +58,7 @@ const Homepage = () => {
             setErrorText("");
         }, 2000);  
     }
+
     
     /* RENDER */
 
@@ -87,7 +89,6 @@ const Homepage = () => {
             <div className="button">
                 <NavLink 
                     to="/Host" 
-                    onClick={ () => dispatch(setIsHost(true)) }
                     state={ { isHost: true } } 
                 >
                     <Button

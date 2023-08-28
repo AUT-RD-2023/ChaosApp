@@ -4,7 +4,7 @@ import { NavLink, useParams, useNavigate, useLocation } from 'react-router-dom';
 
 // Redux
 import { useDispatch } from 'react-redux'
-import { setSessionId, setName, setPlayerId } from "../Redux/sessionSlice"
+import { setSessionId, setName, setPlayerId, setIsHost, resetDefaults} from "../Redux/sessionSlice"
 
 // Database
 import { ref, onValue } from "firebase/database";
@@ -19,13 +19,20 @@ import Identity from '../identity.js'
 import '../App.css';
 
 function NicknamePage() {
-    const location = useLocation();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    
+    const location = useLocation();        
     const isHost = location.state?.isHost; //useSelector((state) => state.session.isHost);
 
-    const navigate = useNavigate();
     const params = useParams();
     const joinPin = params?.pinNumber;    
+
+    if(!isHost) { 
+        dispatch(resetDefaults()); // Reset to the default values of all Redux variables 
+    } else {
+        dispatch(setIsHost(true));
+    }
 
     if(!isHost) {
         if(!((joinPin.length === 4) && (/^[0-9\b]+$/.test(joinPin)))) {
