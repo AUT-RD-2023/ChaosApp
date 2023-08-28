@@ -1,6 +1,5 @@
 // React
 import React, { useState, useRef , useEffect } from 'react';
-import { useChannel } from "@ably-labs/react-hooks";
 
 // Redux
 import { useSelector, useDispatch } from "react-redux";
@@ -27,7 +26,6 @@ function ScenarioPage() {
     /* REDUX */
 
     const gamePin = useSelector((state) => state.session.gamePin);
-    const nickname = useSelector((state) => state.session.nicknamed);
     const round = useSelector((state) => state.session.round);
     const playerId = useSelector((state) => state.session.playerId);    
     const dispatch = useDispatch();
@@ -53,30 +51,14 @@ function ScenarioPage() {
     const handleSubmit = () => {
         setButtonDisabled(true);
         setTextAreaDisabled(true);
-        
-        sendMessage();
+
         updateDatabase();
-    }
-
-    /* ABLY */
-
-    const [message, setMessage] = useState('');
-    const [messages, updateMessages] = useState([]);
-
-    const [channel] = useChannel(gamePin, (message) => {
-        updateMessages((prev) => [...prev, message]);
-    });
-
-    const sendMessage = () => {
-        if (channel && message.trim() !== '') {
-            channel.publish("Response", { text: nickname + ": " + message });
-        }
-    };
-
-    const messagePreviews = messages.map((msg, index) => <li key={index}>{msg.data.text}</li>);    
+    }   
 
     /* DATABASE */
     
+    const [message, setMessage] = useState('');
+
     const updateDatabase = () => {
         set(ref(database, `lobby-${gamePin}/responses/round-${round}/${playerId}`), {
             response: message // Add the users message to the database while tracking the current round and the users id
