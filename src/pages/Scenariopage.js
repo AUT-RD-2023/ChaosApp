@@ -1,5 +1,6 @@
 // React
-import React, { useState, useRef , useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useChannel } from "@ably-labs/react-hooks";
 
 // Redux
 import { useSelector, useDispatch } from "react-redux";
@@ -27,21 +28,37 @@ function ScenarioPage() {
 
     const gamePin = useSelector((state) => state.session.gamePin);
     const round = useSelector((state) => state.session.round);
-    const playerId = useSelector((state) => state.session.playerId);    
-    const dispatch = useDispatch();
+    const playerId = useSelector((state) => state.session.playerId);        
+    const isHost = useSelector((state) => state.session.isHost);
 
+    const dispatch = useDispatch();
     dispatch(setActivity("discussion"))
 
     /* SCENARIO */
 
-    // Randomly generates an index num for scenario type & its scenario.
-    const randType = useRef( Math.floor(Math.random() * 3) + 1 ).current;
-    const randScenario = useRef( Math.floor(Math.random() * 2 )).current;
-    
-    // Finds scenario object by type.
-    const scenarioObj = scenario.find(obj => {
-        return obj.type === randType;
-    });
+    const [scenarioText, setScenarioText] = useState("");
+
+    useEffect(() => {
+        // Randomly generates an index num for scenario type & its scenario.
+        const randType = Math.floor(Math.random() * 3) + 1;
+        const randScenario = Math.floor(Math.random() * 2 );         
+
+        // Finds scenario object by type.
+        const scenarioObj = scenario.find(obj => { 
+            return obj.type === randType;
+        }); 
+        
+        channel.publish("Set Scenario", { text: scenarioObj.scenarioArray[randScenario] });
+        // eslint-disable-next-line
+    }, []);
+
+    /* ABLY */
+
+    const [channel] = useChannel(gamePin + "", (message) => {
+        if(message.name === "Set Scenario") {      
+            setScenarioText(message.data.text);
+        }
+    });  
 
     /* BUTTON */
 
@@ -99,7 +116,7 @@ function ScenarioPage() {
                 </div>
                 <div className={styles.container}>
                     <div className={styles.subtitle}>SCENARIO</div>
-                    <div className={styles.scenario}>{scenarioObj.scenarioArray[randScenario]}</div>
+                    <div className={styles.scenario}>{ scenarioText }</div>
                     <div className={styles.prompt}>What do you do...?</div>
                     <Textarea
                         placeholder="Enter Response..."
