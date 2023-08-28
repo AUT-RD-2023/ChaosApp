@@ -35,9 +35,21 @@ const VotingPage = () => {
     /* REDUX */
     const nickname = useSelector((state) => state.session.nickname);
     const isHost = useSelector((state => state.session.isHost));
+    const round = useSelector((state) => state.session.round);
+    const gamePin = useSelector((state => state.session.gamePin));
+    const playerId = useSelector((state) => state.session.playerId);
 
-     /* DATABASE */
-    //Get players response and print to response card.
+
+
+     /* DATABASE */ 
+     
+     //Get players response and print to response card.
+     const responseData = ref(database, 'lobby-' + gamePin + '/responses/round-' + round + '/' + playerId);
+   
+     onValue(responseData, (snapshot) => { 
+       console.log(snapshot.val()); // print the response made by this player in the console
+     });
+   
     //Retrieve responses + playerID of response to award points.
     
     //place response + playerID in a map?Array?
@@ -77,9 +89,8 @@ const VotingPage = () => {
         <div className={styles.carouselContainer}>
             <div className={styles.carousel}>
                 {/* Needs to be optimised for functionality - currently placeholders */}
-                <div className={styles.card} tabIndex={0}> The average paragraph is around 200 words. This can vary depending on the type of writing you're doing. For example, if you're writing a paper for school, your teacher may have a specific word count in mind. In general, though, a paragraph should be about five to seven sentences long.
-            </div>
-                <VotingCard response="VotingCard-Response" playerId={nickname} />
+                <div className={styles.card} tabIndex={0}> The average paragraph is around 200 words. This can vary depending on the type of writing you're doing. For example, if you're writing a paper for school, your teacher may have a specific word count in mind. In general, though, a paragraph should be about five to seven sentences long.</div>
+                <div className={styles.card} tabIndex={0}>Response 2</div>
                 <div className={styles.card} tabIndex={0}>Response 3</div>
                 <div className={styles.card} tabIndex={0}>Response 4</div>
                 <div className={styles.card} tabIndex={0}>Response 5</div>

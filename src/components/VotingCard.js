@@ -7,6 +7,7 @@ const VotingCard = (response, playerID) => {
     console.log(ID);
 
     return(
+        
         <div className={styles.card} tabIndex={0}>{resp}</div>
     );
 }
