@@ -13,6 +13,7 @@ import Button from "../components/Button";
 
 //Styles
 import style from "../styles/SettingsPage.module.css";
+import CustomPopUp from "../components/CustomPopUp";
 
 function SettingsPage() {
     const navigate = useNavigate();
@@ -64,9 +65,10 @@ function SettingsPage() {
 
     return(
         <div>
+            <CustomPopUp />
             <IconButton icon="back" onClick={dispatch(setSettingsOpen(false))}/>
             <div className={ style.content }>
-            <div className={ style.title }>SETTINGS</div>
+                <div className={ style.title }>SETTINGS</div>
                 <div className={style.settings}>
                     <div>
                         <div className={style.heading}>Number of Rounds</div>
