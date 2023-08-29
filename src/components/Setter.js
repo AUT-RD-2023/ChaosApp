@@ -1,20 +1,25 @@
-import style from '../styles/SlideSettings.module.scss';
-import Input from './Input.js';
+// React
 import {useEffect, useState} from "react";
+import Input from './Input.js';
 
 //Database
 import { database } from '../database.js';
 import { ref, update, onValue } from "firebase/database";
 
 // Redux
-import {useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setNumRounds } from '../Redux/sessionSlice.js';
+
+// Styles
+import style from '../styles/SlideSettings.module.scss';
 
 function Setter(props) {
+    const dispatch = useDispatch();
+
     let inputStyle = null;
     const [value, setValue] = useState(props.reset);
     const[intValue, setIntValue] = useState(0);
     const gamePin = useSelector((state) => state.session.gamePin)
-
 
     // Read from database, save to values. If database is empty, save default values.
 
@@ -42,7 +47,6 @@ function Setter(props) {
             }
         });
 
-
         onValue(roundsData, (snapshot) => {
             const data = snapshot.val();
             if (data !== null) {
@@ -60,12 +64,10 @@ function Setter(props) {
     }
 
     useEffect(() => {
-
         if(props.id === "rounds") setValue(rounds)  // This would need to become whatever value is in the database
         else if(props.id === "response") setValue(formatTime(responseTime))
         else if(props.id === "discussion") setValue(formatTime(discussionTime));
     }, [setValue, responseTime, rounds, discussionTime, props.id]);
-
 
     const orientation = props.orientation;
 
@@ -144,6 +146,7 @@ function Setter(props) {
                     update(ref(database, 'lobby-' + gamePin), {
                         numRounds: value
                     });
+                    dispatch(setNumRounds(value));
                 }
             } else if(props.id === "response") { // Save response time in database
                 if(intValue === 0) {
@@ -166,7 +169,7 @@ function Setter(props) {
                     });
                 }
             }
-        }
+        } // eslint-disable-next-line
     }, [props.savePressed]);
 
     return (

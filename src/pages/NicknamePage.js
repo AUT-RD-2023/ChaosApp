@@ -1,10 +1,10 @@
 // React
 import React, { useState, useEffect, useRef } from 'react';
-import { NavLink, useParams, useNavigate } from 'react-router-dom';
+import { NavLink, useParams, useNavigate, useLocation } from 'react-router-dom';
 
 // Redux
-import { useSelector, useDispatch } from 'react-redux'
-import { setSessionId, setName, setPlayerId } from "../Redux/sessionSlice"
+import { useDispatch } from 'react-redux'
+import { setSessionId, setName, setPlayerId, setIsHost, resetDefaults} from "../Redux/sessionSlice"
 
 // Database
 import { ref, onValue } from "firebase/database";
@@ -19,12 +19,20 @@ import Identity from '../identity.js'
 import '../App.css';
 
 function NicknamePage() {
-    const dispatch = useDispatch()
-    const isHost = useSelector((state) => state.session.isHost)
-
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    
+    const location = useLocation();        
+    const isHost = location.state?.isHost; //useSelector((state) => state.session.isHost);
+
     const params = useParams();
     const joinPin = params?.pinNumber;    
+
+    if(!isHost) { 
+        dispatch(resetDefaults()); // Reset to the default values of all Redux variables 
+    } else {
+        dispatch(setIsHost(true));
+    }
 
     if(!isHost) {
         if(!((joinPin.length === 4) && (/^[0-9\b]+$/.test(joinPin)))) {
@@ -37,12 +45,12 @@ function NicknamePage() {
 
     const handleClick = () => {
         identity.makeNickname(nickname);
-        dispatch(setPlayerId(identity.playerId))
-        dispatch(setName(identity.nickname))
+        dispatch(setPlayerId(identity.playerId));
+        dispatch(setName(identity.nickname));
     }
 
     const gamePin = useRef({ value: isHost ? Math.floor(Math.random() * 8999 + 1000) : joinPin }).current.value;
-    dispatch(setSessionId(gamePin))
+    dispatch(setSessionId(gamePin));
 
     /* DATABASE */
 

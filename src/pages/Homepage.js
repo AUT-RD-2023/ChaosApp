@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux'
 
 // Redux
-import { setIsHost } from "../Redux/sessionSlice";
+import { resetDefaults } from "../Redux/sessionSlice";
 
 // Database
 import { database } from '../database.js';
@@ -19,7 +19,8 @@ import '../App.css';
 
 const Homepage = () => {
     const [gamePin, setGamePin] = useState("");
-    const dispatch = useDispatch();
+    const dispatch = useDispatch();   
+    dispatch(resetDefaults()); // Reset to the default values of all Redux variables 
 
     /* DATABASE */
 
@@ -57,6 +58,7 @@ const Homepage = () => {
             setErrorText("");
         }, 2000);  
     }
+
     
     /* RENDER */
 
@@ -67,28 +69,31 @@ const Homepage = () => {
             <div className="container">
                 <Input 
                     placeholder="Game PIN"
-                    maxLength={5}
+                    maxLength={4}
                     onChange={ (e) => setGamePin(e.target.value) }
                 />
                 <NavLink 
                     to={ dbExists && !dbSession ? `/Lobby/link/${gamePin}` : null } 
                     onClick={ checkDatabase }
-                    state={ { joinPin: gamePin }}
+                    state={ { joinPin: gamePin, isHost: false } }
                 >
                    <Button
-                        name="JOIN" //check if the provided Game Pin is at least 5 characters long, only contains numbers and isn't made up of only whitespace
-                        static={ true } //button width is static, even if page height changes
-                        disabled={ (gamePin.length === 5) && (/^[0-9\b]+$/.test(gamePin)) && (/\S/.test(gamePin)) ? false : true }
+                        name="JOIN" //check if the provided Game Pin is at least 4 characters long, only contains numbers and isn't made up of only whitespace
+                        static={ true }
+                        disabled={ (gamePin.length === 4) && (/^[0-9\b]+$/.test(gamePin)) && (/\S/.test(gamePin)) ? false : true }
                         press={ updateText }                  
                     />
                 </NavLink>
             </div>     
             
             <div className="button">
-                <NavLink to="/Host" press={dispatch(setIsHost(true))}>
+                <NavLink 
+                    to="/Host" 
+                    state={ { isHost: true } } 
+                >
                     <Button
                         name="HOST"
-                        static={ true } //button width is static, even if page height changes
+                        static={ true }
                     />
                 </NavLink>              
             </div>

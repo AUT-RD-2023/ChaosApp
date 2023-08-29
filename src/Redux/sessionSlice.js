@@ -1,20 +1,24 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+const initialState = {
+    gamePin: "",
+    playerId: "",
+    nickname: "",
+    isHost: false,
+    round: 1,
+    activity: "",
+    settingsOpen: false,
+    savePressed: false,
+    defaultNumRounds: 2,
+    defaultResponseTime: 60,
+    defaultDiscussionTime: 120,
+    numRounds: 2,
+    ablyUsers: [],
+}
+
 export const sessionSlice = createSlice({
     name: 'session',
-    initialState: {
-        gamePin: "",
-        playerId: "",
-        nickname: "",
-        isHost: false,
-        round: 1,
-        activity: "",
-        settingsOpen: false,
-        savePressed: false,
-        defaultNumRounds: 2,
-        defaultResponseTime: 60,
-        defaultDiscussionTime: 120
-    },
+    initialState: initialState,
     reducers: {
         setSessionId: (state, action) => {
             state.gamePin = action.payload
@@ -47,10 +51,26 @@ export const sessionSlice = createSlice({
         setSavePressed: (state, action) => {
             state.savePressed = action.payload
         },
+
+        setNumRounds: (state, action) => {
+            state.numRounds = action.payload
+        },
+
+        setAblyUsers: (state, action) => {
+            state.ablyUsers.push(action.payload);
+        },
+
+        resetDefaults: () => {
+            return initialState;
+        },
+
+        resetAbly: (state) => {
+            state.ablyUsers = [];
+        }
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { setSessionId, setPlayerId, setName, setIsHost, setRound, setActivity, setSettingsOpen, setSavePressed } = sessionSlice.actions
+export const { setSessionId, setPlayerId, setName, setIsHost, setRound, setActivity, setSettingsOpen, setSavePressed, setNumRounds, setAblyUsers, resetDefaults, resetAbly } = sessionSlice.actions
 
 export default sessionSlice.reducer
