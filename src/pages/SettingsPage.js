@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 // Redux
-import {useDispatch} from "react-redux";
-import { setSettingsOpen } from "../Redux/sessionSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { setSettingsOpen, setCustomScenario, setUseCustomScenario } from "../Redux/sessionSlice";
 
 // Components
 import IconButton from '../components/IconButton.js';
@@ -15,7 +15,6 @@ import Switch from "../components/Switch";
 //Styles
 import style from "../styles/SettingsPage.module.css";
 import CustomPopUp from "../components/CustomPopUp";
-import styles from "../styles/DiscussionPage.module.css";
 
 function SettingsPage() {
     const navigate = useNavigate();
@@ -23,6 +22,10 @@ function SettingsPage() {
 
     const [savePressed, setSavePressed] = useState(false);
     const [customPopUpVisible, setCustomPopUpVisible] = useState(false);
+
+    const [customChecked, setCustomChecked] = useState(false);
+
+    const customScenario = useSelector((state) => state.session.customScenario);
 
     /* Window Resizing Handling */
 
@@ -66,17 +69,37 @@ function SettingsPage() {
     };
 
     /* Custom Scenario Popup */
-    const handleCustom= () => {
-        setCustomPopUpVisible(true);
+    const handleCustom = () => {
+        setCustomChecked((prev) => !prev); //set checked to the opposite of it's previous state
     };
+    
+    const onCustomPopUpClose = () => {
+        setCustomPopUpVisible(false);
+        setCustomChecked(false);
+    }
+
+    const handleCustomDelete = () => {
+        dispatch(setCustomScenario(null));
+        setCustomChecked(false);
+    }
+    
+    useEffect(() => {
+        if(customChecked && !customScenario) {
+            setTimeout(() => {
+                setCustomPopUpVisible(true);
+            }, 200);
+        }
+        dispatch(setUseCustomScenario(customChecked));
+        //console.log(customChecked ? "This game session will use the custom scenario!" : "this game session will NOT use the custom scenario.");
+    }, [customChecked]);
 
     return(
         <div>
-            { customPopUpVisible ? <CustomPopUp onClose={() => setCustomPopUpVisible(false)} /> : null }
+            { customPopUpVisible ? <CustomPopUp onClose={ onCustomPopUpClose } onConfirm={() => setCustomPopUpVisible(false)} /> : null }
             <IconButton icon="back" onClick={dispatch(setSettingsOpen(false))}/>
             <div className={ style.content }>
                 <div className={ style.title }>SETTINGS</div>
-                <div className={style.settings}>
+                <div className={ style.settings }>
                     <div>
                         <div className={style.heading}>Number of Rounds</div>
                         <Setter id="rounds" orientation="portrait" savePressed= { savePressed }/>
@@ -102,15 +125,17 @@ function SettingsPage() {
                         <div className={style.custom_wrapper}>
                             <p className= {style.custom} >Use Custom Scenario</p>
                             <div style={{position: "absolute", right: "12vw"}} >
-                                <Switch label=" " />
+                                <Switch label=" " checked={ customChecked } onChange={ handleCustom } />
                             </div>
                         </div>
-                        <div className={style.custom_wrapper}>
-                            <p className= {style.preview}>This is an example custom scenario</p>
-                            <div className={style.clear} >
-                                DELETE
-                            </div>
-                        </div>
+                        { customChecked ? 
+                            <div className={style.custom_wrapper}>
+                                <p className= {style.preview}>{ customScenario }</p>
+                                <div className={style.clear} onClick={ handleCustomDelete }>
+                                    DELETE
+                                </div>
+                            </div> : ""
+                        }
                     </div>
                     </div>
                 <div className={style.buttons}>

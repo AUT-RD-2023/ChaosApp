@@ -5,15 +5,20 @@ const initialState = {
     playerId: "",
     nickname: "",
     isHost: false,
+
     round: 1,
     activity: "",
+
     settingsOpen: false,
     savePressed: false,
     defaultNumRounds: 2,
     defaultResponseTime: 60,
-    defaultDiscussionTime: 120,
+    defaultDiscussionTime: 120,    
     numRounds: 2,
     ablyUsers: [],
+
+    customScenario: null,
+    useCustomScenario: false,
 }
 
 export const sessionSlice = createSlice({
@@ -57,7 +62,7 @@ export const sessionSlice = createSlice({
         },
 
         setAblyUsers: (state, action) => {
-            state.ablyUsers.push(action.payload);
+            state.ablyUsers.push(action.payload)
         },
 
         resetDefaults: () => {
@@ -66,11 +71,20 @@ export const sessionSlice = createSlice({
 
         resetAbly: (state) => {
             state.ablyUsers = [];
+        },
+
+        setCustomScenario: (state, action) => {
+            state.customScenario = action.payload
+        },
+
+        setUseCustomScenario: (state, action) => {
+            state.useCustomScenario = action.payload
         }
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { setSessionId, setPlayerId, setName, setIsHost, setRound, setActivity, setSettingsOpen, setSavePressed, setNumRounds, setAblyUsers, resetDefaults, resetAbly } = sessionSlice.actions
+export const { setSessionId, setPlayerId, setName, setIsHost, setRound, setActivity, setSettingsOpen, setSavePressed, setNumRounds, setAblyUsers, resetDefaults, resetAbly, 
+               setCustomScenario, setUseCustomScenario } = sessionSlice.actions
 
 export default sessionSlice.reducer
