@@ -80,7 +80,9 @@ function DiscussionPage() {
   });    
 
   useEffect(() => {
-    channel.publish("Set Text", { text: responseArray[0] });
+    if(isHost) {
+      channel.publish("Set Text", { text: responseArray[0] });
+    }
     nextResponse();
     // eslint-disable-next-line
   }, [channel, responseArray]);
