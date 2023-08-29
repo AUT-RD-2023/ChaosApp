@@ -97,7 +97,7 @@
       }
 
       .button:disabled {
-            font-size: 3vw;
+            font-size: 3vh;
       }
 
       .static_button:disabled {
