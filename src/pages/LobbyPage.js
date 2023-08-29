@@ -5,7 +5,7 @@ import { configureAbly, useChannel, usePresence } from "@ably-labs/react-hooks";
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux'
-import { setActivity } from '../Redux/sessionSlice.js';
+import { setActivity, setAblyUsers } from '../Redux/sessionSlice.js';
 
 // Database
 import {onValue, ref, update} from "firebase/database";
@@ -31,23 +31,25 @@ const LobbyPage = () => {
     const nickname = useSelector((state) => state.session.nickname)
     const isHost = useSelector((state) => state.session.isHost)
 
-
     /* ABLY */
+    
     configureAbly({key: "yqb0VQ.Av_Gmg:pItSDLVHuUqgEGYCqdOhVSr4Ypktm7764_a0mhpwbEY", clientId: playerId});
 
     const channelName = "" + gamePin;
     const [presenceUsers] = usePresence(channelName, { nickname: nickname });
-    //save presenceUsers.length into a redux variable to store the number of players in the current game;
     
     const [channel] = useChannel(channelName, (message) => { // Page navigation when host presses start
         if(message.data.text === "true") {
             navigate("/Bridge");
+            dispatch(setActivity("start"));
         }
     });
 
     const handleStart = () => {
         startSession();
-        dispatch(setActivity("start"));
+        for(let i = 0; i < presenceUsers.length; i++) {
+            dispatch(setAblyUsers(presenceUsers[i].clientId));            
+        }
         channel.publish("Start", { text: "true" });
     };
 
@@ -59,7 +61,7 @@ const LobbyPage = () => {
                 gamePin: gamePin,
                 inSession: false,
             });            
-            console.log(`Current game session added to database!\n[gamePin : ${gamePin}], [inSession : false]`);
+            //console.log(`Current game session added to database!\n[gamePin : ${gamePin}], [inSession : false]`);
         }
     }, [isHost, gamePin]);
 
@@ -101,7 +103,6 @@ const LobbyPage = () => {
             responseTime: responseTime,
             discussionTime: discussionTime,
             numRounds: rounds
-
         });
     }
 
@@ -119,6 +120,7 @@ const LobbyPage = () => {
     };
 
     /* RENDER */
+
     const [isWindowLandscape, setIsWindowLandscape] = useState(window.innerHeight < window.innerWidth);
 
     useEffect(() => {
@@ -134,12 +136,14 @@ const LobbyPage = () => {
     }, []);    
 
     const playButtonJSX = (       
-        <><Button
-                name="PLAY"
-                static={ true } //button width is static, even if page height changes
-                press={handleStart}
-            />
-            <div className={style.spacer}></div></>);
+        <>
+            <Button
+                    name="PLAY"
+                    static={ true } //button width is static, even if page height changes
+                    press={ handleStart }
+                />
+            <div className={style.spacer}></div>
+        </>);
 
     const inviteButtonJSX = (               
         <Button
@@ -150,7 +154,7 @@ const LobbyPage = () => {
 
     return (
         <>
-            {isWindowLandscape ? <SlideSettings /> : (settingsOpen ? navigate("/SettingsPage") : <IconButton icon="settings" />)}
+            {isHost ? isWindowLandscape ? <SlideSettings /> : (settingsOpen ? navigate("/SettingsPage") : <IconButton icon="settings" />) : null }
             <div className={style.page}>
             <div className={style.header}>
                 <div className={style.subtitle}>Chaos</div>
