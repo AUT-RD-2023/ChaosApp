@@ -10,17 +10,19 @@ import { setSettingsOpen } from "../Redux/sessionSlice";
 import IconButton from '../components/IconButton.js';
 import Setter from "../components/Setter";
 import Button from "../components/Button";
+import Switch from "../components/Switch";
 
 //Styles
 import style from "../styles/SettingsPage.module.css";
 import CustomPopUp from "../components/CustomPopUp";
+import styles from "../styles/DiscussionPage.module.css";
 
 function SettingsPage() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const [savePressed, setSavePressed] = useState(false);
-
+    const [customPopUpVisible, setCustomPopUpVisible] = useState(false);
 
     /* Window Resizing Handling */
 
@@ -59,13 +61,18 @@ function SettingsPage() {
         dispatch(setSettingsOpen(false))
     };
 
-    const handleReset = () => {
+    const handleReset= () => {
         // Reset to default values stored in redux store
+    };
+
+    /* Custom Scenario Popup */
+    const handleCustom= () => {
+        setCustomPopUpVisible(true);
     };
 
     return(
         <div>
-            <CustomPopUp />
+            { customPopUpVisible ? <CustomPopUp onClose={() => setCustomPopUpVisible(false)} /> : null }
             <IconButton icon="back" onClick={dispatch(setSettingsOpen(false))}/>
             <div className={ style.content }>
                 <div className={ style.title }>SETTINGS</div>
@@ -84,7 +91,28 @@ function SettingsPage() {
                         <div className={style.heading}>Discussion Timer (+30 sec)</div>
                         <Setter id="discussion" orientation="portrait" savePressed={ savePressed }/>
                     </div>
-                </div>
+                    <div className={style.divider} />
+                    <div className ={style.toggles} >
+                        <div className={style.custom_wrapper}>
+                            <p className= {style.custom} >Competitive Mode</p>
+                            <div style={{position: "absolute", right: "12vw"}}>
+                                <Switch label=" "/>
+                            </div>
+                        </div>
+                        <div className={style.custom_wrapper}>
+                            <p className= {style.custom} >Use Custom Scenario</p>
+                            <div style={{position: "absolute", right: "12vw"}} >
+                                <Switch label=" " />
+                            </div>
+                        </div>
+                        <div className={style.custom_wrapper}>
+                            <p className= {style.preview}>This is an example custom scenario</p>
+                            <div className={style.clear} >
+                                DELETE
+                            </div>
+                        </div>
+                    </div>
+                    </div>
                 <div className={style.buttons}>
                     <div className="spacer" />
                     <Button name="RESET" static={ false } press={ handleReset }> </Button>

@@ -4,8 +4,7 @@ import styles from '../styles/Button.module.css';
 const TextArea = (props) => {
 
     const altStyle = {
-        width: "30vh",
-        maxWidth: "60vw",
+        width: "100%",
         height: "min(28vw, 15vh)",
         border: "0.1vw solid #8E8D8A",
         borderRadius: "min(7.2vw, 2.5vh)",
@@ -34,7 +33,6 @@ const TextArea = (props) => {
                 <textarea
                     style={ CSS }
                     id="gamePin"
-                    // type="text"
                     value={props.value}
                     disabled={props.disabled}
                     onChange={props.onChange}

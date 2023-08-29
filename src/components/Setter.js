@@ -73,10 +73,10 @@ function Setter(props) {
 
     if(orientation === "portrait"){
         inputStyle = {
-            height: "13vw",
-            maxHeight: "10vh",
-            fontSize: "min(5.5vw, 4.5vh)",
-            width: "min(28vw, 23vh)"
+            height: "10vw",
+            maxHeight: "6vh",
+            fontSize: "min(4.5vw, 3vh)",
+            width: "min(20vw, 14vh)"
         };
     } else if (orientation === "landscape") {
         inputStyle = {

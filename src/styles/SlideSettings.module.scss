@@ -124,7 +124,7 @@
   .divider { // Dividing line between each individual setting
     background: #75A78F;
     width: 75%;
-    margin: 2.5vh auto 2.5vh auto;
+    margin: 2vh auto 2vh auto;
     height: 0.2vh;
   }
 
@@ -206,8 +206,8 @@
     top: min(3vw, 2vh);
     left: min(3vw, 3vh);
     z-index: 99;
-    width: min(12vw, 10vh);
-    height: min(12vw, 10vh);
+    width: min(11vw, 8vh);
+    height: min(11vw, 8vh);
   }
 
   .back_icon:hover {
@@ -220,7 +220,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 1vh 0 1vh 0;
+    padding: 0.75vh 0 0.75vh 0;
   }
 
   .time {
@@ -230,15 +230,15 @@
   }
 
   .increase_button, .decrease_button { // Setter buttons
-    height: 14vw;
-    max-height: 10vh;
+    height: 12vw;
+    max-height: 6vh;
     aspect-ratio: 1/1;
     background: #75A78F;
     border: 0.15vw white solid;
     filter: drop-shadow(0 1vw 1vw rgba(0, 0, 0, 0.2));
     color:  #FFFFFF;
     font-family: 'Rubik', sans-serif;
-    font-size: min(9vw, 6vh);
+    font-size: min(7vw, 4vh);
     border-radius: 50%;
     margin-left: 4vw;
     margin-right: 4vw;
@@ -246,6 +246,6 @@
 
   .increase_button:hover, .decrease_button:hover {
     background-color: #60937c;
-    font-size: min(9.2vw, 6.5vh);
+    font-size: min(7.3vw, 4.3vh);
   }
 }
