@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/ChaosApp/static/css/main.1aa5a3fa.css",
-    "main.js": "/ChaosApp/static/js/main.dbe2cf5d.js",
+    "main.js": "/ChaosApp/static/js/main.37f6ed84.js",
     "static/media/Rubik-Regular.ttf": "/ChaosApp/static/media/Rubik-Regular.da833151ff7aaedb5f16.ttf",
     "static/media/rubik-semi-bold.ttf": "/ChaosApp/static/media/rubik-semi-bold.52d2adf4cb818e79b61d.ttf",
     "service-worker.js": "/ChaosApp/service-worker.js",
@@ -12,10 +12,10 @@
     "static/media/close.svg": "/ChaosApp/static/media/close.2821fb2492bf372dde2ecece5798e544.svg",
     "index.html": "/ChaosApp/index.html",
     "main.1aa5a3fa.css.map": "/ChaosApp/static/css/main.1aa5a3fa.css.map",
-    "main.dbe2cf5d.js.map": "/ChaosApp/static/js/main.dbe2cf5d.js.map"
+    "main.37f6ed84.js.map": "/ChaosApp/static/js/main.37f6ed84.js.map"
   },
   "entrypoints": [
     "static/css/main.1aa5a3fa.css",
-    "static/js/main.dbe2cf5d.js"
+    "static/js/main.37f6ed84.js"
   ]
 }
