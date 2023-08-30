@@ -1,87 +1,176 @@
+@media (orientation: landscape) {
+  .page {
+    display: flex;
+    flex-flow: column;
+    height: 99.7vh;
+    width: 99.8vw;
+  }
 
-.content {
-  display: flex;
-  justify-content: space-around;
-  align-content: space-around;
-}
+  .header {
+    flex: 0 1 auto;
+  }
 
-.heading {
-  font-family: 'Rubik', sans-serif;
-  font-weight: 600;
-  text-align: center;
-  color: #2D7C73;
-}
+  .subheader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-.container{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  .subtitle {
+    font-family: 'Rubik', sans-serif;
+    font-size: min(5vw, 7vh);
+    letter-spacing: 0.5vw;
+    font-weight: 600;
+    text-align: center;
+    color: #2D7C73;
+    height: fit-content;
+    width: 100%;
+  }
 
-p.text{
-  font-family: 'quicksand', sans-serif;
-  text-align: center;
-}
+  .content {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    width: 100%;
+    overflow: hidden;
+  }
 
-@media (orientation: portrait) {
+  .scenario {
+    display: flex;
+    justify-content: center;
+    height: fit-content;
+    font-size: min(5vw, 3vh);
+    overflow: auto;
+    max-height: 50vh;
+    margin-top: 2vh;
+    margin-bottom: 3vh;
+    font-family: Quicksand, sans-serif;
+    width: 100%;
+    text-align: center;
+  }
+
+  .prompt {
+    display: flex;
+    justify-content: center;
+    height: fit-content;
+    font-size: min(5vw, 3vh);
+    overflow: auto;
+    max-height: 50vh;
+    margin-bottom: 2.5vh;
+    font-family: Quicksand, sans-serif;
+    width: 100%;
+    text-align: center;
+  }
 
   .container{
+    width: fit-content;
+    max-width: 65%;
+    height: fit-content;
+    margin: 0 auto 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
   }
-  
-    .heading {
-        font-size: 10vw;
-        letter-spacing: 1.5vw;
-      }
 
-      .timer {
-        position: fixed;
-        top: 9vh;
-        left: 0;
-      }
-
-      .container {
-        width: 80vw;
-        height: 32vw;
-        border-radius: 7.2vw;
-      }
-
-      p.text{
-        font-size: 5vw;
-        padding-top: -8vh;
-        padding-bottom: 4vh;
-        margin: 0;
-      }
+  .buttons {
+    display: flex;
+    margin: 2vh auto 0 auto;
+    width: fit-content;
+    height: fit-content;
+  }
 }
 
-@media (orientation: landscape) {
+@media (orientation: portrait) {
+  .page {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    width: 100vw;
+  }
 
-      .timer {
-        position: fixed;
-        top: 10%;
-        left: 0%;
-      }
+  .header {
+    width: 100vw;
+    height: fit-content;
+    margin-top: 1.5%;
+    margin-bottom: -5%;
+  }
 
-      .container {
-        width: 50vw;
-        height: 32vw;
-        border-radius: 7.2vw;
-        margin: 4.5vw;
-      }
+  .subheader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-      .heading {
-        font-size: 3vw;
-        letter-spacing: 0.5vw;
-        padding-top: 4.5vh; 
-      }
+  .subtitle {
+    font-family: 'Rubik', sans-serif;
+    font-size: min(10vw, 8vh);
+    letter-spacing: 1.3vw;
+    font-weight: 700;
+    text-align: center;
+    color: #2D7C73;
+    height: fit-content;
+    width: 100vh;
+  }
 
-      p.text{
-        font-size: 1.5vw;
-        padding-top: -6vh;
-        padding-bottom: 4vh;
-        margin: 0;
-      }
+  .content {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100%;
+    overflow: hidden;
+    height: 90%;
+    margin-top: 2%;
+    padding-bottom: 5vh;
+  }
+
+  .scenario {
+    display: flex;
+    justify-content: center;
+    height: 90%;
+    font-size: min(4.5vw, 2.75vh);
+    overflow-y: auto;
+    font-family: Quicksand, sans-serif;
+    width: 100%;
+    text-align: center;
+    align-items: safe center;
+    margin: 2vh auto auto auto;
+  }
+
+  .prompt {
+    display: flex;
+    justify-content: center;
+    height: 30%;
+    font-size: min(4.5vw, 2.75vh);
+    overflow-y: auto;
+    font-family: Quicksand, sans-serif;
+    width: 100%;
+    text-align: center;
+    align-items: safe center;
+    margin: 2vh auto auto auto;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 85%;
+    height: 65%;
+    margin: 0 auto 4vh auto;
+  }
+
+  .buttons {
+    width: fit-content;
+    height: fit-content;
+    max-height: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: -1vh auto 2vh auto;
+  }
+
+  .div_spacer{
+    height: 5vh;
+  }
 }

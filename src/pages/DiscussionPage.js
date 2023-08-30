@@ -39,8 +39,10 @@ function DiscussionPage() {
         const responseData = ref(database, `lobby-${gamePin}/responses/round-${round}/${ablyUsers[i]}/response`);
 
         onValue(responseData, (snapshot) => {
-          setResponseArray(oldArray => [...oldArray, snapshot.val()]);
-          //console.log("Added response from User: " + ablyUsers[i] + ", Response: " + snapshot.val());
+          if(snapshot.val() != null) {
+            setResponseArray(oldArray => [...oldArray, snapshot.val()]);
+            //console.log("Added response from User: " + ablyUsers[i] + ", Response: " + snapshot.val());
+          }
         }, {
           onlyOnce: true
         });  
@@ -99,8 +101,11 @@ function DiscussionPage() {
     });
   }, [discussionTimeData]);
 
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+
   function handleAddTime() {
     channel.publish("Add Time", { text: "true" });
+    setButtonDisabled(true);
   }
 
   /* RENDER */
@@ -117,9 +122,10 @@ function DiscussionPage() {
             name="ADD TIME"
             static={ false } //button width decreases as page height increases
             press={ handleAddTime }
+            disabled={ buttonDisabled } 
           />
     </div>);
-
+    
   return (
     <div className={styles.page}>
       <div className={styles.header}>
@@ -132,7 +138,12 @@ function DiscussionPage() {
       <div className={styles.discussion}>
         { isHost ? buttonsJSX : null }
         <div className={styles.container}>
-            <div className={styles.completion}>{ currentText }/{ maxText }</div>
+            <div className={styles.completion}>{ 
+              isHost
+              ? responseArray.length === 0 ? "" : `${currentText}/${maxText}` 
+              : `${currentText}/${maxText}`
+            }
+            </div>
             <div className={styles.subtitle}>DISCUSSION</div>
             <div className={styles.response}>{ discussionText }</div>
         </div>

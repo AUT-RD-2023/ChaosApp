@@ -1,5 +1,5 @@
 // React
-import React, { useState, useRef , useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useChannel } from "@ably-labs/react-hooks";
 
 // Redux
@@ -20,30 +20,45 @@ import TimerBar from '../components/TimerBar.js'
 import Header from '../components/Header.js'
 
 // Styles
-import style from '../styles/ScenarioPage.module.css';
+import styles from '../styles/ScenarioPage.module.css';
 import '../App.css';
 
 function ScenarioPage() {
     /* REDUX */
 
     const gamePin = useSelector((state) => state.session.gamePin);
-    const nickname = useSelector((state) => state.session.nicknamed);
     const round = useSelector((state) => state.session.round);
-    const playerId = useSelector((state) => state.session.playerId);    
-    const dispatch = useDispatch();
+    const playerId = useSelector((state) => state.session.playerId);        
+    const isHost = useSelector((state) => state.session.isHost);
 
+    const dispatch = useDispatch();
     dispatch(setActivity("discussion"))
 
     /* SCENARIO */
 
-    // Randomly generates an index num for scenario type & its scenario.
-    const randType = useRef( Math.floor(Math.random() * 3) + 1 ).current;
-    const randScenario = useRef( Math.floor(Math.random() * 2 )).current;
-    
-    // Finds scenario object by type.
-    const scenarioObj = scenario.find(obj => {
-        return obj.type === randType;
-    });
+    const [scenarioText, setScenarioText] = useState("");
+
+    useEffect(() => {
+        // Randomly generates an index num for scenario type & its scenario.
+        const randType = Math.floor(Math.random() * 3) + 1;
+        const randScenario = Math.floor(Math.random() * 2 );         
+
+        // Finds scenario object by type.
+        const scenarioObj = scenario.find(obj => { 
+            return obj.type === randType;
+        }); 
+        
+        channel.publish("Set Scenario", { text: scenarioObj.scenarioArray[randScenario] });
+        // eslint-disable-next-line
+    }, []);
+
+    /* ABLY */
+
+    const [channel] = useChannel(gamePin + "", (message) => {
+        if(message.name === "Set Scenario") {      
+            setScenarioText(message.data.text);
+        }
+    });  
 
     /* BUTTON */
 
@@ -53,30 +68,14 @@ function ScenarioPage() {
     const handleSubmit = () => {
         setButtonDisabled(true);
         setTextAreaDisabled(true);
-        
-        sendMessage();
+
         updateDatabase();
-    }
-
-    /* ABLY */
-
-    const [message, setMessage] = useState('');
-    const [messages, updateMessages] = useState([]);
-
-    const [channel] = useChannel(gamePin, (message) => {
-        updateMessages((prev) => [...prev, message]);
-    });
-
-    const sendMessage = () => {
-        if (channel && message.trim() !== '') {
-            channel.publish("Response", { text: nickname + ": " + message });
-        }
-    };
-
-    const messagePreviews = messages.map((msg, index) => <li key={index}>{msg.data.text}</li>);    
+    }   
 
     /* DATABASE */
     
+    const [message, setMessage] = useState('');
+
     const updateDatabase = () => {
         set(ref(database, `lobby-${gamePin}/responses/round-${round}/${playerId}`), {
             response: message // Add the users message to the database while tracking the current round and the users id
@@ -100,34 +99,32 @@ function ScenarioPage() {
     /* RENDER */
 
     return(
-        <div className="App">
-            <div className="header">
-                <Header />
+        <div className={styles.page}>
+            <div className={styles.header}>
+                <div className={styles.subheader}>
+                    <Header />
+                </div>
+                <TimerBar timeLength= { responseTime } addTime="0" path="/Bridge" />
             </div>
-            <div className={style.timer}>
-                <TimerBar timeLength= { 10 /*responseTime*/ } addTime="0" path="/Bridge"/>
-            </div>
-            <div className="content">
-                <div className={style.container}>
-                    <h1 className={style.heading}>SCENARIO</h1>
-                    <p className={style.text}>{scenarioObj.scenarioArray[randScenario]}</p>
-                    <p className={style.text}>What do you do?</p>
+            <div className={styles.content}>
+                <div className={styles.buttons}>
+                    <Button
+                        name= { buttonDisabled ? "✓" : "SUBMIT"}
+                        static={ false }
+                        press={ handleSubmit}
+                        disabled={ buttonDisabled }/>
+                </div>
+                <div className={styles.container}>
+                    <div className={styles.subtitle}>SCENARIO</div>
+                    <div className={styles.scenario}>{ scenarioText }</div>
+                    <div className={styles.prompt}>What do you do...?</div>
                     <Textarea
                         placeholder="Enter Response..."
-                        disabled={ textAreaDisabled }
+                        disabled ={ textAreaDisabled }
                         onChange={(e) => setMessage(e.target.value)}
                     />
-                    <div style={{marginTop: "2vh"}}>
-                        <Button 
-                            name={ buttonDisabled ? "✓" : "SUBMIT"}
-                            static={ true } //button width is static, even if page height changes
-                            press={ handleSubmit }
-                            disabled={ buttonDisabled } 
-                        />
-                    </div>
                 </div>
             </div>
-            { true ? "" : <span>  <h2>Responses</h2><ul>{messagePreviews}</ul> </span> /* Placeholder responses view */ }
         </div>
     );
 }
