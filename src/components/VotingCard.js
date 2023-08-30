@@ -1,14 +1,14 @@
 import styles from '../styles/VotingPage.module.css';
 
-const VotingCard = (response, playerID) => { 
-    const resp = response;
-    const ID = playerID;
+const VotingCard = (props) => { 
+    //const resp = response;
+    //const ID = playerID;
 
-    console.log(ID);
+    //console.log(ID);
 
     return(
         
-        <div className={styles.card} tabIndex={0}>{resp}</div>
+        <div className={styles.card} tabIndex={0}>{props.response}</div>
     );
 }
 
