@@ -1,5 +1,6 @@
 // React
 import React, { useEffect, useState } from "react";
+import { useNavigate} from 'react-router-dom';
 import { useChannel } from "@ably-labs/react-hooks";
 
 // Components
@@ -7,8 +8,9 @@ import Button from "../components/Button.js";
 import TimerBar from "../components/TimerBar.js";
 import Header from "../components/Header.js"
 
-// Variables
-import { useSelector } from "react-redux";
+// Redux
+import { useSelector, useDispatch } from "react-redux";
+import { setActivity } from '../Redux/sessionSlice.js';
 
 // Database
 import { ref, onValue } from "firebase/database";
@@ -19,6 +21,15 @@ import styles from "../styles/DiscussionPage.module.css";
 import "../App.css";
 
 function DiscussionPage() {
+  const navigate = useNavigate();
+  
+  const [responseArray, setResponseArray] = useState([]); 
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const [discussionText, setDiscussionText] = useState("");
+  const [currentText, setCurrentText] = useState("");
+  const [maxText, setMaxText] = useState("");
+
   /* REDUX */
 
   const gamePin = useSelector((state => state.session.gamePin));
@@ -26,12 +37,10 @@ function DiscussionPage() {
   const round = useSelector((state) => state.session.round);
   const ablyUsers = useSelector((state) => state.session.ablyUsers);
 
-  const [responseArray, setResponseArray] = useState([]); 
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const dispatch = useDispatch();
+  dispatch(setActivity("voting"));
 
-  const [discussionText, setDiscussionText] = useState("");
-  const [currentText, setCurrentText] = useState("");
-  const [maxText, setMaxText] = useState("");
+  /* REACT HOOKS */
 
   useEffect(() => {
     if(isHost) {
@@ -41,27 +50,62 @@ function DiscussionPage() {
         onValue(responseData, (snapshot) => {
           if(snapshot.val() != null) {
             setResponseArray(oldArray => [...oldArray, snapshot.val()]);
-            //console.log("Added response from User: " + ablyUsers[i] + ", Response: " + snapshot.val());
           }
         }, {
           onlyOnce: true
         });  
-      }      
-    }
-    // eslint-disable-next-line
+      }     
+    } // eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    if(isHost) { 
+      channel.publish("Set Text", { text: responseArray[0] });
+      channel.publish("Set Current", { text: currentIndex + 1 });
+      channel.publish("Set Max", { text: responseArray.length });
+    } // eslint-disable-next-line
+  }, [responseArray]);
+
+  useEffect(() => {
+    if(isHost) {
+      channel.publish("Set Text", { text: responseArray[currentIndex] });
+      channel.publish("Set Current", { text: currentIndex + 1 });
+    } // eslint-disable-next-line
+  }, [currentIndex]);
+
+  /* BUTTONS */
 
   const nextResponse = () => {
     if(currentIndex < responseArray.length - 1) {
       setCurrentIndex(currentIndex + 1);
+      setAddTime(0);
+      setButtonDisabled(false);
+    } else {
+      channel.publish("Next Page", { text: "true" });
     }
-    else {
-      setCurrentIndex(0);
-    }
-    channel.publish("Set Text", { text: responseArray[currentIndex] });
-    channel.publish("Set Current", { text: currentIndex + 1 });
-    channel.publish("Set Max", { text: responseArray.length });
   }
+
+  // Reset current time when the NEXT button is pressed
+  const [resetCount, setResetCount] = useState(1);  
+
+  const resetTime = () => {
+    // Only reset the time if not currently on the final response 
+    if(resetCount < responseArray.length ) { 
+      // Iterate the count variable to match the current response being displayed
+      channel.publish("Reset Time", { number: resetCount + 1 });
+    }
+  }  
+  
+  const [buttonDisabled, setButtonDisabled] = useState(false); 
+  const [addTime, setAddTime] = useState(0);
+  const addLength = 30;
+
+  function handleAddTime() {
+    channel.publish("Add Time", { number: addLength });
+    setButtonDisabled(true);
+  }
+  
+  /* ABLY */
 
   const [channel] = useChannel(gamePin + "", (message) => {
     if(message.name === "Set Text") {      
@@ -74,18 +118,15 @@ function DiscussionPage() {
       setMaxText(message.data.text);
     }
     if (message.name === "Add Time") {
-      setAddLength(addLength + 5);
+      setAddTime(message.data.number);
     }
-    //console.log(`Message recieved, Name: ${message.name} | Data: ${message.data.text}`);
+    if (message.name === "Reset Time") {
+      setResetCount(message.data.number);
+    }    
+    if (message.name === "Next Page") {
+      navigate("/Bridge");
+    }
   });    
-
-  useEffect(() => {
-    channel.publish("Set Text", { text: responseArray[0] });
-    nextResponse();
-    // eslint-disable-next-line
-  }, [channel, responseArray]);
-
-  const [addLength, setAddLength] = useState(0);
 
   /* DATABASE */
 
@@ -101,21 +142,17 @@ function DiscussionPage() {
     });
   }, [discussionTimeData]);
 
-  const [buttonDisabled, setButtonDisabled] = useState(false);
-
-  function handleAddTime() {
-    channel.publish("Add Time", { text: "true" });
-    setButtonDisabled(true);
-  }
-
   /* RENDER */
 
   const buttonsJSX = (
     <div className={styles.buttons}>
       <Button
-          name="NEXT"
+          name={ currentIndex + 1 === responseArray.length ? "SKIP" : "NEXT" }
           static={ false } //button width decreases as page height increases
-          press={ nextResponse }
+          press={ () => {
+            nextResponse();
+            resetTime();
+          }}
       />
       <div className={styles.button_spacer}/>
         <Button 
@@ -132,17 +169,13 @@ function DiscussionPage() {
         <div className={styles.subheader}>
           <Header />
         </div>
-        <TimerBar timeLength= {5}/*{ discussionTime }*/ addTime={ addLength } path="/Voting"/>
+        <TimerBar timeLength= { discussionTime } addTime={ addTime } resetTime={ resetCount } />
       </div>
       <div className={styles.div_spacer}/>
       <div className={styles.discussion}>
         { isHost ? buttonsJSX : null }
         <div className={styles.container}>
-            <div className={styles.completion}>{ 
-              isHost
-              ? responseArray.length === 0 ? "" : `${currentText}/${maxText}` 
-              : `${currentText}/${maxText}`
-            }
+            <div className={styles.completion}>{`${currentText}/${maxText}`}
             </div>
             <div className={styles.subtitle}>DISCUSSION</div>
             <div className={styles.response}>{ discussionText }</div>

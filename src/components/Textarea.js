@@ -1,19 +1,20 @@
 import React from 'react';
 import styles from '../styles/Button.module.css';
+import style_alt from '../styles/CustomPopUp.module.css';
 
-const TextArea = ({ value, disabled, onChange, placeholder, maxLength }) => {
+const TextArea = (props) => {
+
     return (
         <>
             <form>
                 <textarea
-                    className={styles.textarea}
+                    className={ props.popUp ? style_alt.input : styles.textarea }
                     id="gamePin"
-                    type="text"
-                    value={value}
-                    disabled={disabled}
-                    onChange={onChange}
-                    placeholder={placeholder}
-                    maxLength={maxLength}
+                    value={props.value}
+                    disabled={props.disabled}
+                    onChange={props.onChange}
+                    placeholder={props.placeholder}
+                    maxLength={props.maxLength}
                 />
             </form>
         </>

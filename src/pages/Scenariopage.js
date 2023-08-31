@@ -27,28 +27,34 @@ function ScenarioPage() {
     /* REDUX */
 
     const gamePin = useSelector((state) => state.session.gamePin);
-    const round = useSelector((state) => state.session.round);
-    const playerId = useSelector((state) => state.session.playerId);        
+    const round = useSelector((state) => state.session.round);      
     const isHost = useSelector((state) => state.session.isHost);
+    const playerId = useSelector((state) => state.session.playerId);  
+
+    const customScenario = useSelector((state) => state.session.customScenario);
+    const useCustomScenario = useSelector((state) => state.session.useCustomScenario);
 
     const dispatch = useDispatch();
     dispatch(setActivity("discussion"))
 
     /* SCENARIO */
-
+    
+    const [textVisible, setTextVisible] = useState(false);
     const [scenarioText, setScenarioText] = useState("");
 
     useEffect(() => {
-        // Randomly generates an index num for scenario type & its scenario.
-        const randType = Math.floor(Math.random() * 3) + 1;
-        const randScenario = Math.floor(Math.random() * 2 );         
+        if(isHost) {
+            // Randomly generates an index num for scenario type & its scenario.
+            const randType = Math.floor(Math.random() * 3) + 1;
+            const randScenario = Math.floor(Math.random() * 2 );         
 
-        // Finds scenario object by type.
-        const scenarioObj = scenario.find(obj => { 
-            return obj.type === randType;
-        }); 
-        
-        channel.publish("Set Scenario", { text: scenarioObj.scenarioArray[randScenario] });
+            // Finds scenario object by type.
+            const scenarioObj = scenario.find(obj => { 
+                return obj.type === randType;
+            });
+
+            channel.publish("Set Scenario", { text: useCustomScenario ? customScenario : scenarioObj.scenarioArray[randScenario] }); 
+        }       
         // eslint-disable-next-line
     }, []);
 
@@ -57,8 +63,15 @@ function ScenarioPage() {
     const [channel] = useChannel(gamePin + "", (message) => {
         if(message.name === "Set Scenario") {      
             setScenarioText(message.data.text);
+            console.log("Message recieved from channel.");
         }
-    });  
+    }); 
+
+    // set the scenario text to visible once the value has been initialised (forcing a re-render)
+    useEffect(() => {
+        setTextVisible(true);
+        console.log("Second useEffect has been triggered.");
+    }, [scenarioText]);
 
     /* BUTTON */
 
@@ -116,16 +129,18 @@ function ScenarioPage() {
                 </div>
                 <div className={styles.container}>
                     <div className={styles.subtitle}>SCENARIO</div>
-                    <div className={styles.scenario}>{ scenarioText }</div>
+                    <div className={styles.scenario}>{ textVisible ? scenarioText : "" }</div>
                     <div className={styles.prompt}>What do you do...?</div>
                     <Textarea
                         placeholder="Enter Response..."
                         disabled ={ textAreaDisabled }
                         onChange={(e) => setMessage(e.target.value)}
+                        popUp={ false }
                     />
                 </div>
             </div>
         </div>
     );
 }
+
 export default ScenarioPage;
