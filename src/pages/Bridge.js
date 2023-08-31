@@ -29,6 +29,10 @@ const Bridge = () => {
             subheading = "Discussion Time...";
             path = "/Discussion";
             break;
+        case "voting":
+            subheading = "Vote For Your Favourite...";
+            path = "/Voting";
+            break;
         case "chaos":
             subheading = "Adding Chaos...";
             // path = "/chaos";

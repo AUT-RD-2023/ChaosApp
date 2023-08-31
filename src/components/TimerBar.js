@@ -48,11 +48,17 @@ const TimerBar = (props) => {
     useEffect(() => {
         setTime(prevTime => {
             const newTime = prevTime + (props.addTime * 1000);
-
             // Ensure the new time does not exceed the original timerStart time
             return newTime <= timerStart ? newTime : timerStart;
-        });
+        }); // eslint-disable-next-line
     }, [props.addTime, timerStart]);
+
+    // Reset time function
+
+    useEffect(() => {
+        setTime(timerStart); // eslint-disable-next-line
+    }, [props.resetTime]);
+    
 
     return (
         <span style={{overflow: 'hidden'}}>
