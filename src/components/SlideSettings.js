@@ -20,8 +20,16 @@ const SlideSettings = (props) => {
     const [customPopUpVisible, setCustomPopUpVisible] = useState(false);
 
     const [customChecked, setCustomChecked] = useState(false);
+    const [previewVisible, setPreviewVisible] = useState(false);
 
     const customScenario = useSelector((state) => state.session.customScenario);
+
+    useEffect(() => {
+        if(customScenario) {
+            setPreviewVisible(true);
+        }
+        // eslint-disable-next-line
+    }, []); 
 
     useEffect(() => {
         setIsChecked(settingsOpen);
@@ -56,6 +64,12 @@ const SlideSettings = (props) => {
     const handleCustomDelete = () => {
         dispatch(setCustomScenario(null));
         setCustomChecked(false);
+        setPreviewVisible(false);
+    }
+
+    const handleCustomConfirm = () => {
+        setCustomPopUpVisible(false);
+        setPreviewVisible(true);
     }
 
     useEffect(() => {
@@ -65,12 +79,12 @@ const SlideSettings = (props) => {
             }, 200);
         }
         dispatch(setUseCustomScenario(customChecked));
-        //console.log(customChecked ? "This game session will use the custom scenario!" : "this game session will NOT use the custom scenario.");
+        // eslint-disable-next-line
     }, [customChecked]);
 
     return (
         <>
-            { customPopUpVisible ? <CustomPopUp onClose={ onCustomPopUpClose } onConfirm={() => setCustomPopUpVisible(false)} /> : null }
+            { customPopUpVisible ? <CustomPopUp onClose={ onCustomPopUpClose } onConfirm={ handleCustomConfirm } /> : null }
             <input type="checkbox" id="navcheck-h" role="button" className={ style.input } checked={ isChecked } readOnly/>
             <div className={style.label}></div>
             <Settings className={style.settings_icon} onClick={handleOpenClick}/>
@@ -103,7 +117,7 @@ const SlideSettings = (props) => {
                                     <Switch label=" " checked={ customChecked } onChange={ handleCustom } />
                                 </div>
                             </div>
-                            { customChecked ?
+                            { customChecked && previewVisible ?
                                 <div className={style.custom_wrapper}>
                                     <p className= {style.preview}>{ customScenario }</p>
                                     <div className={style.clear} onClick={ handleCustomDelete }>

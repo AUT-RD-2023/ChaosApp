@@ -28,6 +28,13 @@ function SettingsPage() {
 
     const customScenario = useSelector((state) => state.session.customScenario);
 
+    useEffect(() => {
+        if(customScenario) {
+            setPreviewVisible(true);
+        }
+        // eslint-disable-next-line
+    }, []); 
+
     /* Window Resizing Handling */
 
     const [isWindowLandscape, setIsWindowLandscape] = useState(window.innerHeight < window.innerWidth);
