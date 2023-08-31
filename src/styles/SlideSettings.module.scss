@@ -13,7 +13,7 @@
 .close_icon {
   position: fixed;
   top: -0.2vh;
-  left: -0.5vh;
+  left: -1vh;
   z-index: 101;
   width: 5vw;
   opacity: 70%;
@@ -57,10 +57,11 @@
   bottom: 0;
   z-index: 101;
   display: flex;
+  width: 28vw;
   pointer-events: none; // Makes div "click-throughable" to access buttons below.
   flex-flow: column nowrap;
   align-items: flex-start;
-  transform: translateX(100%);
+  transform: translateX(115%);
   transition: transform 1s cubic-bezier(0.190, 1.000, 0.220, 1.000);;
   &::before {
     position: absolute;
@@ -68,20 +69,20 @@
     bottom: 0;
     right: 0;
     z-index: -1;
-    width: 30vw;
+    width: 32vw;
     background: #ffffff;
     content: '';
-    transform: translateX(235%);
-    transition: transform .5s cubic-bezier(0.190, 1.000, 0.220, 1.000);;
+    transform: translateX(227%);
+    transition: transform .5s cubic-bezier(0.190, 1.000, 0.220, 1.000);
   }
 
   .content { // Content in the menu
     display: flex;
     flex-direction: column;
     color: black;
-    width: 30vw;
+    width: 31vw;
     height: 100vh;
-    transform: translateX(235%);
+    transform: translateX(222%);
     transition: color .15s, transform .5s;
     transition-timing-function: cubic-bezier(0.190, 1.000, 0.220, 1.000);
     overflow-y: auto;
@@ -112,28 +113,33 @@
   .settings { // Settings form
     display: flex;
     flex-direction: column;
+    margin-top: -2vh;
   }
   .heading { // Individual setting headings (e.g. number of rounds)
     width: 100%;
     text-align: center;
     font-family: Quicksand, sans-serif;
-    font-size: 1.6vw;
+    font-size: min(1.6vw, 2.5vh);
     margin-bottom: 1vh;
   }
 
   .divider { // Dividing line between each individual setting
     background: #75A78F;
     width: 75%;
-    margin: 2vh auto 2vh auto;
+    margin: 1.5vh auto 1.5vh auto;
     height: 0.2vh;
   }
 
   .buttons { // Div that contains the buttons
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    margin: 3vw auto 4vh auto;
+    margin: 2vw auto 3vh auto;
   }
 
   .spacer{ // Vertical spacing between the buttons
@@ -197,6 +203,44 @@
     width: 7vw;
     height: 3.5vw;
     font-size: 1.5vw;
+  }
+
+  .toggles {
+    height: fit-content;
+    max-height: 16vh;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .custom_wrapper {
+    max-height: min(2.7vw, 4.3vh);
+    margin: 1vh auto 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .custom {
+    font-family: Quicksand, sans-serif;
+    font-size: min(1.6vw, 2.5vh);
+  }
+
+  .preview {
+    font-family: Quicksand, sans-serif;
+    font-size: min(1.5vw, 2.4vh);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 72%;
+  }
+
+  .clear {
+    position: absolute;
+    font-size: min(1.8vw, 2.8vh);
+    right: 3.5vw;
+    color: #75A78F;
+    border-bottom: 1px solid #75A78F;
   }
 }
 
