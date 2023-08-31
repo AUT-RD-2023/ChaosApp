@@ -1,7 +1,6 @@
 .content {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
     width: 100vw;
     height: 100vh;
@@ -10,7 +9,7 @@
 .title {
     font-family: Rubik, sans-serif;
     width: calc(100vw - 10vw);
-    font-size: min(11vw, 9vh);
+    font-size: min(11vw, 8vh);
     letter-spacing: 1.5vw;
     margin-top: 1.5vh;
     margin-left: min(10vw, 2.5vh);
@@ -22,26 +21,68 @@
 .settings {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
     width: 100%;
-    height: 62%;
+    max-height: 65%;
+    margin-top: 2vh;
 }
 
 .divider {
     background: #75A78F;
     width: 75%;
-    margin: 2.5vh auto 2.5vh auto;
+    margin: min(3vw, 2vh) auto min(3vw, 2vh) auto;
     height: 2px;
 }
 
 .heading {
     text-align: center;
     font-family: Quicksand, sans-serif;
-    font-size: min(6vw, 4vh);
+    font-size: min(5vw, 3vh);
     margin-bottom: 0.8vh;
 }
 
+.toggles {
+    height: fit-content;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .buttons {
-    margin-bottom: 4vh;
+    position: absolute;
+    bottom: 4vh;
     max-height: 30vh;
+}
+
+.custom_wrapper {
+    max-width: 60vh;
+    max-height: 4vh;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 1.6vh;
+    margin-top: -0.3vh;
+}
+
+.custom {
+    font-family: Quicksand, sans-serif;
+    font-size: min(4vw, 2.5vh);
+}
+
+.preview {
+    font-family: Quicksand, sans-serif;
+    font-size: min(3.5vw, 2.5vh);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 75%;
+}
+
+.clear {
+    position: absolute;
+    font-size: min(4vw, 2.8vh);
+    right: 12vw;
+    color: #75A78F;
+    border-bottom: 1px solid #75A78F;
 }
