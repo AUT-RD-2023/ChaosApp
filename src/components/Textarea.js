@@ -1,29 +1,14 @@
 import React from 'react';
 import styles from '../styles/Button.module.css';
+import style_alt from '../styles/CustomPopUp.module.css';
 
 const TextArea = (props) => {
-
-    const altStyle = {
-        width: "100%",
-        height: "min(28vw, 15vh)",
-        border: "0.1vw solid #8E8D8A",
-        borderRadius: "min(7.2vw, 2.5vh)",
-        fontSize: "min(3.8vw, 2.2vh)",
-        padding: "2vh 2vw 1vh 2.5vw",
-        resize: "none",
-        boxSizing: "border-box",
-        color: "#000000",
-        fontFamily: "'Quicksand', sans-serif",
-        fontWeight: '400',
-        outline: "none"
-    }
 
     return (
         <>
             <form>
                 <textarea
-                    className={ styles.textarea }
-                    style={ props.popUp ? altStyle : null }
+                    className={ props.popUp ? style_alt.input : styles.textarea }
                     id="gamePin"
                     value={props.value}
                     disabled={props.disabled}
