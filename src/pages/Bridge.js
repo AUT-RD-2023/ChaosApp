@@ -11,7 +11,6 @@ import { useSelector } from "react-redux";
 import '../App.css';
 
 const Bridge = () => {
-
     const round = useSelector((state) => state.session.round);
     const activity = useSelector((state) => state.session.activity);
 
@@ -23,7 +22,6 @@ const Bridge = () => {
         case "start":
             subheading = "Get Ready...";
             path = "/Scenario";
-            //path = "/Message";
             break;
         case "discussion":
             subheading = "Discussion Time...";
@@ -35,7 +33,11 @@ const Bridge = () => {
             break;
         case "chaos":
             subheading = "Adding Chaos...";
-            // path = "/chaos";
+            path = "/Chaos";
+            break;
+        case "end":
+            subheading = "Tallying Votes...";
+            path = "/End";
             break;
         default:
             subheading = "Get Ready...";
@@ -68,7 +70,7 @@ const Bridge = () => {
             <div className="subheading">{subheading}</div><br />
             <TimerBar timeLength="5" addTime="0" path={path} />
         </div>
-    )
+    );
 }
 
 export default Bridge;

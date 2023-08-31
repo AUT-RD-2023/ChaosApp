@@ -1,17 +1,13 @@
 // React
 import React, { useState, useEffect } from 'react';
-import { useChannel } from "@ably-labs/react-hooks";
 
 // Redux
 import { useSelector, useDispatch } from "react-redux";
-import { setActivity, setScenario } from '../Redux/sessionSlice.js';
+import { setActivity } from '../Redux/sessionSlice.js';
 
 // Database
 import { ref, set, onValue } from "firebase/database";
 import { database } from '../database.js';
-
-// Variables
-import { scenario } from '../components/Scenarios.js';
 
 // Components
 import Button from '../components/Button.js'
@@ -23,56 +19,21 @@ import Header from '../components/Header.js'
 import styles from '../styles/ScenarioPage.module.css';
 import '../App.css';
 
-function ScenarioPage() {
+function ChaosPage() {
     /* REDUX */
 
     const gamePin = useSelector((state) => state.session.gamePin);
-    const round = useSelector((state) => state.session.round);      
-    const isHost = useSelector((state) => state.session.isHost);
     const playerId = useSelector((state) => state.session.playerId);  
 
-    const customScenario = useSelector((state) => state.session.customScenario);
-    const useCustomScenario = useSelector((state) => state.session.useCustomScenario);
+    const round = useSelector((state) => state.session.round);     
+    const scenario = useSelector((state) => state.session.scenario);
 
     const dispatch = useDispatch();
 
-    /* SCENARIO */
-    
-    const [textVisible, setTextVisible] = useState(false);
-    const [scenarioText, setScenarioText] = useState("");
-
     useEffect(() => {
-        if(isHost) {
-            // Randomly generates an index num for scenario type & its scenario.
-            const randType = Math.floor(Math.random() * 3) + 1;
-            const randScenario = Math.floor(Math.random() * 2 );         
-
-            // Finds scenario object by type.
-            const scenarioObj = scenario.find(obj => { 
-                return obj.type === randType;
-            });
-
-            channel.publish("Set Scenario", { text: useCustomScenario ? customScenario : scenarioObj.scenarioArray[randScenario] }); 
-        }       
         // Set up next activity for all players        
         dispatch(setActivity("discussion")) // eslint-disable-next-line
     }, []);
-
-    /* ABLY */
-
-    const [channel] = useChannel(gamePin + "", (message) => {
-        if(message.name === "Set Scenario") {      
-            setScenarioText(message.data.text);
-            dispatch(setScenario(message.data.text));
-            console.log("Message recieved from channel.");
-        }
-    }); 
-
-    // set the scenario text to visible once the value has been initialised (forcing a re-render)
-    useEffect(() => {
-        setTextVisible(true);
-        console.log("Second useEffect has been triggered.");
-    }, [scenarioText]);
 
     /* BUTTON */
 
@@ -130,7 +91,8 @@ function ScenarioPage() {
                 </div>
                 <div className={styles.container}>
                     <div className={styles.subtitle}>SCENARIO</div>
-                    <div className={styles.scenario}>{ textVisible ? scenarioText : "" }</div>
+                    <div className={styles.scenario}>{ scenario }</div>
+                    <div className={styles.chaos}><strong>Additional chaos goes here...</strong></div>
                     <div className={styles.prompt}>What do you do...?</div>
                     <Textarea
                         placeholder="Enter Response..."
@@ -144,4 +106,4 @@ function ScenarioPage() {
     );
 }
 
-export default ScenarioPage;
+export default ChaosPage;

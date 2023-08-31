@@ -38,7 +38,6 @@ function DiscussionPage() {
   const ablyUsers = useSelector((state) => state.session.ablyUsers);
 
   const dispatch = useDispatch();
-  dispatch(setActivity("voting"));
 
   /* REACT HOOKS */
 
@@ -55,7 +54,9 @@ function DiscussionPage() {
           onlyOnce: true
         });  
       }     
-    } // eslint-disable-next-line
+    }     
+    // Set up next activity for all players
+    dispatch(setActivity("voting")); // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -78,7 +79,6 @@ function DiscussionPage() {
   const nextResponse = () => {
     if(currentIndex < responseArray.length - 1) {
       setCurrentIndex(currentIndex + 1);
-      setAddTime(0);
       setButtonDisabled(false);
     } else {
       channel.publish("Next Page", { text: "true" });
@@ -121,7 +121,9 @@ function DiscussionPage() {
       setAddTime(message.data.number);
     }
     if (message.name === "Reset Time") {
-      setResetCount(message.data.number);
+      setResetCount(message.data.number);      
+      // Reset add time when the "NEXT" button is pressed
+      setAddTime(0);
     }    
     if (message.name === "Next Page") {
       navigate("/Bridge");

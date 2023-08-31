@@ -5,7 +5,7 @@ import { configureAbly, useChannel, usePresence } from "@ably-labs/react-hooks";
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux'
-import { setActivity, setAblyUsers } from '../Redux/sessionSlice.js';
+import { setActivity, setAblyUsers, setNumRounds } from '../Redux/sessionSlice.js';
 
 // Database
 import {onValue, ref, update} from "firebase/database";
@@ -25,11 +25,11 @@ const LobbyPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const settingsOpen = useSelector((state) => state.session.settingsOpen)
-    const gamePin = useSelector((state) => state.session.gamePin)
-    const playerId = useSelector((state) => state.session.playerId)
-    const nickname = useSelector((state) => state.session.nickname)
-    const isHost = useSelector((state) => state.session.isHost)
+    const settingsOpen = useSelector((state) => state.session.settingsOpen);
+    const gamePin = useSelector((state) => state.session.gamePin);
+    const playerId = useSelector((state) => state.session.playerId);
+    const nickname = useSelector((state) => state.session.nickname);
+    const isHost = useSelector((state) => state.session.isHost);
 
     /* ABLY */
     
@@ -38,19 +38,23 @@ const LobbyPage = () => {
     const channelName = "" + gamePin;
     const [presenceUsers] = usePresence(channelName, { nickname: nickname });
     
-    const [channel] = useChannel(channelName, (message) => { // Page navigation when host presses start
-        if(message.data.text === "true") {
-            navigate("/Bridge");
+    const [channel] = useChannel(channelName, (message) => { 
+        if(message.name === "Start") {
+            dispatch(setNumRounds(message.data.number)); // Init total number of rounds for this session 
             dispatch(setActivity("start"));
+            navigate("/Bridge"); // Page navigation when host presses start
         }
+        if(message.name === "Set Client") {
+            dispatch(setAblyUsers(message.data.text)); // Init the array of Ably users for all players' 
+        }        
     });
 
     const handleStart = () => {
-        startSession();
+        startSession();        
         for(let i = 0; i < presenceUsers.length; i++) {
-            dispatch(setAblyUsers(presenceUsers[i].clientId));            
-        }
-        channel.publish("Start", { text: "true" });
+            channel.publish("Set Client", { text: presenceUsers[i].clientId });       
+        }      
+        channel.publish("Start", { number: rounds });        
     };
 
     /* DATABASE */
@@ -61,7 +65,6 @@ const LobbyPage = () => {
                 gamePin: gamePin,
                 inSession: false,
             });            
-            //console.log(`Current game session added to database!\n[gamePin : ${gamePin}], [inSession : false]`);
         }
     }, [isHost, gamePin]);
 
