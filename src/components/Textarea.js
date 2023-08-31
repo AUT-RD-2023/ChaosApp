@@ -18,20 +18,12 @@ const TextArea = (props) => {
         outline: "none"
     }
 
-    let CSS;
-
-    if (props.popUp === true) {
-        CSS = altStyle;
-    } else {
-        CSS = styles.textarea;
-    }
-
-
     return (
         <>
             <form>
                 <textarea
-                    style={ CSS }
+                    className={ styles.textarea }
+                    style={ props.popUp ? altStyle : null }
                     id="gamePin"
                     value={props.value}
                     disabled={props.disabled}
