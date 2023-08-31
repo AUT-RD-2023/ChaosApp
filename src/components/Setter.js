@@ -80,9 +80,9 @@ function Setter(props) {
         };
     } else if (orientation === "landscape") {
         inputStyle = {
-            width: "7vw",
-            height: "3.5vw",
-            fontSize: "1.5vw"
+            width: "5.8vw",
+            height: "2.8vw",
+            fontSize: "1.3vw",
         };
     }
 
