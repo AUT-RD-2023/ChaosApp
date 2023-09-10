@@ -17,6 +17,7 @@ import Bridge from './pages/Bridge';
 import ScenarioPage from './pages/Scenariopage';
 import DiscussionPage from './pages/DiscussionPage';
 import VotingPage from './pages/VotingPage';
+import TutorialPage from './pages/TutorialPage';
 
 function App() {
   return (     
@@ -35,6 +36,7 @@ function App() {
         <Route path="/Scenario" element={<ScenarioPage />} />
         <Route path="/Discussion" element={<DiscussionPage />} />
         <Route path="/Voting" element={<VotingPage />} />
+        <Route path="/TutorialPage" element={<TutorialPage />} />
 
       </Routes>
     </div>
