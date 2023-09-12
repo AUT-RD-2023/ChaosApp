@@ -8,9 +8,17 @@ function WelcomeTutorial(){
     return(
         <div className={style.page}>
             <div className={style.welcome}>
-                <p className={style.title}>WELCOME</p>
-                <p className={style.text}><br />Kia Rite or be prepared is...<br/><br/>
-                    The aim of Kia Rite is to identify hazards in the work place by generating chaotic scenarios and encouraging a discussion with the users. In the home screen players can either host a new session or join a current one. </p>
+                <div>
+                    <p className={style.title}>WELCOME</p>
+                    <p className={style.text}>
+                        <br />
+                        While playing Chaotic, you will take part in exploring different scenarios that lead to health and safety incidents.
+                        You and your team will brainstorm responses and devise plans to respond to the situation as scenarios get more and more chaotic!
+                        <br /><br />
+                        <strong>This isn’t a test of your health and safety knowledge</strong>, but rather a discussion about what can go wrong, and how we can work on
+                        creating better outcomes together.
+                    </p>
+                </div>
             </div>
         </div>
     )

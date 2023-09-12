@@ -1,5 +1,5 @@
 // React
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 // Styles
 import style from "../styles/Tutorial.module.css";
@@ -19,10 +19,26 @@ import WelcomeTutorial from '../components/WelcomeTutorial.js';
 
 function TutorialPage() {
 
+    // Chevron Rendering //
+
+    const [isWindowLandscape, setIsWindowLandscape] = useState(window.innerHeight < window.innerWidth);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsWindowLandscape(window.innerHeight < window.innerWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     return (
         <>
             <div className={style.header}>
-                <div className={style.subtitle}>Chaos</div>
+                <div className={style.subtitle}>Chaotic</div>
                 <div className={style.skip}>Skip</div>
             </div>
             <Carousel
@@ -37,21 +53,27 @@ function TutorialPage() {
                         borderRadius: "50%",
                     }
                 }}
-                renderCenterLeftControls={({ previousSlide }) => (
+                renderCenterLeftControls={({ previousSlide, currentSlide }) => (
+                    isWindowLandscape === false ? null : (
+                    currentSlide === 0 ? null : (
                     <Icon
                         className={style.chevron}
                         size={5}
                         path={mdiChevronLeft}
                         onClick={previousSlide}
-                    />
+                    />)
+                    )
                 )}
-                renderCenterRightControls={({ nextSlide }) => (
-                    <Icon
-                        className={style.chevron}
-                        size={5}
-                        path={mdiChevronRight}
-                        onClick={nextSlide}
-                    />
+                renderCenterRightControls={({ nextSlide, currentSlide }) => (
+                    isWindowLandscape === false ? null : (
+                        currentSlide === 4 ? null : (
+                            <Icon
+                                className={style.chevron}
+                                size={5}
+                                path={mdiChevronRight}
+                                onClick={nextSlide}
+                            />)
+                    )
                 )}>
                 <WelcomeTutorial/>
                 <ScenarioTutorial/>
