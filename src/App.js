@@ -27,8 +27,8 @@ function App() {
         <Route path='/ChaosApp' element={<Homepage />} />
         <Route path="/Lobby" element={<LobbyPage />} />
         <Route path="/SettingsPage" element={<SettingsPage />} />
-        <Route path="/Lobby/link/:pinNumber" element={<NicknamePage />} /> 
-        <Route path="/Host" element={<NicknamePage />} />
+        <Route path="/Lobby/link/:pinNumber" element={<TutorialPage />} />
+        <Route path="/Host" element={<TutorialPage />} />
         <Route path="/Error/:error" element={<ErrorPage />} />
         <Route path="/404" element={<PageNotFound />} /> 
         <Route path="*" element={<PageNotFound />} /> 
@@ -36,7 +36,6 @@ function App() {
         <Route path="/Scenario" element={<ScenarioPage />} />
         <Route path="/Discussion" element={<DiscussionPage />} />
         <Route path="/Voting" element={<VotingPage />} />
-        <Route path="/TutorialPage" element={<TutorialPage />} />
 
       </Routes>
     </div>
