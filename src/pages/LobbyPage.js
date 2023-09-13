@@ -14,6 +14,7 @@ import { database } from '../database.js';
 // Components
 import Button from '../components/Button.js';
 import SlideSettings from '../components/SlideSettings.js';
+import HowToPlay from '../components/HowToPlay.js';
 import IconButton from '../components/IconButton.js';
 
 // Styles
@@ -154,10 +155,11 @@ const LobbyPage = () => {
 
     return (
         <>
+            <HowToPlay />
             {isHost ? isWindowLandscape ? <SlideSettings /> : (settingsOpen ? navigate("/SettingsPage") : <IconButton icon="settings" />) : null }
             <div className={style.page}>
             <div className={style.header}>
-                <div className={style.subtitle}>Chaos</div>
+                <div className={style.subtitle}>Chaotic</div>
             </div>
             <div className={style.pin}>
                 <span className={style.label}>GAME PIN: <br/></span>

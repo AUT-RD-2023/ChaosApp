@@ -2,11 +2,11 @@
 
 .settings_icon {
   position: fixed;
-  top: 4vh;
-  right: 3.8vh;
+  top: min(4vh, 3.1vw);
+  right: min(3.8vh, 2vw);
   z-index: 99;
-  width: 10vh;
-  height: 10vh;
+  width: min(10vh, 15vw);
+  height: min(10vh, 15vw);
   opacity: 100;
 }
 

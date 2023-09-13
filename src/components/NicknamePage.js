@@ -18,7 +18,7 @@ import Identity from '../identity.js'
 // Styles
 import '../App.css';
 
-function NicknameRoute() {
+function NicknamePage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -77,7 +77,7 @@ function NicknameRoute() {
 
     return (
         <div className="page">
-            <div className="title">Chaos</div>
+            <div className="title">Chaotic</div>
 
             <div className="heading">GET STARTED</div>
 
@@ -102,4 +102,4 @@ function NicknameRoute() {
     );
 }
 
-export default NicknameRoute;
+export default NicknamePage;

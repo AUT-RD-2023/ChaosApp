@@ -18,6 +18,8 @@ import Button from '../components/Button.js'
 import Textarea from '../components/Textarea.js'
 import TimerBar from '../components/TimerBar.js'
 import Header from '../components/Header.js'
+import HowToPlay from '../components/HowToPlay'
+import ReadMoreReact from 'read-more-react';
 
 // Styles
 import styles from '../styles/ScenarioPage.module.css';
@@ -104,7 +106,8 @@ function ScenarioPage() {
                 <div className={styles.subheader}>
                     <Header />
                 </div>
-                <TimerBar timeLength= {15}/*{ responseTime }*/ addTime="0" path="/Bridge" />
+                <TimerBar timeLength= {200}/*{ responseTime }*/ addTime="0" path="/Bridge" />
+                <HowToPlay />
             </div>
             <div className={styles.content}>
                 <div className={styles.buttons}>
@@ -116,7 +119,12 @@ function ScenarioPage() {
                 </div>
                 <div className={styles.container}>
                     <div className={styles.subtitle}>SCENARIO</div>
-                    <div className={styles.scenario}>{ scenarioText }</div>
+
+
+                    {/*<div className={styles.scenario}>{ scenarioText }</div>*/}
+                    <div className={styles.scenario}><ReadMoreReact  min={3} max={10} text={scenarioText} /></div>
+
+
                     <div className={styles.prompt}>What do you do...?</div>
                     <Textarea
                         placeholder="Enter Response..."

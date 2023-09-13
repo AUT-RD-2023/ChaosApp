@@ -20,13 +20,13 @@ import Button from "../components/Button.js";
 import TimerBar from "../components/TimerBar.js";
 import VotingCard from "../components/VotingCard.js";
 import Header from '../components/Header.js'
+import HowToPlay from '../components/HowToPlay.js'
 
 //variables
 import { useSelector } from "react-redux";
 
 // Styles
 import styles from "../styles/VotingPage.module.css";
-
 import "../App.css";
 
 
@@ -90,6 +90,7 @@ const hostButtonsJSX = (
                     <Header />
                 </div>
                 <TimerBar />
+                <HowToPlay />
             </div>
             <div className={styles.container}>
                 <div className={styles.subtitle}>TAKE A VOTE</div>

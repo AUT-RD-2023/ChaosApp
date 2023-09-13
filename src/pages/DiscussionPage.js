@@ -17,6 +17,7 @@ import { database } from '../database.js';
 // Styles
 import styles from "../styles/DiscussionPage.module.css";
 import "../App.css";
+import HowToPlay from "../components/HowToPlay";
 
 function DiscussionPage() {
   /* REDUX */
@@ -133,6 +134,7 @@ function DiscussionPage() {
           <Header />
         </div>
         <TimerBar timeLength= {5}/*{ discussionTime }*/ addTime={ addLength } path="/Voting"/>
+        <HowToPlay />
       </div>
       <div className={styles.div_spacer}/>
       <div className={styles.discussion}>

@@ -1,17 +1,13 @@
+.wrapper {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
 @media (orientation: landscape) {
     .page {
         margin-left: 6vw;
         margin-right: 6vw;
         height: 80vh;
-    }
-
-    .chevron {
-        color: #D9D9D9;
-        z-index: 101;
-    }
-
-    .chevron:hover {
-        color: #CACACA;
     }
 
     .welcome {
@@ -86,14 +82,6 @@
         margin-left: 6vw;
         margin-right: 6vw;
         height: 90vh;
-    }
-
-    .chevron {
-        color: #D9D9D9;
-    }
-
-    .chevron:hover {
-        color: #CACACA;
     }
 
     .welcome {
