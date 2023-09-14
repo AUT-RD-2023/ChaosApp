@@ -53,7 +53,8 @@ function ChaosPage() {
 
     const updateDatabase = () => {
         set(ref(database, `lobby-${gamePin}/responses/round-${round}/${playerId}`), {
-            response: message // Add the users message to the database while tracking the current round and the users id
+            response: message, // Add the users message to the database while tracking the current round and the users id
+            votes: 0
         }); 
     }
 
@@ -84,7 +85,7 @@ function ChaosPage() {
             <div className={styles.content}>
                 <div className={styles.buttons}>
                     <Button
-                        name= { buttonDisabled ? "✓" : "SUBMIT"}
+                        name={ buttonDisabled ? "✓" : "SUBMIT" }
                         static={ false }
                         press={ handleSubmit}
                         disabled={ buttonDisabled }/>

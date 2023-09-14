@@ -14,7 +14,7 @@ import { useNavigate} from 'react-router-dom';
 import { useChannel } from "@ably-labs/react-hooks";
 
 // Database
-import { ref, onValue } from "firebase/database";
+import { ref, set, onValue } from "firebase/database";
 import { database } from '../database.js';
 
 // Components
@@ -25,15 +25,14 @@ import Header from '../components/Header.js'
 import HowToPlay from '../components/HowToPlay.js'
 
 // Redux
-import { useSelector, useDispatch } from "react-redux";
-import { setActivity, setRound } from '../Redux/sessionSlice.js';
+import { useSelector } from "react-redux";
 
 // Styles
 import styles from "../styles/VotingPage.module.css";
 import "../App.css";
 
 
-const VotingPage = () => {
+function VotingPage() {
   const navigate = useNavigate();
 
   /* REDUX */
@@ -41,11 +40,7 @@ const VotingPage = () => {
   const gamePin = useSelector((state => state.session.gamePin));
   const isHost = useSelector((state => state.session.isHost));
   const ablyUsers = useSelector((state) => state.session.ablyUsers);
-
   const round = useSelector((state) => state.session.round);
-  const numRounds = useSelector((state) => state.session.numRounds);  
-
-  const dispatch = useDispatch();
 
   const [responseArray, setResponseArray] = useState([]); 
 
@@ -54,15 +49,8 @@ const VotingPage = () => {
   }
 
   const [channel] = useChannel(gamePin + "", (message) => {
-    if(message.name === "Next Page") {      
-      // Set up for the next round
-      if(round < numRounds) {
-        dispatch(setActivity("chaos"));  
-        dispatch(setRound(round + 1));
-      } else {
-        dispatch(setActivity("end")); 
-      }
-      navigate("/Bridge");
+    if(message.name === "Next Page") {
+      navigate("/Results");
     }
   });
 
@@ -74,28 +62,79 @@ const VotingPage = () => {
         setResponseArray(oldArray => [...oldArray, snapshot.val()]);
       }, {
         onlyOnce: true
-      });  
+      });
     } // eslint-disable-next-line
   }, []);
+
+  // DATABASE
+
+  const [response, setResponse] = useState("");
+
+  useEffect(() => {
+    console.log(response);
+  }, [response]);  
+
+  const castVote = () => {
+    // Iterate through each player in the lobby
+    for(let i = 0; i < ablyUsers.length; i++) { 
+      const responseData = ref(database, `lobby-${gamePin}/responses/round-${round}/${ablyUsers[i]}/response`);
+
+      onValue(responseData, (snapshot) => {
+        // Match the selected response with each response in the database
+        if(response === snapshot.val()) { 
+          console.log(`A vote has been cast for ${ablyUsers[i]}'s response!`);
+
+          let votes = 1;
+
+          // Get the current number of votes  
+          const voteData = ref(database, `lobby-${gamePin}/responses/round-${round}/${ablyUsers[i]}/votes`); 
+
+          onValue(voteData, (snapshot) => {
+            if(snapshot.exists()) {
+              // set the votes variable to one more than the current amount
+              votes = snapshot.val() + 1; 
+            }
+          });
+
+          // Set the number of votes for that response to the new votes value
+          set(ref(database, `lobby-${gamePin}/responses/round-${round}/${ablyUsers[i]}/`), { 
+            response: response,
+            votes: votes
+          }); 
+        }
+      }, {
+        onlyOnce: true
+      });  
+    }
+    setButtonDisabled(true);
+  }
+
+  // RENDER
+
+  const [buttonDisabled, setButtonDisabled] = useState(false);
 
   const buttonsJSX = (
     <div className={styles.buttons}>
       <Button
-          name="VOTE"
-          static={ false } //button width decreases as page height increases
+          name={ buttonDisabled ? "✓" : "VOTE" }
+          static={ false }          
+          disabled={ buttonDisabled }
+          press={ castVote }
       />
     </div>);
 
 const hostButtonsJSX = (
   <div className={styles.buttons}>
     <Button
-        name="VOTE"
-        static={ false } //button width decreases as page height increases
+        name={ buttonDisabled ? "✓" : "VOTE" }
+        static={ false } 
+        disabled={ buttonDisabled }
+        press={ castVote }
     />
     <div className={styles.button_spacer}/>
       <Button 
           name="SKIP"
-          static={ false } //button width decreases as page height increases         
+          static={ false } 
           press={ handleSkip }
         />
   </div>);
@@ -106,18 +145,18 @@ const hostButtonsJSX = (
           <div className={styles.subheader}>
               <Header />
           </div>
-          <TimerBar />
+          <TimerBar timeLength={30} path="/Results" />
           <HowToPlay />
       </div>
       <div className={styles.container}>
           <div className={styles.subtitle}>TAKE A VOTE</div>
       </div>
-      {/* container for response cards*/}
       <div className={styles.carouselContainer}>
           <div className={styles.carousel}>
               {
                 responseArray.map(response =>
-                  <VotingCard response = {response}/>)
+                  <VotingCard response={ response } onFocus={() => setResponse(response)}/>
+                )
               }
           </div>
       </div>
@@ -125,7 +164,5 @@ const hostButtonsJSX = (
     </div>
   )
 }
-
-
 
 export default VotingPage;

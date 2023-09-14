@@ -9,7 +9,7 @@ import style from '../styles/EndPage.module.css';
 
 // Images
 import img from '../styles/images/crown.svg';
-import icon from '../styles/images/share.svg';
+//import icon from '../styles/images/share.svg';
 
 export default function GameRecap() {
     return (        
@@ -29,8 +29,9 @@ export default function GameRecap() {
             </div>
             <div className={style.button_small}>
                 <Button
-                    img={ icon }
-                    imgClass={ style.image_share }
+                    /*img={ icon }
+                    imgClass={ style.image_share }*/
+                    name="SHARE"
                     static={ false } //button width decreases as page height increases
                 />
                 <div className={style.button_spacer} />
