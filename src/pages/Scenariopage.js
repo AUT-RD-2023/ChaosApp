@@ -19,7 +19,7 @@ import Textarea from '../components/Textarea.js'
 import TimerBar from '../components/TimerBar.js'
 import Header from '../components/Header.js'
 import HowToPlay from '../components/HowToPlay'
-import ReadMoreReact from 'read-more-react';
+import ShowMoreText from "react-show-more-text";
 
 // Styles
 import styles from '../styles/ScenarioPage.module.css';
@@ -106,7 +106,7 @@ function ScenarioPage() {
                 <div className={styles.subheader}>
                     <Header />
                 </div>
-                <TimerBar timeLength= {200}/*{ responseTime }*/ addTime="0" path="/Bridge" />
+                <TimerBar timeLength= {2000}/*{ responseTime }*/ addTime="0" path="/Bridge" />
                 <HowToPlay />
             </div>
             <div className={styles.content}>
@@ -119,12 +119,14 @@ function ScenarioPage() {
                 </div>
                 <div className={styles.container}>
                     <div className={styles.subtitle}>SCENARIO</div>
-
-
-                    {/*<div className={styles.scenario}>{ scenarioText }</div>*/}
-                    <div className={styles.scenario}><ReadMoreReact  min={3} max={10} text={scenarioText} /></div>
-
-
+                    {/*<ShowMoreText*/}
+                    {/*    lines={1}*/}
+                    {/*    more={<span className={styles['show-more-link']}><br/>show more</span>}*/}
+                    {/*    less={<span className={styles['show-more-link']}><br/>show less</span>}*/}
+                    {/*>*/}
+                    {/*    <span className={styles['show-more-text']}>{scenarioText}</span>*/}
+                    {/*</ShowMoreText>*/}
+                    <div className={styles.prompt}>{scenarioText}</div>
                     <div className={styles.prompt}>What do you do...?</div>
                     <Textarea
                         placeholder="Enter Response..."
