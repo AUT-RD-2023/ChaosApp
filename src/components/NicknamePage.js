@@ -21,15 +21,15 @@ import '../App.css';
 function NicknamePage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    
-    const location = useLocation();        
+
+    const location = useLocation();
     const isHost = location.state?.isHost; //useSelector((state) => state.session.isHost);
 
     const params = useParams();
-    const joinPin = params?.pinNumber;    
+    const joinPin = params?.pinNumber;
 
-    if(!isHost) { 
-        dispatch(resetDefaults()); // Reset to the default values of all Redux variables 
+    if(!isHost) {
+        dispatch(resetDefaults()); // Reset to the default values of all Redux variables
     } else {
         dispatch(setIsHost(true));
     }
@@ -37,7 +37,7 @@ function NicknamePage() {
     if(!isHost) {
         if(!((joinPin.length === 4) && (/^[0-9\b]+$/.test(joinPin)))) {
             window.location.href = "#/404"; // Redirects to the 404 page if url contains an incorrect pin code format.
-        } 
+        }
     }
 
     const [nickname, setNickname] = useState("");
@@ -59,11 +59,11 @@ function NicknamePage() {
             const entryData = ref(database, 'lobby-' + gamePin); // Get a reference to the data at this path in the database
 
             onValue(entryData, (snapshot) => { // Get a snapshot of the current value of the data
-                if(!snapshot.exists()) { 
+                if(!snapshot.exists()) {
                     navigate("/Error/invalid-pin"); // Navigate to the appropriate error page if the session does not already exist
                 }
-            });            
-            
+            });
+
             let sessionStarted;
             const sessionData = ref(database, 'lobby-' + gamePin + '/inSession');
 
@@ -76,9 +76,9 @@ function NicknamePage() {
     /* RENDER */
 
     return (
-        <div className="App">     
-            <div className="title">Chaos</div>
-            
+        <div className="page">
+            <div className="title">Chaotic</div>
+
             <div className="heading">GET STARTED</div>
 
             <div className="container">

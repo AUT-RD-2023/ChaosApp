@@ -10,7 +10,6 @@ import './App.css';
 import Homepage from './pages/Homepage';
 import LobbyPage from './pages/LobbyPage';
 import SettingsPage from './pages/SettingsPage.js';
-import NicknamePage from './pages/NicknamePage';
 import ErrorPage from './pages/ErrorPage';
 import PageNotFound from './pages/404';
 import Bridge from './pages/Bridge';
@@ -18,6 +17,7 @@ import ScenarioPage from './pages/Scenariopage';
 import DiscussionPage from './pages/DiscussionPage';
 import VotingPage from './pages/VotingPage';
 import ChaosPage from './pages/ChaosPage';
+import TutorialPage from './pages/TutorialPage';
 
 function App() {
   return (     
@@ -27,8 +27,8 @@ function App() {
         <Route path='/ChaosApp' element={<Homepage />} />
         <Route path="/Lobby" element={<LobbyPage />} />
         <Route path="/SettingsPage" element={<SettingsPage />} />
-        <Route path="/Lobby/link/:pinNumber" element={<NicknamePage />} /> 
-        <Route path="/Host" element={<NicknamePage />} />
+        <Route path="/Lobby/link/:pinNumber" element={<TutorialPage />} />
+        <Route path="/Host" element={<TutorialPage />} />
         <Route path="/Error/:error" element={<ErrorPage />} />
         <Route path="/404" element={<PageNotFound />} /> 
         <Route path="*" element={<PageNotFound />} /> 

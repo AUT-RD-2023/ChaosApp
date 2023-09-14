@@ -1,3 +1,16 @@
+
+.show-more-text {
+  font-size: min(5vw, 3vh);
+  font-family: Quicksand, sans-serif;
+}
+
+.show-more-link {
+  text-decoration: underline;
+  color: #75A78F;
+  font-size: min(5vw, 3vh);
+  font-family: Quicksand, sans-serif;
+}
+
 @media (orientation: landscape) {
   .page {
     display: flex;

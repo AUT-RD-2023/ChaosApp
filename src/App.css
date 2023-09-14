@@ -22,7 +22,6 @@
   url("./styles/fonts/quicksand-regular.otf") format("opentype");
 }
 
-
 .App {
   position: absolute;
   top: 50%;
@@ -34,6 +33,14 @@
   align-items: center;
   min-width: 100vw;
   min-height: 100vh;
+}
+
+.page {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
 }
 
 .title {
@@ -109,6 +116,11 @@
     /*padding-bottom: 2vw;*/
   }
 
+  .faux_header {
+    height: 8.68vh;
+    width: 99vw;
+  }
+
   .subheading {
     font-size: 9vw;
     letter-spacing: 0.7vw;
@@ -152,6 +164,11 @@
     letter-spacing: 0.4vw;
     padding-top: 3vw;
     padding-bottom: 1.5vw;
+  }
+
+  .faux_header {
+    height: 9.25vh;
+    width: 99vw;
   }
 
   .subheading {

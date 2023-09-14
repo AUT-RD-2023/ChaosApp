@@ -19,6 +19,7 @@ import { database } from '../database.js';
 // Styles
 import styles from "../styles/DiscussionPage.module.css";
 import "../App.css";
+import HowToPlay from "../components/HowToPlay";
 
 function DiscussionPage() {
   const navigate = useNavigate();
@@ -171,7 +172,9 @@ function DiscussionPage() {
         <div className={styles.subheader}>
           <Header />
         </div>
-        <TimerBar timeLength= { discussionTime } addTime={ addTime } resetTime={ resetCount } />
+        {/*<TimerBar timeLength= { discussionTime } addTime={ addTime } resetTime={ resetCount } />*/}
+        <TimerBar timeLength= {5}/*{ discussionTime }*/ addTime={ addLength } path="/Voting"/>
+        <HowToPlay />
       </div>
       <div className={styles.div_spacer}/>
       <div className={styles.discussion}>
