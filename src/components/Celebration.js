@@ -3,7 +3,6 @@ import React from 'react';
 
 // Styles
 import style from '../styles/EndPage.module.css';
-import appStyle from '../App.css';
 
 // Images
 import img from '../styles/images/celebration.svg';

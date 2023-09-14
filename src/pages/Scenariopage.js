@@ -19,7 +19,7 @@ import Textarea from '../components/Textarea.js'
 import TimerBar from '../components/TimerBar.js'
 import Header from '../components/Header.js'
 import HowToPlay from '../components/HowToPlay'
-import ShowMoreText from "react-show-more-text";
+//import ShowMoreText from "react-show-more-text";
 
 // Styles
 import styles from '../styles/ScenarioPage.module.css';

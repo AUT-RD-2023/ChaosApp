@@ -1,8 +1,7 @@
 // React
-import React, { useState }  from 'react';
+import React from 'react';
 
 // Components
-import Button from "../components/Button.js";
 import Celebration from "../components/Celebration.js";
 import GameRecap from "../components/GameRecap.js";
 
@@ -18,7 +17,6 @@ import style from '../styles/EndPage.module.css';
 import '../App.css';
 
 function EndPage() {
-    const [swiper, setSwiper] = useState(null);
     return (
         <>        
             <div className={style.wrapper}>
@@ -26,7 +24,6 @@ function EndPage() {
                     cssMode={true}
                     mousewheel={false}
                     navigation={true}
-                    pagination={true}
                     keyboard={false}
                     modules={[Navigation, Pagination]}>
 

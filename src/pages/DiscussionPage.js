@@ -97,7 +97,7 @@ function DiscussionPage() {
     }
   }  
   
-  const [buttonDisabled, setButtonDisabled] = useState(false); 
+  const [buttonDisabled, setButtonDisabled] = useState(false); // eslint-disable-next-line
   const [addTime, setAddTime] = useState(0);
   const addLength = 30;
 
@@ -133,7 +133,7 @@ function DiscussionPage() {
 
   /* DATABASE */
 
-  const discussionTimeData = ref(database, 'lobby-' + gamePin + '/discussionTime');
+  const discussionTimeData = ref(database, 'lobby-' + gamePin + '/discussionTime'); // eslint-disable-next-line
   const [discussionTime, setDiscussionTime] = useState();  
 
   useEffect(() => {

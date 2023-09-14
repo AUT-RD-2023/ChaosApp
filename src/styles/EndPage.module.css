@@ -38,7 +38,20 @@
 
     .image {
         height: calc(20vh * 2);
-        margin-top: 5vh;
+        margin-top: 5vh;        
+    }
+
+    .image_crown {
+        height: calc(5vh * 2);  
+        margin-top: -8vh;       
+        margin-left: 45vh;
+        position: absolute;
+    }
+
+    .image_share {
+        height: 6vh;   
+        position: relative;
+        margin-top: 0.7vh;
     }
 
     .header {
@@ -64,6 +77,13 @@
         text-align: center;
         color: #ADADAD;
     }
+
+    .recap {
+        height: 40vh;
+        width: 50vw;        
+        border: red 1px solid;
+        border-radius: 12% / 7%;
+    }
 }
 
 .subheader {
@@ -73,19 +93,26 @@
 }
 
 .container{
-  width: fit-content;
-  max-width: 65%;
-  height: fit-content;
-  margin: 10vh auto 0 auto;
+    width: fit-content;
+    max-width: 65%;
+    height: fit-content;
+    margin: 5vh auto 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .buttons {
-  display: flex;
-  margin: 2vh auto 0 auto;
+    display: flex;
+    margin: 2vh auto 0 auto;
     width: fit-content;
+    height: fit-content;
+}
+
+.button_small {
+    display: flex;
+    margin: 2vh auto 0 auto;
+    width: 25vw;
     height: fit-content;
 }
 
