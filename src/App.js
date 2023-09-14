@@ -18,6 +18,7 @@ import DiscussionPage from './pages/DiscussionPage';
 import VotingPage from './pages/VotingPage';
 import ChaosPage from './pages/ChaosPage';
 import TutorialPage from './pages/TutorialPage';
+import EndPage from './pages/EndPage';
 
 function App() {
   return (     
@@ -37,6 +38,7 @@ function App() {
         <Route path="/Discussion" element={<DiscussionPage />} />
         <Route path="/Voting" element={<VotingPage />} />
         <Route path="/Chaos" element={<ChaosPage />} />
+        <Route path="/End" element={<EndPage />} />
       </Routes>
     </div>
   );
