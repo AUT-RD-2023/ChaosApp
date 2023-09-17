@@ -140,7 +140,7 @@ const LobbyPage = () => {
         <>
             <Button
                     name="PLAY"
-                    static={ true } //button width is static, even if page height changes
+                    static={ false }
                     press={ handleStart }
                 />
             <div className={style.spacer}></div>
@@ -149,37 +149,33 @@ const LobbyPage = () => {
     const inviteButtonJSX = (               
         <Button
             name={textVisible ? "✓" : "INVITE"}
-            static={ true } //button width is static, even if page height changes
+            static={ false }
             press={copyUrl}
         />);
 
     return (
-        <>
-            <HowToPlay />
+        <div className={style.page}>
+            <HowToPlay isLobby="true"/>
             {isHost ? isWindowLandscape ? <SlideSettings /> : (settingsOpen ? navigate("/SettingsPage") : <IconButton icon="settings" />) : null }
-            <div className={style.page}>
-            <div className={style.header}>
+            <div>
                 <div className={style.subtitle}>Chaotic</div>
-            </div>
-            <div className={style.pin}>
-                <span className={style.label}>GAME PIN: <br/></span>
-                <span className={style.number}>&nbsp;{channelName}</span>
-            </div>
-            <div className={style.lobby}>
-                <div className={style.buttons}>
-                    {isHost ? playButtonJSX : null}
-                    { inviteButtonJSX }
-                </div>
-                <div className={style.container}>
-                    <div className={style.players}>
-                        {presenceUsers.map((user, index) => (
-                            <div key={user.clientId}>{user.data.nickname}</div>
-                        ))}
-                    </div>
+                <div className={style.pin}>
+                    <span className={style.label}>GAME PIN: <br/></span>
+                    <span className={style.number}>&nbsp;{channelName}</span>
                 </div>
             </div>
+            <div className={style.container}>
+                <div className={style.players}>
+                    {presenceUsers.map((user, index) => (
+                        <div className={style.grid_item} key={user.clientId}>{user.data.nickname}</div>
+                    ))}
+                </div>
             </div>
-        </>
+            <div className={style.buttons}>
+                {isHost ? playButtonJSX : null}
+                { inviteButtonJSX }
+            </div>
+        </div>
     );
 }
 

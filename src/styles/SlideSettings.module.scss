@@ -22,10 +22,12 @@
 
 .close_icon:hover {
   opacity: 100%;
+  cursor: pointer;
 }
 
 .settings_icon:hover {
   opacity: 70%;
+  cursor: pointer;
 }
 
 // Menu Structure //
@@ -82,7 +84,7 @@
     width: 30vw;
     height: 100vh;
     transform: translateX(235%);
-    transition: color .15s, transform .5s;
+    transition: color .5s, transform .5s;
     transition-timing-function: cubic-bezier(0.190, 1.000, 0.220, 1.000);
     overflow-y: auto;
     overflow-x: hidden;

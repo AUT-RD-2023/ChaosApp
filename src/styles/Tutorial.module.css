@@ -75,6 +75,10 @@
         text-align: center;
         color: #ADADAD;
     }
+
+    .skip:hover {
+        cursor: pointer;
+    }
 }
 
 @media (orientation: portrait) {
@@ -150,5 +154,9 @@
         font-size: 4vh;
         text-align: center;
         color: #ADADAD;
+    }
+
+    .skip:hover {
+        cursor:pointer;
     }
 }

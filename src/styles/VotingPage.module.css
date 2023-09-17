@@ -1,12 +1,12 @@
-/*
-* VotingPage.js
-* Author: Jade Thompson-Tavai
-* Date: 24-08-23
-*
-* Contributors:
-*
-*
-*/
+/*!**/
+/** VotingPage.js*/
+/** Author: Jade Thompson-Tavai*/
+/** Date: 24-08-23*/
+/***/
+/** Contributors:*/
+/***/
+/***/
+/**!*/
 
 .card {
     background-color: #DCEBE1;
@@ -15,7 +15,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 1vw;
 }
 
 .card:hover {
@@ -27,19 +26,11 @@
     margin: 5px;
 }
 
-
-.buttons {
-    display: flex;
-    margin: 2vh auto 0 auto;
-    width: fit-content;
-    height: fit-content;
-}
-
 @media (orientation: landscape) {
     .page {
         display: flex;
         flex-flow: column;
-        height: 99.7vh;
+        height: 99.8vh;
         width: 99.8vw;
     }
 
@@ -55,7 +46,7 @@
 
     .subtitle {
         font-family: 'Rubik', sans-serif;
-        font-size: 3vw;
+        font-size: min(5vw, 7vh);
         letter-spacing: 0.5vw;
         font-weight: 600;
         text-align: center;
@@ -64,18 +55,16 @@
         width: 100%;
     }
 
-    .container{
-        width: fit-content;
-        max-width: 65%;
-        height: fit-content;
-        margin: 0 auto 0 auto;
+    .content {
+        flex: 1 1 auto;
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 5%;
-      }
+        flex-direction: column-reverse;
+        justify-content: center;
+        width: 100%;
+        overflow: hidden;
+    }
 
-      .carouselContainer {
+    .carouselContainer {
         width: 100%;
         height: 70%;
         display: flex;
@@ -83,7 +72,7 @@
         align-items: center;
         justify-content: center;
     }
-    
+
     .carousel {
         height: 80%;
         width: 100%;
@@ -96,37 +85,30 @@
         flex: 0 0 40vw; /* Flex properties to control card width */
         height: 75%;
         border-radius: 7.2vw;
-        margin-top: 3%;
         margin: 0 1vw;
     }
 
     .buttons {
         display: flex;
+        justify-content: center;
         margin: 2vh auto 0 auto;
-        width: fit-content;
-        height: fit-content;
-        margin-bottom: 2%;
-      }
-
-      .button_spacer{
-        width: 3vw;
-      }
+        height: 8%;
+    }
 }
 
 @media (orientation: portrait) {
     .page {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
         height: 99.8vh;
         width: 99.8vw;
     }
 
     .header {
+        border: red 1px solid;
         width: 100vw;
         height: fit-content;
-        margin-top: 1.5%;
-        margin-bottom: 4%;
+        margin-bottom: calc(100vw/18 + 3vw);
     }
 
     .subheader {
@@ -137,50 +119,53 @@
 
     .subtitle {
         font-family: 'Rubik', sans-serif;
-        font-size: 10vw;
+        font-size: min(10vw, 8vh);
         letter-spacing: 1.3vw;
         font-weight: 700;
         text-align: center;
         color: #2D7C73;
         height: fit-content;
-        width: 100vh;
+        width: 99.8vw;
+    }
+
+    .content {
+        border: red 1px solid;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: space-between;
+        width: 100%;
+        height: 90%;
+        padding-top: 15vw;
+    }
+
+    .carousel {
+        height: 100%;
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        overflow-y: scroll;
+        border: red 1px solid;
+        margin-top: max(2vh, 2vw);
     }
 
     .carouselContainer {
+        border: red 1px solid;
         width: 100%;
-        height: 70%;
+        margin-bottom: 4vh;
+        margin-top: 1vh;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
     }
-    
-    .carousel {
-        height: 100%;
-        width: 90%;
-        margin-top: 5%;
-        display: flex;
-        flex-direction: column;
-        overflow-y: scroll;
-    }
-
-    .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-        height: 5%;
-        margin: 3vh auto 0 auto;
-    }
 
     .card{
-        flex: 0 0 40vw; /* Flex properties to control card width */
-        height: 75%;
+        /*flex: 0 0 40vw; !* Flex properties to control card width *!*/
+        height: fit-content;
+        min-height: 10vh;
         border-radius: 7.2vw;
-        margin-top: 5%;
+        margin-bottom: 5%;
     }
-
 
     .buttons {
         width: fit-content;
@@ -189,11 +174,10 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        margin: -1vh auto 2vh auto;
+        margin: min(3vh, 2vw) auto min(2vh, 1vw) auto;
     }
 
-      .button_spacer{
-        height: 3vw;
+    .button_spacer {
+        height: min(2vh, 3vw);
     }
-
 }

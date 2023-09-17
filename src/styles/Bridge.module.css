@@ -1,0 +1,43 @@
+.heading {
+    font-family: 'Rubik', sans-serif;
+    font-weight: 600;
+    text-align: center;
+    color: #2D7C73;
+}
+
+.subheading {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 550;
+    text-align: center;
+    color: #ADADAD;
+}
+
+@media (orientation: portrait) {
+    .heading {
+        font-size: min(12vw, 6vh);
+        letter-spacing: min(1.5vw,0.8vh);
+        padding-top: 3vw;
+        margin-bottom: max(-3vw, -0.2vh);
+    }
+
+    .subheading {
+        font-size: min(9vw, 5vh);
+        letter-spacing: 0.7vw;
+        margin-bottom: min(3vw, 1vh);
+    }
+}
+
+@media (orientation: landscape) {
+    .heading {
+        font-size: min(6vw, 8vh);
+        letter-spacing: min(0.8vw, 1vh);
+        padding-top: 3vw;
+    }
+
+    .subheading {
+        font-size: min(5vw, 6vh);
+        letter-spacing: min(0.4vw);
+        margin-bottom: min(3vw, 1vh);
+    }
+}
+

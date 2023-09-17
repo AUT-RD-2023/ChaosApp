@@ -88,9 +88,9 @@
 
   .buttons {
     display: flex;
+    justify-content: center;
     margin: 2vh auto 0 auto;
-    width: fit-content;
-    height: fit-content;
+    height: 8%;
   }
 }
 

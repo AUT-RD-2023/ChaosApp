@@ -2,9 +2,10 @@ import React from 'react';
 import style from '../styles/HowToPlay.module.scss'
 import { ReactComponent as HowTo } from '../styles/images/howtoplay.svg';
 import { ReactComponent as Close } from '../styles/images/close.svg';
-import {setSettingsOpen} from "../Redux/sessionSlice";
+import SlideSettings from "./SlideSettings";
+import IconButton from "./IconButton";
 
-const HowToPlay = () => {
+const HowToPlay = (props) => {
     const handleOpenClick = event => {
         const checkbox = document.getElementById('navcheck-s');
         if (checkbox) {
@@ -21,7 +22,9 @@ const HowToPlay = () => {
 
     return (
         <>
-          <HowTo className={style.howtoplay_icon} onClick={handleOpenClick}/>
+          {props.isLobby ? <HowTo className={style.howtoplay_lobby} onClick={handleOpenClick}/> :
+              <HowTo className={style.howtoplay_icon} onClick={handleOpenClick}/>}
+
           <input type="checkbox" id="navcheck-s" role="button" className={style.input} readOnly/>
           <label htmlFor="navcheck-s" className={style.label}></label>
           <div className={style.slide}>

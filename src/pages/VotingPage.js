@@ -28,6 +28,7 @@ import { useSelector } from "react-redux";
 // Styles
 import styles from "../styles/VotingPage.module.css";
 import "../App.css";
+import style from "../styles/LobbyPage.module.css";
 
 
 const VotingPage = () => {
@@ -61,25 +62,20 @@ const VotingPage = () => {
         <div className={styles.buttons}>
           <Button
               name="VOTE"
-              static={ false } //button width decreases as page height increases
+              static={ true }
           />
-          <div className={styles.button_spacer}/>
-            <Button 
-                name="SKIP"
-                static={ false } //button width decreases as page height increases
-              />
         </div>);
 
 const hostButtonsJSX = (
     <div className={styles.buttons}>
       <Button
           name="VOTE"
-          static={ false } //button width decreases as page height increases
+          static={ true }
       />
       <div className={styles.button_spacer}/>
         <Button 
             name="SKIP"
-            static={ false } //button width decreases as page height increases
+            static={ true }
           />
     </div>);
 
@@ -89,23 +85,25 @@ const hostButtonsJSX = (
                 <div className={styles.subheader}>
                     <Header />
                 </div>
-                <TimerBar />
+                <TimerBar timeLength= {200000}/*{ responseTime }*/ addTime="0" path="/Bridge" />
                 <HowToPlay />
             </div>
-            <div className={styles.container}>
+            <div className={styles.content}>
+                <div className={styles.buttons}>
+                    <Button
+                        name="VOTE"
+                        static={ true }
+                    />
+                </div>
+                <div className={styles.carouselContainer}>
+                    <div className={styles.carousel}>
+                        {responseArray.map((response, index) => (
+                            <VotingCard response = {response}/>
+                        ))}
+                    </div>
+                </div>
                 <div className={styles.subtitle}>TAKE A VOTE</div>
             </div>
-
-        {/* container for response cards*/}
-        <div className={styles.carouselContainer}>
-            <div className={styles.carousel}>
-                {
-                  responseArray.map(response =>
-                    <VotingCard response = {response}/>)
-                }
-            </div>
-        </div>
-         { isHost ? hostButtonsJSX : buttonsJSX }
         </div>
     )
 }
