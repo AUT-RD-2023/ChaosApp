@@ -1,16 +1,22 @@
 // React
 import React, { useState, useEffect } from 'react';
+
+// Style
 import style from '../styles/SlideSettings.module.scss'
-import { ReactComponent as Settings } from '../styles/images/settings.svg';
-import { ReactComponent as Close } from '../styles/images/close.svg';
+
+// Components
 import Button from '../components/Button.js'
 import Setter from '../components/Setter';
-import { useSelector, useDispatch } from 'react-redux'
-import {setCustomScenario, setSettingsOpen, setUseCustomScenario} from "../Redux/sessionSlice";
+import { ReactComponent as Settings } from '../styles/images/settings.svg';
+import { ReactComponent as Close } from '../styles/images/close.svg';
 import CustomPopUp from "./CustomPopUp";
 import Switch from "./Switch";
 
-const SlideSettings = (props) => {
+// Redux
+import { useSelector, useDispatch } from 'react-redux'
+import {setCustomScenario, setSettingsOpen, setUseCustomScenario} from "../Redux/sessionSlice";
+
+const SlideSettings = () => {
     const dispatch = useDispatch()
     const settingsOpen = useSelector((state) => state.session.settingsOpen)
 
@@ -35,10 +41,10 @@ const SlideSettings = (props) => {
         setIsChecked(settingsOpen);
     }, [settingsOpen]);
 
-    const handleOpenClick = event => {
+    const handleOpenClick = () => {
         dispatch(setSettingsOpen(true))
     };
-    const handleCloseClick = event => {
+    const handleCloseClick = () => {
         dispatch(setSettingsOpen(false))
     };
 
@@ -104,8 +110,6 @@ const SlideSettings = (props) => {
                         <div className={style.heading}>Discussion Timer (+30 sec)</div>
                         <Setter id="discussion" orientation="landscape" savePressed= { savePressed }/>
                         <div className={style.divider} />
-                        <div className ={style.toggles} >
-                            </div>
                             <div className={style.custom_wrapper}>
                                 <p className= {style.custom} >Use Custom Scenario</p>
                                 <div style={{position: "absolute", right: "12vw"}} >
@@ -122,9 +126,9 @@ const SlideSettings = (props) => {
                             }
                         </div>
                         <div className={style.buttons}>
-                            <Button name="RESET" static={ false }> </Button>
+                            <Button name="RESET" static={ true }> </Button>
                             <div className={style.spacer} />
-                            <Button name={ savePressed ? "✓" : "SAVE" } static={ false }  press={ handleSave }></Button>
+                            <Button name={ savePressed ? "✓" : "SAVE" } static={ true }  press={ handleSave }></Button>
                         </div>
                     </div>
             </div>

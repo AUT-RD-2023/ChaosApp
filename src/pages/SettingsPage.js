@@ -132,9 +132,7 @@ function SettingsPage() {
                     <div className ={style.toggles} >
                         <div className={style.custom_wrapper}>
                             <p className= {style.custom} >Use Custom Scenario</p>
-                            <div style={{position: "absolute", right: "12vw"}} >
                                 <Switch label=" " checked={ customChecked } onChange={ handleCustom } />
-                            </div>
                         </div>
                         { customChecked && previewVisible ? 
                             <div className={style.custom_wrapper}>
