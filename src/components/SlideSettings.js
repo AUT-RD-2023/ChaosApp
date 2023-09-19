@@ -105,11 +105,6 @@ const SlideSettings = (props) => {
                         <Setter id="discussion" orientation="landscape" savePressed= { savePressed }/>
                         <div className={style.divider} />
                         <div className ={style.toggles} >
-                            <div className={style.custom_wrapper}>
-                                <p className= {style.custom} >Competitive Mode</p>
-                                <div style={{position: "absolute", right: "12vw"}}>
-                                    <Switch label=" "/>
-                                </div>
                             </div>
                             <div className={style.custom_wrapper}>
                                 <p className= {style.custom} >Use Custom Scenario</p>
@@ -132,8 +127,6 @@ const SlideSettings = (props) => {
                             <Button name={ savePressed ? "✓" : "SAVE" } static={ false }  press={ handleSave }></Button>
                         </div>
                     </div>
-
-                </div>
             </div>
         </>
     );

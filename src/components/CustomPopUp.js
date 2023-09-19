@@ -34,22 +34,17 @@ const CustomPopUp = (props) => {
     return (
         <div className={ styles.page } onClick={ handlePageClick } >
             <div className={ styles.wrapper } ref={ wrapperRef } >
-                <Close className={styles.close_icon} onClick={props.onClose}/>
+                <div className={styles.heading}>Custom Scenario</div>
                 <div className={ styles.textarea } >
                     <Textarea
-                        placeholder="Set custom scenario..."
+                        placeholder="Enter scenario..."
                         popUp = {true}
                         onChange={(e) => setText(e.target.value)}
                     />
                 </div>
-                <div className={ styles.button } >
-                    <Button
-                        name="CONFIRM"
-                        static={ false } //button width is static, even if page height changes
-                        style={{ width: "100%" }}
-                        press={ handleConfirm }
-                        disabled={ text.trim() === "" }
-                    />
+                <div className={styles.buttons}>
+                    <div className={styles.cancel} onClick={ props.onClose }>CANCEL</div>
+                    <div className={styles.save} onClick={ handleConfirm }>SAVE</div>
                 </div>
             </div>
         </div>
