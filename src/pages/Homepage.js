@@ -64,7 +64,7 @@ const Homepage = () => {
 
     return (
         <div className="App">
-            <div className="title">Chaos</div>
+            <div className="title">Chaotic</div>
 
             <div className="container">
                 <Input 

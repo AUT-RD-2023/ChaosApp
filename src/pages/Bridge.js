@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 
 // Styles
 import '../App.css';
+import style from '../styles/Bridge.module.css';
 
 const Bridge = () => {
 
@@ -60,8 +61,8 @@ const Bridge = () => {
 
     return (
         <div className="App">
-            <div className="heading">ROUND {roundText}</div><br />
-            <div className="subheading">{subheading}</div><br />
+            <div className={style.heading}>ROUND {roundText}</div><br />
+            <div className={style.subheading}>{subheading}</div><br />
             <TimerBar timeLength="5" addTime="0" path={path} />
         </div>
     )

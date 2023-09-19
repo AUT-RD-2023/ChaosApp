@@ -1,0 +1,183 @@
+/*!**/
+/** VotingPage.js*/
+/** Author: Jade Thompson-Tavai*/
+/** Date: 24-08-23*/
+/***/
+/** Contributors:*/
+/***/
+/***/
+/**!*/
+
+.card {
+    background-color: #DCEBE1;
+    filter: drop-shadow(0 0.4rem 0.2rem rgba(0, 0, 0, 0.25));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card:hover {
+    background-color: #b2d4c3;
+}
+
+.card:focus {
+    border: 5px solid #75A78F;
+    margin: 5px;
+}
+
+@media (orientation: landscape) {
+    .page {
+        display: flex;
+        flex-flow: column;
+        height: 99.8vh;
+        width: 99.8vw;
+    }
+
+    .header {
+        flex: 0 1 auto;
+    }
+
+    .subheader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .subtitle {
+        font-family: 'Rubik', sans-serif;
+        font-size: min(5vw, 7vh);
+        letter-spacing: 0.5vw;
+        font-weight: 600;
+        text-align: center;
+        color: #2D7C73;
+        height: fit-content;
+        width: 100%;
+    }
+
+    .content {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .carouselContainer {
+        width: 100%;
+        height: 70%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .carousel {
+        height: 80%;
+        width: 100%;
+        margin-top: 5%;
+        display: flex;
+        overflow-x: scroll;
+    }
+
+    .card{
+        flex: 0 0 40vw; /* Flex properties to control card width */
+        height: 75%;
+        border-radius: 7.2vw;
+        margin: 0 1vw;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: center;
+        margin: 2vh auto 0 auto;
+        height: 8%;
+    }
+}
+
+@media (orientation: portrait) {
+    .page {
+        display: flex;
+        flex-direction: column;
+        height: 99.8vh;
+        width: 99.8vw;
+    }
+
+    .header {
+        border: red 1px solid;
+        width: 100vw;
+        height: fit-content;
+        margin-bottom: calc(100vw/18 + 3vw);
+    }
+
+    .subheader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .subtitle {
+        font-family: 'Rubik', sans-serif;
+        font-size: min(10vw, 8vh);
+        letter-spacing: 1.3vw;
+        font-weight: 700;
+        text-align: center;
+        color: #2D7C73;
+        height: fit-content;
+        width: 99.8vw;
+    }
+
+    .content {
+        border: red 1px solid;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: space-between;
+        width: 100%;
+        height: 90%;
+        padding-top: 15vw;
+    }
+
+    .carousel {
+        height: 100%;
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        overflow-y: scroll;
+        border: red 1px solid;
+        margin-top: max(2vh, 2vw);
+    }
+
+    .carouselContainer {
+        border: red 1px solid;
+        width: 100%;
+        margin-bottom: 4vh;
+        margin-top: 1vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .card{
+        /*flex: 0 0 40vw; !* Flex properties to control card width *!*/
+        height: fit-content;
+        min-height: 10vh;
+        border-radius: 7.2vw;
+        margin-bottom: 5%;
+    }
+
+    .buttons {
+        width: fit-content;
+        height: fit-content;
+        max-height: 20%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: min(3vh, 2vw) auto min(2vh, 1vw) auto;
+    }
+
+    .button_spacer {
+        height: min(2vh, 3vw);
+    }
+}
