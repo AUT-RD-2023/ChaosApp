@@ -19,7 +19,7 @@ import Textarea from '../components/Textarea.js'
 import TimerBar from '../components/TimerBar.js'
 import Header from '../components/Header.js'
 import HowToPlay from '../components/HowToPlay'
-//import ShowMoreText from "react-show-more-text";
+import ShowMoreText from "react-show-more-text";
 
 // Styles
 import styles from '../styles/ScenarioPage.module.css';
@@ -121,7 +121,7 @@ function ScenarioPage() {
                 <div className={styles.subheader}>
                     <Header />
                 </div>
-                <TimerBar timeLength= {10}/*{ responseTime }*/ addTime="0" path="/Bridge" />
+                <TimerBar timeLength= {100}/*{ responseTime }*/ addTime="0" path="/Bridge" />
                 <HowToPlay />
             </div>
             <div className={styles.content}>
@@ -134,14 +134,16 @@ function ScenarioPage() {
                 </div>
                 <div className={styles.container}>
                     <div className={styles.subtitle}>SCENARIO</div>
-                    <div className={styles.prompt}>{ textVisible ? scenarioText : "" }</div>
-                    {/*<ShowMoreText*/}
-                    {/*    lines={1}*/}
-                    {/*    more={<span className={styles['show-more-link']}><br/>show more</span>}*/}
-                    {/*    less={<span className={styles['show-more-link']}><br/>show less</span>}*/}
-                    {/*>*/}
-                    {/*    <span className={styles['show-more-text']}>{scenarioText}</span>*/}
-                    {/*</ShowMoreText>*/}
+                    {/*<div className={styles.prompt}>{ textVisible ? scenarioText : "" }</div>*/}
+                    <ShowMoreText
+                        lines={2}
+                        more={<span className={styles['show-more-link']}><br/>show more</span>}
+                        less={<span className={styles['show-more-link']}><br/>show less</span>}
+                        className={styles['show-more-text']}
+                        
+                    >
+                        <span className={styles['show-more-text']}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod t empor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod t empor incididunt ut labore et dolore magna aliqua.</span>
+                    </ShowMoreText>
                     {/*<div className={styles.prompt}>{scenarioText}</div>*/}
                     <div className={styles.prompt}>What do you do...?</div>
                     <Textarea
