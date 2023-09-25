@@ -1,5 +1,6 @@
 // React
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useChannel } from "@ably-labs/react-hooks";
 
 // Redux
@@ -26,12 +27,13 @@ import styles from '../styles/ScenarioPage.module.css';
 import '../App.css';
 
 function ScenarioPage() {
-    /* REDUX */
+    const navigate = useNavigate();
 
     const gamePin = useSelector((state) => state.session.gamePin);
     const round = useSelector((state) => state.session.round);      
     const isHost = useSelector((state) => state.session.isHost);
     const playerId = useSelector((state) => state.session.playerId);  
+    const numPlayers = useSelector((state) => state.session.ablyUsers);
 
     const customScenario = useSelector((state) => state.session.customScenario);
     const useCustomScenario = useSelector((state) => state.session.useCustomScenario);
@@ -40,9 +42,8 @@ function ScenarioPage() {
 
     /* SCENARIO */ 
 
-    // eslint-disable-next-line
     const [textVisible, setTextVisible] = useState(false);
-    const [scenarioText, setScenarioText] = useState("");
+    const [scenarioText, setScenarioText] = useState("");   
 
     useEffect(() => {
         if(isHost) {
@@ -56,6 +57,11 @@ function ScenarioPage() {
             });
 
             channel.publish("Set Scenario", { text: useCustomScenario ? customScenario : scenarioObj.scenarioArray[randScenario] }); 
+
+            // Initialise the number of responses in database
+            set(ref(database, `lobby-${gamePin}/responseCount/`), {
+                numResponses: 0
+            }); 
         }       
         // Set up next activity for all players        
         dispatch(setActivity("discussion")) // eslint-disable-next-line
@@ -67,14 +73,16 @@ function ScenarioPage() {
         if(message.name === "Set Scenario") {      
             setScenarioText(message.data.text);
             dispatch(setScenario(message.data.text));
-            console.log("Message recieved from channel.");
+        }
+
+        if (message.name === "Next Page") {
+            navigate("/Bridge");
         }
     }); 
 
     // set the scenario text to visible once the value has been initialised (forcing a re-render)
     useEffect(() => {
         setTextVisible(true);
-        console.log("Second useEffect has been triggered.");
     }, [scenarioText]);
 
     /* BUTTON */
@@ -85,7 +93,6 @@ function ScenarioPage() {
     const handleSubmit = () => {
         setButtonDisabled(true);
         setTextAreaDisabled(true);
-
         updateDatabase();
     }   
 
@@ -94,13 +101,30 @@ function ScenarioPage() {
     const [message, setMessage] = useState('');
 
     const updateDatabase = () => {
+        let num = 0;
+
+        const responseData = ref(database, `lobby-${gamePin}/responseCount/numResponses`); 
+
+        onValue(responseData, (snapshot) => {
+            if(snapshot.exists()) {
+                num = snapshot.val() + 1; 
+            }
+
+            if(num === numPlayers.length) {            
+                channel.publish("Next Page", { text: "true" })
+            }
+        });
+
+        set(ref(database, `lobby-${gamePin}/responseCount/`), {
+            numResponses: num
+        }); 
+
         set(ref(database, `lobby-${gamePin}/responses/round-${round}/${playerId}`), {
             response: message, // Add the users message to the database while tracking the current round and the users id
             votes: 0
         }); 
     }
 
-    // eslint-disable-next-line
     const [responseTime, setResponseTime] = useState();
 
     const responseTimeData = ref(database, 'lobby-' + gamePin + '/responseTime');
@@ -120,9 +144,9 @@ function ScenarioPage() {
         <div className={styles.page}>
             <div className={styles.header}>
                 <div className={styles.subheader}>
-                    <Header />
+                    <Header />                  
                 </div>
-                <TimerBar timeLength={ 10 } addTime="0" path="/Bridge" />
+                <TimerBar timeLength={ responseTime + 10000 } path="/Bridge" />
                 <HowToPlay />
             </div>
             <div className={styles.content}>
@@ -130,8 +154,9 @@ function ScenarioPage() {
                     <Button
                         name={ buttonDisabled ? "✓" : "SUBMIT" }
                         static={ false }
-                        press={ handleSubmit}
-                        disabled={ buttonDisabled }/>
+                        press={ handleSubmit }
+                        disabled={ buttonDisabled }
+                    />
                 </div>
                 <div className={styles.container}>
                     <div className={styles.subtitle}>SCENARIO</div>
