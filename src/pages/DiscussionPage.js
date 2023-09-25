@@ -172,8 +172,7 @@ function DiscussionPage() {
         <div className={styles.subheader}>
           <Header />
         </div>
-        {/*<TimerBar timeLength= { discussionTime } addTime={ addTime } resetTime={ resetCount } />*/}
-        <TimerBar timeLength= {5}/*{ discussionTime }*/ addTime={ addLength } path="/Voting"/>
+        <TimerBar timeLength= { discussionTime } addTime={ addTime } resetTime={ resetCount } />
         <HowToPlay />
       </div>
       <div className={styles.div_spacer}/>

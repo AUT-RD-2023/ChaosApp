@@ -96,23 +96,21 @@ export default function ResultsPage() {
                 <div className={styles.subheader}>
                     <Header />
                 </div>
-                <TimerBar timeLength={10} path="/Bridge" />
+                <TimerBar timeLength={15} path="/Bridge" />
                 <HowToPlay />
             </div>
             <div className={styles.container}>
-                <div className={styles.subtitle}>TAKE A VOTE</div>
+                <div className={styles.subtitle}>VOTING RESULTS</div>
             </div>
             <div className={styles.carouselContainer}>
                 <div className={styles.carousel}>
-                    {
-                        responseArray.map(response =>
-                            voteArray.map(votes => 
-                                <VotingCard response={ response } votes={
-                                    votes > 0 ? votes === 1 ? votes + " Vote" : votes + " Votes" : ""
-                                }/>
-                            )
-                        )
-                    }
+                {
+                    responseArray.map((response, index) => 
+                        <VotingCard response={ response } votes={
+                                voteArray[index] > 0 ? voteArray[index] === 1 ? voteArray[index] + " Vote" : voteArray[index] + " Votes)" : ""
+                        }/>
+                    )
+                }
                 </div>
             </div>
             { isHost ? hostButtonsJSX : null }

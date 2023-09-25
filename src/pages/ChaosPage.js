@@ -14,6 +14,7 @@ import Button from '../components/Button.js'
 import Textarea from '../components/Textarea.js'
 import TimerBar from '../components/TimerBar.js'
 import Header from '../components/Header.js'
+import ShowMoreText from "react-show-more-text";
 
 // Styles
 import styles from '../styles/ScenarioPage.module.css';
@@ -91,8 +92,15 @@ function ChaosPage() {
                         disabled={ buttonDisabled }/>
                 </div>
                 <div className={styles.container}>
-                    <div className={styles.subtitle}>SCENARIO</div>
-                    <div className={styles.scenario}>{ scenario }</div>
+                    <div className={styles.subtitle}>SCENARIO</div>                  
+                    <ShowMoreText
+                        lines={3}
+                        more={<span className={styles['show-more-link']}><br/>show more</span>}
+                        less={<span className={styles['show-more-link']}><br/>show less</span>}
+                        className={styles['show-more-text']}                        
+                    >
+                        <span className={styles['show-more-text']}>{ scenario }</span>
+                    </ShowMoreText>
                     <div className={styles.chaos}><strong>Additional chaos goes here...</strong></div>
                     <div className={styles.prompt}>What do you do...?</div>
                     <Textarea
