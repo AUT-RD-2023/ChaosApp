@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux'
 import { setSessionId, setName, setPlayerId, setIsHost, resetDefaults} from "../Redux/sessionSlice"
 
 // Database
-import { ref, onValue } from "firebase/database";
+import { ref, onValue, onDisconnect } from "firebase/database";
 import { database } from '../database.js';
 
 // Components
@@ -53,6 +53,13 @@ function NicknamePage() {
     dispatch(setSessionId(gamePin));
 
     /* DATABASE */
+
+        // Remove lobby when host disconnects
+        if(isHost)
+        {
+            const presenceRef = ref(database, 'lobby-' + gamePin);
+            onDisconnect(presenceRef).remove();
+        }
 
     useEffect(() => {
         if(!isHost) {
