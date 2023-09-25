@@ -1,5 +1,5 @@
 // React
-import React from 'react';
+import React, { useEffect } from 'react';
 
 // Components
 import TimerBar from '../components/TimerBar.js'
@@ -28,7 +28,7 @@ const Bridge = () => {
             path = "/Discussion";
             break;
         case "voting":
-            subheading = "Vote For Your Favourite...";
+            subheading = "Let's Take a Vote...";
             path = "/Voting";
             break;
         case "chaos":
@@ -36,7 +36,7 @@ const Bridge = () => {
             path = "/Chaos";
             break;
         case "end":
-            subheading = "Tallying Votes...";
+            subheading = "Finalising Results...";
             path = "/End";
             break;
         default:
@@ -63,6 +63,15 @@ const Bridge = () => {
             roundText = "FIVE";
             break;
     }
+
+    /* PREVENT BACK */
+
+    useEffect(() => {
+        window.history.pushState(null, document.title, window.location.href);
+        window.addEventListener('popstate', function(event) {
+            window.history.pushState(null, document.title, window.location.href);
+        });
+    }, []);
 
     return (
         <div className="App">
