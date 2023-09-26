@@ -1,5 +1,5 @@
 // React
-import React from 'react';
+import React, { useEffect } from 'react';
 
 // Components
 import Celebration from "../components/Celebration.js";
@@ -17,6 +17,16 @@ import style from '../styles/EndPage.module.css';
 import '../App.css';
 
 function EndPage() {
+    /* PREVENT BACK */
+
+    useEffect(() => {
+        window.history.pushState(null, document.title, window.location.href);
+
+        window.addEventListener('popstate', function(event) {
+            window.history.pushState(null, document.title, window.location.href);
+        });
+    }, []);
+
     return (
         <>        
             <div className={style.wrapper}>

@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 
 // Components
 import Button from "../components/Button.js";
+import DownloadButton from '../components/CreateDocument.js';
 
 // Database
 import { ref,  onValue } from "firebase/database";
@@ -76,20 +77,16 @@ export default function GameRecap() {
                     static={ false } //button width decreases as page height increases
                 />
             </div>
-            <div className={style.button_small}>
-                <Button
-                    /*img={ icon }
-                    imgClass={ style.image_share }*/
-                    name="SHARE"
-                    static={ false } //button width decreases as page height increases
-                />
-                <div className={style.button_spacer} />
+            <div className={style.button_small}>       
+                {/* img={ icon }
+                    imgClass={ style.image_share }
+                */}       
+                <DownloadButton />
                 <Button
                     name="QUIT"
                     static={ false } //button width decreases as page height increases
                 />
-            </div>
-                
+            </div>            
             </div>
         </div>
     )

@@ -79,6 +79,16 @@ export default function ResultsPage() {
         }
     });
 
+    /* PREVENT BACK */
+
+    useEffect(() => {
+        window.history.pushState(null, document.title, window.location.href);
+
+        window.addEventListener('popstate', function(event) {
+            window.history.pushState(null, document.title, window.location.href);
+        });
+    }, []);
+
     // RENDER
 
     const hostButtonsJSX = (
@@ -107,7 +117,7 @@ export default function ResultsPage() {
                 {
                     responseArray.map((response, index) => 
                         <VotingCard response={ response } votes={
-                                voteArray[index] > 0 ? voteArray[index] === 1 ? voteArray[index] + " Vote" : voteArray[index] + " Votes)" : ""
+                                voteArray[index] > 0 ? voteArray[index] === 1 ? voteArray[index] + " Vote" : voteArray[index] + " Votes" : ""
                         }/>
                     )
                 }

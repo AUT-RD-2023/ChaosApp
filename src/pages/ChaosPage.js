@@ -1,5 +1,7 @@
 // React
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useChannel } from "@ably-labs/react-hooks";
 
 // Redux
 import { useSelector, useDispatch } from "react-redux";
@@ -21,6 +23,8 @@ import styles from '../styles/ScenarioPage.module.css';
 import '../App.css';
 
 function ChaosPage() {
+    const navigate = useNavigate();
+    
     /* REDUX */
 
     const gamePin = useSelector((state) => state.session.gamePin);
@@ -28,12 +32,18 @@ function ChaosPage() {
 
     const round = useSelector((state) => state.session.round);     
     const scenario = useSelector((state) => state.session.scenario);
+    const numPlayers = useSelector((state) => state.session.ablyUsers);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
         // Set up next activity for all players        
-        dispatch(setActivity("discussion")) // eslint-disable-next-line
+        dispatch(setActivity("discussion"));
+
+        // Initialise the number of responses in database
+        set(ref(database, `lobby-${gamePin}/responseCount/`), {
+            numResponses: 0
+        });  // eslint-disable-next-line
     }, []);
 
     /* BUTTON */
@@ -53,6 +63,24 @@ function ChaosPage() {
     const [message, setMessage] = useState('');
 
     const updateDatabase = () => {
+        let num = 0;
+
+        const responseData = ref(database, `lobby-${gamePin}/responseCount/numResponses`); 
+
+        onValue(responseData, (snapshot) => {
+            if(snapshot.exists()) {
+                num = snapshot.val() + 1; 
+            }
+
+            if(num === numPlayers.length) {            
+                channel.publish("Next Page", { text: "true" })
+            }
+        });
+
+        set(ref(database, `lobby-${gamePin}/responseCount/`), {
+            numResponses: num
+        }); 
+
         set(ref(database, `lobby-${gamePin}/responses/round-${round}/${playerId}`), {
             response: message, // Add the users message to the database while tracking the current round and the users id
             votes: 0
@@ -72,6 +100,24 @@ function ChaosPage() {
             }
         });
     }, [responseTimeData]);
+
+    /* ABLY */
+    
+    const [channel] = useChannel(gamePin + "", (message) => {
+        if (message.name === "Next Page") {
+            navigate("/Bridge");
+        }
+    }); 
+
+    /* PREVENT BACK */
+
+    useEffect(() => {
+        window.history.pushState(null, document.title, window.location.href);
+
+        window.addEventListener('popstate', function(event) {
+            window.history.pushState(null, document.title, window.location.href);
+        });
+    }, []);
         
     /* RENDER */
 
