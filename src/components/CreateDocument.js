@@ -1,34 +1,160 @@
 // React
-import React from 'react';
+import React, {useEffect, useState} from "react";
 import { saveAs } from 'file-saver';
-import { pdf, Page, Text, Document } from '@react-pdf/renderer';
+import { pdf, Page, Text, Document, StyleSheet, View } from '@react-pdf/renderer';
 
 // Redux
 import { useSelector } from "react-redux";
 
+// Database
+import { ref, set, onValue } from "firebase/database";
+import { database } from '../database.js';
+
 // Components
 import Button from "../components/Button.js";
 
-const CreateDocument = (props) => (
-    <Document>
-        <Page size="A4">
-            <Text>Session Results (GamePin: { props.gamePin })</Text>
-            <Text>Scenario: { props.scenario }</Text>
+
+
+//Styles
+const styles = StyleSheet.create({
+    page: {
+        paddingTop: 35,
+        paddingBottom: 65,
+        paddingHorizontal: 35,
+        textAlign: 'center',
+    },
+    title: {
+        fontWeight: "bold",
+        fontSize: 36,
+        color: "#2D7C73",
+    }, 
+    section: {
+        paddingTop: 15
+    },
+    date: {
+        fontSize: 12,
+    },
+    pin: {
+        fontSize: 12,
+    },
+    subheading: {
+        fontWeight: 550,
+        color: "#ADADAD",
+        textAlign: 'left',
+        paddingTop: 10
+    },
+    reponse: {
+        textAlign: 'left'
+    }
+
+})
+
+function getCurrentDate() {
+    const currentDate = new Date().toLocaleString() + "";
+
+    return currentDate;
+}
+
+const CreateDocument = (props) => {
+    const pages = Object.keys(props.roundData).map((roundNumber) => (
+        <Page key={roundNumber} style={styles.page}>
+            <Text style={styles.title}>SESSION RESULTS </Text>
+            <Text style={styles.dataTitle}>
+            <Text style={styles.date}>Date: {props.date}</Text>
+            <Text style={styles.pin}> GamePin: { props.gamePin }</Text>
+            </Text>
+            
+            <Text style={styles.section}> 
+            <Text>Round {roundNumber} {'\n'}</Text>
+                <Text style={styles.subheading}>Scenario: {'\n'}
+                </Text>
+                { props.scenario }
+            </Text>
+             <Text style={styles.section}> 
+                 <Text style={styles.subheading}>Responses: {'\n'}
+                </Text>
+                </Text>
+          <View>
+            {props.roundData[roundNumber].responses.map((response, index) => (
+              <Text key={index}>
+                {response}{' '}
+                {props.roundData[roundNumber].votes[index] > 0
+                    ? props.roundData[roundNumber].votes[index] === 1
+                    ? props.roundData[roundNumber].votes[index] + ' Vote'
+                    : props.roundData[roundNumber].votes[index] + ' Votes'
+                  : ''}
+                {'\n'}
+              </Text>
+            ))}
+          </View>
         </Page>
-    </Document>
-)
+      ));
+    
+      return <Document>{pages}</Document>;
+    };
+    
+    //In this updated code, we map over the roundData to create separate <Page> components for each round. When you render the PDF, you will have multiple pages, each representing one round with its content.
+    
+    
+    
+    
+    
+    
 
 export default function DownloadButton() {
     const gamePin = useSelector((state => state.session.gamePin));
     const scenario = useSelector((state => state.session.scenario));
+    const ablyUsers = useSelector((state) => state.session.ablyUsers);
+    const round = useSelector((state) => state.session.round);
+  
+    const [responseArray, setResponseArray] = useState([]); 
+    const [voteArray, setVoteArray] = useState([]); 
+    const [RoundData, setRoundData] = useState([]); 
+
+
+
+    useEffect(() => {
+        const roundData = {};
+      
+        // Iterate through rounds
+        for (let currentRound = 1; currentRound <= round; currentRound++) {
+          roundData[currentRound] = {
+            responses: [],
+            votes: [],
+          };
+      
+          // Iterate through users
+          for (let i = 0; i < ablyUsers.length; i++) {
+            const responseData = ref(database, `lobby-${gamePin}/responses/round-${currentRound}/${ablyUsers[i]}/response`);
+            const voteData = ref(database, `lobby-${gamePin}/responses/round-${currentRound}/${ablyUsers[i]}/votes`);
+      
+            onValue(responseData, (snapshot) => {
+              roundData[currentRound].responses.push(snapshot.val());
+              setRoundData({ ...roundData });
+            }, {
+              onlyOnce: true
+            });
+      
+            onValue(voteData, (snapshot) => {
+              roundData[currentRound].votes.push(snapshot.val());
+              setRoundData({ ...roundData });
+            }, {
+              onlyOnce: true
+            });
+          }
+        }
+      }, []);
+      
 
     return (
         <>
             <Button
                 name="SHARE"
                 static={ false }
+                
                 press={async () => {
-                    const document = <CreateDocument gamePin={ gamePin } scenario={ scenario } />
+                    const document = <CreateDocument gamePin={ gamePin } scenario={ scenario } date={getCurrentDate()} 
+                    roundData={ RoundData } votes={ voteArray }/>
                     const asPDF = pdf();
                     asPDF.updateContainer(document);
                     const blob = await asPDF.toBlob();
