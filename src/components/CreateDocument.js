@@ -93,7 +93,6 @@ const CreateDocument = (props) => {
       return <Document>{pages}</Document>;
     };
     
-    //In this updated code, we map over the roundData to create separate <Page> components for each round. When you render the PDF, you will have multiple pages, each representing one round with its content.
     
     
     
@@ -154,7 +153,7 @@ export default function DownloadButton() {
                 
                 press={async () => {
                     const document = <CreateDocument gamePin={ gamePin } scenario={ scenario } date={getCurrentDate()} 
-                    roundData={ RoundData } votes={ voteArray }/>
+                    roundData={ RoundData }/>
                     const asPDF = pdf();
                     asPDF.updateContainer(document);
                     const blob = await asPDF.toBlob();
