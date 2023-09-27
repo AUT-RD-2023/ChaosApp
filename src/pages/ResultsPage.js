@@ -67,14 +67,14 @@ export default function ResultsPage() {
                     onlyOnce: true
                 });
             });
-    
+            //push promises to the fetchDataPromises Array
             fetchDataPromises.push(responsePromise, votePromise);
         }
     
         // Wait for all response and vote promises to resolve
         Promise.all(fetchDataPromises)
             .then((data) => {
-                // Now that all data is fetched, create tempArray
+                // tempArray to store data
                 const tempArray = [];
     
                 for (let i = 0; i < data.length; i += 2) {
@@ -86,22 +86,19 @@ export default function ResultsPage() {
                         votes: voteValue
                     });
                 }
-    
                 // Set tempArray as the objectArray
                 setObjectArray(tempArray);
-                
-    
-                // Set up next activity for all players
-                if (round < numRounds) {
-                    dispatch(setActivity("chaos"));  
-                    dispatch(setRound(round + 1));
-                } else {
-                    dispatch(setActivity("end")); 
-                }
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
             });
+        // Set up next activity for all players
+        if (round < numRounds) {
+            dispatch(setActivity("chaos"));  
+            dispatch(setRound(round + 1));
+        } else {
+            dispatch(setActivity("end")); 
+        }
         // eslint-disable-next-line
     }, []);
     console.log(objectArray);
