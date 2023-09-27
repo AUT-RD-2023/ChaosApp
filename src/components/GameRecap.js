@@ -158,7 +158,7 @@ export default function GameRecap() {
           <Button
             name="PLAY AGAIN"
             static={false} //button width decreases as page height increases
-            press={ () => { handlePlayAagain(`${window.location.origin.toString()}/ChaosApp`) } }
+            press={ () => { handlePlayAagain(`${window.location.origin.toString()}`) } }
           />
           <div className={style.button_spacer}></div>
           <Button
@@ -168,7 +168,7 @@ export default function GameRecap() {
               setOpenModal(true);
             }}
           />
-          {openModal && <Modal closeModal={setOpenModal} />}
+          {openModal && <Modal closeModal={ setOpenModal } />}
         </div>
       </div>
     </div>

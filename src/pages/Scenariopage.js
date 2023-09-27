@@ -56,20 +56,30 @@ function ScenarioPage() {
                 return obj.type === randType;
             });
 
-            channel.publish("Set Scenario", { text: useCustomScenario ? customScenario : scenarioObj.scenarioArray[randScenario] });
+            // 
+            update(ref(database, `lobby-${gamePin}/`), {
+                scenario: (useCustomScenario ? customScenario : scenarioObj.scenarioArray[randScenario])
+            });
         }       
         // Set up next activity for all players        
         dispatch(setActivity("discussion")) // eslint-disable-next-line
     }, []);
 
+    if(scenarioText === "") {
+        const responseData = ref(database, `lobby-${gamePin}/scenario`);
+
+        onValue(responseData, (snapshot) => {
+            if(snapshot.exists()) {
+                
+                    setScenarioText(snapshot.val());
+                    dispatch(setScenario(snapshot.val()));            
+            }          
+        });
+    }
+
     /* ABLY */
 
     const [channel] = useChannel(gamePin + "", (message) => {
-        if(message.name === "Set Scenario") {      
-            setScenarioText(message.data.text);
-            dispatch(setScenario(message.data.text));
-        }
-
         if (message.name === "Next Page") {
             navigate("/Bridge");
         }
