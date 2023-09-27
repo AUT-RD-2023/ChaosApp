@@ -154,7 +154,7 @@ export default function ResultsPage() {
                 <div className={styles.subheader}>
                     <Header />
                 </div>
-                <TimerBar timeLength= { 100000 } path="/Bridge" />
+                <TimerBar timeLength= { 30 } path="/Bridge" />
                 <HowToPlay/>
             </div>
             <div className={styles.content}>            

@@ -32,6 +32,7 @@ function VotingPage() {
   const round = useSelector((state) => state.session.round);
 
   const [responseArray, setResponseArray] = useState([]); 
+  const [randomArray,setRandomArray] = useState([]); 
 
   const handleSkip = () => {
     channel.publish("Next Page", { text: "true" });
@@ -44,17 +45,48 @@ function VotingPage() {
   });
 
   useEffect(() => {    
-    for(let i = 0; i < ablyUsers.length; i++) {
+    let tempArray = [];
+    const shuffleArray = (array) => {
+      const shuffledArray = [...array];
+      for (let i = shuffledArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+      }
+      return shuffledArray;
+    };
+  
+    const fetchDataPromises = [];
+  
+    for (let i = 0; i < ablyUsers.length; i++) {
       const responseData = ref(database, `lobby-${gamePin}/responses/round-${round}/${ablyUsers[i]}/response`);
-
-      onValue(responseData, (snapshot) => {
-        setResponseArray(oldArray => [...oldArray, snapshot.val()]);
-      }, {
-        onlyOnce: true
+  
+      const promise = new Promise((resolve) => {
+        onValue(responseData, (snapshot) => {
+          resolve(snapshot.val());
+        }, {
+          onlyOnce: true
+        });
       });
-    } // eslint-disable-next-line
+  
+      fetchDataPromises.push(promise);
+    }
+  
+    // Wait for all responses to be fetched
+    Promise.all(fetchDataPromises)
+      .then((data) => {
+        // Now that all responses are fetched, shuffle the array
+        tempArray = shuffleArray(data);
+        setResponseArray(data); // Optionally update responseArray if needed
+        setRandomArray(tempArray);
+        console.log(responseArray);
+        console.log(randomArray);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+    // eslint-disable-next-line
   }, []);
-
+  
   // DATABASE
 
   const [response, setResponse] = useState("");
@@ -143,12 +175,12 @@ const hostButtonsJSX = (
     // eslint-disable-next-line
     const portrait = (
         <div className={styles.carousel_wrapper}>
-            {responseArray.length === 0 ? 
+            {randomArray.length === 0 ? 
               (<div className={styles.no_response}>
                     No responses...
               </div>)
               : 
-              (responseArray.map((response, index) => (
+              (randomArray.map((response, index) => (
                 <VotingCard response={response} key={index} onFocus={() => setResponse(response)} />
               ))
             )}
@@ -165,12 +197,12 @@ const hostButtonsJSX = (
 
     const landscape = (
       <div className={ styles.masonry }>
-        {responseArray.length === 0 ? 
+        {randomArray.length === 0 ? 
           (<div className={styles.no_response}>
                 No responses...
             </div>)
             : 
-            (responseArray.map((response, index) => {
+            (randomArray.map((response, index) => {
               if(response) {
                 return (
                   <VotingCard 
@@ -194,7 +226,7 @@ const hostButtonsJSX = (
                 <div className={styles.subheader}>
                     <Header />
                 </div>
-                <TimerBar timeLength= { 30 } path="/Results" />
+                <TimerBar timeLength= { 100 } path="/Results" />
                 <HowToPlay/>
             </div>
             <div className={styles.content}>            
