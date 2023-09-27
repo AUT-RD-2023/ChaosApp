@@ -28,7 +28,7 @@ export default function GameRecap() {
     useEffect(() => {
         // Create an array of promises
         const promises = [];
-
+        let tempArray = [];
         for (let i = 1; i <= round; i++){
             let currentRound = i;
 
@@ -80,7 +80,6 @@ export default function GameRecap() {
         Promise.all(promises)
           .then((data) => {
             // 'data' will contain an array of response and vote values
-            const tempArray = [];
       
             for (let i = 0; i < data.length; i += 3) {
               const responseValue = data[i];
@@ -93,21 +92,53 @@ export default function GameRecap() {
                 round: roundValue,
               });
             }
-            // Set 'tempArray' as the 'objectArray'
-            setObjectArray(tempArray);
+
+            //sort temp array
+            tempArray.sort((a,b) => {
+                //sort by rounds
+                if(a.round < b.round) return -1;
+                if(a.round > b.round) return 1;
+                //sort by votes
+                if(b.votes < a.votes) return -1;
+                if(b.votes < a.votes) return 1;
+       
+                return 0;
+                
+             });
+
+             let topThreePromise = new Promise((resolve) => {
+                const topThreeVotesByRound = {};
+
+                // Iterate through the sorted tempArray and store the top three votes for each round
+                tempArray.forEach((entry) => {
+                const round = entry.round;
+                if (!topThreeVotesByRound[round]) {
+                    topThreeVotesByRound[round] = [];
+                }
+        
+                if (topThreeVotesByRound[round].length < 3) {
+                    topThreeVotesByRound[round].push(entry);
+                }
+                });
+                tempArray = topThreeVotesByRound;
+                resolve(tempArray);
+             })
+
+             topThreePromise.then((data) => {
+                setObjectArray(tempArray);
+             })
+      
+           
           })
           .catch((error) => {
             console.error('Error fetching data:', error);
           });
+    
       
         // eslint-disable-next-line
       }, []);
       
-
       console.log(objectArray);
-
-      objectArray.sort((a,b) => a.round  -  b.round);
-
 
     return (        
         <div className={style.page}>
