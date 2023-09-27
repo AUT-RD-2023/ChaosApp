@@ -12,8 +12,8 @@
 }
 
 .modalContainer{
-    width: 200px;
-    height: 150px;
+    width: 210px;
+    height: 115px;
     background: white;
     border-radius:20px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -22,35 +22,54 @@
     padding: 15px;
 }
 
-.modalTitle {
-    font-family: 'Quicksand', sans-serif;
-}
-
 .modalTop {
-    display: flex;
-    height: fit-content;
+    display:grid;
+    grid-template-columns: 75px 40px;
+    grid-template-rows: 30px 5px;
+    grid-row: auto auto;
+    place-items: center;
+    grid-row-gap: 5px;
+    grid-column-gap: 95px;
+
+  }
+
+  .shareText{
+    font-family: 'Quicksand', sans-serif;
+    font-size: 25px;
+    font-weight:500;
+    display:flex;
+    justify-content: flex-end;
   }
 
 .closeButton {
     display:flex;
     justify-content: flex-end;
+    width: 50px;
+    
 }
 
 .closeButton button {
-   background-color: transparent;
-   border: none;
-   font-size: 25px;
-   cursor:pointer; 
-}
-
-.download_icon {
-    cursor:pointer;
-}
-
-.email_icon{
-    cursor:pointer;
-}
-
-.modalButtonTitle p{
     font-family: 'Quicksand', sans-serif;
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+    cursor:pointer; 
+}
+
+.modalIcons {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+}
+
+.buttonText{
+    font-family: 'Quicksand', sans-serif;
+}
+
+.modalButtons{
+    display:grid;
+    grid-template-columns: 50% 50%;
+    place-items: center;
+    grid-row-gap: 5px;
 }

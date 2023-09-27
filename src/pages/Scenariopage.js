@@ -156,7 +156,7 @@ function ScenarioPage() {
                 <div className={styles.subheader}>
                     <Header />                  
                 </div>
-                <TimerBar timeLength={ responseTime + 10000 } path="/Bridge" />
+                <TimerBar timeLength={ /*responseTime*/ 5 } path="/Bridge" />
                 <HowToPlay />
             </div>
             <div className={styles.content}>

@@ -23,17 +23,16 @@ function Modal({closeModal}) {
     <div className="modalBackground" onClick={() => closeModal(false)}>
         <div className="modalContainer">
             <div className="modalTop">
-                <h2 className="modalTitle">Share</h2>
+                <h2 className="shareText">Share</h2>
                 <div className="closeButton">
                     <button onClick={() => closeModal(false)}> X </button>
                 </div>
             </div>
             <div className="modalButtons">
-                <Download className="download_icon" onClick={handleDownloadClick}/>
-                <Email className="email_icon"/>
-            </div>
-            <div className="modalButtonTitle">
-                <p>Download Email</p>
+                <Download className="modalIcons" onClick={handleDownloadClick}/>
+                <Email className="modalIcons"/>
+                <div className="buttonText">Download</div> 
+                <div className="buttonText">Email</div>
             </div>
         </div>
     </div>

@@ -6,7 +6,7 @@ import { useChannel } from "@ably-labs/react-hooks";
 // Components
 import Button from "../components/Button.js";
 import TimerBar from "../components/TimerBar.js";
-import Header from "../components/Header.js"
+import Header from "../components/Header.js";
 
 // Redux
 import { useSelector, useDispatch } from "react-redux";
