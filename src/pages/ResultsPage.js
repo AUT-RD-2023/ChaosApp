@@ -38,28 +38,46 @@ export default function ResultsPage() {
 
     const [responseArray, setResponseArray] = useState([]); 
     const [voteArray, setVoteArray] = useState([]); 
+    const [objectArray, setObjectArray] = useState([{}]);
 
-    useEffect(() => {      
-        for(let i = 0; i < ablyUsers.length; i++) {
-            // Response
-            const responseData = ref(database, `lobby-${gamePin}/responses/round-${round}/${ablyUsers[i]}/response`);
-        
-            onValue(responseData, (snapshot) => {
-                setResponseArray(oldArray => [...oldArray, snapshot.val()]);
-            }, {
-                onlyOnce: true
-            });
+    useEffect(() => {    
+        let tempArray = [];  
+        //new promise to retrieved data from the database
+        let fetchData = new Promise ((resolve)=> {
+            for(let i = 0; i < ablyUsers.length; i++) {
+                // Response
+                const responseData = ref(database, `lobby-${gamePin}/responses/round-${round}/${ablyUsers[i]}/response`);
+            
+                onValue(responseData, (snapshot) => {
+                    setResponseArray(oldArray => [...oldArray, snapshot.val()]);
+                }, {
+                    onlyOnce: true
+                });
+    
+                // Votes
+                const voteData = ref(database, `lobby-${gamePin}/responses/round-${round}/${ablyUsers[i]}/votes`);
+            
+                onValue(voteData, (snapshot) => {
+                    setVoteArray(oldArray => [...oldArray, snapshot.val()]);
+                }, {
+                    onlyOnce: true
+                });
+            }
+            if((responseArray.length < 0) && (voteArray.lenght <0)){
+                resolve("Data saved");
+            }
 
-            // Votes
-            const voteData = ref(database, `lobby-${gamePin}/responses/round-${round}/${ablyUsers[i]}/votes`);
-        
-            onValue(voteData, (snapshot) => {
-                setVoteArray(oldArray => [...oldArray, snapshot.val()]);
-            }, {
-                onlyOnce: true
-            });
-        }
-
+        })
+        //when promise is fulfilled save the vote and response array into an object array
+        fetchData.then((message) => {
+            tempArray= responseArray.map((response, index) => ({
+                response:response,
+                votes:voteArray[index]
+            }));
+    
+            setObjectArray(tempArray);
+            console.log(objectArray);
+        })
         // Set up next activity for all players
         if(round < numRounds) {
             dispatch(setActivity("chaos"));  
@@ -136,7 +154,7 @@ export default function ResultsPage() {
                 <div className={styles.subheader}>
                     <Header />
                 </div>
-                <TimerBar timeLength= { 15 } path="/Bridge" />
+                <TimerBar timeLength= { 100000 } path="/Bridge" />
                 <HowToPlay/>
             </div>
             <div className={styles.content}>            
