@@ -20,10 +20,9 @@ import img from "../styles/images/crown.svg";
 //import icon from '../styles/images/share.svg';
 
 export default function GameRecap() {
-    const ablyUsers = useSelector((state) => state.session.ablyUsers);
-    const gamePin = useSelector((state => state.session.gamePin));
-    const round = useSelector((state) => state.session.round);
-    const scenario = useSelector((state => state.session.scenario));
+  const ablyUsers = useSelector((state) => state.session.ablyUsers);
+  const gamePin = useSelector((state => state.session.gamePin));
+  const round = useSelector((state) => state.session.round);
 
   const [objectArray, setObjectArray] = useState([]);
   const [openModal, setOpenModal] = useState(false);
@@ -152,19 +151,6 @@ export default function GameRecap() {
     return string;
   }*/
 
-  const date = new Date().toLocaleString() + "";
-
-  const emailSubj = `Chaotic - ${gamePin} Game Results`
-  const emailBody = (
-    `Date - ${date}
-    \n
-    Session - ${gamePin}
-    \n
-    Scenario - ${scenario}
-    \n
-    Responses - `
-  )
-
   return (
     <div className={style.page}>
       <div className={style.container}>
@@ -178,24 +164,12 @@ export default function GameRecap() {
             name="PLAY AGAIN"
             static={false} //button width decreases as page height increases
           />
-        </div>
-        <div className={style.button_small}>
           <Button
-            name="SHARE"
+            name="SHARE" 
             static={false}
             press={() => {
               setOpenModal(true);
             }}
-          />
-          {/*
-            img={ icon }
-            imgClass={ style.image_share }     
-            <DownloadButton /> 
-          */}
-          <Button
-            name="EMAIL"
-            static={ false } //button width decreases as page height increases
-            press={() => { window.location.href = `mailto:example@email.com?subject=${emailSubj}&body=${emailBody}`}}
           />
           {openModal && <Modal closeModal={setOpenModal} />}
         </div>

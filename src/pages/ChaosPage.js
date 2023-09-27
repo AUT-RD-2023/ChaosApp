@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setActivity } from '../Redux/sessionSlice.js';
 
 // Database
-import { ref, set, onValue } from "firebase/database";
+import { ref, set, update, onValue } from "firebase/database";
 import { database } from '../database.js';
 
 // Components
@@ -28,22 +28,24 @@ function ChaosPage() {
     /* REDUX */
 
     const gamePin = useSelector((state) => state.session.gamePin);
+    const round = useSelector((state) => state.session.round);     
+    const isHost = useSelector((state) => state.session.isHost);
     const playerId = useSelector((state) => state.session.playerId);  
 
-    const round = useSelector((state) => state.session.round);     
     const scenario = useSelector((state) => state.session.scenario);
     const numPlayers = useSelector((state) => state.session.ablyUsers);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
+        if(isHost) {
+            // Initialise the number of responses in database
+            update(ref(database, 'lobby-' + gamePin), {
+                numResponses: 0
+            });
+        }         
         // Set up next activity for all players        
-        dispatch(setActivity("discussion"));
-
-        // Initialise the number of responses in database
-        set(ref(database, `lobby-${gamePin}/responseCount/`), {
-            numResponses: 0
-        });  // eslint-disable-next-line
+        dispatch(setActivity("discussion")); // eslint-disable-next-line
     }, []);
 
     /* BUTTON */
@@ -63,28 +65,28 @@ function ChaosPage() {
     const [message, setMessage] = useState('');
 
     const updateDatabase = () => {
-        let num = 0;
+        let num;
 
-        const responseData = ref(database, `lobby-${gamePin}/responseCount/numResponses`); 
+        const responseData = ref(database, `lobby-${gamePin}/numResponses`); 
 
         onValue(responseData, (snapshot) => {
-            if(snapshot.exists()) {
-                num = snapshot.val() + 1; 
-            }
+            num = snapshot.val() + 1;              
 
+            update(ref(database, 'lobby-' + gamePin), {
+                numResponses: num
+            });
+
+            set(ref(database, `lobby-${gamePin}/responses/round-${round}/${playerId}`), {
+                response: message,
+                votes: 0
+            });              
+        
             if(num === numPlayers.length) {            
                 channel.publish("Next Page", { text: "true" })
             }
+        }, {
+            onlyOnce: true
         });
-
-        set(ref(database, `lobby-${gamePin}/responseCount/`), {
-            numResponses: num
-        }); 
-
-        set(ref(database, `lobby-${gamePin}/responses/round-${round}/${playerId}`), {
-            response: message, // Add the users message to the database while tracking the current round and the users id
-            votes: 0
-        }); 
     }
 
     // eslint-disable-next-line

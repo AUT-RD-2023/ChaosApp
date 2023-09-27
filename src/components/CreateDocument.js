@@ -7,39 +7,39 @@ import { pdf, Page, Text, Document } from '@react-pdf/renderer';
 import { useSelector } from "react-redux";
 
 // Components
-import Button from "../components/Button.js";
+import { ReactComponent as Download } from '../styles/images/download.svg';
 
 const CreateDocument = (props) => (
     <Document>
         <Page size="A4">
             <Text>
             Session Results (GamePin: { props.gamePin })
-
+            
             Date: { props.date }
-
+            
             Scenario: { props.scenario }
             </Text>
         </Page>
     </Document>
 )
 
-export default function DownloadButton() {
+export default function DownloadButton(props) {
     const gamePin = useSelector((state => state.session.gamePin));
     const scenario = useSelector((state => state.session.scenario));
     const date = new Date().toLocaleString() + "";
 
     return (
         <>
-            <Button
-                name="SHARE"
-                static={ false }
-                press={async () => {
+            <Download
+                className={ props.className } 
+                onClick={ 
+                    async () => {
                     const document = <CreateDocument gamePin={ gamePin } date={ date } scenario={ scenario } />
                     const asPDF = pdf();
                     asPDF.updateContainer(document);
                     const blob = await asPDF.toBlob();
                     saveAs(blob, `Chaotic-${gamePin}_game_results.pdf`);
-                }}          
+                }}    
             />
         </>
     );
