@@ -77,6 +77,7 @@ const Homepage = () => {
                     onClick={ checkDatabase }
                     state={ { joinPin: gamePin, isHost: false } }
                 >
+                 <div className="spacer"/>
                    <Button
                         name="JOIN" //check if the provided Game Pin is at least 4 characters long, only contains numbers and isn't made up of only whitespace
                         static={ true }

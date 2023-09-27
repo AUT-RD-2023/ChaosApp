@@ -10,6 +10,17 @@
   margin-left: min(1.5vw, 1.7vh);
 }
 
+@media (orientation: portrait) {
+  .howtoplay_icon {
+    position: fixed;
+    z-index: 90;
+    opacity: 100;
+    margin-top: min(10vw, 11vh);
+    margin-left: min(1.5vw, 1.7vh);
+  }
+}
+
+
 .howtoplay_lobby {
   position: fixed;
   z-index: 90;
@@ -77,7 +88,7 @@
     content: '';
     opacity: 0;
     pointer-events: none;
-    transition: opacity .5s cubic-bezier(0.190, 1.000, 0.220, 1.000);;
+    transition: opacity .1s cubic-bezier(0.190, 1.000, 0.220, 1.000);;
   }
 }
 

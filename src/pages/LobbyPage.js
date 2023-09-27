@@ -16,10 +16,12 @@ import Button from '../components/Button.js';
 import SlideSettings from '../components/SlideSettings.js';
 import HowToPlay from '../components/HowToPlay.js';
 import IconButton from '../components/IconButton.js';
+import { ReactComponent as Logo } from '../styles/images/plain-logo.svg';
 
 // Styles
 import style from '../styles/LobbyPage.module.css';
 import '../App.css';
+import logo from '../styles/Logo.module.css';
 
 
 const LobbyPage = () => {
@@ -158,7 +160,8 @@ const LobbyPage = () => {
             <HowToPlay isLobby="true"/>
             {isHost ? isWindowLandscape ? <SlideSettings /> : (settingsOpen ? navigate("/SettingsPage") : <IconButton icon="settings" />) : null }
             <div>
-                <div className={style.subtitle}>Chaotic</div>
+                {/*<div className={style.subtitle}>Chaotic</div>*/}
+                <Logo className={logo.lobby}/>
                 <div className={style.pin}>
                     <span className={style.label}>GAME PIN: <br/></span>
                     <span className={style.number}>&nbsp;{channelName}</span>

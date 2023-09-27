@@ -153,7 +153,6 @@
   .prompt {
     display: flex;
     justify-content: center;
-    height: 30%;
     font-size: min(4.5vw, 2.75vh);
     overflow-y: auto;
     font-family: Quicksand, sans-serif;

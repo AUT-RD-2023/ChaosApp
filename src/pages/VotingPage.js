@@ -29,6 +29,7 @@ import { useSelector } from "react-redux";
 import styles from "../styles/VotingPage.module.css";
 import "../App.css";
 import style from "../styles/LobbyPage.module.css";
+import Textarea from "../components/Textarea";
 
 
 const VotingPage = () => {
@@ -40,44 +41,62 @@ const VotingPage = () => {
     const ablyUsers = useSelector((state) => state.session.ablyUsers);
 
 
-    const [responseArray, setResponseArray] = useState([]); 
+    const [responseArray, setResponseArray] = useState([]);
 
     useEffect(() => {
-        
-          for(let i = 0; i < ablyUsers.length; i++) {
+        for(let i = 0; i < ablyUsers.length; i++) {
             const responseData = ref(database, `lobby-${gamePin}/responses/round-${round}/${ablyUsers[i]}/response`);
-    
+
             onValue(responseData, (snapshot) => {
-              setResponseArray(oldArray => [...oldArray, snapshot.val()]);
-              console.log("Added response from User: " + ablyUsers[i] + ", Response: " + snapshot.val());
+                if (snapshot.val() !== null) {
+                    setResponseArray(oldArray => [...oldArray, snapshot.val()]);
+                    console.log("Added response from User: " + ablyUsers[i] + ", Response: " + snapshot.val());
+                }
             }, {
-              onlyOnce: true
-            });  
-          }      
-        
+                onlyOnce: true
+            });
+        }
+
         // eslint-disable-next-line
-      }, []);
+    }, []);
 
-    const buttonsJSX = (
-        <div className={styles.buttons}>
-          <Button
-              name="VOTE"
-              static={ true }
-          />
-        </div>);
+    const portrait = (
+    <div className={styles.carousel_wrapper}>
+        <VotingCard response="This is my reponse" />
+        <VotingCard response="This is my reponse" />
+        <VotingCard response="This is my reponse" />
+        <VotingCard response="This is my reponse" />
+        <VotingCard response="jgd;alsgjkldasgh;ldkasgjl;k adsjg;lkas adgjla;jgldsjglksdjgklasd;j g jdilagj;ladsjgl;dasjglas jgdklgja;sdljgklasjgldksa adjgkla;jsgldsjglksdj jdgl;asdjlgjsaldjg djkgla;jsdgjldaskjgalks jdgkaslj;gdlsjglakdsjg" />
+        {/*{responseArray.length === 0 ? (*/}
+        {/*    <div className={styles.no_response}>*/}
+        {/*        No responses :(*/}
+        {/*    </div>*/}
+        {/*) : (*/}
+        {/*    responseArray.map((response, index) => (*/}
+        {/*        <VotingCard response={response} key={index} />*/}
+        {/*    ))*/}
+        {/*)}*/}
+    </div>
+    );
 
-const hostButtonsJSX = (
-    <div className={styles.buttons}>
-      <Button
-          name="VOTE"
-          static={ true }
-      />
-      <div className={styles.button_spacer}/>
-        <Button 
-            name="SKIP"
-            static={ true }
-          />
-    </div>);
+    const landscape = (
+        <div className={ styles.masonry }>
+                <VotingCard response="This is my reponse" />
+                <VotingCard response="This is my reponse" />
+                <VotingCard response="This is my reponse" />
+            <VotingCard response="This is my reponse" />
+            <VotingCard response="This is my reponse" />
+            <VotingCard response="This is my reponse" />
+            <VotingCard response="jgd;alsgjkldasgh;ldkasgjl;k adsjg;lkas adgjla;jgldsjglksdjgklasd;j g jdilagj;ladsjgl;dasjglas jgdklgja;sdljgklasjgldksa adjgkla;jsgldsjglksdj jdgl;asdjlgjsaldjg djkgla;jsdgjldaskjgalks jdgkaslj;gdlsjglakdsjg" />
+            <VotingCard response="This is my reponse" />
+            <VotingCard response="This is my reponse" />
+            <VotingCard response="This is my reponse" />
+            <VotingCard response="This is my reponse" />
+            <VotingCard response="This is my reponse" />
+            <VotingCard response="This is my reponse" />
+            <VotingCard response="This is my reponse" />
+        </div>
+    );
 
     return (
         <div className={styles.page}>
@@ -85,27 +104,22 @@ const hostButtonsJSX = (
                 <div className={styles.subheader}>
                     <Header />
                 </div>
-                <TimerBar timeLength= {200000}/*{ responseTime }*/ addTime="0" path="/Bridge" />
-                <HowToPlay />
+                <TimerBar timeLength= {2000} addTime="0" path="/Bridge" />
+                <HowToPlay/>
             </div>
             <div className={styles.content}>
-                <div className={styles.buttons}>
-                    <Button
-                        name="VOTE"
-                        static={ true }
-                    />
+            <div className={styles.buttons}>
+                <Button
+                    name= "VOTE"
+                    static={ false }/>
+            </div>
+                <div className={styles.container}>
+                    <div className={styles.subtitle}>TAKE A VOTE</div>
+                    { landscape }
                 </div>
-                <div className={styles.carouselContainer}>
-                    <div className={styles.carousel}>
-                        {responseArray.map((response, index) => (
-                            <VotingCard response = {response}/>
-                        ))}
-                    </div>
-                </div>
-                <div className={styles.subtitle}>TAKE A VOTE</div>
             </div>
         </div>
-    )
+    );
 }
 
 

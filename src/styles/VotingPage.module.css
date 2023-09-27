@@ -1,13 +1,3 @@
-/*!**/
-/** VotingPage.js*/
-/** Author: Jade Thompson-Tavai*/
-/** Date: 24-08-23*/
-/***/
-/** Contributors:*/
-/***/
-/***/
-/**!*/
-
 .card {
     background-color: #DCEBE1;
     filter: drop-shadow(0 0.4rem 0.2rem rgba(0, 0, 0, 0.25));
@@ -26,11 +16,23 @@
     margin: 5px;
 }
 
+.show-more-text {
+    font-size: min(5vw, 3vh);
+    font-family: Quicksand, sans-serif;
+}
+
+.show-more-link {
+    text-decoration: underline;
+    color: #75A78F;
+    font-size: min(5vw, 3vh);
+    font-family: Quicksand, sans-serif;
+}
+
 @media (orientation: landscape) {
     .page {
         display: flex;
         flex-flow: column;
-        height: 99.8vh;
+        height: 99.7vh;
         width: 99.8vw;
     }
 
@@ -53,6 +55,7 @@
         color: #2D7C73;
         height: fit-content;
         width: 100%;
+        margin-bottom: min(3vw, 3vh);
     }
 
     .content {
@@ -64,28 +67,45 @@
         overflow: hidden;
     }
 
-    .carouselContainer {
+    .container{
         width: 100%;
-        height: 70%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        height: 60%;
     }
 
-    .carousel {
-        height: 80%;
-        width: 100%;
-        margin-top: 5%;
+    .masonry {
         display: flex;
-        overflow-x: scroll;
+        width: calc(3 * (25vw +  min(5vw, 5vh)));
+        flex-wrap: wrap;
+        padding-left: min(2vw, 2vh);
+        margin: 0 auto;
+        max-height: 80%;
+        overflow-y: scroll;
     }
 
-    .card{
-        flex: 0 0 40vw; /* Flex properties to control card width */
-        height: 75%;
-        border-radius: 7.2vw;
-        margin: 0 1vw;
+    .masonry::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .masonry::-webkit-scrollbar-thumb {
+        background: #cccccc;
+        border-radius:10px;
+    }
+
+    .card {
+        width: 20vw;
+        height: fit-content;
+        min-height: 10vh;
+        margin: min(2vw, 2vh);
+        border-radius: min(2vw, 2vh);
+        padding: min(2vw, 2vh)min(2vw, 2vh);
+    }
+
+    .no_response {
+        font-size: min(5vw, 3vh);
+        font-family: Quicksand, sans-serif;
+        width: 100%;
+        text-align: center;
+        margin-top: min(5vw, 5vh);
     }
 
     .buttons {
@@ -100,19 +120,19 @@
     .page {
         display: flex;
         flex-direction: column;
-        height: 99.8vh;
-        width: 99.8vw;
+        height: 99.7vh;
+        width: 99.7vw;
     }
 
     .header {
-        border: red 1px solid;
-        width: 100vw;
+        margin-top: 1.5%;
+        margin-bottom: 9%;
         height: fit-content;
-        margin-bottom: calc(100vw/18 + 3vw);
     }
 
     .subheader {
         display: flex;
+        margin-bottom: 1%;
         align-items: center;
         justify-content: space-between;
     }
@@ -125,59 +145,74 @@
         text-align: center;
         color: #2D7C73;
         height: fit-content;
-        width: 99.8vw;
+        width: 100vh;
+        margin: min(12vw, 10vh) 0 min(5vw, 5vh) 0;
     }
 
     .content {
-        border: red 1px solid;
+        height: 100%;
         display: flex;
         flex-direction: column-reverse;
-        justify-content: space-between;
         width: 100%;
-        height: 90%;
-        padding-top: 15vw;
+        overflow: hidden;
+        padding-bottom: 5vh;
     }
 
-    .carousel {
-        height: 100%;
-        width: 80%;
-        display: flex;
-        flex-direction: column;
-        overflow-y: scroll;
-        border: red 1px solid;
-        margin-top: max(2vh, 2vw);
-    }
-
-    .carouselContainer {
-        border: red 1px solid;
-        width: 100%;
-        margin-bottom: 4vh;
-        margin-top: 1vh;
+    .container {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: space-between;
+        width: 100%;
+        height: 80%;
+        margin: 0 auto 0 auto;
+    }
+
+    .carousel_wrapper {
+        height: 100%;
+        width: min(80vw, 50vh);
+        overflow: hidden;
+        overflow-y: scroll;
+        padding: 0 min(2vw, 1vh);
+    }
+
+    .carousel_wrapper::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .carousel_wrapper::-webkit-scrollbar-thumb {
+        background: #cccccc;
+        border-radius:10px;
     }
 
     .card{
-        /*flex: 0 0 40vw; !* Flex properties to control card width *!*/
         height: fit-content;
         min-height: 10vh;
-        border-radius: 7.2vw;
+        border-radius: min(7.2vw, 5vh);
         margin-bottom: 5%;
+        padding: min(5vw, 5vh)min(5vw, 5vh);
+        overflow-x: hidden;
+    }
+
+    .no_response {
+        font-size: min(5vw, 3vh);
+        font-family: Quicksand, sans-serif;
+        width: 100%;
+        text-align: center;
+        margin-top: min(5vw, 5vh);
     }
 
     .buttons {
         width: fit-content;
         height: fit-content;
-        max-height: 20%;
+        max-height: 20vh;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        margin: min(3vh, 2vw) auto min(2vh, 1vw) auto;
+        margin: 5vh auto 2vh auto;
     }
 
-    .button_spacer {
-        height: min(2vh, 3vw);
+    .div_spacer{
+        height: 5vh;
     }
 }

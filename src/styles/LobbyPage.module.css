@@ -82,7 +82,7 @@
         width: calc(36vw + 3vw);
         min-height: 30vh;
         height: 50vh;
-        border-radius: 4vw;
+        border-radius: min(5vw, 5vh);
         padding: min(4vw, 5vh) min(4vw, 5vh) 0 min(4vw, 5vh);
     }
 
