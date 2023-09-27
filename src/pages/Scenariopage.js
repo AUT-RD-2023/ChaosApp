@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setActivity, setScenario } from '../Redux/sessionSlice.js';
 
 // Database
-import { ref, set, onValue } from "firebase/database";
+import { ref, set, update, onValue } from "firebase/database";
 import { database } from '../database.js';
 
 // Variables
@@ -56,12 +56,7 @@ function ScenarioPage() {
                 return obj.type === randType;
             });
 
-            channel.publish("Set Scenario", { text: useCustomScenario ? customScenario : scenarioObj.scenarioArray[randScenario] }); 
-
-            // Initialise the number of responses in database
-            set(ref(database, `lobby-${gamePin}/responseCount/`), {
-                numResponses: 0
-            }); 
+            channel.publish("Set Scenario", { text: useCustomScenario ? customScenario : scenarioObj.scenarioArray[randScenario] });
         }       
         // Set up next activity for all players        
         dispatch(setActivity("discussion")) // eslint-disable-next-line
@@ -101,28 +96,28 @@ function ScenarioPage() {
     const [message, setMessage] = useState('');
 
     const updateDatabase = () => {
-        let num = 0;
+        let num;
 
-        const responseData = ref(database, `lobby-${gamePin}/responseCount/numResponses`); 
+        const responseData = ref(database, `lobby-${gamePin}/numResponses`); 
 
         onValue(responseData, (snapshot) => {
-            if(snapshot.exists()) {
-                num = snapshot.val() + 1; 
-            }
+            num = snapshot.val() + 1;              
 
+            update(ref(database, 'lobby-' + gamePin), {
+                numResponses: num
+            });
+
+            set(ref(database, `lobby-${gamePin}/responses/round-${round}/${playerId}`), {
+                response: message, // Add the users message to the database while tracking the current round and the users id
+                votes: 0
+            });              
+        
             if(num === numPlayers.length) {            
                 channel.publish("Next Page", { text: "true" })
             }
+        }, {
+            onlyOnce: true
         });
-
-        set(ref(database, `lobby-${gamePin}/responseCount/`), {
-            numResponses: num
-        }); 
-
-        set(ref(database, `lobby-${gamePin}/responses/round-${round}/${playerId}`), {
-            response: message, // Add the users message to the database while tracking the current round and the users id
-            votes: 0
-        }); 
     }
 
     const [responseTime, setResponseTime] = useState();
@@ -156,7 +151,7 @@ function ScenarioPage() {
                 <div className={styles.subheader}>
                     <Header />                  
                 </div>
-                <TimerBar timeLength={ /*responseTime*/ 5 } path="/Bridge" />
+                <TimerBar timeLength={ responseTime } path="/Bridge" />
                 <HowToPlay />
             </div>
             <div className={styles.content}>

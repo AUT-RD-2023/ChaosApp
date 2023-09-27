@@ -12,8 +12,13 @@ import Button from "../components/Button.js";
 const CreateDocument = (props) => (
     <Document>
         <Page size="A4">
-            <Text>Session Results (GamePin: { props.gamePin })</Text>
-            <Text>Scenario: { props.scenario }</Text>
+            <Text>
+            Session Results (GamePin: { props.gamePin })
+
+            Date: { props.date }
+
+            Scenario: { props.scenario }
+            </Text>
         </Page>
     </Document>
 )
@@ -21,6 +26,7 @@ const CreateDocument = (props) => (
 export default function DownloadButton() {
     const gamePin = useSelector((state => state.session.gamePin));
     const scenario = useSelector((state => state.session.scenario));
+    const date = new Date().toLocaleString() + "";
 
     return (
         <>
@@ -28,7 +34,7 @@ export default function DownloadButton() {
                 name="SHARE"
                 static={ false }
                 press={async () => {
-                    const document = <CreateDocument gamePin={ gamePin } scenario={ scenario } />
+                    const document = <CreateDocument gamePin={ gamePin } date={ date } scenario={ scenario } />
                     const asPDF = pdf();
                     asPDF.updateContainer(document);
                     const blob = await asPDF.toBlob();

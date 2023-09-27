@@ -20,9 +20,10 @@ import img from "../styles/images/crown.svg";
 //import icon from '../styles/images/share.svg';
 
 export default function GameRecap() {
-  const ablyUsers = useSelector((state) => state.session.ablyUsers);
-  const gamePin = useSelector((state) => state.session.gamePin);
-  const round = useSelector((state) => state.session.round);
+    const ablyUsers = useSelector((state) => state.session.ablyUsers);
+    const gamePin = useSelector((state => state.session.gamePin));
+    const round = useSelector((state) => state.session.round);
+    const scenario = useSelector((state => state.session.scenario));
 
   const [objectArray, setObjectArray] = useState([]);
   const [openModal, setOpenModal] = useState(false);
@@ -137,6 +138,32 @@ export default function GameRecap() {
   }, []);
 
   console.log(objectArray);
+  
+  /* RENDER */
+
+  /*const responseString = () => {
+    let string = "";
+
+    for(let i = 0; i < responseArray.length; i++) {
+      string = string + " " + responseArray[i];
+    }
+
+    console.log(string);
+    return string;
+  }*/
+
+  const date = new Date().toLocaleString() + "";
+
+  const emailSubj = `Chaotic - ${gamePin} Game Results`
+  const emailBody = (
+    `Date - ${date}
+    \n
+    Session - ${gamePin}
+    \n
+    Scenario - ${scenario}
+    \n
+    Responses - `
+  )
 
   return (
     <div className={style.page}>
@@ -159,6 +186,16 @@ export default function GameRecap() {
             press={() => {
               setOpenModal(true);
             }}
+          />
+          {/*
+            img={ icon }
+            imgClass={ style.image_share }     
+            <DownloadButton /> 
+          */}
+          <Button
+            name="EMAIL"
+            static={ false } //button width decreases as page height increases
+            press={() => { window.location.href = `mailto:example@email.com?subject=${emailSubj}&body=${emailBody}`}}
           />
           {openModal && <Modal closeModal={setOpenModal} />}
         </div>
