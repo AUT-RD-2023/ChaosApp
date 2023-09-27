@@ -43,6 +43,12 @@
     font-weight: 1000;
 }
 
+.swiper-button-disabled {
+    display:none;
+    cursor:none;
+}
+
+
 @media (orientation: portrait) {
     .swiper-button-next::after, .swiper-button-prev::after {
         opacity: 0;

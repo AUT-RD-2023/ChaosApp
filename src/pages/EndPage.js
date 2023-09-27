@@ -35,7 +35,9 @@ function EndPage() {
                     mousewheel={false}
                     navigation={true}
                     keyboard={false}
-                    modules={[Navigation, Pagination]}>
+                    modules={[Navigation, Pagination]}
+                    allowSlidePrev={false}
+                    >
 
                     <SwiperSlide><Celebration/></SwiperSlide>
                     <SwiperSlide><GameRecap/></SwiperSlide>
