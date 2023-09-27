@@ -1,109 +1,145 @@
 // React
-import React, { useEffect, useState } from "react";
-//import Popup from "reactjs-popup";
+import React, {useEffect, useState} from "react";
 
 // Components
 import Button from "../components/Button.js";
-import DownloadButton from "../components/CreateDocument.js";
-import Modal from '../components/Modal.js';
+
 // Database
-import { ref, onValue } from "firebase/database";
-import { database } from "../database.js";
+import { ref,  onValue } from "firebase/database";
+import { database } from '../database.js';
 
 //Redux
 import { useSelector } from "react-redux";
 
 // Styles
-import style from "../styles/EndPage.module.css";
+import style from '../styles/EndPage.module.css';
 
 // Images
-import img from "../styles/images/crown.svg";
+import img from '../styles/images/crown.svg';
 //import icon from '../styles/images/share.svg';
 
 export default function GameRecap() {
-  const ablyUsers = useSelector((state) => state.session.ablyUsers);
-  const gamePin = useSelector((state) => state.session.gamePin);
-  const round = useSelector((state) => state.session.round);
+    const ablyUsers = useSelector((state) => state.session.ablyUsers);
+    const gamePin = useSelector((state => state.session.gamePin));
+    const round = useSelector((state) => state.session.round);
 
-  const [responseArray, setResponseArray] = useState([]);
-  const [voteArray, setVoteArray] = useState([]);
-  const [objectArray, setObjectArray] = useState([]);
-  const [openModal, setOpenModal] = useState(false);
+    const [objectArray, setObjectArray] = useState([]);
 
-  useEffect(() => {
-    let tempArray = [{}];
-    for (let i = 0; i < ablyUsers.length; i++) {
-      //Responses
-      const responseData = ref(
-        database,
-        `lobby-${gamePin}/responses/round-${round}/${ablyUsers[i]}/response`
-      );
-      onValue(
-        responseData,
-        (snapshot) => {
-          setResponseArray((oldArray) => [...oldArray, snapshot.val()]);
-        },
-        {
-          onlyOnce: true,
+    useEffect(() => {
+        // Create an array of promises
+        const promises = [];
+
+        for (let i = 1; i <= round; i++){
+            let currentRound = i;
+
+            for (let i = 0; i < ablyUsers.length; i++) {
+              //Responses
+              const responseData = ref(
+                database,
+                `lobby-${gamePin}/responses/round-${currentRound}/${ablyUsers[i]}/response`
+              );
+          
+              // Votes
+              const voteData = ref(
+                database,
+                `lobby-${gamePin}/responses/round-${currentRound}/${ablyUsers[i]}/votes`
+              );
+          
+              // Push promises for response and vote data into the promises array
+              promises.push(
+                new Promise((resolve) => {
+                  onValue(
+                    responseData,
+                    (snapshot) => {
+                      resolve(snapshot.val());
+                    },
+                    {
+                      onlyOnce: true,
+                    }
+                  );
+                }),
+                new Promise((resolve) => {
+                  onValue(
+                    voteData,
+                    (snapshot) => {
+                      resolve(snapshot.val());
+                    },
+                    {
+                      onlyOnce: true,
+                    }
+                  );
+                }),
+                new Promise((resolve) => {
+                    resolve(currentRound);
+                })
+              );
+            }
         }
-      );
+      
+        // Wait for all promises to resolve
+        Promise.all(promises)
+          .then((data) => {
+            // 'data' will contain an array of response and vote values
+            const tempArray = [];
+      
+            for (let i = 0; i < data.length; i += 3) {
+              const responseValue = data[i];
+              const voteValue = data[i + 1];
+              const roundValue = data[i + 2];
+      
+              tempArray.push({
+                response: responseValue,
+                votes: voteValue,
+                round: roundValue,
+              });
+            }
+            // Set 'tempArray' as the 'objectArray'
+            setObjectArray(tempArray);
+          })
+          .catch((error) => {
+            console.error('Error fetching data:', error);
+          });
+      
+        // eslint-disable-next-line
+      }, []);
+      
 
-      // Votes
-      const voteData = ref(
-        database,
-        `lobby-${gamePin}/responses/round-${round}/${ablyUsers[i]}/votes`
-      );
-      onValue(
-        voteData,
-        (snapshot) => {
-          setVoteArray((oldArray) => [...oldArray, snapshot.val()]);
-        },
-        {
-          onlyOnce: true,
-        }
-      );
-    }
-    //saves the values of response and vote into and object array
-    tempArray = responseArray.map((response, index) => ({
-      response: response,
-      votes: voteArray[index],
-    }));
-    //set temp array as the object array
-    setObjectArray(tempArray);
-    // eslint-disable-next-line
-  }, []);
+      console.log(objectArray);
 
-  console.log(objectArray);
+      objectArray.sort((a,b) => a.round  -  b.round);
 
-  return (
-    <div className={style.page}>
-      <div className={style.container}>
-        <div>
-          <img src={img} alt="alt" className={style.image_crown} />
-          <div className={style.subtitle}>SESSION FAVOURITES</div>
+
+    return (        
+        <div className={style.page}>
+            <div className={style.container}>       
+            <div>
+                <img src={img} alt="alt" className={style.image_crown}/>
+                <div className={style.subtitle}>SESSION FAVOURITES</div>
+            </div> 
+                <div className={style.recap}>   
+
+                </div>            
+            <div className={style.buttons}>
+                <Button
+                    name="PLAY AGAIN"
+                    static={ false } //button width decreases as page height increases
+                />
+            </div>
+            <div className={style.button_small}>
+                <Button
+                    /*img={ icon }
+                    imgClass={ style.image_share }*/
+                    name="SHARE"
+                    static={ false } //button width decreases as page height increases
+                />
+                <div className={style.button_spacer} />
+                <Button
+                    name="QUIT"
+                    static={ false } //button width decreases as page height increases
+                />
+            </div>
+                
+            </div>
         </div>
-        <div className={style.recap}></div>
-        <div className={style.buttons}>
-          <Button
-            name="PLAY AGAIN"
-            static={false} //button width decreases as page height increases
-          />
-        </div>
-        <div className={style.button_small}>
-          {/* img={ icon }
-                    imgClass={ style.image_share }
-                */}
-          {/*<DownloadButton />*/}
-          <Button
-            name="SHARE"
-            static={false}
-            press={() => {
-              setOpenModal(true)
-            }}
-          />
-          {openModal && <Modal closeModal={setOpenModal}/>}
-        </div>
-      </div>
-    </div>
-  );
+    )
 }
