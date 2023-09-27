@@ -106,7 +106,8 @@ const LobbyPage = () => {
             inSession: true,
             responseTime: responseTime,
             discussionTime: discussionTime,
-            numRounds: rounds
+            numRounds: rounds,
+            numResponses: 0
         });
     }
 
