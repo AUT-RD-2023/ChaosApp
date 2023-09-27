@@ -4,7 +4,7 @@ import { NavLink, useParams, useNavigate, useLocation } from 'react-router-dom';
 
 // Redux
 import { useDispatch } from 'react-redux'
-import { setSessionId, setName, setPlayerId, setIsHost, resetDefaults} from "../Redux/sessionSlice"
+import { setSessionId, setName, setPlayerId, setIsHost, resetDefaults } from "../Redux/sessionSlice"
 
 // Database
 import { ref, onValue, onDisconnect } from "firebase/database";

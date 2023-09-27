@@ -137,19 +137,14 @@ export default function GameRecap() {
   }, []);
 
   console.log(objectArray);
+
+  const handlePlayAagain = (url) => { 
+    window.open(url, "_self");
+    window.opener = null;
+    window.close();    
+  }
   
   /* RENDER */
-
-  /*const responseString = () => {
-    let string = "";
-
-    for(let i = 0; i < responseArray.length; i++) {
-      string = string + " " + responseArray[i];
-    }
-
-    console.log(string);
-    return string;
-  }*/
 
   return (
     <div className={style.page}>
@@ -163,11 +158,13 @@ export default function GameRecap() {
           <Button
             name="PLAY AGAIN"
             static={false} //button width decreases as page height increases
+            press={ () => { handlePlayAagain(`${window.location.origin.toString()}/ChaosApp`) } }
           />
+          <div className={style.button_spacer}></div>
           <Button
             name="SHARE" 
             static={false}
-            press={() => {
+            press={ () => {
               setOpenModal(true);
             }}
           />

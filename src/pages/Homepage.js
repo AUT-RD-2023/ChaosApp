@@ -20,7 +20,11 @@ import '../App.css';
 const Homepage = () => {
     const [gamePin, setGamePin] = useState("");
     const dispatch = useDispatch();   
-    dispatch(resetDefaults()); // Reset to the default values of all Redux variables 
+
+    useEffect(() => {    
+        dispatch(resetDefaults()); // Reset to the default values of all Redux variables 
+        // eslint-disable-next-line
+    }, []);
 
     /* DATABASE */
 

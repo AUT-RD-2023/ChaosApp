@@ -1,6 +1,6 @@
 // React
 import React, { useState, useEffect } from 'react';
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { configureAbly, useChannel, usePresence } from "@ably-labs/react-hooks";
 
 // Redux
@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setActivity, setAblyUsers, setNumRounds } from '../Redux/sessionSlice.js';
 
 // Database
-import {onValue, ref, update} from "firebase/database";
+import { onValue, ref, update } from "firebase/database";
 import { database } from '../database.js';
 
 // Components
