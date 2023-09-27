@@ -5,9 +5,7 @@ import React, {useState, useRef} from 'react';
 import styles from '../styles/CustomPopUp.module.css';
 
 // Components
-import Button from "../components/Button.js";
 import Textarea from "../components/Textarea.js";
-import { ReactComponent as Close } from '../styles/images/close.svg';
 
 // Redux
 import { useDispatch } from "react-redux";

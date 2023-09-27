@@ -98,7 +98,37 @@ export default function ResultsPage() {
                 static={ false } //button width decreases as page height increases         
                 press={ handleSkip }
               />
-        </div>);
+        </div>);        
+
+    // eslint-disable-next-line
+    const portrait = (
+        <div className={styles.carousel_wrapper}>
+            {responseArray.length === 0 ? 
+              (<div className={styles.no_response}>
+                    No responses...
+              </div>)
+              : 
+              responseArray.map((response, index) => 
+              <VotingCard response={ response } votes={
+                voteArray[index] > 0 ? voteArray[index] === 1 ? voteArray[index] + " Vote" : voteArray[index] + " Votes" : ""
+              }/>
+            )}
+        </div>
+    );
+
+    const landscape = (
+      <div className={ styles.masonry }>
+        {responseArray.length === 0 ? 
+          (<div className={styles.no_response}>
+                No responses...
+            </div>)
+            : 
+            responseArray.map((response, index) => 
+            <VotingCard response={ response } votes={
+                voteArray[index] > 0 ? voteArray[index] === 1 ? voteArray[index] + " Vote" : voteArray[index] + " Votes" : ""
+            }/>)}
+      </div>
+    );
 
     return (
         <div className={styles.page}>
@@ -106,24 +136,17 @@ export default function ResultsPage() {
                 <div className={styles.subheader}>
                     <Header />
                 </div>
-                <TimerBar timeLength={15} path="/Bridge" />
-                <HowToPlay />
+                <TimerBar timeLength= { 15 } path="/Bridge" />
+                <HowToPlay/>
             </div>
-            <div className={styles.container}>
-                <div className={styles.subtitle}>VOTING RESULTS</div>
-            </div>
-            <div className={styles.carouselContainer}>
-                <div className={styles.carousel}>
-                {
-                    responseArray.map((response, index) => 
-                        <VotingCard response={ response } votes={
-                                voteArray[index] > 0 ? voteArray[index] === 1 ? voteArray[index] + " Vote" : voteArray[index] + " Votes" : ""
-                        }/>
-                    )
-                }
+            <div className={styles.content}>            
+            { isHost ? hostButtonsJSX : null }
+                <div className={styles.container}>
+                    <div className={styles.subtitle}>VOTING RESULTS</div>
+                    { landscape }
                 </div>
             </div>
-            { isHost ? hostButtonsJSX : null }
         </div>
-    )
+    );
 }
+

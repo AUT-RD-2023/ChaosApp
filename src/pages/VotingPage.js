@@ -63,7 +63,9 @@ function VotingPage() {
     console.log(response);
   }, [response]);  
 
-  const castVote = () => {
+  const castVote = () => {    
+    setCardSelected(true);
+
     // Iterate through each player in the lobby
     for(let i = 0; i < ablyUsers.length; i++) { 
       const responseData = ref(database, `lobby-${gamePin}/responses/round-${round}/${ablyUsers[i]}/response`);
@@ -84,7 +86,7 @@ function VotingPage() {
               votes = snapshot.val() + 1; 
             }
           });
-
+          
           // Set the number of votes for that response to the new votes value
           set(ref(database, `lobby-${gamePin}/responses/round-${round}/${ablyUsers[i]}/`), { 
             response: response,
@@ -138,42 +140,52 @@ const hostButtonsJSX = (
         />
     </div>);
 
+    // eslint-disable-next-line
     const portrait = (
         <div className={styles.carousel_wrapper}>
-            <VotingCard response="This is my reponse" />
-            <VotingCard response="This is my reponse" />
-            <VotingCard response="This is my reponse" />
-            <VotingCard response="This is my reponse" />
-            <VotingCard response="jgd;alsgjkldasgh;ldkasgjl;k adsjg;lkas adgjla;jgldsjglksdjgklasd;j g jdilagj;ladsjgl;dasjglas jgdklgja;sdljgklasjgldksa adjgkla;jsgldsjglksdj jdgl;asdjlgjsaldjg djkgla;jsdgjldaskjgalks jdgkaslj;gdlsjglakdsjg" />
-            {/*{responseArray.length === 0 ? (*/}
-            {/*    <div className={styles.no_response}>*/}
-            {/*        No responses :(*/}
-            {/*    </div>*/}
-            {/*) : (*/}
-            {/*    responseArray.map((response, index) => (*/}
-            {/*        <VotingCard response={response} key={index} />*/}
-            {/*    ))*/}
-            {/*)}*/}
+            {responseArray.length === 0 ? 
+              (<div className={styles.no_response}>
+                    No responses...
+              </div>)
+              : 
+              (responseArray.map((response, index) => (
+                <VotingCard response={response} key={index} onFocus={() => setResponse(response)} />
+              ))
+            )}
         </div>
     );
 
+    const [cardSelected, setCardSelected] = useState(false);
+    const [cardIndex, setCardIndex] = useState(-1);
+
+    const onSelect = (response, index) => {
+      setCardIndex(index);
+      setResponse(response)
+    }
+
     const landscape = (
-        <div className={ styles.masonry }>
-            <VotingCard response="This is my reponse" />
-            <VotingCard response="This is my reponse" />
-            <VotingCard response="This is my reponse" />
-            <VotingCard response="This is my reponse" />
-            <VotingCard response="This is my reponse" />
-            <VotingCard response="This is my reponse" />
-            <VotingCard response="jgd;alsgjkldasgh;ldkasgjl;k adsjg;lkas adgjla;jgldsjglksdjgklasd;j g jdilagj;ladsjgl;dasjglas jgdklgja;sdljgklasjgldksa adjgkla;jsgldsjglksdj jdgl;asdjlgjsaldjg djkgla;jsdgjldaskjgalks jdgkaslj;gdlsjglakdsjg" />
-            <VotingCard response="This is my reponse" />
-            <VotingCard response="This is my reponse" />
-            <VotingCard response="This is my reponse" />
-            <VotingCard response="This is my reponse" />
-            <VotingCard response="This is my reponse" />
-            <VotingCard response="This is my reponse" />
-            <VotingCard response="This is my reponse" />
-        </div>
+      <div className={ styles.masonry }>
+        {responseArray.length === 0 ? 
+          (<div className={styles.no_response}>
+                No responses...
+            </div>)
+            : 
+            (responseArray.map((response, index) => {
+              if(response) {
+                return (
+                  <VotingCard 
+                    response={response} 
+                    key={index} 
+                    focusable={!buttonDisabled} 
+                    selected={(cardSelected) && (index === cardIndex)} 
+                    onFocus={() => onSelect(response, index)} 
+                  />)
+              } else {
+                return null;
+              }
+            })
+        )}
+      </div>
     );
 
     return (
@@ -182,7 +194,7 @@ const hostButtonsJSX = (
                 <div className={styles.subheader}>
                     <Header />
                 </div>
-                <TimerBar timeLength= {5000} path="/Results" />
+                <TimerBar timeLength= { 30 } path="/Results" />
                 <HowToPlay/>
             </div>
             <div className={styles.content}>            

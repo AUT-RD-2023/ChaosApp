@@ -2,8 +2,6 @@ import React from 'react';
 import style from '../styles/HowToPlay.module.scss'
 import { ReactComponent as HowTo } from '../styles/images/howtoplay.svg';
 import { ReactComponent as Close } from '../styles/images/close.svg';
-import SlideSettings from "./SlideSettings";
-import IconButton from "./IconButton";
 
 const HowToPlay = (props) => {
     const handleOpenClick = event => {
