@@ -1,13 +1,3 @@
-/*
-* VotingPage.js
-* Author: Jade Thompson-Tavai
-* Date: 24-08-23
-*
-* Contributors:
-*
-*
-*/
-
 // React
 import React, {useEffect, useState} from "react";
 import { useNavigate} from 'react-router-dom';
@@ -30,7 +20,6 @@ import { useSelector } from "react-redux";
 // Styles
 import styles from "../styles/VotingPage.module.css";
 import "../App.css";
-
 
 function VotingPage() {
   const navigate = useNavigate();
@@ -147,32 +136,64 @@ const hostButtonsJSX = (
           static={ false } 
           press={ handleSkip }
         />
-  </div>);
+    </div>);
 
-  return (
-    <div className={styles.page}>
-      <div className={styles.header}>
-          <div className={styles.subheader}>
-              <Header />
-          </div>
-          <TimerBar timeLength={30} path="/Results" />
-          <HowToPlay />
-      </div>
-      <div className={styles.container}>
-          <div className={styles.subtitle}>TAKE A VOTE</div>
-      </div>
-      <div className={styles.carouselContainer}>
-          <div className={styles.carousel}>
-              {
-                responseArray.map(response =>
-                  <VotingCard response={ response } onFocus={() => setResponse(response)}/>
-                )
-              }
-          </div>
-      </div>
-      { isHost ? hostButtonsJSX : buttonsJSX }
-    </div>
-  )
+    const portrait = (
+        <div className={styles.carousel_wrapper}>
+            <VotingCard response="This is my reponse" />
+            <VotingCard response="This is my reponse" />
+            <VotingCard response="This is my reponse" />
+            <VotingCard response="This is my reponse" />
+            <VotingCard response="jgd;alsgjkldasgh;ldkasgjl;k adsjg;lkas adgjla;jgldsjglksdjgklasd;j g jdilagj;ladsjgl;dasjglas jgdklgja;sdljgklasjgldksa adjgkla;jsgldsjglksdj jdgl;asdjlgjsaldjg djkgla;jsdgjldaskjgalks jdgkaslj;gdlsjglakdsjg" />
+            {/*{responseArray.length === 0 ? (*/}
+            {/*    <div className={styles.no_response}>*/}
+            {/*        No responses :(*/}
+            {/*    </div>*/}
+            {/*) : (*/}
+            {/*    responseArray.map((response, index) => (*/}
+            {/*        <VotingCard response={response} key={index} />*/}
+            {/*    ))*/}
+            {/*)}*/}
+        </div>
+    );
+
+    const landscape = (
+        <div className={ styles.masonry }>
+            <VotingCard response="This is my reponse" />
+            <VotingCard response="This is my reponse" />
+            <VotingCard response="This is my reponse" />
+            <VotingCard response="This is my reponse" />
+            <VotingCard response="This is my reponse" />
+            <VotingCard response="This is my reponse" />
+            <VotingCard response="jgd;alsgjkldasgh;ldkasgjl;k adsjg;lkas adgjla;jgldsjglksdjgklasd;j g jdilagj;ladsjgl;dasjglas jgdklgja;sdljgklasjgldksa adjgkla;jsgldsjglksdj jdgl;asdjlgjsaldjg djkgla;jsdgjldaskjgalks jdgkaslj;gdlsjglakdsjg" />
+            <VotingCard response="This is my reponse" />
+            <VotingCard response="This is my reponse" />
+            <VotingCard response="This is my reponse" />
+            <VotingCard response="This is my reponse" />
+            <VotingCard response="This is my reponse" />
+            <VotingCard response="This is my reponse" />
+            <VotingCard response="This is my reponse" />
+        </div>
+    );
+
+    return (
+        <div className={styles.page}>
+            <div className={styles.header}>
+                <div className={styles.subheader}>
+                    <Header />
+                </div>
+                <TimerBar timeLength= {5000} path="/Results" />
+                <HowToPlay/>
+            </div>
+            <div className={styles.content}>            
+            { isHost ? hostButtonsJSX : buttonsJSX }
+                <div className={styles.container}>
+                    <div className={styles.subtitle}>TAKE A VOTE</div>
+                    { landscape }
+                </div>
+            </div>
+        </div>
+    );
 }
 
 export default VotingPage;

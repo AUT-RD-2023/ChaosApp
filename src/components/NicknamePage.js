@@ -16,7 +16,7 @@ import Input from '../components/Input.js'
 import Identity from '../identity.js'
 
 // Styles
-import '../App.css';
+import style from "../styles/NicknamePage.module.css";
 
 function NicknamePage() {
     const dispatch = useDispatch();
@@ -83,16 +83,17 @@ function NicknamePage() {
     /* RENDER */
 
     return (
-        <div className="page">
-            <div className="title">Chaotic</div>
+        <div className={style.page}>
+            <div className={style.title}>Chaotic</div>
 
-            <div className="heading">GET STARTED</div>
+            <div className={style.heading}>GET STARTED</div>
 
-            <div className="container">
+            <div className={style.container}>
                 <Input
                     placeholder="Enter Nickname"
                     onChange={(e) => setNickname(e.target.value)}
                 />
+                <div className={style.spacer}/>
                 <NavLink
                     to={ "/Lobby" }
                     state={{ identity: identity, gamePin: gamePin, isHost: isHost, settingsOpen: false}}

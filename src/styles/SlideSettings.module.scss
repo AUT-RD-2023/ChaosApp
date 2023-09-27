@@ -13,7 +13,7 @@
 .close_icon {
   position: fixed;
   top: -0.2vh;
-  left: -1vh;
+  left: -0.5vh;
   z-index: 101;
   width: 5vw;
   opacity: 70%;
@@ -22,12 +22,13 @@
 
 .close_icon:hover {
   opacity: 100%;
+  cursor: pointer;
 }
 
 .settings_icon:hover {
   opacity: 70%;
+  cursor: pointer;
 }
-
 // Menu Structure //
 
 .input { // A checkbox which determines if the flyout is open or closed
@@ -193,6 +194,7 @@
   .increase_button:hover, .decrease_button:hover {
     background-color: #60937c;
     font-size: 2.2vw;
+    cursor: pointer;
   }
 
   .toggles {
@@ -203,6 +205,7 @@
   }
 
   .custom_wrapper {
+    width: 75%;
     max-height: min(2.7vw, 4.3vh);
     margin: 1vh auto 0 auto;
     display: flex;
@@ -230,6 +233,7 @@
     right: 3.5vw;
     color: #75A78F;
     border-bottom: 1px solid #75A78F;
+    cursor: pointer;
   }
 }
 
@@ -280,5 +284,6 @@
   .increase_button:hover, .decrease_button:hover {
     background-color: #60937c;
     font-size: min(7.3vw, 4.3vh);
+    cursor: pointer;
   }
 }

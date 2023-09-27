@@ -16,6 +16,8 @@ import NicknamePage from '../components/NicknamePage.js';
 
 // import required modules
 import { Navigation, Pagination} from 'swiper/modules';
+
+// Styles
 import style from "../styles/Tutorial.module.css";
 import "../styles/swiper.css";
 

@@ -20,11 +20,13 @@
 .static_button:hover {
       background: #296A62;
       border: 0.3vw solid #296A62;
+      cursor:pointer;
 }
 
 .button:hover {
       background: #296A62;
       border: 0.3vw solid #296A62;
+      cursor:pointer;
 }
 
 .static_button:hover {
@@ -34,6 +36,7 @@
 .button:disabled, .static_button:disabled {
       background: #74b6ae; /*#69ada5;*/
       border-color: #74b6ae;
+      cursor:default;
 }
 
 .input {
@@ -79,7 +82,7 @@
       }
 
       .static_button {
-            width: 60vw;
+            aspect-ratio: 60/14.4;
             height: 14.4vw;
             border: 0.2vw solid #24625a;
             border-radius: 7.2vw;
@@ -127,12 +130,11 @@
 
 @media (orientation: landscape) {
       .button {
-            width: 18vw;
-            height: 4.32vw;
+            aspect-ratio: 60/14.4;
             border: 0.3vw solid #2a776d;
             filter: drop-shadow(0 0.8vw 0.6vw rgba(0, 0, 0, 0.25));
             border-radius: 3vw;
-            font-size: 1.8vw;
+            font-size: min(5vw, 3.5vh);
       }
 
       .button:hover {
@@ -140,7 +142,7 @@
       }
 
       .static_button {
-            width: 18vw;
+            aspect-ratio: 60/14.4;
             height: 4.32vw;
             border: 0.2vw solid #2D7C73;
             filter: drop-shadow(0 0.8vw 0.6vw rgba(0, 0, 0, 0.25));

@@ -30,9 +30,9 @@ function ScenarioPage() {
     const navigate = useNavigate();
 
     const gamePin = useSelector((state) => state.session.gamePin);
-    const round = useSelector((state) => state.session.round);      
+    const round = useSelector((state) => state.session.round);
+    const playerId = useSelector((state) => state.session.playerId);        
     const isHost = useSelector((state) => state.session.isHost);
-    const playerId = useSelector((state) => state.session.playerId);  
     const numPlayers = useSelector((state) => state.session.ablyUsers);
 
     const customScenario = useSelector((state) => state.session.customScenario);
@@ -59,8 +59,8 @@ function ScenarioPage() {
             // 
             update(ref(database, `lobby-${gamePin}/`), {
                 scenario: (useCustomScenario ? customScenario : scenarioObj.scenarioArray[randScenario])
-            });
-        }       
+            });  
+        }
         // Set up next activity for all players        
         dispatch(setActivity("discussion")) // eslint-disable-next-line
     }, []);
@@ -69,10 +69,9 @@ function ScenarioPage() {
         const responseData = ref(database, `lobby-${gamePin}/scenario`);
 
         onValue(responseData, (snapshot) => {
-            if(snapshot.exists()) {
-                
-                    setScenarioText(snapshot.val());
-                    dispatch(setScenario(snapshot.val()));            
+            if(snapshot.exists()) {                
+                setScenarioText(snapshot.val());
+                dispatch(setScenario(snapshot.val()));            
             }          
         });
     }
@@ -181,12 +180,10 @@ function ScenarioPage() {
                         placeholder="Enter Response..."
                         disabled ={ textAreaDisabled }
                         onChange={(e) => setMessage(e.target.value)}
-                        popUp={ false }
                     />
                 </div>
             </div>
         </div>
     );
 }
-
 export default ScenarioPage;

@@ -103,9 +103,9 @@
 
   .buttons {
     display: flex;
+    justify-content: center;
     margin: 2vh auto 0 auto;
-    width: fit-content;
-    height: fit-content;
+    height: 8%;
   }
 }
 
@@ -168,7 +168,6 @@
   .prompt {
     display: flex;
     justify-content: center;
-    height: 30%;
     font-size: min(4.5vw, 2.75vh);
     overflow-y: auto;
     font-family: Quicksand, sans-serif;

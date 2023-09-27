@@ -176,11 +176,11 @@ function Setter(props) {
         <div className={style.setter}>
             <button name="-" className={style.decrease_button} onClick={() =>decreaseNum()} >- </button>
             <Input
-                    style={ inputStyle }
-                    placeholder={ value }
-                    maxLength={5}
-                    readOnly={true}
-                />
+                style={ inputStyle }
+                placeholder={ value }
+                maxLength={5}
+                readOnly={true}
+            />
             <button className={style.increase_button} onClick={() =>
                 increaseNum()}>+</button>
         </div>
