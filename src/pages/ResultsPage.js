@@ -41,51 +41,70 @@ export default function ResultsPage() {
     const [objectArray, setObjectArray] = useState([{}]);
 
     useEffect(() => {    
-        let tempArray = [];  
-        //new promise to retrieved data from the database
-        let fetchData = new Promise ((resolve)=> {
-            for(let i = 0; i < ablyUsers.length; i++) {
-                // Response
-                const responseData = ref(database, `lobby-${gamePin}/responses/round-${round}/${ablyUsers[i]}/response`);
-            
+        const fetchDataPromises = [];
+    
+        for(let i = 0; i < ablyUsers.length; i++) {
+            // Response
+            const responseData = ref(database, `lobby-${gamePin}/responses/round-${round}/${ablyUsers[i]}/response`);
+    
+            const responsePromise = new Promise((resolve) => {
                 onValue(responseData, (snapshot) => {
-                    setResponseArray(oldArray => [...oldArray, snapshot.val()]);
+                    setResponseArray(oldArray =>[...oldArray, snapshot.val()]);
+                    resolve(snapshot.val());
                 }, {
                     onlyOnce: true
                 });
+            });
     
-                // Votes
-                const voteData = ref(database, `lobby-${gamePin}/responses/round-${round}/${ablyUsers[i]}/votes`);
-            
+            // Votes
+            const voteData = ref(database, `lobby-${gamePin}/responses/round-${round}/${ablyUsers[i]}/votes`);
+    
+            const votePromise = new Promise((resolve) => {
                 onValue(voteData, (snapshot) => {
-                    setVoteArray(oldArray => [...oldArray, snapshot.val()]);
+                    setVoteArray(oldArray =>[...oldArray, snapshot.val()]);
+                    resolve(snapshot.val());
                 }, {
                     onlyOnce: true
                 });
-            }
-            if((responseArray.length < 0) && (voteArray.lenght <0)){
-                resolve("Data saved");
-            }
-
-        })
-        //when promise is fulfilled save the vote and response array into an object array
-        fetchData.then((message) => {
-            tempArray= responseArray.map((response, index) => ({
-                response:response,
-                votes:voteArray[index]
-            }));
+            });
     
-            setObjectArray(tempArray);
-            console.log(objectArray);
-        })
-        // Set up next activity for all players
-        if(round < numRounds) {
-            dispatch(setActivity("chaos"));  
-            dispatch(setRound(round + 1));
-        } else {
-            dispatch(setActivity("end")); 
-        } // eslint-disable-next-line
+            fetchDataPromises.push(responsePromise, votePromise);
+        }
+    
+        // Wait for all response and vote promises to resolve
+        Promise.all(fetchDataPromises)
+            .then((data) => {
+                // Now that all data is fetched, create tempArray
+                const tempArray = [];
+    
+                for (let i = 0; i < data.length; i += 2) {
+                    const responseValue = data[i];
+                    const voteValue = data[i + 1];
+    
+                    tempArray.push({
+                        response: responseValue,
+                        votes: voteValue
+                    });
+                }
+    
+                // Set tempArray as the objectArray
+                setObjectArray(tempArray);
+                
+    
+                // Set up next activity for all players
+                if (round < numRounds) {
+                    dispatch(setActivity("chaos"));  
+                    dispatch(setRound(round + 1));
+                } else {
+                    dispatch(setActivity("end")); 
+                }
+            })
+            .catch((error) => {
+                console.error('Error fetching data:', error);
+            });
+        // eslint-disable-next-line
     }, []);
+    console.log(objectArray);
 
     const handleSkip = () => {
         channel.publish("Next Page", { text: "true" });
