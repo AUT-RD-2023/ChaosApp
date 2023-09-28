@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/ChaosApp/static/css/main.1515cd51.css",
-    "main.js": "/ChaosApp/static/js/main.ec196774.js",
+    "main.css": "/ChaosApp/static/css/main.49f8ea9d.css",
+    "main.js": "/ChaosApp/static/js/main.541f7d5a.js",
     "static/media/logo_with_smoke.png": "/ChaosApp/static/media/logo_with_smoke.5746567269c8194361a6.png",
     "static/media/Rubik-Regular.ttf": "/ChaosApp/static/media/Rubik-Regular.da833151ff7aaedb5f16.ttf",
     "static/media/rubik-semi-bold.ttf": "/ChaosApp/static/media/rubik-semi-bold.52d2adf4cb818e79b61d.ttf",
@@ -11,21 +11,21 @@
     "static/media/quicksand-regular.otf": "/ChaosApp/static/media/quicksand-regular.1a8cbf2a0b04da5410e2.otf",
     "static/media/discussion.png": "/ChaosApp/static/media/discussion.93f92a97d9c365c3e4aa.png",
     "static/media/lufga-regular.otf": "/ChaosApp/static/media/lufga-regular.ac50ed8ff14d1be217d3.otf",
-    "static/media/plain-logo.svg": "/ChaosApp/static/media/plain-logo.327093df898708b65b7e495365d801d4.svg",
-    "static/media/crown.svg": "/ChaosApp/static/media/crown.d0ebf3ead28603dd4601acae34dcc764.svg",
-    "static/media/celebration.svg": "/ChaosApp/static/media/celebration.06aae302e542db4b594974c19ce834ec.svg",
-    "static/media/settings.svg": "/ChaosApp/static/media/settings.60ab89e9c1d4ff2a5eda10cd17ea9420.svg",
-    "static/media/back.svg": "/ChaosApp/static/media/back.3beb44f5a236c1ec45496244001ae902.svg",
-    "static/media/close.svg": "/ChaosApp/static/media/close.5ab163c032b7f162563384854ecb5cd0.svg",
-    "static/media/howtoplay.svg": "/ChaosApp/static/media/howtoplay.e6fa76d4b83315d8e433509a8817ed26.svg",
-    "static/media/download.svg": "/ChaosApp/static/media/download.94fad05718d99013e06f1b93247ed6d3.svg",
-    "static/media/email.svg": "/ChaosApp/static/media/email.afd157008d1aac557b91cddafbc92bd0.svg",
+    "static/media/plain-logo.svg": "/ChaosApp/static/media/plain-logo.6bf314fcee94dcfa41c05656834451e2.svg",
+    "static/media/celebration.svg": "/ChaosApp/static/media/celebration.0ee704be934738c20c85e28f4c5f2f07.svg",
+    "static/media/settings.svg": "/ChaosApp/static/media/settings.f37ba01cae823621623436ea0da630f0.svg",
+    "static/media/back.svg": "/ChaosApp/static/media/back.fb4f335f05b50d0f415da503f092881f.svg",
+    "static/media/close.svg": "/ChaosApp/static/media/close.2821fb2492bf372dde2ecece5798e544.svg",
+    "static/media/howtoplay.svg": "/ChaosApp/static/media/howtoplay.d3bd5f5c327de32574c4a830d1f1fcea.svg",
+    "static/media/download.svg": "/ChaosApp/static/media/download.68d05ef48a1c6108b7d5bc8af7580ae0.svg",
+    "static/media/email.svg": "/ChaosApp/static/media/email.20a2b7ff926e48d7eb86f5335efc333a.svg",
     "index.html": "/ChaosApp/index.html",
-    "main.1515cd51.css.map": "/ChaosApp/static/css/main.1515cd51.css.map",
-    "main.ec196774.js.map": "/ChaosApp/static/js/main.ec196774.js.map"
+    "static/media/endscreen-arrow.svg": "/ChaosApp/static/media/endscreen-arrow.a152749ffbb2a3177e54c2364292e583.svg",
+    "main.49f8ea9d.css.map": "/ChaosApp/static/css/main.49f8ea9d.css.map",
+    "main.541f7d5a.js.map": "/ChaosApp/static/js/main.541f7d5a.js.map"
   },
   "entrypoints": [
-    "static/css/main.1515cd51.css",
-    "static/js/main.ec196774.js"
+    "static/css/main.49f8ea9d.css",
+    "static/js/main.541f7d5a.js"
   ]
 }
