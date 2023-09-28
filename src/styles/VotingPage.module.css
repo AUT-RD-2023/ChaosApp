@@ -114,6 +114,10 @@
         margin: 2vh auto 0 auto;
         height: 8%;
     }
+
+    .button_spacer{
+        min-width: 3vw;
+    }
 }
 
 @media (orientation: portrait) {
