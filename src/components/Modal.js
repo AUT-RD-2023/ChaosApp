@@ -12,6 +12,7 @@ import '../styles/Modal.css';
 
 // Icons
 import { ReactComponent as Email } from '../styles/images/email.svg';
+import { ReactComponent as Close } from '../styles/images/close.svg';
 
 function Modal({closeModal}) {
     const gamePin = useSelector((state => state.session.gamePin));
@@ -23,7 +24,7 @@ function Modal({closeModal}) {
                 <div className="modalTop">
                     <h2 className="shareText">Share</h2>
                     <div className="closeButton">
-                        <button onClick={() => closeModal(false)}> X </button>
+                        <Close className="modal_close" onClick={() => closeModal(false)} />
                     </div>
                 </div>
                 <div className="modalButtons">
