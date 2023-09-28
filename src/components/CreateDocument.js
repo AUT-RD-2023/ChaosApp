@@ -1,17 +1,19 @@
 // React
 import React, {useEffect, useState} from "react";
 import { saveAs } from 'file-saver';
-import { pdf, Page, Text, Document, StyleSheet, View } from '@react-pdf/renderer';
+import { pdf, Page, Text, Document, StyleSheet, View, Image } from '@react-pdf/renderer';
 
 // Redux
 import { useSelector } from "react-redux";
 
 // Database
-import { ref, set, onValue } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 import { database } from '../database.js';
 
 // Components
 import { ReactComponent as Download } from '../styles/images/download.svg';
+import  Logo from '../styles/images/logo_with_ash.png';
+
 
 
 
@@ -46,7 +48,6 @@ const styles = StyleSheet.create({
     reponse: {
         textAlign: 'left'
     }
-
 })
 
 function getCurrentDate() {
@@ -58,11 +59,19 @@ function getCurrentDate() {
 const CreateDocument = (props) => {
     const pages = Object.keys(props.roundData).map((roundNumber) => (
         <Page key={roundNumber} style={styles.page}>
+          <Image src={Logo}></Image>
             <Text style={styles.title}>SESSION RESULTS </Text>
             <Text style={styles.dataTitle}>
             <Text style={styles.date}>Date: {props.date}</Text>
             <Text style={styles.pin}> GamePin: { props.gamePin }</Text>
             </Text>
+
+             <Text style={styles.section}> 
+                 <Text style={styles.subheading}>Players: {'\n'}
+                 </Text>
+                 Players Go Here
+             </Text>
+  
             
             <Text style={styles.section}> 
             <Text>Round {roundNumber} {'\n'}</Text>
@@ -74,7 +83,7 @@ const CreateDocument = (props) => {
                  <Text style={styles.subheading}>Responses: {'\n'}
                 </Text>
                 </Text>
-          <View>
+          <View> 
             {props.roundData[roundNumber].responses.map((response, index) => (
               <Text key={index}>
                 {response}{' '}
@@ -102,19 +111,16 @@ const CreateDocument = (props) => {
 
 export default function DownloadButton(props) {
     const gamePin = useSelector((state => state.session.gamePin));
-    const scenario = useSelector((state => state.session.scenario));
     const ablyUsers = useSelector((state) => state.session.ablyUsers);
+    const scenario = useSelector((state) => state.session.scenario);
     const round = useSelector((state) => state.session.round);
-  
-    const [responseArray, setResponseArray] = useState([]); 
-    const [voteArray, setVoteArray] = useState([]); 
+    
     const [RoundData, setRoundData] = useState([]); 
-
-
 
     useEffect(() => {
         const roundData = {};
-      
+
+
         // Iterate through rounds
         for (let currentRound = 1; currentRound <= round; currentRound++) {
           roundData[currentRound] = {
