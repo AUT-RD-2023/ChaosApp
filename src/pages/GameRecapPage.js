@@ -16,12 +16,7 @@ import { useSelector } from "react-redux";
 import styles from "../styles/EndPage.module.css";
 
 // Images
-import img from "../styles/images/crown.svg";
-import Header from "../components/Header";
-import TimerBar from "../components/TimerBar";
-import HowToPlay from "../components/HowToPlay";
 import VotingCard from "../components/VotingCard";
-//import icon from '../styles/images/share.svg';
 
 export default function GameRecapPage() {
   const ablyUsers = useSelector((state) => state.session.ablyUsers);
