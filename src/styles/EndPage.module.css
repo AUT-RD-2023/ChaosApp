@@ -215,6 +215,11 @@
         max-width: 70%;
         margin: 2vh auto 0 auto;
     }
+    .carousel_wrapper {
+        display: flex;
+        justify-content: center;
+        
+    }
 
     .subtitle {
         font-family: 'Rubik', sans-serif;

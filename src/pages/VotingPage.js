@@ -4,7 +4,7 @@ import { useNavigate} from 'react-router-dom';
 import { useChannel } from "@ably-labs/react-hooks";
 
 // Database
-import { ref, set, onValue } from "firebase/database";
+import { ref, set, update, onValue } from "firebase/database";
 import { database } from '../database.js';
 
 // Components
@@ -15,7 +15,8 @@ import Header from '../components/Header.js'
 import HowToPlay from '../components/HowToPlay.js'
 
 // Redux
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setActivity } from '../Redux/sessionSlice.js';
 
 // Styles
 import styles from "../styles/VotingPage.module.css";
@@ -27,19 +28,21 @@ function VotingPage() {
   /* REDUX */
 
   const gamePin = useSelector((state => state.session.gamePin));
-  const isHost = useSelector((state => state.session.isHost));
   const ablyUsers = useSelector((state) => state.session.ablyUsers);
   const round = useSelector((state) => state.session.round);
+  const numPlayers = useSelector((state) => state.session.ablyUsers);
+
+  const dispatch = useDispatch();
 
   const [randomArray,setRandomArray] = useState([]); 
 
-  const handleSkip = () => {
+  /*const handleSkip = () => {
     channel.publish("Next Page", { text: "true" });
-  }
+  }*/
 
   const [channel] = useChannel(gamePin + "", (message) => {
     if(message.name === "Next Page") {
-      navigate("/Results");
+      navigate("/Bridge");
     }
   });
 
@@ -80,7 +83,13 @@ function VotingPage() {
       .catch((error) => {
         console.error('Error fetching data:', error);
       });
-    // eslint-disable-next-line
+
+      // Reinitialise the number of votes in database
+      update(ref(database, 'lobby-' + gamePin), {
+          numVotes: 0
+      });
+
+      dispatch(setActivity("results")) // eslint-disable-next-line
   }, []);
   
   // DATABASE
@@ -120,7 +129,28 @@ function VotingPage() {
       });  
     }
     setButtonDisabled(true);
+    updateDatabase();
   }
+
+  const updateDatabase = () => {
+    let num;
+
+    const voteData = ref(database, `lobby-${gamePin}/numVotes`); 
+
+    onValue(voteData, (snapshot) => {
+        num = snapshot.val() + 1;              
+
+        update(ref(database, 'lobby-' + gamePin), {
+            numVotes: num
+        });            
+    
+        if(num === numPlayers.length) {            
+            channel.publish("Next Page", { text: "true" })
+        }
+    }, {
+        onlyOnce: true
+    });
+}
 
   /* PREVENT BACK */
 
@@ -144,22 +174,6 @@ function VotingPage() {
           disabled={ buttonDisabled }
           press={ castVote }
       />
-    </div>);
-
-const hostButtonsJSX = (
-  <div className={styles.buttons}>
-    <Button
-        name={ buttonDisabled ? "✓" : "VOTE" }
-        static={ false } 
-        disabled={ buttonDisabled }
-        press={ castVote }
-    />
-    <div className={styles.button_spacer}/>
-      <Button 
-          name="SKIP"
-          static={ false } 
-          press={ handleSkip }
-        />
     </div>);
 
     // eslint-disable-next-line
@@ -216,11 +230,11 @@ const hostButtonsJSX = (
                 <div className={styles.subheader}>
                     <Header />
                 </div>
-                <TimerBar timeLength= { 100 } path="/Results" />
+                <TimerBar timeLength= { 30 } path="/Results" />
                 <HowToPlay/>
             </div>
             <div className={styles.content}>            
-            { isHost ? hostButtonsJSX : buttonsJSX }
+            { buttonsJSX }
                 <div className={styles.container}>
                     <div className={styles.subtitle}>TAKE A VOTE</div>
                     { landscape }

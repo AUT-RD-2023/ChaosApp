@@ -36,7 +36,7 @@ export default function ResultsPage() {
 
     const dispatch = useDispatch();
 
-    const [responseArray, setResponseArray] = useState([]);
+    const [responseArray, setResponseArray] = useState([]); // eslint-disable-next-line
     const [voteArray, setVoteArray] = useState([]);
     const [objectArray, setObjectArray] = useState([{}]);
 
@@ -141,13 +141,22 @@ export default function ResultsPage() {
                     No responses...
                 </div>)
                 :
-                responseArray.map((response, index) =>
-                    <VotingCard response={response} votes={
-                        voteArray[index] > 0 ? voteArray[index] === 1 ? voteArray[index] + " Vote" : voteArray[index] + " Votes" : ""
-                    } />
-                )}
+                (objectArray.map((object) => {
+                    if (object.response) {
+                        return (
+                            <VotingCard
+                                response={object.response}
+                                votes={object.votes > 0 ? object.votes === 1 ? object.votes + " Vote" : object.votes + " Votes" : ""}
+                            />)
+                    } else {
+                        return null;
+                    }
+                }))
+            }
         </div>
     );
+
+    console.log(objectArray[0]);
 
     const landscape = (
         <div className={styles.masonry}>

@@ -53,7 +53,8 @@ const SlideSettings = () => {
 
         // Time out so that the database has time to process, otherwise it sets savePressed to false before the data is saved.
         setTimeout(() => {
-            setSavePressed(false);
+            setSavePressed(false);            
+            dispatch(setSettingsOpen(false)) // Cose the settings tab if the save button is pressed
         }, 500);
     };
 
@@ -128,7 +129,7 @@ const SlideSettings = () => {
                         <div className={style.buttons}>
                             <Button name="RESET" static={ true }> </Button>
                             <div className={style.spacer} />
-                            <Button name={ savePressed ? "✓" : "SAVE" } static={ true }  press={ handleSave }></Button>
+                            <Button name={ savePressed ? "✓" : "SAVE" } disabled={ savePressed } static={ true }  press={ handleSave }></Button>
                         </div>
                     </div>
             </div>

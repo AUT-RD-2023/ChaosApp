@@ -39,7 +39,7 @@ function ChaosPage() {
 
     useEffect(() => {
         if(isHost) {
-            // Initialise the number of responses in database
+            // Reinitialise the number of responses in database
             update(ref(database, 'lobby-' + gamePin), {
                 numResponses: 0
             });

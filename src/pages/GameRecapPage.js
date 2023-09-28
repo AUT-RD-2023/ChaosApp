@@ -95,38 +95,20 @@ export default function GameRecapPage() {
         }
 
         //sort temp array
-        tempArray.sort((a, b) => {
-          //sort by rounds
-          if (a.round < b.round) return -1;
-          if (a.round > b.round) return 1;
+        tempArray.sort((a, b) => {          
           //sort by votes
           if (b.votes < a.votes) return -1;
           if (b.votes < a.votes) return 1;
-
+          //sort by rounds
+          if (a.round < b.round) return -1;
+          if (a.round > b.round) return 1;
+          
           return 0;
         });
 
-        let topThreePromise = new Promise((resolve) => {
-          const topThreeVotesByRound = {};
+        console.log(tempArray);
 
-          // Iterate through the sorted tempArray and store the top three votes for each round
-          tempArray.forEach((entry) => {
-            const round = entry.round;
-            if (!topThreeVotesByRound[round]) {
-              topThreeVotesByRound[round] = [];
-            }
-
-            if (topThreeVotesByRound[round].length < 3) {
-              topThreeVotesByRound[round].push(entry);
-            }
-          });
-          tempArray = topThreeVotesByRound;
-          resolve(tempArray);
-        });
-
-        topThreePromise.then((data) => {
-          setObjectArray(tempArray);
-        });
+        setObjectArray(tempArray);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -141,7 +123,7 @@ export default function GameRecapPage() {
     window.close();    
   }
 
-  console.log(objectArray);
+  
   /* RENDER */
 
   return (
@@ -166,15 +148,14 @@ export default function GameRecapPage() {
           <div className={styles.container}>
             <div className={styles.subtitle}>SESSION FAVOURITES</div>
             <div className={styles.carousel_wrapper}>
-              {/* objectArray[0].response ?
-                  <VotingCard response={objectArray[0].response} votes={objectArray[0].votes}/>
-                  : <VotingCard response="Top voted 1"/> }
-              { objectArray[1].response ?
-                  <VotingCard response={objectArray[1].response} votes={objectArray[1].votes}/>
-                  : <VotingCard response="Top voted 2"/> }
-              { objectArray[2].response ?
-                  <VotingCard response={objectArray[2].response} votes={objectArray[2].votes}/>
-                  : <VotingCard response="Top voted 3"/> */}
+            {objectArray.map((object, index) => {
+                if(index <= 2) {
+                  return (
+                    <VotingCard
+                        response={object.response}
+                        votes={object.votes > 0 ? object.votes === 1 ? object.votes + " Vote" : object.votes + " Votes" : ""}
+                  />)}
+                })}
             </div>
           </div>
         </div>

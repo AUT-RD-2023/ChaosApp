@@ -51,12 +51,12 @@ const LobbyPage = () => {
         }        
     });
 
-    const handleStart = () => {
-        startSession();        
+    const handleStart = () => {                    
+        startSession();    
         for(let i = 0; i < presenceUsers.length; i++) {
             channel.publish("Set Client", { text: presenceUsers[i].clientId });       
         }      
-        channel.publish("Start", { number: rounds });        
+        channel.publish("Start", { number: rounds });
     };
 
     /* DATABASE */
@@ -108,7 +108,9 @@ const LobbyPage = () => {
             responseTime: responseTime,
             discussionTime: discussionTime,
             numRounds: rounds,
-            numResponses: 0
+            numResponses: 0,
+            numVotes: 0,
+            numPlayers: presenceUsers.length,
         });
     }
 
