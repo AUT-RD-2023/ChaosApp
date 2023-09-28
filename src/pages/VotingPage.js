@@ -22,7 +22,8 @@ import { setActivity } from '../Redux/sessionSlice.js';
 import styles from "../styles/VotingPage.module.css";
 import "../App.css";
 
-function VotingPage() {
+
+const VotingPage = () => {
   const navigate = useNavigate();
 
   /* REDUX */
@@ -160,9 +161,24 @@ function VotingPage() {
     window.addEventListener('popstate', function(event) {
         window.history.pushState(null, document.title, window.location.href);
     });
-  }, []);
+  }, []);  
 
-  // RENDER
+  /* RENDER */
+
+  // Card display style
+  const [isWindowLandscape, setIsWindowLandscape] = useState(window.innerHeight < window.innerWidth);
+
+  useEffect(() => {
+      const handleResize = () => {
+          setIsWindowLandscape(window.innerHeight < window.innerWidth);
+      };
+
+      window.addEventListener('resize', handleResize);
+
+      return () => {
+          window.removeEventListener('resize', handleResize);
+      };
+  }, []);
 
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
@@ -176,72 +192,85 @@ function VotingPage() {
       />
     </div>);
 
-    // eslint-disable-next-line
-    const portrait = (
-        <div className={styles.carousel_wrapper}>
-            {randomArray.length === 0 ? 
-              (<div className={styles.no_response}>
-                    No responses...
-              </div>)
-              : 
-              (randomArray.map((response, index) => (
-                <VotingCard response={response} key={index} onFocus={() => setResponse(response)} />
-              ))
-            )}
-        </div>
-    );
+  const [cardSelected, setCardSelected] = useState(false);
+  const [cardIndex, setCardIndex] = useState(-1);
 
-    const [cardSelected, setCardSelected] = useState(false);
-    const [cardIndex, setCardIndex] = useState(-1);
+  const onSelect = (response, index) => {
+    setCardIndex(index);
+    setResponse(response)
+  }
 
-    const onSelect = (response, index) => {
-      setCardIndex(index);
-      setResponse(response)
-    }
-
-    const landscape = (
-      <div className={ styles.masonry }>
-        {randomArray.length === 0 ? 
-          (<div className={styles.no_response}>
+  // eslint-disable-next-line
+  const portrait = (
+    <div className={styles.carousel_wrapper}>
+        {randomArray.length === 0 ?
+            (<div className={styles.no_response}>
                 No responses...
             </div>)
-            : 
+            :
             (randomArray.map((response, index) => {
-              if(response) {
-                return (
-                  <VotingCard 
-                    response={response} 
-                    key={index} 
-                    focusable={!buttonDisabled} 
-                    selected={(cardSelected) && (index === cardIndex)} 
-                    onFocus={() => onSelect(response, index)} 
-                  />)
-              } else {
-                return null;
-              }
-            })
-        )}
-      </div>
+                    if(response) {
+                        return (
+                            <VotingCard
+                                response={response}
+                                key={index}
+                                focusable={!buttonDisabled}
+                                selected={(cardSelected) && (index === cardIndex)}
+                                onFocus={() => onSelect(response, index)}
+                            />)
+                    } else {
+                        return null;
+                    }
+                })
+            )}
+    </div>
+    );
+  
+    const landscape = (
+        <div className={ styles.masonry }>
+            {randomArray.length === 0 ?
+                (<div className={styles.no_response}>
+                    No responses...
+                </div>)
+                :
+                (randomArray.map((response, index) => {
+                        if(response) {
+                            return (
+                                <VotingCard
+                                    response={response}
+                                    key={index}
+                                    focusable={!buttonDisabled}
+                                    selected={(cardSelected) && (index === cardIndex)}
+                                    onFocus={() => onSelect(response, index)}
+                                />)
+                        } else {
+                            return null;
+                        }
+                    })
+                )}
+        </div>
     );
 
     return (
-        <div className={styles.page}>
-            <div className={styles.header}>
-                <div className={styles.subheader}>
-                    <Header />
-                </div>
-                <TimerBar timeLength= { 30 } path="/Results" />
-                <HowToPlay/>
-            </div>
-            <div className={styles.content}>            
-            { buttonsJSX }
-                <div className={styles.container}>
-                    <div className={styles.subtitle}>TAKE A VOTE</div>
-                    { landscape }
-                </div>
-            </div>
-        </div>
+      <div className={styles.page}>
+          <div className={styles.header}>
+              <div className={styles.subheader}>
+                  <Header />
+              </div>
+              <TimerBar timeLength= { 30 } path="/Bridge" />
+              <HowToPlay/>
+          </div>
+          <div className={styles.content}>
+              { buttonsJSX }
+              <div className={styles.container}>
+                  <div className={styles.subtitle}>TAKE A VOTE</div>
+                  { isWindowLandscape ? landscape : portrait }
+              </div>
+          </div>
+      </div>
     );
 }
+
+
 
 export default VotingPage;
