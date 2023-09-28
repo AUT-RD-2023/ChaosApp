@@ -97,8 +97,7 @@ const VotingPage = () => {
 
   const [response, setResponse] = useState("");
 
-  const castVote = () => {    
-    setCardSelected(true);
+  const castVote = () => {  
 
     // Iterate through each player in the lobby
     for(let i = 0; i < ablyUsers.length; i++) { 
@@ -182,20 +181,21 @@ const VotingPage = () => {
 
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
+  const [cardSelected, setCardSelected] = useState(false);
+  const [cardIndex, setCardIndex] = useState(-1);
+
   const buttonsJSX = (
     <div className={styles.buttons}>
       <Button
           name={ buttonDisabled ? "✓" : "VOTE" }
           static={ false }          
-          disabled={ buttonDisabled }
+          disabled={ !cardSelected }
           press={ castVote }
       />
     </div>);
 
-  const [cardSelected, setCardSelected] = useState(false);
-  const [cardIndex, setCardIndex] = useState(-1);
-
-  const onSelect = (response, index) => {
+  const onSelect = (response, index) => {      
+    setCardSelected(true);
     setCardIndex(index);
     setResponse(response)
   }
@@ -215,7 +215,7 @@ const VotingPage = () => {
                                 response={response}
                                 key={index}
                                 focusable={!buttonDisabled}
-                                selected={(cardSelected) && (index === cardIndex)}
+                                selected={(buttonDisabled) && (index === cardIndex)}
                                 onFocus={() => onSelect(response, index)}
                             />)
                     } else {
@@ -240,7 +240,7 @@ const VotingPage = () => {
                                     response={response}
                                     key={index}
                                     focusable={!buttonDisabled}
-                                    selected={(cardSelected) && (index === cardIndex)}
+                                    selected={(buttonDisabled) && (index === cardIndex)}
                                     onFocus={() => onSelect(response, index)}
                                 />)
                         } else {
@@ -257,7 +257,7 @@ const VotingPage = () => {
               <div className={styles.subheader}>
                   <Header />
               </div>
-              <TimerBar timeLength= { 30 } path="/Bridge" />
+              <TimerBar timeLength= { 300000 } path="/Bridge" />
               <HowToPlay/>
           </div>
           <div className={styles.content}>

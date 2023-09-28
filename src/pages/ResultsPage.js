@@ -156,8 +156,6 @@ export default function ResultsPage() {
         </div>
     );
 
-    console.log(objectArray[0]);
-
     const landscape = (
         <div className={styles.masonry}>
             {responseArray.length === 0 ?

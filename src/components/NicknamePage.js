@@ -54,11 +54,17 @@ function NicknamePage() {
     dispatch(setSessionId(gamePin));
 
     /* DATABASE */
-        const gameEndedRef = ref(database, `lobby-${gamePin}/gameEnded`)        
-        const numPlayersRef = ref(database, `lobby-${gamePin}/numPlayers`);
-        const presenceRef = ref(database, `lobby-${gamePin}/`);
+        //const gameEndedRef = ref(database, `lobby-${gamePin}/gameEnded`)        
+        //const numPlayersRef = ref(database, `lobby-${gamePin}/numPlayers`);
+        //const presenceRef = ref(database, `lobby-${gamePin}/`);
 
-        onValue(numPlayersRef, (snapshot) => {
+        // Remove lobby when host disconnects
+        if(isHost) {            
+            const presenceRef = ref(database, 'lobby-' + gamePin);
+            onDisconnect(presenceRef).remove();
+        }
+
+        /*onValue(numPlayersRef, (snapshot) => {
             if(snapshot.exists()) {                            
                 onDisconnect(presenceRef).update({ 
                     numPlayers: snapshot.val() - 1
@@ -78,7 +84,7 @@ function NicknamePage() {
                     }
                 });
             }
-        });
+        });*/
         
         // Remove lobby when host disconnects
        

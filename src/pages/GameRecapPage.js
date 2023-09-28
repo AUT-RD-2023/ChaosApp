@@ -106,7 +106,7 @@ export default function GameRecapPage() {
           return 0;
         });
 
-        console.log(tempArray);
+        //console.log(tempArray);
 
         setObjectArray(tempArray);
       })
@@ -154,7 +154,9 @@ export default function GameRecapPage() {
                     <VotingCard
                         response={object.response}
                         votes={object.votes > 0 ? object.votes === 1 ? object.votes + " Vote" : object.votes + " Votes" : ""}
-                  />)}
+                  />)} else {
+                    return null;
+                  }
                 })}
             </div>
           </div>
