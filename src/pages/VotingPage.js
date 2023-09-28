@@ -189,7 +189,7 @@ const VotingPage = () => {
       <Button
           name={ buttonDisabled ? "✓" : "VOTE" }
           static={ false }          
-          disabled={ !cardSelected }
+          disabled={ !cardSelected || buttonDisabled }
           press={ castVote }
       />
     </div>);
