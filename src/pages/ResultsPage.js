@@ -124,6 +124,21 @@ export default function ResultsPage() {
 
     /* RENDER */
 
+    // Card display style
+    const [isWindowLandscape, setIsWindowLandscape] = useState(window.innerHeight < window.innerWidth);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsWindowLandscape(window.innerHeight < window.innerWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     const hostButtonsJSX = (
         <div className={styles.buttons}>
             <Button
@@ -133,31 +148,31 @@ export default function ResultsPage() {
             />
         </div>);
 
-    // eslint-disable-next-line
+
     const portrait = (
         <div className={styles.carousel_wrapper}>
-            {responseArray.length === 0 ?
-                (<div className={styles.no_response}>
-                    No responses...
-                </div>)
-                :
-                (objectArray.map((object) => {
-                    if (object.response) {
-                        return (
-                            <VotingCard
-                                response={object.response}
-                                votes={object.votes > 0 ? object.votes === 1 ? object.votes + " Vote" : object.votes + " Votes" : ""}
-                            />)
-                    } else {
-                        return null;
-                    }
-                }))
-            }
+                {responseArray.length === 0 ?
+                    (<div className={styles.no_response}>
+                        No responses...
+                    </div>)
+                    :
+                    (objectArray.map((object) => {
+                        if (object.response) {
+                            return (
+                                <VotingCard
+                                    response={object.response}
+                                    votes={object.votes > 0 ? object.votes === 1 ? object.votes + " Vote" : object.votes + " Votes" : ""}
+                                />)
+                        } else {
+                            return null;
+                        }
+                    }))
+                }
         </div>
     );
-
+  
     const landscape = (
-        <div className={styles.masonry}>
+        <div className={ styles.masonry }>
             {responseArray.length === 0 ?
                 (<div className={styles.no_response}>
                     No responses...
@@ -179,22 +194,21 @@ export default function ResultsPage() {
     );
 
     return (
-        <div className={styles.page}>
-            <div className={styles.header}>
-                <div className={styles.subheader}>
-                    <Header />
-                </div>
-                <TimerBar timeLength={30} path="/Bridge" />
-                <HowToPlay />
+      <div className={styles.page}>
+          <div className={styles.header}>
+              <div className={styles.subheader}>
+                  <Header />
+              </div>
+              <TimerBar timeLength= { 15 } path="/Bridge" />
+              <HowToPlay/>
+          </div>
+          <div className={styles.content}>
+            {isHost ? hostButtonsJSX : null}
+            <div className={styles.container}>
+                <div className={styles.subtitle}>VOTING RESULTS</div>
+                { isWindowLandscape ? landscape : portrait }
             </div>
-            <div className={styles.content}>
-                {isHost ? hostButtonsJSX : null}
-                <div className={styles.container}>
-                    <div className={styles.subtitle}>VOTING RESULTS</div>
-                    {landscape}
-                </div>
-            </div>
-        </div>
+          </div>
+      </div>
     );
 }
-
