@@ -31,6 +31,7 @@ function VotingPage() {
   const ablyUsers = useSelector((state) => state.session.ablyUsers);
   const round = useSelector((state) => state.session.round);
 
+  const [responseArray, setResponseArray] = useState([]); 
   const [randomArray,setRandomArray] = useState([]); 
 
   const handleSkip = () => {
@@ -75,7 +76,10 @@ function VotingPage() {
       .then((data) => {
         // Now that all responses are fetched, shuffle the array
         tempArray = shuffleArray(data);
+        setResponseArray(data); // Optionally update responseArray if needed
         setRandomArray(tempArray);
+        console.log(responseArray);
+        console.log(randomArray);
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
@@ -87,6 +91,10 @@ function VotingPage() {
 
   const [response, setResponse] = useState("");
 
+  useEffect(() => {
+    console.log(response);
+  }, [response]);  
+
   const castVote = () => {    
     setCardSelected(true);
 
@@ -97,6 +105,8 @@ function VotingPage() {
       onValue(responseData, (snapshot) => {
         // Match the selected response with each response in the database
         if(response === snapshot.val()) { 
+          console.log(`A vote has been cast for ${ablyUsers[i]}'s response!`);
+
           let votes = 1;
 
           // Get the current number of votes  

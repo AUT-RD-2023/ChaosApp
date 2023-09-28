@@ -13,12 +13,13 @@ import { database } from "../database.js";
 import { useSelector } from "react-redux";
 
 // Styles
-import styles from "../styles/EndPage.module.css";
+import style from "../styles/EndPage.module.css";
 
 // Images
-import VotingCard from "../components/VotingCard";
+import img from "../styles/images/crown.svg";
+//import icon from '../styles/images/share.svg';
 
-export default function GameRecapPage() {
+export default function GameRecap() {
   const ablyUsers = useSelector((state) => state.session.ablyUsers);
   const gamePin = useSelector((state => state.session.gamePin));
   const round = useSelector((state) => state.session.round);
@@ -146,36 +147,30 @@ export default function GameRecapPage() {
   /* RENDER */
 
   return (
-      <div className={styles.page}>
-        <div className={styles.content}>
-          <div className={styles.buttons}>
-            <Button
-                name="PLAY AGAIN"
-                static={false} //button width decreases as page height increases
-                press={ () => { handlePlayAagain(`${window.location.origin.toString()}`) } }
-            />
-            <div className={styles.button_spacer}/>
-               <Button
-                   name="SHARE"
-                   static={false}
-                   press={ () => {
-                       setOpenModal(true);
-                   }}
-               />
-            {openModal && <Modal closeModal={ setOpenModal } />}
-          </div>
-          <div className={styles.container}>
-            <div className={styles.subtitle}>SESSION FAVOURITES</div>
-            <div className={styles.carousel_wrapper}>
-              <VotingCard response="test response"/>
-              <VotingCard response="test response"/>
-              <VotingCard response="test response"/>
-              <VotingCard response="test response"/>
-              <VotingCard response="test response"/>
-              <VotingCard response="test response"/>
-            </div>
-          </div>
+    <div className={style.page}>
+      <div className={style.container}>
+        <div>
+          <img src={img} alt="alt" className={style.image_crown} />
+          <div className={style.subtitle}>SESSION FAVOURITES</div>
+        </div>
+        <div className={style.recap}></div>
+        <div className={style.buttons}>
+          <Button
+            name="PLAY AGAIN"
+            static={false} //button width decreases as page height increases
+            press={ () => { handlePlayAagain(`${window.location.origin.toString()}`) } }
+          />
+          <div className={style.button_spacer}></div>
+          <Button
+            name="SHARE" 
+            static={false}
+            press={ () => {
+              setOpenModal(true);
+            }}
+          />
+          {openModal && <Modal closeModal={ setOpenModal } />}
         </div>
       </div>
+    </div>
   );
 }

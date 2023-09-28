@@ -2,8 +2,8 @@
 import React, { useEffect } from 'react';
 
 // Components
-import CelebrationPage from "./CelebrationPage.js";
-import GameRecapPage from "./GameRecapPage.js";
+import Celebration from "../components/Celebration.js";
+import GameRecap from "../components/GameRecap.js";
 
 // Swiper
 import { Navigation, Pagination} from 'swiper/modules';
@@ -38,8 +38,9 @@ function EndPage() {
                     modules={[Navigation, Pagination]}
                     allowSlidePrev={false}
                     >
-                    <SwiperSlide><CelebrationPage/></SwiperSlide>
-                    <SwiperSlide><GameRecapPage/></SwiperSlide>
+
+                    <SwiperSlide><Celebration/></SwiperSlide>
+                    <SwiperSlide><GameRecap/></SwiperSlide>
                 </Swiper>
             </div>
         </>

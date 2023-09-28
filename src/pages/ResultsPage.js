@@ -1,5 +1,5 @@
 // React
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
 import { useChannel } from "@ably-labs/react-hooks";
 
@@ -32,36 +32,36 @@ export default function ResultsPage() {
     const ablyUsers = useSelector((state) => state.session.ablyUsers);
 
     const round = useSelector((state) => state.session.round);
-    const numRounds = useSelector((state) => state.session.numRounds);
+    const numRounds = useSelector((state) => state.session.numRounds);  
 
     const dispatch = useDispatch();
 
-    const [responseArray, setResponseArray] = useState([]);
-    const [voteArray, setVoteArray] = useState([]);
+    const [responseArray, setResponseArray] = useState([]); 
+    const [voteArray, setVoteArray] = useState([]); 
     const [objectArray, setObjectArray] = useState([{}]);
 
-    useEffect(() => {
+    useEffect(() => {    
         const fetchDataPromises = [];
-
-        for (let i = 0; i < ablyUsers.length; i++) {
+    
+        for(let i = 0; i < ablyUsers.length; i++) {
             // Response
             const responseData = ref(database, `lobby-${gamePin}/responses/round-${round}/${ablyUsers[i]}/response`);
-
+    
             const responsePromise = new Promise((resolve) => {
                 onValue(responseData, (snapshot) => {
-                    setResponseArray(oldArray => [...oldArray, snapshot.val()]);
+                    setResponseArray(oldArray =>[...oldArray, snapshot.val()]);
                     resolve(snapshot.val());
                 }, {
                     onlyOnce: true
                 });
             });
-
+    
             // Votes
             const voteData = ref(database, `lobby-${gamePin}/responses/round-${round}/${ablyUsers[i]}/votes`);
-
+    
             const votePromise = new Promise((resolve) => {
                 onValue(voteData, (snapshot) => {
-                    setVoteArray(oldArray => [...oldArray, snapshot.val()]);
+                    setVoteArray(oldArray =>[...oldArray, snapshot.val()]);
                     resolve(snapshot.val());
                 }, {
                     onlyOnce: true
@@ -70,17 +70,17 @@ export default function ResultsPage() {
             //push promises to the fetchDataPromises Array
             fetchDataPromises.push(responsePromise, votePromise);
         }
-
+    
         // Wait for all response and vote promises to resolve
         Promise.all(fetchDataPromises)
             .then((data) => {
                 // tempArray to store data
                 const tempArray = [];
-
+    
                 for (let i = 0; i < data.length; i += 2) {
                     const responseValue = data[i];
                     const voteValue = data[i + 1];
-
+    
                     tempArray.push({
                         response: responseValue,
                         votes: voteValue
@@ -94,20 +94,21 @@ export default function ResultsPage() {
             });
         // Set up next activity for all players
         if (round < numRounds) {
-            dispatch(setActivity("chaos"));
+            dispatch(setActivity("chaos"));  
             dispatch(setRound(round + 1));
         } else {
-            dispatch(setActivity("end"));
+            dispatch(setActivity("end")); 
         }
         // eslint-disable-next-line
     }, []);
+    console.log(objectArray);
 
     const handleSkip = () => {
         channel.publish("Next Page", { text: "true" });
     }
-
+    
     const [channel] = useChannel(gamePin + "", (message) => {
-        if (message.name === "Next Page") {
+        if(message.name === "Next Page") {
             navigate("/Bridge");
         }
     });
@@ -117,58 +118,50 @@ export default function ResultsPage() {
     useEffect(() => {
         window.history.pushState(null, document.title, window.location.href);
 
-        window.addEventListener('popstate', function (event) {
+        window.addEventListener('popstate', function(event) {
             window.history.pushState(null, document.title, window.location.href);
         });
     }, []);
 
-    /* RENDER */
+    // RENDER
 
     const hostButtonsJSX = (
         <div className={styles.buttons}>
-            <Button
+            <Button 
                 name="SKIP"
-                static={false} //button width decreases as page height increases         
-                press={handleSkip}
-            />
-        </div>);
+                static={ false } //button width decreases as page height increases         
+                press={ handleSkip }
+              />
+        </div>);        
 
     // eslint-disable-next-line
     const portrait = (
         <div className={styles.carousel_wrapper}>
-            {responseArray.length === 0 ?
-                (<div className={styles.no_response}>
+            {responseArray.length === 0 ? 
+              (<div className={styles.no_response}>
                     No responses...
-                </div>)
-                :
-                responseArray.map((response, index) =>
-                    <VotingCard response={response} votes={
-                        voteArray[index] > 0 ? voteArray[index] === 1 ? voteArray[index] + " Vote" : voteArray[index] + " Votes" : ""
-                    } />
-                )}
+              </div>)
+              : 
+              responseArray.map((response, index) => 
+              <VotingCard response={ response } votes={
+                voteArray[index] > 0 ? voteArray[index] === 1 ? voteArray[index] + " Vote" : voteArray[index] + " Votes" : ""
+              }/>
+            )}
         </div>
     );
 
     const landscape = (
-        <div className={styles.masonry}>
-            {responseArray.length === 0 ?
-                (<div className={styles.no_response}>
-                    No responses...
-                </div>)
-                :
-                (objectArray.map((object) => {
-                    if (object.response) {
-                        return (
-                            <VotingCard
-                                response={object.response}
-                                votes={object.votes > 0 ? object.votes === 1 ? object.votes + " Vote" : object.votes + " Votes" : ""}
-                            />)
-                    } else {
-                        return null;
-                    }
-                }))
-            }
-        </div>
+      <div className={ styles.masonry }>
+        {responseArray.length === 0 ? 
+          (<div className={styles.no_response}>
+                No responses...
+            </div>)
+            : 
+            responseArray.map((response, index) => 
+            <VotingCard response={ response } votes={
+                voteArray[index] > 0 ? voteArray[index] === 1 ? voteArray[index] + " Vote" : voteArray[index] + " Votes" : ""
+            }/>)}
+      </div>
     );
 
     return (
@@ -177,14 +170,14 @@ export default function ResultsPage() {
                 <div className={styles.subheader}>
                     <Header />
                 </div>
-                <TimerBar timeLength={30} path="/Bridge" />
-                <HowToPlay />
+                <TimerBar timeLength= { 30 } path="/Bridge" />
+                <HowToPlay/>
             </div>
-            <div className={styles.content}>
-                {isHost ? hostButtonsJSX : null}
+            <div className={styles.content}>            
+            { isHost ? hostButtonsJSX : null }
                 <div className={styles.container}>
                     <div className={styles.subtitle}>VOTING RESULTS</div>
-                    {landscape}
+                    { landscape }
                 </div>
             </div>
         </div>

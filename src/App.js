@@ -19,8 +19,7 @@ import VotingPage from './pages/VotingPage';
 import ResultsPage from './pages/ResultsPage';
 import ChaosPage from './pages/ChaosPage';
 import TutorialPage from './pages/TutorialPage';
-import CelebrationPage from './pages/CelebrationPage';
-import GameRecapPage from './pages/GameRecapPage';
+import EndPage from './pages/EndPage';
 
 function App() {
   return (     
@@ -41,8 +40,7 @@ function App() {
         <Route path="/Voting" element={<VotingPage />} />
         <Route path ="/Results" element={<ResultsPage />} />
         <Route path="/Chaos" element={<ChaosPage />} />
-        <Route path="/End" element={<CelebrationPage />} />
-        <Route path="/Recap" element={<GameRecapPage />} />
+        <Route path="/End" element={<EndPage />} />
       </Routes>
     </div>
   );
