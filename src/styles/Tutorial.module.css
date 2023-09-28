@@ -16,6 +16,11 @@
         height: fit-content;
     }
 
+    .logo {
+        height: min(5vw, 8vh);
+        width: fit-content;
+    }
+
     .title {
         font-family: 'Rubik', sans-serif;
         font-size: min(10vw, 7vh);
@@ -58,7 +63,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin: 0 2vw 0 2vw;
+        margin: 2vh 2vw 0 2vw;
     }
 
     .subtitle {
@@ -94,6 +99,12 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+    }
+
+    .logo {
+        height: min(8vw, 6vh);
+        width: fit-content;
+        margin-left: min(2vw, 1vh);
     }
 
     .title {

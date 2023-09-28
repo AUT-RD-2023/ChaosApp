@@ -71,9 +71,15 @@
         margin-bottom: 1vw;
     }
 
+    .logo {
+        height: min(10vw, 20vh);
+        margin-bottom: min(8vw, 8vh);
+    }
+
     .heading {
         font-size: 10vw;
         letter-spacing: 1.5vw;
+        margin-bottom: min(5vw, 5vh);
     }
 
     .faux_header {
@@ -101,8 +107,6 @@
     }
 
     .container {
-        /*width: 60vw;*/
-        /*height: 32vw;*/
         width: fit-content;
         height: fit-content;
         border-radius: min(7.2vw);
@@ -117,6 +121,10 @@
 @media (orientation: landscape) {
     .title{
         font-size: 6vw;
+    }
+
+    .logo {
+        height: min(5vw, 15vh);
     }
 
     .heading {

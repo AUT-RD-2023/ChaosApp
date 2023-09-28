@@ -108,6 +108,12 @@
     margin-bottom: 1vw;
   }
 
+  .homepage_logo {
+    width: min(90vw, 80vh);
+    margin-bottom: min(3vw, 1vh);
+    margin-top: 2vh;
+  }
+
   .heading {
     font-size: 10vw;
     letter-spacing: 1.5vw;
@@ -138,12 +144,10 @@
   }
 
   .container {
-    /*width: 60vw;*/
-    /*height: 32vw;*/
     width: fit-content;
     height: fit-content;
     border-radius: min(7.2vw);
-    padding: min(5vw, 6vh);
+    padding: min(5vw, 3vh);
     margin: 4.5vw;
   }
   .spacer{
@@ -152,6 +156,13 @@
 }
 
 @media (orientation: landscape) {
+
+  .homepage_logo {
+    width: min(40vw, 80vh);
+    margin-bottom: min(3vw, 3vh);
+    margin-top: -5vh;
+  }
+
   .title{
     font-size: 6vw;
   }
@@ -199,6 +210,7 @@
     border-radius: 10% / 20%;
     margin: min(1vw) min(2vw) min(2vw) min(2vw);
   }
+
   .spacer{
     height: 0;
   }

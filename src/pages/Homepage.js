@@ -13,6 +13,7 @@ import { ref, onValue } from "firebase/database";
 // Components
 import Button from '../components/Button.js'
 import Input from '../components/Input.js'
+import  Logo from '../styles/images/logo_with_smoke.png';
 
 // Styles
 import '../App.css';
@@ -68,8 +69,7 @@ const Homepage = () => {
 
     return (
         <div className="App">
-            <div className="title">Chaotic</div>
-
+            <img className="homepage_logo" src={Logo} alt="Logo" />
             <div className="container">
                 <Input 
                     placeholder="Game PIN"

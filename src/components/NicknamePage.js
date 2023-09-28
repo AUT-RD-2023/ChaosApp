@@ -14,6 +14,7 @@ import { database } from '../database.js';
 import Button from '../components/Button.js'
 import Input from '../components/Input.js'
 import Identity from '../identity.js'
+import { ReactComponent as Logo } from '../styles/images/plain-logo.svg';
 
 // Styles
 import style from "../styles/NicknamePage.module.css";
@@ -84,7 +85,7 @@ function NicknamePage() {
 
     return (
         <div className={style.page}>
-            <div className={style.title}>Chaotic</div>
+            <Logo className={style.logo}/>
 
             <div className={style.heading}>GET STARTED</div>
 

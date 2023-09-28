@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -13,6 +14,7 @@ import ScenarioTutorial from '../components/ScenarioTutorial.js';
 import VotingTutorial from '../components/VotingTutorial.js';
 import WelcomeTutorial from '../components/WelcomeTutorial.js';
 import NicknamePage from '../components/NicknamePage.js';
+import { ReactComponent as Logo } from '../styles/images/plain-logo.svg';
 
 // import required modules
 import { Navigation, Pagination} from 'swiper/modules';
@@ -54,7 +56,7 @@ export default function TutorialPage() {
             </Swiper>
             {!isNicknamePageActive ? (
                 <div className={style.header}>
-                    <div className={style.subtitle}>Chaotic</div>
+                    <Logo className={style.logo}/>
                     <div className={style.skip} onClick={ skipTutorial }>Skip</div>
                 </div>
             ) : <div className="faux_header"></div>}

@@ -40,12 +40,12 @@
 }
 
 .input {
-      box-sizing: border-box;
       color: #000000;
       font-family: 'Quicksand', sans-serif;
       font-weight: 400;
-      text-align: center;
       outline: none;
+      box-sizing: border-box;
+      text-align: center;
 }
 
 .input::placeholder {
@@ -83,7 +83,7 @@
 
       .static_button {
             aspect-ratio: 60/14.4;
-            height: 14.4vw;
+            height: min(14.4vw, 12vh);
             border: 0.2vw solid #24625a;
             border-radius: 7.2vw;
             filter: drop-shadow(0 1.6vw 1vw rgba(0, 0, 0, 0.25));
@@ -108,12 +108,12 @@
       }
 
       .input {
-            width: 60vw;
-            height: 14.4vw;
             border: 0.2vw solid #8E8D8A;
             border-radius: 7.2vw;
-            font-size: 5.76vw;
-            letter-spacing: 0.4vw;
+            font-size: 5.5vw;
+            height: min(14.4vw, 12vh);
+            width: calc(min(14.4vw, 12vh) * 4.167);
+            padding: min(3vw, 3vh);
       }
 
       .textarea {
