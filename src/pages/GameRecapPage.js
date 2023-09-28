@@ -140,14 +140,13 @@ export default function GameRecapPage() {
     // eslint-disable-next-line
   }, []);
 
-  console.log(objectArray);
-
   const handlePlayAagain = (url) => { 
     window.open(url, "_self");
     window.opener = null;
     window.close();    
   }
-  
+
+  console.log(objectArray);
   /* RENDER */
 
   return (
@@ -172,12 +171,15 @@ export default function GameRecapPage() {
           <div className={styles.container}>
             <div className={styles.subtitle}>SESSION FAVOURITES</div>
             <div className={styles.carousel_wrapper}>
-              <VotingCard response="test response"/>
-              <VotingCard response="test response"/>
-              <VotingCard response="test response"/>
-              <VotingCard response="test response"/>
-              <VotingCard response="test response"/>
-              <VotingCard response="test response"/>
+              {/* objectArray[0].response ?
+                  <VotingCard response={objectArray[0].response} votes={objectArray[0].votes}/>
+                  : <VotingCard response="Top voted 1"/> }
+              { objectArray[1].response ?
+                  <VotingCard response={objectArray[1].response} votes={objectArray[1].votes}/>
+                  : <VotingCard response="Top voted 2"/> }
+              { objectArray[2].response ?
+                  <VotingCard response={objectArray[2].response} votes={objectArray[2].votes}/>
+                  : <VotingCard response="Top voted 3"/> */}
             </div>
           </div>
         </div>

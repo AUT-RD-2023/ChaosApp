@@ -12,7 +12,7 @@ function Button(props) {
     };
     const handleBackClick = event => {
         navigate("/Lobby");
-    };
+    }
 
     if(props.icon === "settings") {
         return (
