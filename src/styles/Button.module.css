@@ -48,7 +48,16 @@
       text-align: center;
 }
 
-.input::placeholder {
+.settings_input {
+      box-sizing: border-box;
+      color: #000000;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 400;
+      text-align: center;
+      outline: none;
+}
+
+.input::placeholder, .settings_input::placeholder {
       color: #ADADAD;
 
 }
@@ -116,6 +125,16 @@
             padding: min(3vw, 3vh);
       }
 
+      .settings_input {
+            height: 10vw;
+            max-height: 6vh;
+            font-size: min(4.5vw, 3vh);
+            width: min(20vw, 14vh);
+            border: 0.2vw solid #8E8D8A;
+            border-radius: 7.2vw;
+            letter-spacing: 0.4vw;
+      }
+
       .textarea {
             width: 50vh;
             max-width: 60vw;
@@ -164,6 +183,15 @@
             border: 0.1vw solid #8E8D8A;
             border-radius: 3vw;
             font-size: 1.9vw;
+            margin-bottom: 1.5vh;
+      }
+
+      .settings_input {
+            width: 7vw;
+            height: 3.5vw;
+            font-size: 1.5vw;
+            border: 0.1vw solid #8E8D8A;
+            border-radius: 3vw;
             margin-bottom: 1.5vh;
       }
 

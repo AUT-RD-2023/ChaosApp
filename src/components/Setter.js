@@ -16,7 +16,6 @@ import style from '../styles/SlideSettings.module.scss';
 function Setter(props) {
     const dispatch = useDispatch();
 
-    let inputStyle = null;
     const [value, setValue] = useState(props.reset);
     const[intValue, setIntValue] = useState(0);
     const gamePin = useSelector((state) => state.session.gamePin)
@@ -69,22 +68,6 @@ function Setter(props) {
         else if(props.id === "discussion") setValue(formatTime(discussionTime));
     }, [setValue, responseTime, rounds, discussionTime, props.id]);
 
-    const orientation = props.orientation;
-
-    if(orientation === "portrait"){
-        inputStyle = {
-            height: "10vw",
-            maxHeight: "6vh",
-            fontSize: "min(4.5vw, 3vh)",
-            width: "min(20vw, 14vh)"
-        };
-    } else if (orientation === "landscape") {
-        inputStyle = {
-            width: "5.8vw",
-            height: "2.8vw",
-            fontSize: "1.3vw",
-        };
-    }
 
     function increaseNum() {
         if(props.id === "rounds") {
@@ -176,9 +159,9 @@ function Setter(props) {
         <div className={style.setter}>
             <button name="-" className={style.decrease_button} onClick={() =>decreaseNum()} >- </button>
             <Input
-                style={ inputStyle }
                 placeholder={ value }
                 maxLength={5}
+                settings={true}
                 readOnly={true}
             />
             <button className={style.increase_button} onClick={() =>

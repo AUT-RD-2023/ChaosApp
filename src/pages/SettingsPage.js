@@ -146,9 +146,9 @@ function SettingsPage() {
                     </div>
                 <div className={style.buttons}>
                     <div className="spacer" />
-                    <Button name="RESET" static={ false } press={ handleReset }> </Button>
+                    <Button name="RESET" static={ false } press={ handleReset } />
                     <div className="spacer" />
-                    <Button name="SAVE" static={ false } press={ handleSave } ></Button>
+                    <Button name={ savePressed ? "✓" : "SAVE" } static={ false } press={ handleSave } ></Button>
                 </div>
             </div>
         </div>
