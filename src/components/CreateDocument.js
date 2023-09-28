@@ -1,7 +1,7 @@
 // React
 import React, {useEffect, useState} from "react";
 import { saveAs } from 'file-saver';
-import { pdf, Page, Text, Document, StyleSheet, View, Image } from '@react-pdf/renderer';
+import { pdf, Page, Text, Document, StyleSheet, View, Image, Font } from '@react-pdf/renderer';
 
 // Redux
 import { useSelector } from "react-redux";
@@ -13,7 +13,16 @@ import { database } from '../database.js';
 // Components
 import { ReactComponent as Download } from '../styles/images/download.svg';
 import  Logo from '../styles/images/logo_with_ash.png';
+import RubikRegular from '../styles/fonts/Rubik-Regular.ttf';
+import RubikSemibold from '../styles/fonts/rubik-semi-bold.ttf';
+import Quicksand from '../styles/fonts/quicksand-regular.otf';
 
+Font.register({ family: 'Rubik', fonts: [
+  {src:RubikRegular },
+  {src: RubikSemibold, fontWeight: 'semibold'},
+]});
+
+Font.register({ family: 'Quicksand', src:Quicksand });
 
 
 //Styles
@@ -23,9 +32,11 @@ const styles = StyleSheet.create({
         paddingBottom: 65,
         paddingHorizontal: 35,
         textAlign: 'center',
+        fontFamily: "Rubik",
     },
     title: {
-        fontWeight: "bold",
+      fontFamily: "Rubik",
+        fontWeight: "semibold",
         fontSize: 36,
         color: "#2D7C73",
     }, 
@@ -39,13 +50,26 @@ const styles = StyleSheet.create({
         fontSize: 12,
     },
     subheading: {
-        fontWeight: 550,
+      fontFamily: 'Quicksand',
+        // fontWeight: 550,
         color: "#ADADAD",
         textAlign: 'left',
         paddingTop: 10
     },
-    reponse: {
-        textAlign: 'left'
+    viewer: {
+        textAlign: 'left',
+      
+    },
+    response: {
+      padding: 5
+    },
+    round: {
+      fontWeight: 'bold',
+      color: "#2D7C73",
+    },
+    votes: {
+      fontWeight: "bold",
+
     }
 })
 
@@ -73,7 +97,7 @@ const CreateDocument = (props) => {
   
             
             <Text style={styles.section}> 
-            <Text>Round {roundNumber} {'\n'}</Text>
+            <Text style={styles.round}>Round {roundNumber} {'\n'}</Text>
                 <Text style={styles.subheading}>Scenario: {'\n'}
                 </Text>
                 { props.scenario }
@@ -82,17 +106,21 @@ const CreateDocument = (props) => {
                  <Text style={styles.subheading}>Responses: {'\n'}
                 </Text>
                 </Text>
-          <View> 
+          <View stlye={styles.viewer}> 
             {props.roundData[roundNumber].responses.map((response, index) => (
-              <Text key={index}>
+              <Text key={index} style={styles.response}>
                 {response}{' '}
-                {props.roundData[roundNumber].votes[index] > 0
+                <Text style={styles.votes}>
+                  {props.roundData[roundNumber].votes[index] > 0
                     ? props.roundData[roundNumber].votes[index] === 1
                     ? props.roundData[roundNumber].votes[index] + ' Vote'
                     : props.roundData[roundNumber].votes[index] + ' Votes'
                   : ''}
-                {'\n'}
+                  </Text>
+                
+                  
               </Text>
+              
             ))}
           </View>
         </Page>
