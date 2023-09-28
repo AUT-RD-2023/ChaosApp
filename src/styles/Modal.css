@@ -1,169 +1,92 @@
+.modalBackground{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(87, 96, 96, 0.40);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modalContainer{
+    width: min(41vw, 25vh);
+    height: calc(min(41vw, 25vh) / 1.8);
+    background: white;
+    border-radius: min(3vw, 2vh);
+    box-shadow: rgba(0, 0, 0, 0.35) 0 0.5vw 2vw;
+    display: flex;
+    flex-direction: column;
+    padding: min(2.5vw, 1.5vh) min(2.5vw, 2vh) min(2.5vw, 2vh) min(2.5vw, 2vh);
+}
+
+.modalTop {
+    display: flex;
+    justify-content: space-between;
+    height: fit-content;
+}
+
+.shareText{
+    font-family: 'Quicksand', sans-serif;
+    font-size: min(4.8vw, 3vh);
+    font-weight:500;
+    height: fit-content;
+}
+
+
+.modal_close {
+    height: 100%;
+    width: 100%;
+}
+
+.closeButton button {
+    font-family: 'Quicksand', sans-serif;
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+    cursor:pointer;
+}
+
+.modalIcons {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    height: min(11vw, 7vh);
+    width: min(11vw, 7vh);
+}
+
+.buttonText{
+    font-family: 'Quicksand', sans-serif;
+    font-size: min(3vw, 2vh);
+}
+
+.modalButtons{
+    display:grid;
+    grid-template-columns: 50% 50%;
+    place-items: center;
+    grid-row-gap: min(1vh, 0.2vw);
+    margin-top: min(0.8vw, 1vh);
+}
+
 @media(orientation: landscape){
-    .modalBackground{
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(87, 96, 96, 0.40);
-        z-index: 2000;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .modalContainer{
-        width: 210px;
-        height: 115px;
-        background: white;
-        border-radius:20px;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-        display: flex;
-        flex-direction: column;
-        padding: 15px;
-    }
-
-    .modalTop {
-        display:grid;
-        grid-template-columns: 75px 40px;
-        grid-template-rows: 30px 5px;
-        grid-row: auto;
-        place-items: center;
-        grid-row-gap: 5px;
-        grid-column-gap: 95px;
-
-    }
-
-    .shareText{
-        font-family: 'Quicksand', sans-serif;
-        font-size: 25px;
-        font-weight:500;
-        display:flex;
-        justify-content: flex-end;
-    }
-
     .closeButton {
-        display:flex;
-        justify-content: flex-end;
-        width: 50px;
+        margin-top: min(-0.2vw, -0.5vh);
+        margin-right: min(-0.5vw, -0.9vh);
+        height: min(6.5vw, 4vh);
+        aspect-ratio: 1/1;
         cursor: pointer;
-    }
-
-    .closeButton button {
-        font-family: 'Quicksand', sans-serif;
-        background-color: transparent;
-        border: none;
-        font-size: 25px;
-        cursor:pointer;
-    }
-
-    .modalIcons {
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        cursor:pointer;
-    }
-
-    .buttonText{
-        font-family: 'Quicksand', sans-serif;
-    }
-
-    .modalButtons{
-        display:grid;
-        grid-template-columns: 50% 50%;
-        place-items: center;
-        grid-row-gap: 5px;
-    }
-
-    .modal_close {
-        height: min(4.5vw, 4.5vh);
-        width: min(4.5vw, 4.5vh);
     }
 }
 
 @media(orientation: portrait){
-    .modalBackground{
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(87, 96, 96, 0.40);
-        z-index: 2000;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .modalContainer{
-        width: min(41vw, 25vh);
-        height: calc(min(41vw, 25vh) / 1.8);
-        background: white;
-        border-radius: min(3vw, 2vh);
-        box-shadow: rgba(0, 0, 0, 0.35) 0 0.5vw 2vw;
-        display: flex;
-        flex-direction: column;
-        padding: min(2.5vw, 1.5vh) min(2.5vw, 2vh) min(2.5vw, 2vh) min(2.5vw, 2vh);
-    }
-
-    .modalTop {
-        display: flex;
-        justify-content: space-between;
-        height: fit-content;
-    }
-
-    .shareText{
-        font-family: 'Quicksand', sans-serif;
-        font-size: min(4.8vw, 3vh);
-        font-weight:500;
-        height: fit-content;
-    }
-
     .closeButton {
         margin-top: min(-0.5vw);
         margin-right: min(-1vw);
         height: min(6.5vw, 4vh);
         aspect-ratio: 1/1;
         cursor: pointer;
-    }
-
-    .modal_close {
-        height: 100%;
-        width: 100%;
-    }
-
-    .closeButton button {
-        font-family: 'Quicksand', sans-serif;
-        background-color: transparent;
-        border: none;
-        font-size: 25px;
-        cursor:pointer;
-    }
-
-    .modalIcons {
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        cursor:pointer;
-        height: min(11vw, 7vh);
-        width: min(11vw, 7vh);
-    }
-
-    .buttonText{
-        font-family: 'Quicksand', sans-serif;
-        font-size: min(3vw, 2vh);
-    }
-
-    .modalButtons{
-        display:grid;
-        grid-template-columns: 50% 50%;
-        place-items: center;
-        grid-row-gap: min(1vh, 0.2vw);
-        margin-top: min(0.8vw, 1vh);
-    }
-
-    .modal_close {
-        height: min(4.5vw, 4.5vh);
-        width: min(4.5vw, 4.5vh);
     }
 }
