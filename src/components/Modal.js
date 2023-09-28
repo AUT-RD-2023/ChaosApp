@@ -1,11 +1,11 @@
-import React from 'react';
+import React, {useRef, useState} from 'react';
 
 // Components
 import DownloadButton from "../components/CreateDocument.js";
 import { emailBody, emailSubj } from '../components/CreateEmail.js'
 
 //Redux
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 
 // Styles
 import '../styles/Modal.css';
@@ -18,9 +18,17 @@ function Modal({closeModal}) {
     const gamePin = useSelector((state => state.session.gamePin));
     const scenario = useSelector((state => state.session.scenario));
 
+    const handleModalBackgroundClick = () => {
+        closeModal(false);
+    };
+
+    const handleModalContainerClick = (e) => {
+        e.stopPropagation();
+    };
+
     return (
-        <div className="modalBackground">
-            <div className="modalContainer">
+        <div className="modalBackground" onClick={handleModalBackgroundClick}>
+            <div className="modalContainer" onClick={handleModalContainerClick}>
                 <div className="modalTop">
                     <div className="shareText">Share</div>
                     <div className="closeButton">
@@ -28,16 +36,16 @@ function Modal({closeModal}) {
                     </div>
                 </div>
                 <div className="modalButtons">
-                    <DownloadButton 
-                        className="modalIcons" 
+                    <DownloadButton
+                        className="modalIcons"
                     />
-                    <Email 
+                    <Email
                         className="modalIcons"
                         onClick={ () => {
-                            window.location.href = `mailto:example@email.com?subject=${emailSubj(gamePin)}&body=${emailBody(gamePin, scenario, "empty")}` 
-                        }} 
+                            window.location.href = `mailto:example@email.com?subject=${emailSubj(gamePin)}&body=${emailBody(gamePin, scenario, "empty")}`
+                        }}
                     />
-                    <div className="buttonText">Download</div> 
+                    <div className="buttonText">Download</div>
                     <div className="buttonText">Email</div>
                 </div>
             </div>
