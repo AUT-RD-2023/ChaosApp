@@ -16,7 +16,6 @@ import  Logo from '../styles/images/logo_with_ash.png';
 
 
 
-
 //Styles
 const styles = StyleSheet.create({
     page: {
