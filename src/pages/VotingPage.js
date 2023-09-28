@@ -64,48 +64,29 @@ const VotingPage = () => {
 
     const portrait = (
     <div className={styles.carousel_wrapper}>
-        <VotingCard response="This is my reponse" />
-        <VotingCard response="This is my reponse" />
-        <VotingCard response="This is my reponse" />
-        <VotingCard response="This is my reponse" />
-        <VotingCard response="jgd;alsgjkldasgh;ldkasgjl;k adsjg;lkas adgjla;jgldsjglksdjgklasd;j g jdilagj;ladsjgl;dasjglas jgdklgja;sdljgklasjgldksa adjgkla;jsgldsjglksdj jdgl;asdjlgjsaldjg djkgla;jsdgjldaskjgalks jdgkaslj;gdlsjglakdsjg" />
-        {/*{responseArray.length === 0 ? (*/}
-        {/*    <div className={styles.no_response}>*/}
-        {/*        No responses :(*/}
-        {/*    </div>*/}
-        {/*) : (*/}
-        {/*    responseArray.map((response, index) => (*/}
-        {/*        <VotingCard response={response} key={index} />*/}
-        {/*    ))*/}
-        {/*)}*/}
+        {responseArray.length === 0 ? (
+            <div className={styles.no_response}>
+                No responses :(
+            </div>
+        ) : (
+            responseArray.map((response, index) => (
+                <VotingCard response={response} key={index} />
+            ))
+        )}
     </div>
     );
 
     const landscape = (
         <div className={ styles.masonry }>
-            <VotingCard response="This is my reponse" />
-            <VotingCard response="This is my reponse" />
-            <VotingCard response="This is my reponse" />
-            <VotingCard response="This is my reponse" />
-            <VotingCard response="This is my reponse" />
-            <VotingCard response="This is my reponse" />
-            <VotingCard response="jgd;alsgjkldasgh;ldkasgjl;k adsjg;lkas adgjla;jgldsjglksdjgklasd;j g jdilagj;ladsjgl;dasjglas jgdklgja;sdljgklasjgldksa adjgkla;jsgldsjglksdj jdgl;asdjlgjsaldjg djkgla;jsdgjldaskjgalks jdgkaslj;gdlsjglakdsjg" />
-            <VotingCard response="This is my reponse" />
-            <VotingCard response="This is my reponse" />
-            <VotingCard response="This is my reponse" />
-            <VotingCard response="This is my reponse" />
-            <VotingCard response="This is my reponse" />
-            <VotingCard response="This is my reponse" />
-            <VotingCard response="This is my reponse" />
-            {/*{responseArray.length === 0 ? (*/}
-            {/*    <div className={styles.no_response}>*/}
-            {/*        No responses :(*/}
-            {/*    </div>*/}
-            {/*) : (*/}
-            {/*    responseArray.map((response, index) => (*/}
-            {/*        <VotingCard response={response} key={index} />*/}
-            {/*    ))*/}
-            {/*)}*/}
+            {responseArray.length === 0 ? (
+                <div className={styles.no_response}>
+                    No responses :(
+                </div>
+            ) : (
+                responseArray.map((response, index) => (
+                    <VotingCard response={response} key={index} />
+                ))
+            )}
         </div>
     );
 
