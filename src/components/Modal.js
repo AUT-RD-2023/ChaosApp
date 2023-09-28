@@ -22,7 +22,7 @@ function Modal({closeModal}) {
         <div className="modalBackground">
             <div className="modalContainer">
                 <div className="modalTop">
-                    <h2 className="shareText">Share</h2>
+                    <div className="shareText">Share</div>
                     <div className="closeButton">
                         <Close className="modal_close" onClick={() => closeModal(false)} />
                     </div>

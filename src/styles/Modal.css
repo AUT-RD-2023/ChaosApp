@@ -46,7 +46,7 @@
         display:flex;
         justify-content: flex-end;
         width: 50px;
-
+        cursor: pointer;
     }
 
     .closeButton button {
@@ -96,40 +96,40 @@
     }
 
     .modalContainer{
-        width: min(40vw, 30vh);
-        height: calc(min(40vw, 30vh) / 2);
+        width: min(41vw, 25vh);
+        height: calc(min(41vw, 25vh) / 1.8);
         background: white;
-        border-radius: min(5vw, 3vh);
+        border-radius: min(3vw, 2vh);
         box-shadow: rgba(0, 0, 0, 0.35) 0 0.5vw 2vw;
         display: flex;
         flex-direction: column;
-        padding: min(2vw, 2vh);
+        padding: min(2.5vw, 1.5vh) min(2.5vw, 2vh) min(2.5vw, 2vh) min(2.5vw, 2vh);
     }
 
     .modalTop {
-        display:grid;
-        grid-template-columns: 75px 40px;
-        grid-template-rows: 30px 5px;
-        grid-row: auto;
-        place-items: center;
-        grid-row-gap: 5px;
-        grid-column-gap: 95px;
-
+        display: flex;
+        justify-content: space-between;
+        height: fit-content;
     }
 
     .shareText{
         font-family: 'Quicksand', sans-serif;
-        font-size: 25px;
+        font-size: min(4.8vw, 3vh);
         font-weight:500;
-        display:flex;
-        justify-content: flex-end;
+        height: fit-content;
     }
 
     .closeButton {
-        display:flex;
-        justify-content: flex-end;
-        width: 50px;
+        margin-top: min(-0.5vw);
+        margin-right: min(-1vw);
+        height: min(6.5vw, 4vh);
+        aspect-ratio: 1/1;
+        cursor: pointer;
+    }
 
+    .modal_close {
+        height: 100%;
+        width: 100%;
     }
 
     .closeButton button {
@@ -145,17 +145,21 @@
         align-items:center;
         justify-content:center;
         cursor:pointer;
+        height: min(11vw, 7vh);
+        width: min(11vw, 7vh);
     }
 
     .buttonText{
         font-family: 'Quicksand', sans-serif;
+        font-size: min(3vw, 2vh);
     }
 
     .modalButtons{
         display:grid;
         grid-template-columns: 50% 50%;
         place-items: center;
-        grid-row-gap: 5px;
+        grid-row-gap: min(1vh, 0.2vw);
+        margin-top: min(0.8vw, 1vh);
     }
 
     .modal_close {
