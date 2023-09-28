@@ -13,13 +13,17 @@ import { database } from "../database.js";
 import { useSelector } from "react-redux";
 
 // Styles
-import style from "../styles/EndPage.module.css";
+import styles from "../styles/EndPage.module.css";
 
 // Images
 import img from "../styles/images/crown.svg";
+import Header from "../components/Header";
+import TimerBar from "../components/TimerBar";
+import HowToPlay from "../components/HowToPlay";
+import VotingCard from "../components/VotingCard";
 //import icon from '../styles/images/share.svg';
 
-export default function GameRecap() {
+export default function GameRecapPage() {
   const ablyUsers = useSelector((state) => state.session.ablyUsers);
   const gamePin = useSelector((state => state.session.gamePin));
   const round = useSelector((state) => state.session.round);
@@ -147,30 +151,36 @@ export default function GameRecap() {
   /* RENDER */
 
   return (
-    <div className={style.page}>
-      <div className={style.container}>
-        <div>
-          <img src={img} alt="alt" className={style.image_crown} />
-          <div className={style.subtitle}>SESSION FAVOURITES</div>
-        </div>
-        <div className={style.recap}></div>
-        <div className={style.buttons}>
-          <Button
-            name="PLAY AGAIN"
-            static={false} //button width decreases as page height increases
-            press={ () => { handlePlayAagain(`${window.location.origin.toString()}`) } }
-          />
-          <div className={style.button_spacer}></div>
-          <Button
-            name="SHARE" 
-            static={false}
-            press={ () => {
-              setOpenModal(true);
-            }}
-          />
-          {openModal && <Modal closeModal={ setOpenModal } />}
+      <div className={styles.page}>
+        <div className={styles.content}>
+          <div className={styles.buttons}>
+            <Button
+                name="PLAY AGAIN"
+                static={false} //button width decreases as page height increases
+                press={ () => { handlePlayAagain(`${window.location.origin.toString()}`) } }
+            />
+            <div className={styles.button_spacer}/>
+               <Button
+                   name="SHARE"
+                   static={false}
+                   press={ () => {
+                       setOpenModal(true);
+                   }}
+               />
+            {openModal && <Modal closeModal={ setOpenModal } />}
+          </div>
+          <div className={styles.container}>
+            <div className={styles.subtitle}>SESSION FAVOURITES</div>
+            <div className={styles.carousel_wrapper}>
+              <VotingCard response="test response"/>
+              <VotingCard response="test response"/>
+              <VotingCard response="test response"/>
+              <VotingCard response="test response"/>
+              <VotingCard response="test response"/>
+              <VotingCard response="test response"/>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
   );
 }
