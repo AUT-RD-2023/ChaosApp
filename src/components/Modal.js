@@ -50,8 +50,6 @@ function Modal({closeModal}) {
         return text;
       }
 
-    console.log(arrayToString(responseArray));
-
     const handleModalBackgroundClick = () => {
         closeModal(false);
     };

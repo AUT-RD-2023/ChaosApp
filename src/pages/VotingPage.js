@@ -189,7 +189,7 @@ const VotingPage = () => {
       <Button
           name={ buttonDisabled ? "✓" : "VOTE" }
           static={ false }          
-          disabled={ !cardSelected }
+          disabled={ !cardSelected || buttonDisabled }
           press={ castVote }
       />
     </div>);
@@ -200,7 +200,6 @@ const VotingPage = () => {
     setResponse(response)
   }
 
-  // eslint-disable-next-line
   const portrait = (
     <div className={styles.carousel_wrapper}>
         {randomArray.length === 0 ?
@@ -257,7 +256,7 @@ const VotingPage = () => {
               <div className={styles.subheader}>
                   <Header />
               </div>
-              <TimerBar timeLength= { 300000 } path="/Bridge" />
+              <TimerBar timeLength= { 30 } path="/Bridge" />
               <HowToPlay/>
           </div>
           <div className={styles.content}>
@@ -270,7 +269,5 @@ const VotingPage = () => {
       </div>
     );
 }
-
-
 
 export default VotingPage;
