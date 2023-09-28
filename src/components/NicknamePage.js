@@ -62,6 +62,16 @@ function NicknamePage() {
             onDisconnect(presenceRef).remove();
         }
 
+        /* when inSession is false: (set inSession to false on end screen)
+        
+        onDisconnect(database value goes down by 1)
+        
+        onValue (if that database value changes) {
+            if(value is 0) { 
+                const presenceRef = ref(database, 'lobby-' + gamePin);
+            }
+        } */
+
     useEffect(() => {
         if(!isHost) {
             const entryData = ref(database, 'lobby-' + gamePin); // Get a reference to the data at this path in the database
