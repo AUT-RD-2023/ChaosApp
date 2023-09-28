@@ -15,17 +15,15 @@ function CelebrationPage() {
     const navigate = useNavigate();
 
     return (
-        <>
+        <div className={style.celebration_page}>
             <Next className={style.next} onClick={() => navigate('/Recap')}/>
-            <div className={style.celebration_page}>
-                <div className={style.container}>
-                    <div className={style.subtitle}>THANKS FOR PLAYING!</div>
-                    <div className={style.image_wrapper}>
-                        <img src={img} alt="alt" className={style.image} />
-                    </div>
+            <div className={style.container}>
+                <div className={style.subtitle_celebration}>THANKS FOR PLAYING!</div>
+                <div className={style.image_wrapper}>
+                    <img src={img} alt="alt" className={style.image}/>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

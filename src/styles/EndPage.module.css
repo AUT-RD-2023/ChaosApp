@@ -176,9 +176,8 @@
         bottom: 0;
         display: flex;
         flex-flow: column;
-        height: 90vh;
+        height: 88vh;
         width: 99.7vw;
-        border: red 1px solid;
     }
 
     .image_wrapper{
@@ -190,27 +189,43 @@
     }
 
     .image {
-        width: min(25vw, 30vh);
-    }
-
-    .next{
+        width: min(25vw, 28vh);
         position: absolute;
-        bottom: min(10vw, 10vh);
-        right: min(10vw, 10vh);
-        height: min(10vh, 10vw);
-        width: min(150vh, 10vw);
-        cursor: pointer
+        bottom: min(25vw, 20vh);
     }
 
-    .subtitle {
+    .next {
+        position: absolute;
+        bottom: min(10vw, 9vh);
+        right: min(10vw, 7vh);
+        height: min(10vh, 10vw);
+        width: min(15vh, 10vw);
+        cursor: pointer;
+
+    }
+
+    .subtitle_celebration {
         font-family: 'Rubik', sans-serif;
-        font-size: min(5vw, 7vh);
+        font-size: min(7vw, 8vh);
         letter-spacing: 0.5vw;
         font-weight: 600;
         text-align: center;
         color: #2D7C73;
         height: fit-content;
-        max-width: 100%;
+        max-width: 70%;
+        margin: 2vh auto 0 auto;
+    }
+
+    .subtitle {
+        font-family: 'Rubik', sans-serif;
+        font-size: min(7vw, 8vh);
+        letter-spacing: 0.5vw;
+        font-weight: 600;
+        text-align: center;
+        color: #2D7C73;
+        height: fit-content;
+        max-width: 70%;
+        margin: 2vh auto 0 auto;
     }
 
     .content {
@@ -275,25 +290,64 @@
         width: 99.7vw;
     }
 
+    .celebration_page {
+        position: absolute;
+        display: flex;
+        flex-flow: column;
+        width: 99.7vw;
+        height: 99.7vh;
+    }
+
     .next{
         position: absolute;
         bottom: min(10vw, 10vh);
         right: min(10vw, 10vh);
-        height: min(15vh, 15vw);
-        width: min(15vh, 15vw);
+        height: min(10vh, 15vw);
+        width: min(10vh, 15vw);
         cursor: pointer
+    }
+
+    .image_wrapper{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        height: 60vh;
+    }
+
+    .image {
+        width: min(35vw, 20vh);
+        position: absolute;
+        top: 58%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 
     .subtitle {
         font-family: 'Rubik', sans-serif;
         font-size: min(10vw, 8vh);
-        letter-spacing: 1.3vw;
+        letter-spacing: 0.5vw;
         font-weight: 700;
         text-align: center;
         color: #2D7C73;
         height: fit-content;
-        width: 100%;
+        width: 90%;
         margin: min(12vw, 10vh) 0 min(5vw, 5vh) 0;
+    }
+
+    .subtitle_celebration {
+        position: absolute;
+        top: 29%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: 'Rubik', sans-serif;
+        font-size: min(11vw, 7vh);
+        letter-spacing: min(1vw, 0.5vh);
+        font-weight: 700;
+        text-align: center;
+        color: #2D7C73;
+        height: fit-content;
+        width: 85%;
     }
 
     .subheader {
