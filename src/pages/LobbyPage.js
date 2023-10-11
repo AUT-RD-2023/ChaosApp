@@ -32,7 +32,6 @@ const LobbyPage = () => {
     const playerId = useSelector((state) => state.session.playerId);
     const nickname = useSelector((state) => state.session.nickname);
     const isHost = useSelector((state) => state.session.isHost);
-
     /* ABLY */
     
     configureAbly({key: "yqb0VQ.Av_Gmg:pItSDLVHuUqgEGYCqdOhVSr4Ypktm7764_a0mhpwbEY", clientId: playerId});

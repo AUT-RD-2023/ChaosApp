@@ -136,6 +136,7 @@
       }
 
       .textarea {
+            z-index: 100;
             width: 50vh;
             max-width: 60vw;
             height: min(25vw, 15vh);

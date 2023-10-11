@@ -20,7 +20,7 @@ import '../App.css';
 
 const Homepage = () => {
     const [gamePin, setGamePin] = useState("");
-    const dispatch = useDispatch();   
+    const dispatch = useDispatch();
 
     useEffect(() => {    
         dispatch(resetDefaults()); // Reset to the default values of all Redux variables 

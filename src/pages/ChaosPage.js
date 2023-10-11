@@ -19,7 +19,7 @@ import Header from '../components/Header.js'
 import ShowMoreText from "react-show-more-text";
 
 // Styles
-import styles from '../styles/ScenarioPage.module.css';
+import styles from '../styles/ChaosPage.module.css';
 import '../App.css';
 
 function ChaosPage() {
@@ -27,13 +27,16 @@ function ChaosPage() {
     
     /* REDUX */
 
+    // Admin session data
     const gamePin = useSelector((state) => state.session.gamePin);
     const round = useSelector((state) => state.session.round);     
     const isHost = useSelector((state) => state.session.isHost);
-    const playerId = useSelector((state) => state.session.playerId);  
-
-    const scenario = useSelector((state) => state.session.scenario);
+    const playerId = useSelector((state) => state.session.playerId);
     const numPlayers = useSelector((state) => state.session.ablyUsers);
+
+    // Scenario session data
+    const scenario = useSelector((state) => state.session.scenario);
+    const chaos = useSelector((state) => state.session.chaos);
 
     const dispatch = useDispatch();
 
@@ -48,17 +51,24 @@ function ChaosPage() {
         dispatch(setActivity("discussion")); // eslint-disable-next-line
     }, []);
 
+
+
     /* BUTTON */
 
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const [textAreaDisabled, setTextAreaDisabled] = useState(false);
+    const [scenarioExpanded, setScenarioExpanded] = useState(false);
 
     const handleSubmit = () => {
         setButtonDisabled(true);
         setTextAreaDisabled(true);
 
         updateDatabase();
-    }   
+    }
+
+    const checkScenarioExpanded= () => {
+        setScenarioExpanded(!scenarioExpanded);
+    }
 
     /* DATABASE */
     
@@ -103,6 +113,8 @@ function ChaosPage() {
         });
     }, [responseTimeData]);
 
+
+
     /* ABLY */
     
     const [channel] = useChannel(gamePin + "", (message) => {
@@ -110,6 +122,8 @@ function ChaosPage() {
             navigate("/Bridge");
         }
     }); 
+
+
 
     /* PREVENT BACK */
 
@@ -120,7 +134,9 @@ function ChaosPage() {
             window.history.pushState(null, document.title, window.location.href);
         });
     }, []);
-        
+
+
+
     /* RENDER */
 
     return(
@@ -129,34 +145,43 @@ function ChaosPage() {
                 <div className={styles.subheader}>
                     <Header />
                 </div>
-                <TimerBar timeLength= { responseTime } addTime="0" path="/Bridge" />
+                <TimerBar timeLength= '2000'/*{ responseTime }*/ addTime="0" path="/Bridge" />
             </div>
             <div className={styles.content}>
-                <div className={styles.buttons}>
-                    <Button
-                        name={ buttonDisabled ? "✓" : "SUBMIT" }
-                        static={ false }
-                        press={ handleSubmit}
-                        disabled={ buttonDisabled }/>
+                <div className={styles.buttons}> {/*Response input button container*/}
+                   <Button
+                       name={ buttonDisabled ? "✓" : "SUBMIT" }
+                       static={ false }
+                       press={ handleSubmit}
+                       disabled={ buttonDisabled }/>
                 </div>
                 <div className={styles.container}>
-                    <div className={styles.subtitle}>SCENARIO</div>                  
-                    <ShowMoreText
-                        lines={3}
-                        more={<span className={styles['show-more-link']}><br/>show more</span>}
-                        less={<span className={styles['show-more-link']}><br/>show less</span>}
-                        className={styles['show-more-text']}                        
-                    >
-                        <span className={styles['show-more-text']}>{ scenario }</span>
-                    </ShowMoreText>
-                    <div className={styles.chaos}><strong>Additional chaos goes here...</strong></div>
-                    <div className={styles.prompt}>What do you do...?</div>
-                    <Textarea
-                        placeholder="Enter Response..."
-                        disabled ={ textAreaDisabled }
-                        onChange={(e) => setMessage(e.target.value)}
-                        popUp={ false }
-                    />
+                   <div className={styles.title}>SCENARIO</div> {/*Page Title*/}
+                    <div className={styles.chaos_wrapper} >
+
+                        <ShowMoreText /*Collapsible original scenario*/
+                            lines={3}
+                            more={<span className={styles['show-more-link']}><br/>show more</span>}
+                            less={<span className={styles['show-more-link']}><br/>show less</span>}
+                            className={styles['show-more-text']}
+                            onClick={ checkScenarioExpanded }>
+                            <span className={styles['show-more-text']}>{ scenario }</span>
+                        </ShowMoreText>
+
+                        <div className={styles.chaos}><strong>{ chaos }</strong></div> {/*ChatGPT generated chaos*/}
+
+                        <div className={styles.what_would_you_do}>What do you do...?</div>
+                    </div>
+
+                    { scenarioExpanded ? <span className={styles.chaos_gradient_overlay} /> : null} {/*White gradient when expanded to indicate more content*/}
+
+                    <span className={styles.input}> {/*Response input box*/}
+                        <Textarea
+                            placeholder="Enter Response..."
+                            disabled ={ textAreaDisabled }
+                            onChange={(e) => setMessage(e.target.value)}
+                            popUp={ false } />
+                    </span>
                 </div>
             </div>
         </div>
