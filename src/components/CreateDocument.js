@@ -163,7 +163,7 @@ export default function DownloadButton(props) {
               onlyOnce: true
             });
           }
-        }
+        } // eslint-disable-next-line
       }, []);
       
 

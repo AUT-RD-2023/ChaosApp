@@ -1,10 +1,10 @@
 // React
 import React, { useState, useEffect, useCallback } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux'
 
 // Redux
-import { resetDefaults } from "../Redux/sessionSlice";
+import { useDispatch } from 'react-redux'
+import { resetDefaults, setOpenAIKey } from "../Redux/sessionSlice";
 
 // Database
 import { database } from '../database.js';
@@ -13,7 +13,7 @@ import { ref, onValue } from "firebase/database";
 // Components
 import Button from '../components/Button.js'
 import Input from '../components/Input.js'
-import  Logo from '../styles/images/logo_with_smoke.png';
+import Logo from '../styles/images/logo_with_smoke.png';
 
 // Styles
 import '../App.css';
@@ -24,6 +24,14 @@ const Homepage = () => {
 
     useEffect(() => {    
         dispatch(resetDefaults()); // Reset to the default values of all Redux variables 
+
+        const data = ref(database, 'OpenAI_API_KEY');
+
+        onValue(data, (snapshot) => {
+            dispatch(setOpenAIKey(snapshot.val()));
+        }, {
+            onlyOnce: true
+        });
         // eslint-disable-next-line
     }, []);
 
