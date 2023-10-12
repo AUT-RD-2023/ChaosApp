@@ -40,6 +40,8 @@ function ChaosPage() {
 
     const dispatch = useDispatch();
 
+    const [chaosText, setChaosText] = useState(""); 
+
     useEffect(() => {
         if(isHost) {
             // Reinitialise the number of responses in database
@@ -47,9 +49,24 @@ function ChaosPage() {
                 numResponses: 0
             });
         }         
+
+        update(ref(database, `lobby-${gamePin}/chaos/round-${round}`), {
+            scenario: chaos
+        }); 
+
         // Set up next activity for all players        
         dispatch(setActivity("discussion")); // eslint-disable-next-line
     }, []);
+
+    if(chaosText === "") {
+        const responseData = ref(database, `lobby-${gamePin}/chaos/round-${round}/scenario`);
+
+        onValue(responseData, (snapshot) => {
+            if(snapshot.exists()) {                
+                setChaosText(snapshot.val());      
+            }          
+        });
+    }
 
 
 
@@ -145,7 +162,7 @@ function ChaosPage() {
                 <div className={styles.subheader}>
                     <Header />
                 </div>
-                <TimerBar timeLength= '2000'/*{ responseTime }*/ addTime="0" path="/Bridge" />
+                <TimerBar timeLength={ responseTime } addTime="0" path="/Bridge" />
             </div>
             <div className={styles.content}>
                 <div className={styles.buttons}> {/*Response input button container*/}
@@ -168,7 +185,7 @@ function ChaosPage() {
                             <span className={styles['show-more-text']}>{ scenario }</span>
                         </ShowMoreText>
 
-                        <div className={styles.chaos}><strong>{ chaos }</strong></div> {/*ChatGPT generated chaos*/}
+                        <div className={styles.chaos}><strong>{ chaosText }</strong></div> {/*ChatGPT generated chaos*/}
 
                         <div className={styles.what_would_you_do}>What do you do...?</div>
                     </div>

@@ -154,7 +154,7 @@ const LobbyPage = () => {
 
     const inviteButtonJSX = (               
         <Button
-            name={textVisible ? "✓" : "INVITE"}
+            name={textVisible ? "COPIED ✓" : "INVITE"}
             static={ false }
             press={copyUrl}
         />);

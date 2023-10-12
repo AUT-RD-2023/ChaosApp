@@ -126,7 +126,7 @@ const Bridge = () => {
         <div className="App">
             <div className={style.heading}>ROUND {roundText}</div><br />
             <div className={style.subheading}>{subheading}</div><br />
-            <TimerBar timeLength="10" addTime="0" path={path} />
+            <TimerBar timeLength={activity === "chaos" ? "10" : "5"} addTime="0" path={path} />
         </div>
     );
 }
