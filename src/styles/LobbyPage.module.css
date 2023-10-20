@@ -6,11 +6,6 @@
     width: 100vw;
 }
 
-.header {
-    width: 100vw;
-    height: fit-content;
-}
-
 .subtitle {
     font-size: 10vh;
     font-weight: 500;
@@ -24,6 +19,7 @@
     margin-left: auto;
     margin-right: auto;
 }
+
 .label {
     color: #75A78F;
     font-weight: 600;
@@ -33,14 +29,6 @@
     color: #ADADAD;
     width: fit-content;
     font-weight: 700;
-}
-
-.lobby {
-    display: flex;
-    flex-direction: column-reverse;
-    width: 100%;
-    height: fit-content;
-    overflow: hidden;
 }
 
 .container {
@@ -58,14 +46,17 @@
 .players {
     font-family: Quicksand, sans-serif;
     font-weight: 400;
+    width: 100%;
+    height: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(calc(50% - 20px), 1fr));
-    margin: 1vw;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
 }
 
-.buttons {
-    width: fit-content;
-    height: fit-content;
+.grid_item{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 @media (orientation: landscape) {
@@ -74,15 +65,27 @@
         margin-bottom: 2%;
     }
 
+    .subtitle {
+        font-size: 10vh;
+    }
+
+    .logo{
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        height: min(10vh, 11vw);
+        width: fit-content;
+        max-width: 95%;
+        margin-top: 1.2%;
+        margin-bottom: 1%;
+    }
+
     .pin {
         width: fit-content;
         font-size: calc((0.22 * 18vh) * 1.5);
         display: flex;
         letter-spacing: calc((0.22 * 18vh) * 0.15);
-    }
-
-    .lobby {
-        margin-top: 2%;
+        margin: min(5vw, 3vh) auto min(5vh, 1vw) auto;
     }
 
     .container{
@@ -90,21 +93,23 @@
         width: calc(36vw + 3vw);
         min-height: 30vh;
         height: 50vh;
-        border-radius: 4vw;
-        margin: 1vw auto -1vh auto
+        border-radius: min(5vw, 5vh);
+        padding: min(4vw, 5vh) min(4vw, 5vh) 0 min(4vw, 5vh);
     }
 
     .players {
-        width: 90%;
+        max-height: 90%;
         font-size: 3.5vh;
-        grid-gap: 3vh 1vh;
-        min-height: 30vh;
+        grid-gap: min(5vw, 5vh);
     }
 
     .buttons {
+        justify-content: center;
         z-index: 100;
         display: flex;
-        margin: 4vh auto 4% auto;
+        height: 7%;
+        width: 99.8%;
+        margin: min(4vh, 1vw) 0 min(6vh, 5vw) 0;
     }
 
     .spacer{
@@ -113,52 +118,52 @@
 }
 
 @media (orientation: portrait) {
-    .header {
-        margin-top: 1.5%;
-        margin-bottom: 4%;
+    .subtitle {
+        font-size: min(15vw, 10vh);
     }
 
-    .subtitle {
-        font-size: 15vw;
-        font-weight: 500;
-        text-align: center;
-        color: #2D7C73;
+    .logo{
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        height: min(8vh, 9vw);
+        width: fit-content;
+        max-width: 95%;
+        margin-top: min(5vw, 5vh);
+        margin-bottom: 1%;
     }
 
     .pin {
-        font-size: 6vw;
-        margin: 2vh;
+        padding: min(4vh, 5vw) 0 min(2vh, 5vw) 0;
         letter-spacing: 0.7vw;
     }
 
-    .lobby {
-        height: 90%;
-        margin-top: 2%;
-        padding-bottom: 5vh;
+    .label, .number {
+        font-size: min(6vh, 10vw);
     }
 
     .container{
-        width: 60%;
+        width: 70%;
         height: 100%;
         border-radius: 7.2vw;
         padding: 5%;
-        margin: 0 auto 4vh auto
+        margin: min(1vh, 5vw) auto min(5vh, 15vw) auto
     }
 
     .players {
-        width: 90%;
-        font-size: 3vh;
-        grid-gap: 3vw 1vw;
+        font-size: min(4vw, 3vh);
+        grid-gap: 5vw;
     }
 
     .buttons {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        margin: 4vw auto 2vh auto;
+        margin: 0 auto max(5vh, 5vw) auto;
+        width: min(60vw, 30vh);
     }
 
     .spacer{
-        height: 3vw;
+        height: min(2vh, 3vw);
     }
 }

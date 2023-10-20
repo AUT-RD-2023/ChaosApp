@@ -1,20 +1,22 @@
 // React
 import React, { useState, useEffect } from 'react';
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { configureAbly, useChannel, usePresence } from "@ably-labs/react-hooks";
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux'
-import { setActivity, setAblyUsers } from '../Redux/sessionSlice.js';
+import { setActivity, setAblyUsers, setNumRounds } from '../Redux/sessionSlice.js';
 
 // Database
-import {onValue, ref, update} from "firebase/database";
+import { onValue, ref, update } from "firebase/database";
 import { database } from '../database.js';
 
 // Components
 import Button from '../components/Button.js';
 import SlideSettings from '../components/SlideSettings.js';
+import HowToPlay from '../components/HowToPlay.js';
 import IconButton from '../components/IconButton.js';
+import { ReactComponent as Logo } from '../styles/images/plain-logo.svg';
 
 // Styles
 import style from '../styles/LobbyPage.module.css';
@@ -25,12 +27,11 @@ const LobbyPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const settingsOpen = useSelector((state) => state.session.settingsOpen)
-    const gamePin = useSelector((state) => state.session.gamePin)
-    const playerId = useSelector((state) => state.session.playerId)
-    const nickname = useSelector((state) => state.session.nickname)
-    const isHost = useSelector((state) => state.session.isHost)
-
+    const settingsOpen = useSelector((state) => state.session.settingsOpen);
+    const gamePin = useSelector((state) => state.session.gamePin);
+    const playerId = useSelector((state) => state.session.playerId);
+    const nickname = useSelector((state) => state.session.nickname);
+    const isHost = useSelector((state) => state.session.isHost);
     /* ABLY */
     
     configureAbly({key: "yqb0VQ.Av_Gmg:pItSDLVHuUqgEGYCqdOhVSr4Ypktm7764_a0mhpwbEY", clientId: playerId});
@@ -38,19 +39,23 @@ const LobbyPage = () => {
     const channelName = "" + gamePin;
     const [presenceUsers] = usePresence(channelName, { nickname: nickname });
     
-    const [channel] = useChannel(channelName, (message) => { // Page navigation when host presses start
-        if(message.data.text === "true") {
-            navigate("/Bridge");
+    const [channel] = useChannel(channelName, (message) => { 
+        if(message.name === "Start") {
+            dispatch(setNumRounds(message.data.number)); // Init total number of rounds for this session 
             dispatch(setActivity("start"));
+            navigate("/Bridge"); // Page navigation when host presses start
         }
+        if(message.name === "Set Client") {
+            dispatch(setAblyUsers(message.data.text)); // Init the array of Ably users for all players' 
+        }        
     });
 
-    const handleStart = () => {
-        startSession();
+    const handleStart = () => {                    
+        startSession();    
         for(let i = 0; i < presenceUsers.length; i++) {
-            dispatch(setAblyUsers(presenceUsers[i].clientId));            
-        }
-        channel.publish("Start", { text: "true" });
+            channel.publish("Set Client", { text: presenceUsers[i].clientId });       
+        }      
+        channel.publish("Start", { number: rounds });
     };
 
     /* DATABASE */
@@ -61,7 +66,6 @@ const LobbyPage = () => {
                 gamePin: gamePin,
                 inSession: false,
             });            
-            //console.log(`Current game session added to database!\n[gamePin : ${gamePin}], [inSession : false]`);
         }
     }, [isHost, gamePin]);
 
@@ -102,7 +106,10 @@ const LobbyPage = () => {
             inSession: true,
             responseTime: responseTime,
             discussionTime: discussionTime,
-            numRounds: rounds
+            numRounds: rounds,
+            numResponses: 0,
+            numVotes: 0,
+            numPlayers: presenceUsers.length,
         });
     }
 
@@ -139,7 +146,7 @@ const LobbyPage = () => {
         <>
             <Button
                     name="PLAY"
-                    static={ true } //button width is static, even if page height changes
+                    static={ false }
                     press={ handleStart }
                 />
             <div className={style.spacer}></div>
@@ -147,37 +154,34 @@ const LobbyPage = () => {
 
     const inviteButtonJSX = (               
         <Button
-            name={textVisible ? "✓" : "INVITE"}
-            static={ true } //button width is static, even if page height changes
+            name={textVisible ? "COPIED ✓" : "INVITE"}
+            static={ false }
             press={copyUrl}
         />);
 
     return (
-        <>
+        <div className={style.page}>
+            <HowToPlay isLobby="true"/>
             {isHost ? isWindowLandscape ? <SlideSettings /> : (settingsOpen ? navigate("/SettingsPage") : <IconButton icon="settings" />) : null }
-            <div className={style.page}>
-            <div className={style.header}>
-                <div className={style.subtitle}>Chaos</div>
-            </div>
-            <div className={style.pin}>
-                <span className={style.label}>GAME PIN: <br/></span>
-                <span className={style.number}>&nbsp;{channelName}</span>
-            </div>
-            <div className={style.lobby}>
-                <div className={style.buttons}>
-                    {isHost ? playButtonJSX : null}
-                    { inviteButtonJSX }
-                </div>
-                <div className={style.container}>
-                    <div className={style.players}>
-                        {presenceUsers.map((user, index) => (
-                            <div key={user.clientId}>{user.data.nickname}</div>
-                        ))}
-                    </div>
+            <div>
+                <Logo className={style.logo}/>
+                <div className={style.pin}>
+                    <span className={style.label}>GAME PIN: <br/></span>
+                    <span className={style.number}>&nbsp;{channelName}</span>
                 </div>
             </div>
+            <div className={style.container}>
+                <div className={style.players}>
+                    {presenceUsers.map((user, index) => (
+                        <div className={style.grid_item} key={user.clientId}>{user.data.nickname}</div>
+                    ))}
+                </div>
             </div>
-        </>
+            <div className={style.buttons}>
+                {isHost ? playButtonJSX : null}
+                { inviteButtonJSX }
+            </div>
+        </div>
     );
 }
 

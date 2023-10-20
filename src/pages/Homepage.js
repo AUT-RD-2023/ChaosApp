@@ -1,10 +1,10 @@
 // React
 import React, { useState, useEffect, useCallback } from 'react';
 import { NavLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux'
 
 // Redux
-import { resetDefaults } from "../Redux/sessionSlice";
+import { useDispatch } from 'react-redux'
+import { resetDefaults, setOpenAIKey } from "../Redux/sessionSlice";
 
 // Database
 import { database } from '../database.js';
@@ -13,14 +13,27 @@ import { ref, onValue } from "firebase/database";
 // Components
 import Button from '../components/Button.js'
 import Input from '../components/Input.js'
+import Logo from '../styles/images/logo_with_smoke.png';
 
 // Styles
 import '../App.css';
 
 const Homepage = () => {
     const [gamePin, setGamePin] = useState("");
-    const dispatch = useDispatch();   
-    dispatch(resetDefaults()); // Reset to the default values of all Redux variables 
+    const dispatch = useDispatch();
+
+    useEffect(() => {    
+        dispatch(resetDefaults()); // Reset to the default values of all Redux variables 
+
+        const data = ref(database, 'OpenAI_API_KEY');
+
+        onValue(data, (snapshot) => {
+            dispatch(setOpenAIKey(snapshot.val()));
+        }, {
+            onlyOnce: true
+        });
+        // eslint-disable-next-line
+    }, []);
 
     /* DATABASE */
 
@@ -64,8 +77,7 @@ const Homepage = () => {
 
     return (
         <div className="App">
-            <div className="title">Chaos</div>
-
+            <img className="homepage_logo" src={Logo} alt="Logo" />
             <div className="container">
                 <Input 
                     placeholder="Game PIN"
@@ -77,6 +89,7 @@ const Homepage = () => {
                     onClick={ checkDatabase }
                     state={ { joinPin: gamePin, isHost: false } }
                 >
+                 <div className="spacer"/>
                    <Button
                         name="JOIN" //check if the provided Game Pin is at least 4 characters long, only contains numbers and isn't made up of only whitespace
                         static={ true }

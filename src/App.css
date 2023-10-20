@@ -22,7 +22,6 @@
   url("./styles/fonts/quicksand-regular.otf") format("opentype");
 }
 
-
 .App {
   position: absolute;
   top: 50%;
@@ -34,6 +33,14 @@
   align-items: center;
   min-width: 100vw;
   min-height: 100vh;
+}
+
+.page {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
 }
 
 .title {
@@ -86,14 +93,13 @@
 }
 
 .container {
-  background-color: #DCEBE1;
-  filter: drop-shadow(0 0.4rem 0.2rem rgba(0, 0, 0, 0.25));
-  padding: 2vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-}
+   background-color: #DCEBE1;
+   filter: drop-shadow(0 0.4rem 0.2rem rgba(0, 0, 0, 0.25));
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: space-evenly;
+ }
 
 @media (orientation: portrait) {
   .title {
@@ -102,18 +108,25 @@
     margin-bottom: 1vw;
   }
 
+  .homepage_logo {
+    width: min(90vw, 80vh);
+    margin-bottom: min(3vw, 1vh);
+    margin-top: 2vh;
+  }
+
   .heading {
     font-size: 10vw;
     letter-spacing: 1.5vw;
-    /*padding-top: 7vw;*/
-    /*padding-bottom: 2vw;*/
+  }
+
+  .faux_header {
+    height: 8.68vh;
+    width: 99vw;
   }
 
   .subheading {
     font-size: 9vw;
     letter-spacing: 0.7vw;
-    /*padding-top: 4vw;*/
-    /*padding-bottom: 6vw;*/
   }
 
   .header{
@@ -122,7 +135,7 @@
 
   .name {
     margin-left: 3vw;
-    font-size: 10vw;
+    font-size: min(10vw, 5.5vh);
   }
 
   .round {
@@ -131,18 +144,25 @@
   }
 
   .container {
-    width: 60vw;
-    height: 32vw;
-    border-radius: 7.2vw;
+    width: fit-content;
+    height: fit-content;
+    border-radius: min(7.2vw);
+    padding: min(5vw, 3vh);
     margin: 4.5vw;
   }
   .spacer{
-    height: 3vw;
-    max-height: calc(0.26 * 7vh);
+    height: 4vw;
   }
 }
 
 @media (orientation: landscape) {
+
+  .homepage_logo {
+    width: min(40vw, 80vh);
+    margin-bottom: min(3vw, 3vh);
+    margin-top: -5vh;
+  }
+
   .title{
     font-size: 6vw;
   }
@@ -152,6 +172,11 @@
     letter-spacing: 0.4vw;
     padding-top: 3vw;
     padding-bottom: 1.5vw;
+  }
+
+  .faux_header {
+    height: 9.25vh;
+    width: 99vw;
   }
 
   .subheading {
@@ -168,7 +193,7 @@
     margin-left: 4vh;
     margin-top: 0.5vh;
     margin-bottom: 0.5vh;
-    font-size: 5.5vh;
+    font-size: min(5.5vw, 5.5vh);
   }
 
   .round {
@@ -179,9 +204,14 @@
   .container{
     width: fit-content;
     min-width: 18vw;
-    min-height: calc(0.22 * 30vw);
-    height: fit-content;
+    min-height: calc(0.3 * 35vw);
+    padding: max(1.3vw, 1.7vh);
+    height: max(5vw, 5vh);
     border-radius: 10% / 20%;
-    margin: 1vw 2vw 2vw 2vw;
+    margin: min(1vw) min(2vw) min(2vw) min(2vw);
+  }
+
+  .spacer{
+    height: 0;
   }
 }

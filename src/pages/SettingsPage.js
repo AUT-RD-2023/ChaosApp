@@ -3,23 +3,37 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 // Redux
-import {useDispatch} from "react-redux";
-import { setSettingsOpen } from "../Redux/sessionSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { setSettingsOpen, setCustomScenario, setUseCustomScenario } from "../Redux/sessionSlice";
 
 // Components
 import IconButton from '../components/IconButton.js';
 import Setter from "../components/Setter";
 import Button from "../components/Button";
+import Switch from "../components/Switch";
 
 //Styles
 import style from "../styles/SettingsPage.module.css";
+import CustomPopUp from "../components/CustomPopUp";
 
 function SettingsPage() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const [savePressed, setSavePressed] = useState(false);
+    const [customPopUpVisible, setCustomPopUpVisible] = useState(false);
 
+    const [customChecked, setCustomChecked] = useState(false);
+    const [previewVisible, setPreviewVisible] = useState(false);
+
+    const customScenario = useSelector((state) => state.session.customScenario);
+
+    useEffect(() => {
+        if(customScenario) {
+            setPreviewVisible(true);
+        }
+        // eslint-disable-next-line
+    }, []); 
 
     /* Window Resizing Handling */
 
@@ -58,16 +72,48 @@ function SettingsPage() {
         dispatch(setSettingsOpen(false))
     };
 
-    const handleReset = () => {
+    const handleReset= () => {
         // Reset to default values stored in redux store
     };
 
+    /* Custom Scenario Popup */
+    const handleCustom = () => {
+        setCustomChecked((prev) => !prev); //set checked to the opposite of its previous state
+    };
+    
+    const onCustomPopUpClose = () => {
+        setCustomPopUpVisible(false);
+        setCustomChecked(false);
+    }
+
+    const handleCustomDelete = () => {
+        dispatch(setCustomScenario(null));
+        setCustomChecked(false);
+        setPreviewVisible(false);
+    }
+
+    const handleCustomConfirm = () => {
+        setCustomPopUpVisible(false);
+        setPreviewVisible(true);
+    }
+    
+    useEffect(() => {
+        if(customChecked && !customScenario) {
+            setTimeout(() => {
+                setCustomPopUpVisible(true);
+            }, 200);
+        }
+        dispatch(setUseCustomScenario(customChecked));
+        // eslint-disable-next-line
+    }, [customChecked]);
+
     return(
         <div>
+            { customPopUpVisible ? <CustomPopUp onClose={ onCustomPopUpClose } onConfirm={ handleCustomConfirm } /> : null }
             <IconButton icon="back" onClick={dispatch(setSettingsOpen(false))}/>
             <div className={ style.content }>
-            <div className={ style.title }>SETTINGS</div>
-                <div className={style.settings}>
+                <div className={ style.title }>SETTINGS</div>
+                <div className={ style.settings }>
                     <div>
                         <div className={style.heading}>Number of Rounds</div>
                         <Setter id="rounds" orientation="portrait" savePressed= { savePressed }/>
@@ -82,12 +128,27 @@ function SettingsPage() {
                         <div className={style.heading}>Discussion Timer (+30 sec)</div>
                         <Setter id="discussion" orientation="portrait" savePressed={ savePressed }/>
                     </div>
-                </div>
+                    <div className={style.divider} />
+                    <div className ={style.toggles} >
+                        <div className={style.custom_wrapper}>
+                            <p className= {style.custom} >Use Custom Scenario</p>
+                                <Switch label=" " checked={ customChecked } onChange={ handleCustom } />
+                        </div>
+                        { customChecked && previewVisible ? 
+                            <div className={style.custom_wrapper}>
+                                <p className= {style.preview}>{ customScenario }</p>
+                                <div className={style.clear} onClick={ handleCustomDelete }>
+                                    DELETE
+                                </div>
+                            </div> : ""
+                        }
+                    </div>
+                    </div>
                 <div className={style.buttons}>
                     <div className="spacer" />
-                    <Button name="RESET" static={ false } press={ handleReset }> </Button>
+                    <Button name="RESET" static={ false } press={ handleReset } />
                     <div className="spacer" />
-                    <Button name="SAVE" static={ false } press={ handleSave } ></Button>
+                    <Button name={ savePressed ? "✓" : "SAVE" } static={ false } press={ handleSave } ></Button>
                 </div>
             </div>
         </div>

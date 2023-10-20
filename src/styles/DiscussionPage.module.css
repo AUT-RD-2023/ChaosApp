@@ -72,15 +72,15 @@
         align-items: center;
     }
 
-    .buttons {
-      display: flex;
-      margin: 2vh auto 0 auto;
-        width: fit-content;
-        height: fit-content;
+    .button_spacer {
+        min-width: 3vw;
     }
 
-    .button_spacer{
-      width: 3vw;
+    .buttons {
+        display: flex;
+        justify-content: center;
+        margin: 2vh auto 0 auto;
+        height: 8%;
     }
 }
 

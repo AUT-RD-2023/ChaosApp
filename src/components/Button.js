@@ -10,7 +10,8 @@ function Button(props) {
         );
     } else {
         return (
-            <button className={styles.button} onClick={props.press} disabled={props.disabled}>
+            <button className={styles.button} style={props.style} onClick={props.press} disabled={props.disabled}>
+                <img src={props.img} alt={props.alt} className={props.imgClass}/>
                 {props.name}
             </button>
         )

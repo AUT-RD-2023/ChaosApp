@@ -19,6 +19,9 @@ function ErrorPage() {
             case 'session-started': 
                 setErrorText("The session you are trying to join has already started!");
                 break;
+            case 'session-closed':
+                setErrorText("The session has been closed");
+                break;
             default:
                 setErrorText("404 Page Not Found");
                 break;

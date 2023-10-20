@@ -4,32 +4,33 @@ import { NavLink, useParams, useNavigate, useLocation } from 'react-router-dom';
 
 // Redux
 import { useDispatch } from 'react-redux'
-import { setSessionId, setName, setPlayerId, setIsHost, resetDefaults} from "../Redux/sessionSlice"
+import { setSessionId, setName, setPlayerId, setIsHost, resetDefaults } from "../Redux/sessionSlice"
 
 // Database
-import { ref, onValue } from "firebase/database";
+import { ref, onValue, onDisconnect } from "firebase/database";
 import { database } from '../database.js';
 
 // Components
 import Button from '../components/Button.js'
 import Input from '../components/Input.js'
 import Identity from '../identity.js'
+import { ReactComponent as Logo } from '../styles/images/plain-logo.svg';
 
 // Styles
-import '../App.css';
+import style from "../styles/NicknamePage.module.css";
 
 function NicknamePage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    
-    const location = useLocation();        
+
+    const location = useLocation();
     const isHost = location.state?.isHost; //useSelector((state) => state.session.isHost);
 
     const params = useParams();
-    const joinPin = params?.pinNumber;    
+    const joinPin = params?.pinNumber;
 
-    if(!isHost) { 
-        dispatch(resetDefaults()); // Reset to the default values of all Redux variables 
+    if(!isHost) {
+        dispatch(resetDefaults()); // Reset to the default values of all Redux variables
     } else {
         dispatch(setIsHost(true));
     }
@@ -37,7 +38,7 @@ function NicknamePage() {
     if(!isHost) {
         if(!((joinPin.length === 4) && (/^[0-9\b]+$/.test(joinPin)))) {
             window.location.href = "#/404"; // Redirects to the 404 page if url contains an incorrect pin code format.
-        } 
+        }
     }
 
     const [nickname, setNickname] = useState("");
@@ -53,17 +54,61 @@ function NicknamePage() {
     dispatch(setSessionId(gamePin));
 
     /* DATABASE */
+        //const gameEndedRef = ref(database, `lobby-${gamePin}/gameEnded`)        
+        //const numPlayersRef = ref(database, `lobby-${gamePin}/numPlayers`);
+        //const presenceRef = ref(database, `lobby-${gamePin}/`);
+
+        // Remove lobby when host disconnects
+        if(isHost) {            
+            const presenceRef = ref(database, 'lobby-' + gamePin);
+            onDisconnect(presenceRef).remove();
+        }
+
+        /*onValue(numPlayersRef, (snapshot) => {
+            if(snapshot.exists()) {                            
+                onDisconnect(presenceRef).update({ 
+                    numPlayers: snapshot.val() - 1
+                });
+
+                onValue(gameEndedRef, (snapshot) => {
+                    if(!snapshot.exists()) {
+                        if(isHost) {
+                            onDisconnect(presenceRef).remove();
+                        }
+                    }
+                });                
+    
+                onValue(numPlayersRef, (snapshot) => {
+                    if(snapshot.val() <= 0) {
+                        onDisconnect(presenceRef).remove();
+                    }
+                });
+            }
+        });*/
+        
+        // Remove lobby when host disconnects
+       
+
+        /* when inSession is false: (set inSession to false on end screen)
+        
+        onDisconnect(database value goes down by 1)
+        
+        onValue (if that database value changes) {
+            if(value is 0) { 
+                const presenceRef = ref(database, 'lobby-' + gamePin);
+            }
+        } */
 
     useEffect(() => {
         if(!isHost) {
             const entryData = ref(database, 'lobby-' + gamePin); // Get a reference to the data at this path in the database
 
             onValue(entryData, (snapshot) => { // Get a snapshot of the current value of the data
-                if(!snapshot.exists()) { 
+                if(!snapshot.exists()) {
                     navigate("/Error/invalid-pin"); // Navigate to the appropriate error page if the session does not already exist
                 }
-            });            
-            
+            });
+
             let sessionStarted;
             const sessionData = ref(database, 'lobby-' + gamePin + '/inSession');
 
@@ -76,16 +121,17 @@ function NicknamePage() {
     /* RENDER */
 
     return (
-        <div className="App">     
-            <div className="title">Chaos</div>
-            
-            <div className="heading">GET STARTED</div>
+        <div className={style.page}>
+            <Logo className={style.logo}/>
 
-            <div className="container">
+            <div className={style.heading}>GET STARTED</div>
+
+            <div className={style.container}>
                 <Input
                     placeholder="Enter Nickname"
                     onChange={(e) => setNickname(e.target.value)}
                 />
+                <div className={style.spacer}/>
                 <NavLink
                     to={ "/Lobby" }
                     state={{ identity: identity, gamePin: gamePin, isHost: isHost, settingsOpen: false}}

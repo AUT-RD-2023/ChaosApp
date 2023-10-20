@@ -50,6 +50,21 @@
     text-align: center;
   }
 
+  .chaos {
+    display: flex;
+    justify-content: center;
+    height: fit-content;
+    font-size: min(5vw, 3vh);
+    color: crimson;
+    overflow: auto;
+    max-height: 50vh;
+    margin-top: 2vh;
+    margin-bottom: 3vh;
+    font-family: Quicksand, sans-serif;
+    width: 100%;
+    text-align: center;
+  }
+
   .prompt {
     display: flex;
     justify-content: center;
@@ -75,9 +90,9 @@
 
   .buttons {
     display: flex;
+    justify-content: center;
     margin: 2vh auto 0 auto;
-    width: fit-content;
-    height: fit-content;
+    height: 8%;
   }
 }
 
@@ -140,7 +155,6 @@
   .prompt {
     display: flex;
     justify-content: center;
-    height: 30%;
     font-size: min(4.5vw, 2.75vh);
     overflow-y: auto;
     font-family: Quicksand, sans-serif;

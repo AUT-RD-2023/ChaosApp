@@ -1,0 +1,264 @@
+.show-more-text {
+    font-family: Quicksand, sans-serif;
+    text-align: center;
+}
+
+.show-more-link {
+    text-decoration: underline;
+    color: #75A78F;
+    font-family: Quicksand, sans-serif;
+}
+
+@media (orientation: landscape) {
+    .show-more-text {
+        font-size: min(5vw, 3vh);
+    }
+
+    .show-more-link {
+        font-size: min(5vw, 3vh);
+    }
+
+    .page {
+        display: flex;
+        flex-flow: column;
+        height: 99.7vh;
+        width: 99.8vw;
+    }
+
+    .header {
+        flex: 0 1 auto;
+    }
+
+    .subheader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .title {
+        position: absolute;
+        top: 22vh;
+        font-family: 'Rubik', sans-serif;
+        font-size: min(10vw, 8vh);
+        letter-spacing: min(1.3vw, 1vh);
+        font-weight: 700;
+        text-align: center;
+        color: #2D7C73;
+        height: fit-content;
+        width: 100%;
+    }
+
+    .prompt {
+        display: flex;
+        justify-content: center;
+        font-size: min(4.5vw, 2.75vh);
+        overflow-y: auto;
+        font-family: Quicksand, sans-serif;
+        width: 100%;
+        text-align: center;
+        align-items: safe center;
+        margin: 2vh auto auto auto;
+    }
+
+    .chaos_wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        position: absolute;
+        overflow-y: auto;
+        top: 35vh;
+        bottom: calc(25vh + min(25vw, 15vh));
+        width: 80%;
+    }
+
+    .chaos {
+        display: flex;
+        justify-content: center;
+        height: fit-content;
+        font-size: min(5vw, 3vh);
+        color: crimson;
+        font-family: Quicksand, sans-serif;
+        margin-top: 2vh;
+        width: 100%;
+        text-align: center;
+    }
+
+    .what_would_you_do{
+        font-size: min(5vw, 3vh);
+        font-family: Quicksand, sans-serif;
+        text-align: center;
+        margin: 2vh;
+    }
+
+    .chaos_gradient_overlay{
+        position: absolute;
+        bottom: 42.5vh;
+        z-index: 1;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 65%, rgb(255, 255, 255) 100%);
+        pointer-events: none;
+        height: 31vh;
+        width: 100%;
+    }
+
+    .input {
+        position: absolute;
+        bottom: 19vh;
+    }
+
+    .content {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .container{
+        width: fit-content;
+        max-width: 65%;
+        height: fit-content;
+        margin: 0 auto 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .buttons {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        height: 8%;
+        bottom: 10vh;
+        right: 0;
+        left: 0;
+    }
+}
+
+@media (orientation: portrait) {
+    .show-more-text {
+        font-size: min(5vw, 2.2vh);
+    }
+
+    .show-more-link {
+        font-size: min(5vw, 2.2vh);
+    }
+
+    .page {
+        height: 99.8vh;
+        width: 99.8vw;
+    }
+
+    .header {
+        position: absolute;
+        top: 0;
+        width: 100vw;
+        height: fit-content;
+        margin-top: 1%;
+    }
+
+    .subheader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column-reverse;
+        width: 100%;
+        overflow: hidden;
+        height: 90%;
+        padding-bottom: 5vh;
+    }
+
+    .buttons {
+        width: fit-content;
+        height: fit-content;
+        max-height: 20%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: -1vh auto 2vh auto;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        width: 85%;
+        height: 65%;
+        margin: 0 auto 4vh auto;
+    }
+
+    .title {
+        position: absolute;
+        bottom: 70vh;
+        font-family: 'Rubik', sans-serif;
+        font-size: min(10vw, 8vh);
+        letter-spacing: 1.3vw;
+        font-weight: 700;
+        text-align: center;
+        color: #2D7C73;
+        height: fit-content;
+    }
+
+    .prompt {
+        display: flex;
+        justify-content: center;
+        font-size: min(4.5vw, 2.75vh);
+        overflow-y: auto;
+        font-family: Quicksand, sans-serif;
+        width: 100%;
+        text-align: center;
+        align-items: safe center;
+        margin: 2vh auto auto auto;
+    }
+
+    .chaos_wrapper {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        overflow-y: auto;
+        top: 34vh;
+        bottom: calc(24vh + min(25vw, 15vh));
+        width: 80%;
+        padding: 0;
+    }
+
+    .chaos {
+        display: flex;
+        justify-content: center;
+        height: fit-content;
+        font-size: min(5vw, 2.2vh);
+        color: crimson;
+        font-family: Quicksand, sans-serif;
+        width: 100%;
+        margin-top: 2vh;
+        text-align: center;
+    }
+
+    .what_would_you_do{
+        font-size: min(5vw, 2.2vh);
+        font-family: Quicksand, sans-serif;
+        text-align: center;
+        margin: 2vh 0 10vh 0;
+    }
+
+    .chaos_gradient_overlay{
+        position: absolute;
+        bottom: calc(22vh + min(25vw, 15vh));
+        z-index: 1;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 65%, rgb(255, 255, 255) 100%);
+        pointer-events: none;
+        height: 31vh;
+        width: 100%;
+    }
+
+    .input {
+        position: absolute;
+        bottom: 22vh;
+        z-index: 5;
+    }
+}

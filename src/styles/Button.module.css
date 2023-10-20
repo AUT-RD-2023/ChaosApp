@@ -20,11 +20,13 @@
 .static_button:hover {
       background: #296A62;
       border: 0.3vw solid #296A62;
+      cursor:pointer;
 }
 
 .button:hover {
       background: #296A62;
       border: 0.3vw solid #296A62;
+      cursor:pointer;
 }
 
 .static_button:hover {
@@ -34,9 +36,19 @@
 .button:disabled, .static_button:disabled {
       background: #74b6ae; /*#69ada5;*/
       border-color: #74b6ae;
+      cursor:default;
 }
 
 .input {
+      color: #000000;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 400;
+      outline: none;
+      box-sizing: border-box;
+      text-align: center;
+}
+
+.settings_input {
       box-sizing: border-box;
       color: #000000;
       font-family: 'Quicksand', sans-serif;
@@ -45,7 +57,7 @@
       outline: none;
 }
 
-.input::placeholder {
+.input::placeholder, .settings_input::placeholder {
       color: #ADADAD;
 
 }
@@ -79,8 +91,8 @@
       }
 
       .static_button {
-            width: 60vw;
-            height: 14.4vw;
+            aspect-ratio: 60/14.4;
+            height: min(14.4vw, 12vh);
             border: 0.2vw solid #24625a;
             border-radius: 7.2vw;
             filter: drop-shadow(0 1.6vw 1vw rgba(0, 0, 0, 0.25));
@@ -97,7 +109,7 @@
       }
 
       .button:disabled {
-            font-size: 3vw;
+            font-size: 3vh;
       }
 
       .static_button:disabled {
@@ -105,15 +117,26 @@
       }
 
       .input {
-            width: 60vw;
-            height: 14.4vw;
             border: 0.2vw solid #8E8D8A;
             border-radius: 7.2vw;
-            font-size: 5.76vw;
+            font-size: 5.5vw;
+            height: min(14.4vw, 12vh);
+            width: calc(min(14.4vw, 12vh) * 4.167);
+            padding: min(3vw, 3vh);
+      }
+
+      .settings_input {
+            height: 10vw;
+            max-height: 6vh;
+            font-size: min(4.5vw, 3vh);
+            width: min(20vw, 14vh);
+            border: 0.2vw solid #8E8D8A;
+            border-radius: 7.2vw;
             letter-spacing: 0.4vw;
       }
 
       .textarea {
+            z-index: 100;
             width: 50vh;
             max-width: 60vw;
             height: min(25vw, 15vh);
@@ -127,20 +150,19 @@
 
 @media (orientation: landscape) {
       .button {
-            width: 18vw;
-            height: 4.32vw;
+            aspect-ratio: 60/14.4;
             border: 0.3vw solid #2a776d;
             filter: drop-shadow(0 0.8vw 0.6vw rgba(0, 0, 0, 0.25));
             border-radius: 3vw;
-            font-size: 1.8vw;
+            font-size: min(5vw, 3.5vh);
       }
 
       .button:hover {
-            font-size: 1.9vw;
+            font-size: min(5.2vw, 3.7vh);
       }
 
       .static_button {
-            width: 18vw;
+            aspect-ratio: 60/14.4;
             height: 4.32vw;
             border: 0.2vw solid #2D7C73;
             filter: drop-shadow(0 0.8vw 0.6vw rgba(0, 0, 0, 0.25));
@@ -162,6 +184,15 @@
             border: 0.1vw solid #8E8D8A;
             border-radius: 3vw;
             font-size: 1.9vw;
+            margin-bottom: 1.5vh;
+      }
+
+      .settings_input {
+            width: 7vw;
+            height: 3.5vw;
+            font-size: 1.5vw;
+            border: 0.1vw solid #8E8D8A;
+            border-radius: 3vw;
             margin-bottom: 1.5vh;
       }
 
