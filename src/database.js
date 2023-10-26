@@ -19,13 +19,13 @@ const auth = getAuth(app);
 
 onAuthStateChanged(auth, (user) => {
     if(user) {
-        console.log(user.uid);
+        //console.log(user.uid);
     }
 });
 
 signInAnonymously(auth)
     .then(() => {
-        console.log("Signed in...");
+        //console.log("Signed in...");
     })
     .catch((error) => {
         console.log(`Error ${error.code}: ${error.messsage}`);

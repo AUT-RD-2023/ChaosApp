@@ -48,11 +48,11 @@ function ChaosPage() {
             update(ref(database, 'lobby-' + gamePin), {
                 numResponses: 0
             });
-        }         
 
-        update(ref(database, `lobby-${gamePin}/chaos/round-${round}`), {
-            scenario: chaos
-        }); 
+            update(ref(database, `lobby-${gamePin}/chaos/round-${round}`), {
+                scenario: chaos
+            }); 
+        }         
 
         // Set up next activity for all players        
         dispatch(setActivity("discussion")); // eslint-disable-next-line

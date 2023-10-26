@@ -22,6 +22,7 @@ const Bridge = () => {
     //Retrieving round and identifying the next page from redux store
     const round = useSelector((state) => state.session.round);
     const activity = useSelector((state) => state.session.activity);
+    const isHost = useSelector((state) => state.session.isHost)
 
     const scenario = useSelector((state) => state.session.scenario);
     const openAIKey = useSelector((state) => state.session.openAIKey);
@@ -100,27 +101,29 @@ const Bridge = () => {
 
     /* CHAT GPT CHAOS GENERATION */
         useEffect(() => {
-            let response = "";
-            
-            async function generatePrompt() { // Generate a response from ChatGPT
-                try {
-                    response = await openai.chat.completions.create({
-                        model: "gpt-3.5-turbo",
-                        max_tokens: 20, // Length of response, try not to change because it will break CSS on Chaos Page
-                        messages: [{
-                            role: "system",
-                            content: prompt
-                    }]
-                });
-                    dispatch(setChaos(response.choices[0].message.content)); // Store returned response in redux store
-                } catch (error) {
-                    console.log("Error generating response:", error);
-                }
-            }
+                if(isHost) {
+                    let response = "";
+                    
+                    async function generatePrompt() { // Generate a response from ChatGPT
+                        try {
+                            response = await openai.chat.completions.create({
+                                model: "gpt-3.5-turbo",
+                                max_tokens: 20, // Length of response, try not to change because it will break CSS on Chaos Page
+                                messages: [{
+                                    role: "system",
+                                    content: prompt
+                                }]
+                            });
+                            dispatch(setChaos(response.choices[0].message.content)); // Store returned response in redux store
+                        } catch (error) {
+                            console.log("Error generating response:", error);
+                        }
+                    }
 
-            if(activity === "chaos") {
-                generatePrompt(); // Call function if the chaos round is about to begin
-            } // eslint-disable-next-line
+                    if(activity === "chaos") {
+                        generatePrompt(); // Call function if the chaos round is about to begin
+                    } // eslint-disable-next-line
+                }
         }, [prompt]);
 
     return (
