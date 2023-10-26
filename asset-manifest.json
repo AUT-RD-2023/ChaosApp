@@ -1,12 +1,14 @@
 {
   "files": {
-    "main.css": "/ChaosApp/static/css/main.ada8cd86.css",
-    "main.js": "/ChaosApp/static/js/main.64dc9210.js",
+    "main.css": "/ChaosApp/static/css/main.d48a73c9.css",
+    "main.js": "/ChaosApp/static/js/main.1dd5d98d.js",
     "static/media/logo_with_smoke.png": "/ChaosApp/static/media/logo_with_smoke.5746567269c8194361a6.png",
     "static/media/logo_with_ash.png": "/ChaosApp/static/media/logo_with_ash.6ef9eb1dc5fc0b82d1ad.png",
+    "static/media/FinalBurntLogo.png": "/ChaosApp/static/media/FinalBurntLogo.fcbe458f3e34ed829471.png",
     "static/media/Rubik-Regular.ttf": "/ChaosApp/static/media/Rubik-Regular.da833151ff7aaedb5f16.ttf",
     "static/media/rubik-semi-bold.ttf": "/ChaosApp/static/media/rubik-semi-bold.52d2adf4cb818e79b61d.ttf",
     "service-worker.js": "/ChaosApp/service-worker.js",
+    "static/media/EndScreenTitle.png": "/ChaosApp/static/media/EndScreenTitle.7efb19a68a4635589d18.png",
     "static/media/voting.png": "/ChaosApp/static/media/voting.01555d1ee8bb03dd58f3.png",
     "static/media/scenario.png": "/ChaosApp/static/media/scenario.05f7a61b901f94551716.png",
     "static/media/quicksand-regular.otf": "/ChaosApp/static/media/quicksand-regular.1a8cbf2a0b04da5410e2.otf",
@@ -22,11 +24,11 @@
     "static/media/email.svg": "/ChaosApp/static/media/email.20a2b7ff926e48d7eb86f5335efc333a.svg",
     "index.html": "/ChaosApp/index.html",
     "static/media/endscreen-arrow.svg": "/ChaosApp/static/media/endscreen-arrow.a152749ffbb2a3177e54c2364292e583.svg",
-    "main.ada8cd86.css.map": "/ChaosApp/static/css/main.ada8cd86.css.map",
-    "main.64dc9210.js.map": "/ChaosApp/static/js/main.64dc9210.js.map"
+    "main.d48a73c9.css.map": "/ChaosApp/static/css/main.d48a73c9.css.map",
+    "main.1dd5d98d.js.map": "/ChaosApp/static/js/main.1dd5d98d.js.map"
   },
   "entrypoints": [
-    "static/css/main.ada8cd86.css",
-    "static/js/main.64dc9210.js"
+    "static/css/main.d48a73c9.css",
+    "static/js/main.1dd5d98d.js"
   ]
 }
