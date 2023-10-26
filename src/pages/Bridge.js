@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 // Components
 import TimerBar from '../components/TimerBar.js'
+import Logo from '../styles/images/logo_with_smoke.png';
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -124,6 +125,7 @@ const Bridge = () => {
 
     return (
         <div className="App">
+            <img className={ style.logo } src={Logo} alt="Logo" />
             <div className={style.heading}>ROUND {roundText}</div><br />
             <div className={style.subheading}>{subheading}</div><br />
             <TimerBar timeLength={activity === "chaos" ? "10" : "5"} addTime="0" path={path} />
