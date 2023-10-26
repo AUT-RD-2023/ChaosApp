@@ -56,7 +56,6 @@ function ScenarioPage() {
                 return obj.type === randType;
             });
 
-            // 
             update(ref(database, `lobby-${gamePin}/`), {
                 scenario: (useCustomScenario ? customScenario : scenarioObj.scenarioArray[randScenario])
             });  

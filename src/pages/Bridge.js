@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import TimerBar from '../components/TimerBar.js'
 
 // Redux
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 //ChatGPT
 import { OpenAI } from 'openai';
@@ -22,11 +22,14 @@ const Bridge = () => {
     const round = useSelector((state) => state.session.round);
     const activity = useSelector((state) => state.session.activity);
 
+    const scenario = useSelector((state) => state.session.scenario);
+    const openAIKey = useSelector((state) => state.session.openAIKey);
+
     // ChatGPT object and prompt creation
-    let response = "";
-    const [prompt] = useState('I have a workplace scenario of a potential hazard. Can you come up with an additional factor which further complicates the situation.');
+    const [prompt] = useState(`I have a workplace scenario:  "`+scenario+`" Could you add additional chaos which would further complicate the situation? Your additional 
+    chaos should be related to the situation and not extremely unrealistic. It can not be longer than 20 words.`);
     const openai = new OpenAI({
-        apiKey: process.env.REACT_APP_CHATGPT_API, // Needs new API key because OpenAI killed last one for being "leaked" when gh pages deployed it
+        apiKey: openAIKey,
         dangerouslyAllowBrowser: true
     });
 
@@ -66,9 +69,9 @@ const Bridge = () => {
             break;
     }
 
+    
     // eslint-disable-next-line default-case
-    // Round number in text form for title
-    switch(round) {
+    switch(round) { // Round number in text form for title 
         case 1:
             roundText = "ONE";
             break;
@@ -96,33 +99,34 @@ const Bridge = () => {
 
     /* CHAT GPT CHAOS GENERATION */
         useEffect(() => {
+            let response = "";
+            
             async function generatePrompt() { // Generate a response from ChatGPT
                 try {
-                     response = await openai.chat.completions.create({
+                    response = await openai.chat.completions.create({
                         model: "gpt-3.5-turbo",
                         max_tokens: 20, // Length of response, try not to change because it will break CSS on Chaos Page
                         messages: [{
                             role: "system",
                             content: prompt
-                        }]
-                    });
-
+                    }]
+                });
                     dispatch(setChaos(response.choices[0].message.content)); // Store returned response in redux store
-
                 } catch (error) {
                     console.log("Error generating response:", error);
                 }
             }
 
-            if(activity === "chaos")
+            if(activity === "chaos") {
                 generatePrompt(); // Call function if the chaos round is about to begin
+            } // eslint-disable-next-line
         }, [prompt]);
 
     return (
         <div className="App">
             <div className={style.heading}>ROUND {roundText}</div><br />
             <div className={style.subheading}>{subheading}</div><br />
-            <TimerBar timeLength="10" addTime="0" path={path} />
+            <TimerBar timeLength={activity === "chaos" ? "10" : "5"} addTime="0" path={path} />
         </div>
     );
 }

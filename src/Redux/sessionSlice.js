@@ -17,6 +17,8 @@ const initialState = {
     numRounds: 2,
     ablyUsers: [],
 
+    openAIKey: "",
+
     scenario: "",
     customScenario: null,
     useCustomScenario: false,
@@ -71,6 +73,10 @@ export const sessionSlice = createSlice({
             return initialState;
         },
 
+        setOpenAIKey: (state, action) => {
+            state.openAIKey = action.payload
+        },
+
         resetAbly: (state) => {
             state.ablyUsers = [];
         },
@@ -95,6 +101,6 @@ export const sessionSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const { setSessionId, setPlayerId, setName, setIsHost, setRound, setActivity, setSettingsOpen, setSavePressed, setNumRounds, setAblyUsers, resetDefaults, resetAbly, 
-               setScenario, setCustomScenario, setUseCustomScenario, setChaos } = sessionSlice.actions
+               setOpenAIKey, setScenario, setCustomScenario, setUseCustomScenario, setChaos } = sessionSlice.actions
 
 export default sessionSlice.reducer
