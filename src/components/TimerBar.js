@@ -1,6 +1,7 @@
 // React
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from "react-redux";
 
 // Styles
 import styles from '../styles/Timer.module.css';
@@ -9,6 +10,9 @@ const TimerBar = (props) => {
     const navigate = useNavigate();
     const path = props.path;
     //const round = props.rounds;
+
+    const testRef = useRef();
+    const isHost = useSelector((state => state.session.isHost));
 
     const timerStart = props.timeLength * 1000; // Countdown start time
     const [time, setTime] = useState(props.timeLength * 1000); // Dynamic counting-down time
@@ -20,10 +24,13 @@ const TimerBar = (props) => {
             const countDown = () => {
                 setTime(prevTime => {
                     if(prevTime <= 0) {
-                        setTimeout(() => {
-                            navigate(path);
-                        }, 100);
-                        
+                        setTimeout(() => {          
+                            if(props.onTimerEnd && isHost) {
+                                testRef.current.click();
+                            } else {
+                                navigate(path);
+                            }
+                        }, 200);
                         return 0;
                     }
 
@@ -58,12 +65,12 @@ const TimerBar = (props) => {
     useEffect(() => {
         setTime(timerStart); // eslint-disable-next-line
     }, [props.resetTime]);
-    
 
     return (
         <span style={{overflow: 'hidden'}}>
             <div className={styles.timer_base}>
                 <div className={styles.timer} style={{ width: `${calculateWidth()}vw`}}></div>
+                <div onClick={props.onTimerEnd} ref={testRef} disabled={true} />        
             </div>
         </span>
     );

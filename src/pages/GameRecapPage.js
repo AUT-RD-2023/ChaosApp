@@ -134,7 +134,7 @@ export default function GameRecapPage() {
             <Button
                 name="PLAY AGAIN"
                 static={false} //button width decreases as page height increases
-                press={ () => { handlePlayAagain(`${window.location.origin.toString()}`) } }
+                press={ () => { handlePlayAagain(`${window.location.origin.toString()}/ChaosApp/`) } }
             />
             <div className={styles.button_spacer}/>
                <Button
@@ -152,10 +152,12 @@ export default function GameRecapPage() {
             {objectArray.map((object, index) => {
                 if(index <= 2) {
                   return (
+                    object.response ? 
                     <VotingCard
                         response={object.response}
                         votes={object.votes > 0 ? object.votes === 1 ? object.votes + " Vote" : object.votes + " Votes" : ""}
-                  />)} else {
+                    /> : null
+                  )} else {
                     return null;
                   }
                 })}

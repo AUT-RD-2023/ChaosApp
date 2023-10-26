@@ -116,8 +116,8 @@ const VotingPage = () => {
               // set the votes variable to one more than the current amount
               votes = snapshot.val() + 1; 
             }
-          });
-          
+          });         
+
           // Set the number of votes for that response to the new votes value
           set(ref(database, `lobby-${gamePin}/responses/round-${round}/${ablyUsers[i]}/`), { 
             response: response,
@@ -128,12 +128,13 @@ const VotingPage = () => {
         onlyOnce: true
       });  
     }
+
     setButtonDisabled(true);
     updateDatabase();
   }
 
   const updateDatabase = () => {
-    let num;
+    let num = 0;
 
     const voteData = ref(database, `lobby-${gamePin}/numVotes`); 
 
