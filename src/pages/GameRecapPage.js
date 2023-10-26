@@ -17,6 +17,7 @@ import styles from "../styles/EndPage.module.css";
 
 // Images
 import VotingCard from "../components/VotingCard";
+import Title from '../styles/images/EndScreenTitle.png';
 
 export default function GameRecapPage() {
   const ablyUsers = useSelector((state) => state.session.ablyUsers);
@@ -146,7 +147,7 @@ export default function GameRecapPage() {
             {openModal && <Modal closeModal={ setOpenModal } />}
           </div>
           <div className={styles.container}>
-            <div className={styles.subtitle}>SESSION FAVOURITES</div>
+            <img className={styles.title} src={Title} alt="Title" />
             <div className={styles.carousel_wrapper}>
             {objectArray.map((object, index) => {
                 if(index <= 2) {

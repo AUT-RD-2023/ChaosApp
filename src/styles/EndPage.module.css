@@ -8,6 +8,20 @@
 }
 
 @media (orientation: landscape) {
+    .title {
+        display: flex;
+        align-self: center;
+        height: min(30vh, 30vh);
+        margin: 2vh auto;
+    }
+
+    .logo {
+        display: flex;
+        align-self: center;
+        height: min(25vh, 25vh);
+        margin: 2vh auto;
+    }
+
     .page {
         display: flex;
         flex-flow: column;
@@ -17,7 +31,7 @@
 
     .celebration_page {
         position: absolute;
-        bottom: 0;
+        bottom: 10vh;
         display: flex;
         flex-flow: column;
         height: 88vh;
@@ -33,14 +47,14 @@
     }
 
     .image {
-        width: min(25vw, 28vh);
+        width: min(15vw, 20vh);
         position: absolute;
-        bottom: min(25vw, 20vh);
+        bottom: min(30vw, 25vh);
     }
 
     .next {
         position: absolute;
-        bottom: min(10vw, 9vh);
+        bottom: 0;
         right: min(10vw, 7vh);
         height: min(10vh, 10vw);
         width: min(15vh, 10vw);
@@ -50,7 +64,7 @@
 
     .subtitle_celebration {
         font-family: 'Rubik', sans-serif;
-        font-size: min(7vw, 8vh);
+        font-size: min(6vw, 7vh);
         letter-spacing: 0.5vw;
         font-weight: 600;
         text-align: center;
@@ -139,6 +153,22 @@
         width: 99.7vw;
     }
 
+    .title {
+        display: flex;
+        align-self: center;
+        height: min(20vh, 30vh);
+        max-width: 90vw;
+        margin: 2vh auto;
+    }
+
+    .logo {
+        display: flex;
+        align-self: center;
+        height: min(20vh, 30vh);
+        max-width: 90vw;
+        margin: 2vh auto;
+    }
+
     .celebration_page {
         position: absolute;
         display: flex;
@@ -165,9 +195,9 @@
     }
 
     .image {
-        width: min(35vw, 20vh);
+        width: min(20vw, 15vh);
         position: absolute;
-        top: 58%;
+        top: 45%;
         left: 50%;
         transform: translate(-50%, -50%);
     }
@@ -186,7 +216,7 @@
 
     .subtitle_celebration {
         position: absolute;
-        top: 29%;
+        top: 75%;
         left: 50%;
         transform: translate(-50%, -50%);
         font-family: 'Rubik', sans-serif;
