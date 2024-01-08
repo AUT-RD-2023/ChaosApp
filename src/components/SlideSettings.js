@@ -54,8 +54,12 @@ const SlideSettings = () => {
         // Time out so that the database has time to process, otherwise it sets savePressed to false before the data is saved.
         setTimeout(() => {
             setSavePressed(false);            
-            dispatch(setSettingsOpen(false)) // Cose the settings tab if the save button is pressed
+            dispatch(setSettingsOpen(false)) // Close the settings tab if the save button is pressed
         }, 500);
+    };
+
+    const handleReset= () => {
+        // Reset to default values stored in redux store
     };
 
     /* Custom Scenario Popup */
@@ -127,7 +131,7 @@ const SlideSettings = () => {
                             }
                         </div>
                         <div className={style.buttons}>
-                            <Button name="RESET" static={ true }> </Button>
+                            <Button name="RESET" static={ true }> press={ handleReset }</Button>
                             <div className={style.spacer} />
                             <Button name={ savePressed ? "✓" : "SAVE" } disabled={ savePressed } static={ true }  press={ handleSave }></Button>
                         </div>

@@ -7,6 +7,7 @@ import Logo from '../styles/images/logo_with_smoke.png';
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
+import { addScenario } from '../Redux/sessionSlice.js';
 
 //ChatGPT
 import { OpenAI } from 'openai';
@@ -28,14 +29,14 @@ const Bridge = () => {
     const openAIKey = useSelector((state) => state.session.openAIKey);
 
     // ChatGPT object and prompt creation
-    const [prompt] = useState(`I have a workplace scenario:  "`+scenario+`" Could you add additional chaos which would further complicate the situation? Your additional 
-    chaos should be related to the situation and not extremely unrealistic. It can not be longer than 20 words.`);
+    const [prompt] = useState(`I have a workplace scenario: "`+scenario+`" Could you add additional chaos which would further complicate the situation? Your additional
+    chaos should be related to the situation and not extremely unrealistic. It can not be longer than 20 words, but ensure there are no partial sentences generated.`);
     const openai = new OpenAI({
         apiKey: openAIKey,
         dangerouslyAllowBrowser: true
     });
 
-    let roundText
+    let roundText;
     let subheading;
     let path;
 
@@ -115,6 +116,7 @@ const Bridge = () => {
                                 }]
                             });
                             dispatch(setChaos(response.choices[0].message.content)); // Store returned response in redux store
+                            dispatch(addScenario());
                         } catch (error) {
                             console.log("Error generating response:", error);
                         }

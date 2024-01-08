@@ -29,7 +29,7 @@ function ChaosPage() {
 
     // Admin session data
     const gamePin = useSelector((state) => state.session.gamePin);
-    const round = useSelector((state) => state.session.round);     
+    const round = useSelector((state) => state.session.round);
     const isHost = useSelector((state) => state.session.isHost);
     const playerId = useSelector((state) => state.session.playerId);
     const numPlayers = useSelector((state) => state.session.ablyUsers);

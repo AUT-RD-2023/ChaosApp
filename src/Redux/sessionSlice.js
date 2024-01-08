@@ -85,6 +85,14 @@ export const sessionSlice = createSlice({
             state.scenario = action.payload
         },
 
+        initFullScenario: (state) => {
+            state.fullScenario = state.scenario;
+        },
+
+        addScenario: (state) => { // Ensure that state.chaos is initialised before using this function
+            state.fullScenario = state.fullScenario + " " + state.chaos;
+        },
+
         setCustomScenario: (state, action) => {
             state.customScenario = action.payload
         },
@@ -101,6 +109,6 @@ export const sessionSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const { setSessionId, setPlayerId, setName, setIsHost, setRound, setActivity, setSettingsOpen, setSavePressed, setNumRounds, setAblyUsers, resetDefaults, resetAbly, 
-               setOpenAIKey, setScenario, setCustomScenario, setUseCustomScenario, setChaos } = sessionSlice.actions
+               setOpenAIKey, setScenario, initFullScenario, addScenario, setCustomScenario, setUseCustomScenario, setChaos } = sessionSlice.actions
 
 export default sessionSlice.reducer
