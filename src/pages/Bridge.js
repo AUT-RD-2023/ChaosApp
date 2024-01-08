@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 // Components
 import TimerBar from '../components/TimerBar.js'
+import Logo from '../styles/images/logo_with_smoke.png';
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
@@ -21,6 +22,7 @@ const Bridge = () => {
     //Retrieving round and identifying the next page from redux store
     const round = useSelector((state) => state.session.round);
     const activity = useSelector((state) => state.session.activity);
+    const isHost = useSelector((state) => state.session.isHost)
 
     const scenario = useSelector((state) => state.session.scenario);
     const openAIKey = useSelector((state) => state.session.openAIKey);
@@ -99,31 +101,34 @@ const Bridge = () => {
 
     /* CHAT GPT CHAOS GENERATION */
         useEffect(() => {
-            let response = "";
-            
-            async function generatePrompt() { // Generate a response from ChatGPT
-                try {
-                    response = await openai.chat.completions.create({
-                        model: "gpt-3.5-turbo",
-                        max_tokens: 20, // Length of response, try not to change because it will break CSS on Chaos Page
-                        messages: [{
-                            role: "system",
-                            content: prompt
-                    }]
-                });
-                    dispatch(setChaos(response.choices[0].message.content)); // Store returned response in redux store
-                } catch (error) {
-                    console.log("Error generating response:", error);
-                }
-            }
+                if(isHost) {
+                    let response = "";
+                    
+                    async function generatePrompt() { // Generate a response from ChatGPT
+                        try {
+                            response = await openai.chat.completions.create({
+                                model: "gpt-3.5-turbo",
+                                max_tokens: 20, // Length of response, try not to change because it will break CSS on Chaos Page
+                                messages: [{
+                                    role: "system",
+                                    content: prompt
+                                }]
+                            });
+                            dispatch(setChaos(response.choices[0].message.content)); // Store returned response in redux store
+                        } catch (error) {
+                            console.log("Error generating response:", error);
+                        }
+                    }
 
-            if(activity === "chaos") {
-                generatePrompt(); // Call function if the chaos round is about to begin
-            } // eslint-disable-next-line
+                    if(activity === "chaos") {
+                        generatePrompt(); // Call function if the chaos round is about to begin
+                    } // eslint-disable-next-line
+                }
         }, [prompt]);
 
     return (
         <div className="App">
+            <img className={ style.logo } src={Logo} alt="Logo" />
             <div className={style.heading}>ROUND {roundText}</div><br />
             <div className={style.subheading}>{subheading}</div><br />
             <TimerBar timeLength={activity === "chaos" ? "10" : "5"} addTime="0" path={path} />

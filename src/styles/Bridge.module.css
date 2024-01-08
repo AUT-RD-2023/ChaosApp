@@ -16,8 +16,14 @@
     .heading {
         font-size: min(12vw, 6vh);
         letter-spacing: min(1.5vw,0.8vh);
-        padding-top: 3vw;
+        padding-top: 5vh;
         margin-bottom: max(-3vw, -0.2vh);
+    }
+
+    .logo {
+        width: min(90vw, 80vh);
+        margin-bottom: min(3vw, 1vh);
+        margin-top: -10vh;
     }
 
     .subheading {
@@ -32,6 +38,12 @@
         font-size: min(6vw, 8vh);
         letter-spacing: min(0.8vw, 1vh);
         padding-top: 3vw;
+    }
+
+    .logo {
+        width: min(60vw, 90vh);
+        margin-bottom: min(3vw, 3vh);
+        margin-top: -5vh;
     }
 
     .subheading {
