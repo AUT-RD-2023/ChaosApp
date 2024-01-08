@@ -25,7 +25,7 @@ const Bridge = () => {
     const activity = useSelector((state) => state.session.activity);
     const isHost = useSelector((state) => state.session.isHost)
 
-    const scenario = useSelector((state) => state.session.scenario);
+    const scenario = useSelector((state) => state.session.fullScenario);
     const openAIKey = useSelector((state) => state.session.openAIKey);
 
     // ChatGPT object and prompt creation

@@ -36,6 +36,7 @@ function ChaosPage() {
 
     // Scenario session data
     const scenario = useSelector((state) => state.session.scenario);
+    const fullScenario = useSelector((state) => state.session.fullScenario);
     const chaos = useSelector((state) => state.session.chaos);
 
     const dispatch = useDispatch();
@@ -177,12 +178,12 @@ function ChaosPage() {
                     <div className={styles.chaos_wrapper} >
 
                         <ShowMoreText /*Collapsible original scenario*/
-                            lines={3}
+                            lines={2}
                             more={<span className={styles['show-more-link']}><br/>show more</span>}
                             less={<span className={styles['show-more-link']}><br/>show less</span>}
                             className={styles['show-more-text']}
                             onClick={ checkScenarioExpanded }>
-                            <span className={styles['show-more-text']}>{ scenario }</span>
+                            <span className={styles['show-more-text']}>{ fullScenario }</span>
                         </ShowMoreText>
 
                         <div className={styles.chaos}><strong>{ chaosText }</strong></div> {/*ChatGPT generated chaos*/}

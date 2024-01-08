@@ -20,6 +20,7 @@ const initialState = {
     openAIKey: "",
 
     scenario: "",
+    fullScenario: "",
     customScenario: null,
     useCustomScenario: false,
     chaos: "default value",

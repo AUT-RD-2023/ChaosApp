@@ -5,7 +5,7 @@ import { useChannel } from "@ably-labs/react-hooks";
 
 // Redux
 import { useSelector, useDispatch } from "react-redux";
-import { setActivity, setScenario } from '../Redux/sessionSlice.js';
+import { setActivity, setScenario, initFullScenario } from '../Redux/sessionSlice.js';
 
 // Database
 import { ref, set, update, onValue } from "firebase/database";
@@ -40,7 +40,7 @@ function ScenarioPage() {
 
     const dispatch = useDispatch();
 
-    /* SCENARIO */ 
+    /* SCENARIO */
 
     const [textVisible, setTextVisible] = useState(false);
     const [scenarioText, setScenarioText] = useState("");   
@@ -70,7 +70,8 @@ function ScenarioPage() {
         onValue(responseData, (snapshot) => {
             if(snapshot.exists()) {                
                 setScenarioText(snapshot.val());
-                dispatch(setScenario(snapshot.val()));            
+                dispatch(setScenario(snapshot.val()));
+                initFullScenario();
             }          
         });
     }
